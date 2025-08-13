@@ -1,0 +1,193 @@
+/* ---------------- ベース ---------------- */
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  color: #e9e9e9;
+  background: #0b0b0b;
+}
+
+:root{
+  /* サイト全体の背景画像（差し替えOK） */
+  --page-bg: url('../assets/bg_main.webp');
+  --page-bg-dim: 0.35; /* 暗さ 0~1（大きいほど暗い） */
+}
+
+/* 全面背景（テキストは上・固定） */
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--page-bg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: brightness(calc(1 - var(--page-bg-dim))) saturate(1.05);
+  pointer-events: none;
+}
+@media (min-width: 900px){
+  body::before{ background-attachment: fixed; }
+}
+
+a { color: #8ec5ff; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.container {
+  width: min(100%, 1080px);
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* ---------------- ヘッダー / ナビ ---------------- */
+header h1 { margin: 8px 0 0; font-size: 28px; }
+.nav { display: flex; flex-wrap: wrap; gap: 12px; margin: 10px 0 0; }
+.nav a {
+  padding: 8px 12px; border-radius: 999px;
+  background: #1a1a1a; border: 1px solid #2a2a2a;
+}
+.nav a:hover { background: #222; }
+
+/* ---------------- 汎用カード ---------------- */
+.card{
+  background: rgba(17,17,17,0.85);
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 16px;
+  margin: 18px 0;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+}
+.thumb{ width:100%; height:auto; border-radius:10px; display:block; margin-bottom:10px; }
+.note{ color:#bdbdbd; font-size:0.9rem; }
+
+/* ---------------- ギャラリー（アート展示風） ---------------- */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+  gap:16px; margin:24px 0;
+}
+
+/* カード本体に背景を敷く */
+.art-card{
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #111;               /* 画像がない場合の下地 */
+  border: 1px solid #222;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+  transition: transform .2s ease, box-shadow .2s ease;
+  min-height: 220px;              /* 背景が見える最低高さ（調整OK） */
+  background-size: cover;         /* 比率固定なしで全面に */
+  background-position: center;    /* 見せたい位置 */
+  background-repeat: no-repeat;
+}
+.art-card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 12px 22px rgba(0,0,0,0.18);
+}
+
+/* 文字を載せる半透明パネル */
+.art-content{
+  position: relative;
+  z-index: 1;
+  padding: 14px;
+  margin-top: auto;
+  background: rgba(0,0,0,0.40);   /* 文字の可読性 */
+  color: #fff;
+  backdrop-filter: blur(2px);
+}
+.art-content h3{ margin:0 0 10px; font-size:18px; letter-spacing:.02em; }
+
+.actions{ display:flex; flex-wrap:wrap; gap:8px; }
+.btn{
+  display:inline-block; padding:8px 12px; border-radius:8px;
+  background:#ffffff0f; color:#fff; text-decoration:none;
+  border:1px solid #ffffff22; font-size:14px;
+}
+.btn:hover{ background:#ffffff22; }
+
+/* 作品ごとの背景画像（assets/ に配置） */
+.art-card.bg-01 { background-image: url('../assets/thumb_01.webp'); } /* 囚ワレノ花 */
+.art-card.bg-02 { background-image: url('../assets/thumb_02.webp'); }    /* 熱に沈む */
+.art-card.bg-03 { background-image: url('../assets/thumb_03.webp'); }
+.art-card.bg-04 { background-image: url('../assets/thumb_04.webp'); }
+
+
+/* ---------------- 再生セクション ---------------- */
+.player.card{ background:#0f0f0f; }
+.player h2{ margin:0 0 10px; }
+.player video, .player audio{ width:100%; margin-top:8px; border-radius:8px; }
+
+/* ---------------- フッター ---------------- */
+.footer{
+  text-align:center; color:#9a9a9a;
+  padding:24px 16px; border-top:1px solid #1a1a1a; margin-top:24px;
+}
+/* ---------------- レスポンシブ微調整 ---------------- */
+@media (min-width:1200px){
+  header .nav{ gap:16px; }
+  .actions .btn{ font-size:15px; }
+} /* ← ここで必ず閉じる */
+
+/* ここから通常ルール */
+.image-overlay-wrapper {
+  position: relative;
+  overflow: hidden;
+  height: auto;
+  min-height: 600px; /* 必要に応じて調整 */
+}
+
+/* 背景画像をdivで表示（画像の代わりに） */
+.cover-image {
+  position: relative;
+  width: 100%;
+  padding-top: 140%; /* 画像の縦横比をキープ（例：縦長） */
+  background-image: url('../assets/cover.webp');
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+}
+
+/* ギャラリーを上に重ねる */
+.overlay-gallery {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2列 */
+  gap: 16px;
+  width: 90%;
+  max-width: 600px;
+  z-index: 2;
+}
+
+/* スマホで2列×2行に対応 */
+@media (max-width: 768px) {
+  .overlay-gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    top: 4%;
+  }
+} /* ← スマホ用メディアクエリもここで閉じる */
+
+/* ▼▼ ここはメディアクエリの外に置く！ ▼▼ */
+.caption {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  margin: 0;
+  transition: max-height .35s ease, opacity .35s ease, margin-top .35s ease;
+}
+.caption.expanded {
+  opacity: 1;
+  margin-top: 10px;
+}
+.toggle-button {
+  background: none; border: none; color: #ddd;
+  cursor: pointer; font-size: 14px; padding: 4px 0;
+  position: relative; z-index: 3; /* 念のため */
+}
+
