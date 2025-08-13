@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Midorimushi Portfolio</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="container">
+    <h1>ちょこっとチョコレート / Portfolio(テスト)</h1>
+    <nav class="nav">
+      <a href="#gallery">展示</a>
+      <a href="#works">作品</a>
+      <a href="#download">ダウンロード</a>
+      <a href="#contact">お問い合わせ</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2>AI Art: Chocolate Mint</h2>
+    <p>生成AIで制作したビジュアル作品。配色は Adobe Color をベースに調整。</p>
+
+    <!-- 背景画像＋上に重ねるギャラリー -->
+    <section id="works" class="card image-overlay-wrapper">
+      <div class="cover-image">
+        <!-- ↓ cover.webp を背景として指定したい場合は CSSで設定してください -->
+
+  <div class="overlay-gallery">
+
+  <!-- 作品1 -->
+  <div class="art-card bg-01">
+    <div class="art-content">
+      <h3>囚ワレノ花</h3>
+      <div class="caption-container">
+        <button class="toggle-button" type="button" aria-controls="cap-01" aria-expanded="false">▼ 詳細を見る</button>
+        <p id="cap-01" class="caption">
+          狂おしいほどの独占欲に囚われた少女が、愛する彼女を甘美な檻に閉じ込める耽美で背徳的なレズビアン愛の物語。
+        </p>
+      </div>
+      <div class="actions">
+        <a href="#play-01" class="btn">▶ 再生</a>
+        <a href="videos/囚ワレノ花.mp4" class="btn" download>🎞 動画DL</a>
+        <a href="music/囚ワレノ花.mp3" class="btn" download>🎵 音声DL</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 作品2 -->
+  <div class="art-card bg-02">
+    <div class="art-content">
+      <h3>熱に沈む</h3>
+      <div class="caption-container">
+        <button class="toggle-button" type="button" aria-controls="cap-02" aria-expanded="false">▼ 詳細を見る</button>
+        <p id="cap-02" class="caption">
+          理性も記憶も焼き尽くされ、相手の熱に身も心も溺れ続ける狂おしい愛の物語。
+        </p>
+      </div>
+      <div class="actions">
+        <a href="#play-02" class="btn">▶ 再生</a>
+        <a href="videos/熱に沈む.mp4" class="btn" download>🎞 動画DL</a>
+        <a href="music/熱に沈む.mp3" class="btn" download>🎵 音声DL</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 作品3 -->
+  <div class="art-card bg-03">
+    <div class="art-content">
+      <h3>プロフ詐欺ビースト★罠の出会い</h3>
+      <div class="caption-container">
+        <button class="toggle-button" type="button" aria-controls="cap-03" aria-expanded="false">▼ 詳細を見る</button>
+        <p id="cap-03" class="caption">
+          現代の恋愛手法の一つである出会い系が、期待から一転して怪物級相手との恐怖と笑いに変わる物語。
+        </p>
+      </div>
+      <div class="actions">
+        <a href="#play-03" class="btn">▶ 再生</a>
+        <a href="videos/プロフ詐欺ビースト★罠の出会い.mp4" class="btn" download>🎞 動画DL</a>
+        <a href="music/プロフ詐欺ビースト★罠の出会い.mp3" class="btn" download>🎵 音声DL</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 作品4 -->
+  <div class="art-card bg-04">
+    <div class="art-content">
+      <h3>空想愛</h3>
+      <div class="caption-container">
+        <button class="toggle-button" type="button" aria-controls="cap-04" aria-expanded="false">▼ 詳細を見る</button>
+        <p id="cap-04" class="caption">
+          触れる瞬間のときめきと、壊れそうな関係に揺れながらも相手を強く想う、切なくも抑えられない恋心の物語。
+        </p>
+      </div>
+      <div class="actions">
+        <a href="#play-04" class="btn">▶ 再生</a>
+        <a href="videos/空想愛.mp4" class="btn" download>🎞 動画DL</a>
+        <a href="music/空想愛.mp3" class="btn" download>🎵 音声DL</a>
+      </div>
+    </div>
+  </div>
+
+
+
+        </div> <!-- overlay-gallery 終わり -->
+      </div> <!-- cover-image 終わり -->
+    </section>
+
+    <!-- 再生セクション -->
+    <div id="play-01" class="player card">
+      <h2>囚ワレノ花</h2>
+      <video controls src="videos/囚ワレノ花.mp4"></video>
+      <audio controls src="music/囚ワレノ花.mp3"></audio>
+    </div>
+
+    <div id="play-02" class="player card">
+      <h2>熱に沈む</h2>
+      <video controls src="videos/熱に沈む.mp4"></video>
+      <audio controls src="music/熱に沈む.mp3"></audio>
+    </div>
+
+    <div id="play-03" class="player card">
+      <h2>プロフ詐欺ビースト★罠の出会い</h2>
+      <video controls src="videos/プロフ詐欺ビースト★罠の出会い.mp4"></video>
+      <audio controls src="music/プロフ詐欺ビースト★罠の出会い.mp3"></audio>
+    </div>
+
+    <div id="play-04" class="player card">
+      <h2>空想愛</h2>
+      <video controls src="videos/空想愛.mp4"></video>
+      <audio controls src="music/空想愛.mp3"></audio>
+    </div>
+
+</main>
+<script src="js/toggleCaption.js"></script>
+</body>
+</html>
+
