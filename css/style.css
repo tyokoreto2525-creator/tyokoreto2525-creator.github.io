@@ -191,3 +191,63 @@ header h1 { margin: 8px 0 0; font-size: 28px; }
   position: relative; z-index: 3; /* 念のため */
 }
 
+
+
+
+
+
+
+.fixed-footer-nav {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  padding: 8px 20px;
+  border-radius: 20px;
+  display: flex;
+  gap: 8px;
+  z-index: 1000;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  max-width: 95vw;
+  justify-content: center;
+  flex-wrap: nowrap; /* 折り返さない */
+}
+
+.fixed-footer-nav a {
+  flex: 1 1 auto;
+  text-align: center;
+  min-width: 90px;     /* ← 最小幅を広めに */
+  max-width: 100px;    /* ← 最大幅で制限 */
+  font-size: 14px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: linear-gradient(to right, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+  color: white;
+  text-decoration: none;
+  transition: background 0.3s;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  white-space: nowrap;       /* 折り返さない */
+  overflow: hidden;          /* はみ出しカット */
+  text-overflow: ellipsis;   /* はみ出し時は … 表示 */
+}
+
+.fixed-footer-nav a:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 480px) {
+  .fixed-footer-nav {
+    flex-direction: row; /* 常に横並び */
+    gap: 8px;
+    padding: 10px;
+  }
+}
+
+.fixed-footer-nav {
+  left: 50%;
+  transform: translateX(-50%);
+  justify-content: center; /* ← これを追加すると中身が中央寄せになる */
+}
+
