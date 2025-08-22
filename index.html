@@ -7,19 +7,16 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header class="container">
-    <h1>ちょこっとチョコレート / Portfolio(テスト)</h1>
-    <nav class="nav">
-      <a href="#gallery">展示</a>
-      <a href="#works">作品</a>
-      <a href="#download">ダウンロード</a>
-      <a href="#contact">お問い合わせ</a>
-    </nav>
-  </header>
+<header class="container">
+  <h1>ちょこっとチョコレート / Portfolio(テスト)</h1>
+  <nav class="nav">
+    <a href="#contact">お問い合わせ</a>
+  </nav>
+</header>
 
   <main class="container">
-    <h2>AI Art: Chocolate Mint</h2>
-    <p>生成AIで制作したビジュアル作品。配色は Adobe Color をベースに調整。</p>
+    <h2>Chocolate Mint</h2>
+    <p>テスト</p>
 
     <!-- 背景画像＋上に重ねるギャラリー -->
     <section id="works" class="card image-overlay-wrapper">
@@ -39,9 +36,9 @@
         </p>
       </div>
       <div class="actions">
-        <a href="#play-01" class="btn">▶ 再生</a>
-        <a href="videos/囚ワレノ花.mp4" class="btn" download>🎞 動画DL</a>
-        <a href="music/囚ワレノ花.mp3" class="btn" download>🎵 音声DL</a>
+        <a href="videos/囚ワレノ花.mp4">▶ 再生</a>
+        <a href="videos/囚ワレノ花.mp4">🎞 動画DL</a>
+        <a href="music/囚ワレノ花.mp3">🎵 音声DL</a>
       </div>
     </div>
   </div>
@@ -133,6 +130,39 @@
 
 </main>
 <script src="js/toggleCaption.js"></script>
+
+
+  </div>
+
+  <script>
+    function toggle(btn) {
+      const card = btn.closest('.card');
+      card.classList.toggle('expanded');
+      btn.textContent = card.classList.contains('expanded') ? '▲ 閉じる' : '▼ 詳細を見る';
+    }
+  </script>
+
+
+<!-- JavaScript -->
+<script>
+  function toggle(btn) {
+    const card = btn.closest('.card');
+    card.classList.toggle('expanded');
+    btn.textContent = card.classList.contains('expanded') ? '▲ 閉じる' : '▼ 詳細を見る';
+  }
+</script>
+
+<div class="fixed-footer-nav">
+  <a href="index.html">トップページ</a>
+  <a href="blog/music.html">AI音楽素材</a>
+  <a href="blog/blog01.html">ブログ</a>
+</div>
+
+
+</body>
+
+
+
 </body>
 </html>
 
