@@ -5,37 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ブログ一覧 1〜10件 | Midorimushi Portfolio</title>
 
-  <!-- あなたのCSS。無くても下の最小CSSで動きます -->
-  <link rel="stylesheet" href="../css/style.css" />
+  <!-- 任意：既存のCSSがあれば読み込み（無くても下の最小CSSで動きます） -->
+  <!-- <link rel="stylesheet" href="../css/style.css" /> -->
 
-  <!-- 最小限の見た目（動作保証用・不要なら削除OK） -->
+  <!-- 最小CSS（見た目の保険。不要なら削除OK） -->
   <style>
-    body { font-family: system-ui, sans-serif; margin: 0; padding: 24px; }
-    .container { max-width: 980px; margin: 0 auto; }
-    .nav a { margin-right: 12px; }
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif; margin: 0; line-height: 1.7; }
+    .container { max-width: 980px; margin: 0 auto; padding: 20px; }
+    header h1 { margin: 0 0 6px; font-size: 1.6rem; }
+    .nav a { margin-right: 12px; color: inherit; text-decoration: none; border-bottom: 1px dashed transparent; }
+    .nav a:hover { border-bottom-color: currentColor; }
     .blog-list { display: grid; gap: 16px; margin-top: 20px; }
-    .blog-post { background: #fff; border-radius: 12px; padding: 16px; box-shadow: 0 4px 14px rgba(0,0,0,.08); }
-    .toggle-button { display:inline-block; margin: 8px 0 0; padding: 8px 12px; border-radius: 8px; border: 1px solid #ddd; background:#f7f7f7; cursor:pointer; }
+    .blog-post { background: rgba(255,255,255,.9); border-radius: 12px; padding: 16px; box-shadow: 0 4px 14px rgba(0,0,0,.08); }
+    .toggle-button { display:inline-block; margin: 10px 0 0; padding: 8px 12px; border-radius: 8px; border: 1px solid #ddd; background:#f7f7f7; cursor:pointer; }
     .caption { overflow: hidden; max-height: 0; transition: max-height .35s ease; }
-    .caption.expanded { /* 開いた後はJS側でmax-heightをnoneにします */ }
     pre, code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-    .pagination a { margin-right: 8px; }
+    .pagination { margin: 24px 0; }
+    .pagination a { margin-right: 8px; text-decoration: none; }
+    .pagination a.current { font-weight: 700; text-decoration: underline; }
+    footer { border-top: 1px solid rgba(0,0,0,.08); }
     @media (prefers-color-scheme: dark) {
       body { background:#111; color:#eee; }
       .blog-post { background:#1a1a1a; box-shadow: 0 6px 18px rgba(0,0,0,.25); }
       .toggle-button { background:#222; color:#eee; border-color:#333; }
     }
   </style>
-
-  <!-- JS 読み込み（この相対パスで /js/blog.js を参照） -->
-  <script src="../js/blog.js" defer></script>
 </head>
 <body>
   <header class="container">
     <h1>ブログ一覧（1〜10件）</h1>
-    <nav class="nav">
+    <nav class="nav" aria-label="主要ナビゲーション">
       <a href="../index.html">トップ</a>
-      <a href="blog01.html">1-10件</a>
+      <a href="blog01.html" aria-current="page">1-10件</a>
       <a href="blog02.html">11-20件</a>
       <a href="contact.html">お問い合わせ</a>
       <a href="about.html">自己紹介</a>
@@ -43,19 +45,11 @@
   </header>
 
   <main class="container">
-    <!-- JSがここに記事カードを追加します -->
-    <section id="blog-list" class="blog-list">
-      <!-- 予備の静的カード（JSが失敗しても表示される）。不要なら削除OK
-      <article class="blog-post">
-        <h3>サンプル（静的）</h3>
-        <button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
-        <div class="caption"><p>JS無くても見える保険用コンテンツ。</p></div>
-      </article>
-      -->
-    </section>
+    <!-- JSがここに記事カードを生成して挿入します -->
+    <section id="blog-list" class="blog-list"></section>
 
     <div class="pagination" aria-label="ページネーション">
-      <a href="blog01.html" class="current" aria-current="page">1</a>
+      <a href="blog01.html" class="current">1</a>
       <a href="blog02.html">2</a>
     </div>
   </main>
@@ -65,5 +59,175 @@
   </footer>
 
   <noscript>※ JavaScript が無効です。記事の自動生成は行われません。</noscript>
+
+  <!-- ここから：あなたのJSを内蔵（外部ファイル不要） -->
+  <script>
+    // ① 詳細開閉ボタン（下部クローズボタン付き）
+    document.addEventListener('click', (e) => {
+      const button = e.target.closest('.toggle-button');
+      if (!button) return;
+
+      const caption = button.nextElementSibling;
+      if (!caption || !caption.classList.contains('caption')) return;
+
+      const expanding = !caption.classList.contains('expanded');
+
+      if (expanding) {
+        caption.style.maxHeight = 'none';
+        const h = caption.scrollHeight;
+        caption.style.maxHeight = '0px';
+        requestAnimationFrame(() => {
+          caption.classList.add('expanded');
+          caption.style.maxHeight = h + 'px';
+          button.textContent = '▲ 閉じる';
+          button.setAttribute('aria-expanded', 'true');
+
+          // 下部閉じるボタンを追加
+          const bottomCloseBtn = document.createElement("button");
+          bottomCloseBtn.textContent = "▲ 閉じる";
+          bottomCloseBtn.className = "bottom-close-button";
+          bottomCloseBtn.style.marginTop = "20px";
+          bottomCloseBtn.style.display = "block";
+          bottomCloseBtn.style.marginLeft = "auto";
+          bottomCloseBtn.style.marginRight = "auto";
+          bottomCloseBtn.addEventListener("click", () => button.click());
+          caption.appendChild(bottomCloseBtn);
+        });
+      } else {
+        const h = caption.scrollHeight;
+        caption.style.maxHeight = h + 'px';
+        requestAnimationFrame(() => {
+          caption.classList.remove('expanded');
+          caption.style.maxHeight = '0px';
+          button.textContent = '▼ 詳細を見る';
+          button.setAttribute('aria-expanded', 'false');
+          const closeBtn = caption.querySelector('.bottom-close-button');
+          if (closeBtn) closeBtn.remove();
+        });
+      }
+
+      const tidy = (ev) => {
+        if (ev.propertyName === 'max-height' && caption.classList.contains('expanded')) {
+          caption.style.maxHeight = 'none';
+        }
+        caption.removeEventListener('transitionend', tidy);
+      };
+      caption.addEventListener('transitionend', tidy);
+    });
+
+    // ② ブログ記事の自動生成
+    document.addEventListener("DOMContentLoaded", () => {
+      const blogPosts = [
+        {
+          title: "エンジニア職種と必要スキルマップ",
+          body: `
+            <p>未経験からエンジニアを目指す人のための総合マップとスキルガイドです。</p>
+            <h4>ステップ①：あなたに合うエンジニア職種はどれ？</h4>
+            <table border="1" cellspacing="0" cellpadding="6">
+              <thead>
+                <tr>
+                  <th>職種名</th><th>主な役割</th><th>必要なスキル例</th><th>未経験者へのおすすめ度</th><th>学ぶ言語・技術</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>フロントエンド</td><td>見た目や操作（UI）をつくる</td><td>HTML, CSS, JavaScript, Reactなど</td><td>★★★★★</td><td>HTML/CSS → JS → React/Vue</td></tr>
+                <tr><td>バックエンド</td><td>サーバー処理やデータ処理</td><td>Python, PHP, SQL, API, Node.js</td><td>★★★★☆</td><td>JavaScript or Python → SQL/API</td></tr>
+                <tr><td>Webエンジニア</td><td>フロントもバックも対応</td><td>HTML/CSS, JS, DB, フレームワーク</td><td>★★★★☆</td><td>フロント + バックを順に学ぶ</td></tr>
+                <tr><td>モバイルアプリ</td><td>iPhone/Androidアプリ制作</td><td>Swift, Kotlin, React Native</td><td>★★★☆☆</td><td>HTML/CSS → JS → React Native</td></tr>
+                <tr><td>データ/AIエンジニア</td><td>データ分析や機械学習</td><td>Python, Pandas, SQL</td><td>★★★☆☆</td><td>Python → Pandas/Numpy → ML</td></tr>
+                <tr><td>インフラ/DevOps</td><td>サーバーやクラウドを整備</td><td>Linux, AWS, Docker</td><td>★★☆☆☆</td><td>CLI → Linux → Docker → AWS</td></tr>
+              </tbody>
+            </table>
+            <h4>ステップ②：未経験者のための学習ステップ</h4>
+            <ol>
+              <li>HTML / CSS（Webの見た目）</li>
+              <li>JavaScript（動きをつける）</li>
+              <li>Git / GitHub（コード管理）</li>
+              <li>VSCode（開発環境）</li>
+              <li>ミニアプリを作成して実践</li>
+            </ol>
+            <h4>最後に：これが実践的なおすすめ学習ステップ</h4>
+            <ol>
+              <li>HTML / CSS（見た目を作る）</li>
+              <li>JavaScript（動きをつける）</li>
+              <li>Git / GitHub（コードを管理する）</li>
+              <li>ミニアプリ制作（ToDoリストなど）</li>
+              <li>進路を決めて特化（フロント / バックエンド / モバイル）</li>
+            </ol>
+          `
+        },
+        {
+          title: "未経験から始める学習ステップガイド",
+          body: `
+            <h2>学習ステップ詳細：未経験から最短で結果を出すには</h2>
+            <p>順番と戦略が大事。特に「挫折しない順番」で取り組むことで、最速でポートフォリオに到達できます。</p>
+            <h3>サイト構成（例）</h3>
+            <pre><code>my-portfolio/
+├── assets/
+├── css/
+├── js/
+├── music/
+├── videos/
+├── pages/
+│   ├── blog01.html
+│   ├── blog02.html
+│   ├── contact.html
+│   └── about.html
+├── index.html
+            </code></pre>
+            <ul>
+              <li><strong>HTML:</strong> 構造（SEOにも影響）</li>
+              <li><strong>CSS:</strong> 見た目</li>
+              <li><strong>JS:</strong> 動き・動的生成</li>
+            </ul>
+          `
+        },
+        {
+          title: "HTMLタグとレイアウトの基本",
+          body: `
+            <p>HTMLは「意味ごと」にタグを使い分ける。</p>
+            <table border="1" cellpadding="6">
+              <thead><tr><th>タグ</th><th>役割</th></tr></thead>
+              <tbody>
+                <tr><td>&lt;header&gt;</td><td>ヘッダー領域</td></tr>
+                <tr><td>&lt;nav&gt;</td><td>ナビゲーション</td></tr>
+                <tr><td>&lt;main&gt;</td><td>主コンテンツ</td></tr>
+                <tr><td>&lt;footer&gt;</td><td>フッター</td></tr>
+              </tbody>
+            </table>
+            <p>テンプレは再利用でOK。headは裏方、bodyが表示領域。</p>
+          `
+        }
+      ];
+
+      const blogList = document.getElementById("blog-list");
+      if (!blogList) return console.error("#blog-list が見つかりません");
+
+      blogPosts.forEach((post, i) => {
+        const article = document.createElement("article");
+        article.className = "blog-post";
+
+        const title = document.createElement("h3");
+        title.textContent = `${String(i+1).padStart(2,'0')}. ${post.title}`;
+
+        const toggleBtn = document.createElement("button");
+        toggleBtn.className = "toggle-button";
+        toggleBtn.textContent = "▼ 詳細を見る";
+        toggleBtn.setAttribute("aria-expanded", "false");
+
+        const body = document.createElement("div");
+        body.className = "caption";
+        body.innerHTML = post.body;
+
+        // 最低限のアコーディオン保険（外部CSSなしでも動く）
+        body.style.maxHeight = "0px";
+        body.style.overflow = "hidden";
+        body.style.transition = "max-height .35s ease";
+
+        article.append(title, toggleBtn, body);
+        blogList.appendChild(article);
+      });
+    });
+  </script>
 </body>
 </html>
