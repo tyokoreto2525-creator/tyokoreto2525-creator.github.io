@@ -380,26 +380,4 @@ const blogPosts = [
 ];
 
 
-const blogList = document.getElementById("blog-list");
 
-blogPosts.forEach(post => {
-  const article = document.createElement("article");
-  article.className = "blog-post";
-
-  const title = document.createElement("h3");
-  title.textContent = post.title;
-
-  const toggleBtn = document.createElement("button");
-  toggleBtn.className = "toggle-button";
-  toggleBtn.textContent = "▼ 詳細を見る";
-  toggleBtn.setAttribute("aria-expanded", "false");
-
-  const body = document.createElement("div");
-  body.className = "caption";
-  body.innerHTML = post.body;
-
-  article.appendChild(title);
-  article.appendChild(toggleBtn);
-  article.appendChild(body);
-  blogList.appendChild(article);
-});
