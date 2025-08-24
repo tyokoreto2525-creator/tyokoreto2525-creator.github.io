@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ブログ一覧 1〜10件 | Midorimushi Portfolio</title>
   <link rel="stylesheet" href="../css/style.css" />
+  <script src="../js/blog.js" defer></script>  <!-- ← 追加 -->
 </head>
 <body>
   <header class="container">
@@ -19,32 +20,12 @@
   </header>
 
   <main class="container">
-    <section class="blog-list">
-      <article class="blog-card">
-        <h2>01. サンプルブログタイトル</h2>
-        <p>これはサンプルのブログ内容です。今後、実際の文章をここに入れましょう。</p>
-        <a href="#">続きを読む</a>
-      </article>
-
-      <article class="blog-card">
-        <h2>02. ブログタイトル2</h2>
-        <p>ブログ記事の概要や導入部分を記載するエリアです。</p>
-        <a href="#">続きを読む</a>
-      </article>
-
-      <!-- 必要に応じて blog03〜blog10 を増やす -->
-
-      <article class="blog-card">
-        <h2>10. ブログタイトル10</h2>
-        <p>ここまでがこのページに表示される10件目です。</p>
-        <a href="#">続きを読む</a>
-      </article>
-    </section>
+    <!-- 自動生成用の入れ物だけ置く（静的カードは消す or 別IDに） -->
+    <section id="blog-list" class="blog-list"></section>
 
     <div class="pagination">
       <a href="blog01.html" class="current">1</a>
       <a href="blog02.html">2</a>
-      <!-- さらにページが増える場合は追加 -->
     </div>
   </main>
 
@@ -53,4 +34,3 @@
   </footer>
 </body>
 </html>
-
