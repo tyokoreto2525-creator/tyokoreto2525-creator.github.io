@@ -32,5 +32,20 @@
   <footer class="container">
     <p>&copy; 2025 Midorimushi</p>
   </footer>
+
+  <script>
+  console.log("INLINE TEST: HTMLまでは読めています");
+  const box = document.getElementById("blog-list");
+  if (box) {
+    box.insertAdjacentHTML("afterbegin",
+      `<article class="blog-post"><h3>JSロードOK</h3><p>外部JSが動かない場合はパス or エラー</p></article>`
+    );
+  } else {
+    console.error("#blog-list が見つかりません");
+  }
+</script>
+
+  
 </body>
 </html>
+
