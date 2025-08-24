@@ -4,8 +4,31 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ブログ一覧 1〜10件 | Midorimushi Portfolio</title>
+
+  <!-- あなたのCSS。無くても下の最小CSSで動きます -->
   <link rel="stylesheet" href="../css/style.css" />
-  <script src="../js/blog.js" defer></script>  <!-- ← 追加 -->
+
+  <!-- 最小限の見た目（動作保証用・不要なら削除OK） -->
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 24px; }
+    .container { max-width: 980px; margin: 0 auto; }
+    .nav a { margin-right: 12px; }
+    .blog-list { display: grid; gap: 16px; margin-top: 20px; }
+    .blog-post { background: #fff; border-radius: 12px; padding: 16px; box-shadow: 0 4px 14px rgba(0,0,0,.08); }
+    .toggle-button { display:inline-block; margin: 8px 0 0; padding: 8px 12px; border-radius: 8px; border: 1px solid #ddd; background:#f7f7f7; cursor:pointer; }
+    .caption { overflow: hidden; max-height: 0; transition: max-height .35s ease; }
+    .caption.expanded { /* 開いた後はJS側でmax-heightをnoneにします */ }
+    pre, code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .pagination a { margin-right: 8px; }
+    @media (prefers-color-scheme: dark) {
+      body { background:#111; color:#eee; }
+      .blog-post { background:#1a1a1a; box-shadow: 0 6px 18px rgba(0,0,0,.25); }
+      .toggle-button { background:#222; color:#eee; border-color:#333; }
+    }
+  </style>
+
+  <!-- JS 読み込み（この相対パスで /js/blog.js を参照） -->
+  <script src="../js/blog.js" defer></script>
 </head>
 <body>
   <header class="container">
@@ -20,11 +43,19 @@
   </header>
 
   <main class="container">
-    <!-- 自動生成用の入れ物だけ置く（静的カードは消す or 別IDに） -->
-    <section id="blog-list" class="blog-list"></section>
+    <!-- JSがここに記事カードを追加します -->
+    <section id="blog-list" class="blog-list">
+      <!-- 予備の静的カード（JSが失敗しても表示される）。不要なら削除OK
+      <article class="blog-post">
+        <h3>サンプル（静的）</h3>
+        <button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
+        <div class="caption"><p>JS無くても見える保険用コンテンツ。</p></div>
+      </article>
+      -->
+    </section>
 
-    <div class="pagination">
-      <a href="blog01.html" class="current">1</a>
+    <div class="pagination" aria-label="ページネーション">
+      <a href="blog01.html" class="current" aria-current="page">1</a>
       <a href="blog02.html">2</a>
     </div>
   </main>
@@ -33,19 +64,6 @@
     <p>&copy; 2025 Midorimushi</p>
   </footer>
 
-  <script>
-  console.log("INLINE TEST: HTMLまでは読めています");
-  const box = document.getElementById("blog-list");
-  if (box) {
-    box.insertAdjacentHTML("afterbegin",
-      `<article class="blog-post"><h3>JSロードOK</h3><p>外部JSが動かない場合はパス or エラー</p></article>`
-    );
-  } else {
-    console.error("#blog-list が見つかりません");
-  }
-</script>
-
-  
+  <noscript>※ JavaScript が無効です。記事の自動生成は行われません。</noscript>
 </body>
 </html>
-
