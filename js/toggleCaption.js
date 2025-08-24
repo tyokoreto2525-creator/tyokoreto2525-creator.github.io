@@ -379,6 +379,7 @@ const blogPosts = [
 
 ];
 
+
 const blogList = document.getElementById("blog-list");
 
 blogPosts.forEach(post => {
@@ -402,6 +403,3 @@ blogPosts.forEach(post => {
   article.appendChild(body);
   blogList.appendChild(article);
 });
-
-
-
