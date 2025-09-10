@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ブログ一覧</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <!-- ===== ヘッダー（ナビなし・パンくずだけ） ===== -->
+  <header class="container">
+    <h1>ブログ一覧</h1>
+  </header>
+
+  <!-- ===== 本文 ===== -->
+  <main class="container">
+
+    <!-- ブログ一覧（必要に応じて article を増やす） -->
+    <section id="blog-index" class="wrap">
+
+      <article class="panel blog-post" data-no-close="true">
+        <h3 style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;">
+          最強セキュリティAndroid「GrapheneOS」の導入ガイド
+          <!-- ← ここにURLだけ入れてください -->
+          <a class="title-link" href="blog01.html" target="_blank" rel="noopener"
+             style="font-size:.9rem;padding:.25rem .6rem;border:1px solid rgba(255,255,255,.18);border-radius:.6rem;background:rgba(255,255,255,.06);">
+            外部リンク
+          </a>
+        </h3>
+
+        <!-- 重要：ボタンの直後が .caption -->
+        <button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
+        <div class="caption">
+          <p>
+            GrapheneOS（グラフェンOS）は、Google Pixel 専用の<strong>セキュリティ／プライバシー強化OS</strong>です。
+            公式Pixelのハード（Titan M、Verified Boot など）をフル活用しながら、メモリ安全性の向上や権限コントロール、
+            クリップボード自動消去、ネットワーク権限の個別無効化など<strong>細粒度の防御</strong>を実現します。
+          </p>
+          <p>
+            Google サービスは<strong>Sandboxed Google Play</strong>として任意で導入可。使わずに完全オフで運用することも可能。
+            ユーザープロファイルを分けることで、<strong>仕事／プライベート／実験用</strong>を物理的に隔離して安全に共存させられます。
+          </p>
+          <ul>
+            <li><strong>向いている人：</strong>「利便性より安全」を選びたい、持ち歩く端末のリスクを最小化したい。</li>
+            <li><strong>注意点：</strong>一部のキャリア・決済・銀行アプリは非対応の場合あり。運用には少し慣れが必要。</li>
+            <li><strong>導入の流れ：</strong>対応Pixelを用意 → 公式Web Installerでフラッシュ → 必要なら Sandboxed Google Play を導入。</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- 以降、必要なら同じパターンで記事を増やしてください -->
+      <!--
+      <article class="panel blog-post">
+        <h3>別記事タイトル
+          <a class="title-link" href="" target="_blank" rel="noopener">外部リンク</a>
+        </h3>
+        <button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
+        <div class="caption">
+          <p>本文…</p>
+        </div>
+      </article>
+      -->
+    </section>
+
+  </main>
+
+  <!-- ===== フッター ===== -->
+  <footer class="footer">
+    <p>&copy; 2025 My Portfolio</p>
+  </footer>
+
+  <!-- （任意）固定フッターナビ。 -->
+<div class="fixed-footer-nav">
+  <a href="../index.html">トップページ</a>
+  <a href="music.html">音楽素材</a>
+  <a href="blog00.html">ブログ</a>
+</div>
+
+
+  <!-- 開閉スクリプト（統合版） -->
+  <script src="../js/toggleCaption.js" defer></script>
+</body>
+</html>
