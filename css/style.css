@@ -1,22 +1,26 @@
-/* ---------------- ベース ---------------- */
+/* =========================================================
+   Base / Variables
+   - サイト共通の初期設定と変数
+   ========================================================= */
 * { box-sizing: border-box; }
+
 html, body {
   margin: 0;
   padding: 0;
   font-family: system-ui, -apple-system, "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-  color: #e9e9e9;
-  background: #0b0b0b;
+  color: #e9e9e9;                /* デフォルトの文字色（暗背景で視認性高） */
+  background: #000;              /* ページの下地 */
 }
 
+/* サイト全体の背景画像と暗さ */
 :root{
-  /* サイト全体の背景画像（差し替えOK） */
   --page-bg: url('../assets/bg_main.webp');
-  --page-bg-dim: 0.35; /* 暗さ 0~1（大きいほど暗い） */
+  --page-bg-dim: 0.35;           /* 暗さ(0~1)。大きいほど暗くなる */
 }
 
-/* 全面背景（テキストは上・固定） */
+/* 画面全面の背景（本文は上に重なる） */
 body::before{
-  content:"";
+  content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
@@ -28,59 +32,90 @@ body::before{
   pointer-events: none;
 }
 @media (min-width: 900px){
-  body::before{ background-attachment: fixed; }
+  body::before { background-attachment: fixed; } /* パララックス的に固定 */
 }
 
+/* 共通リンク */
 a { color: #8ec5ff; text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-.container {
+/* 共通の横幅コンテナ */
+.container,
+.wrap {                          /* wrap を container と同等に統一 */
   width: min(100%, 1080px);
   margin: 0 auto;
   padding: 16px;
 }
 
-/* ---------------- ヘッダー / ナビ ---------------- */
+/* =========================================================
+   Header / Navigation
+   ========================================================= */
 header h1 { margin: 8px 0 0; font-size: 28px; }
-.nav { display: flex; flex-wrap: wrap; gap: 12px; margin: 10px 0 0; }
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+}
 .nav a {
-  padding: 8px 12px; border-radius: 999px;
-  background: #1a1a1a; border: 1px solid #2a2a2a;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
 }
 .nav a:hover { background: #222; }
 
-/* ---------------- 汎用カード ---------------- */
-.card{
+/* =========================================================
+   Card（汎用カード）
+   - 記事パネルや説明枠のベース
+   ========================================================= */
+.card,
+.panel {                         /* panel=card見た目に合わせて統一 */
   background: rgba(17,17,17,0.85);
   backdrop-filter: blur(2px);
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid rgba(17,17,17,0.85);
   border-radius: 14px;
   padding: 16px;
   margin: 18px 0;
   box-shadow: 0 8px 18px rgba(0,0,0,0.12);
 }
-.thumb{ width:100%; height:auto; border-radius:10px; display:block; margin-bottom:10px; }
-.note{ color:#bdbdbd; font-size:0.9rem; }
 
-/* ---------------- ギャラリー（アート展示風） ---------------- */
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
-  gap:16px; margin:24px 0;
+.thumb {                         /* カード内画像 */
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+  margin-bottom: 10px;
 }
 
-/* カード本体に背景を敷く */
+.note {                          /* 補足テキスト */
+  color: #cfd8dc;
+  font-size: .95rem;
+}
+
+/* =========================================================
+   Gallery（アート展示風グリッド）
+   ========================================================= */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+
+/* 背景画像を敷いたカード */
 .art-card{
   position: relative;
   overflow: hidden;
   border-radius: 14px;
-  background: #111;               /* 画像がない場合の下地 */
+  background: #111;              /* 画像がない場合の下地 */
   border: 1px solid #222;
   box-shadow: 0 8px 18px rgba(0,0,0,0.12);
   transition: transform .2s ease, box-shadow .2s ease;
-  min-height: 220px;              /* 背景が見える最低高さ（調整OK） */
-  background-size: cover;         /* 比率固定なしで全面に */
-  background-position: center;    /* 見せたい位置 */
+  min-height: 220px;             /* 背景が見える最低高さ */
+  background-size: cover;        /* 全面にフィット */
+  background-position: center;
   background-repeat: no-repeat;
 }
 .art-card:hover{
@@ -88,115 +123,218 @@ header h1 { margin: 8px 0 0; font-size: 28px; }
   box-shadow: 0 12px 22px rgba(0,0,0,0.18);
 }
 
-/* 文字を載せる半透明パネル */
+/* 文字を載せる半透明レイヤー */
 .art-content{
   position: relative;
   z-index: 1;
   padding: 14px;
   margin-top: auto;
-  background: rgba(0,0,0,0.40);   /* 文字の可読性 */
+  background: rgba(0,0,0,0.40);
   color: #fff;
   backdrop-filter: blur(2px);
 }
-.art-content h3{ margin:0 0 10px; font-size:18px; letter-spacing:.02em; }
-
-.actions{ display:flex; flex-wrap:wrap; gap:8px; }
-.btn{
-  display:inline-block; padding:8px 12px; border-radius:8px;
-  background:#ffffff0f; color:#fff; text-decoration:none;
-  border:1px solid #ffffff22; font-size:14px;
+.art-content h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  letter-spacing: .02em;
 }
-.btn:hover{ background:#ffffff22; }
 
-/* 作品ごとの背景画像（assets/ に配置） */
-.art-card.bg-01 { background-image: url('../assets/thumb_01.webp'); } /* 囚ワレノ花 */
-.art-card.bg-02 { background-image: url('../assets/thumb_02.webp'); }    /* 熱に沈む */
+/* カード内ボタン群 */
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #ffffff0f;
+  color: #000;
+  text-decoration: none;
+  border: 1px solid #ffffff22;
+  font-size: 14px;
+}
+.btn:hover { background: #ffffff22; }
+
+/* 背景画像（assets/ 以下） */
+.art-card.bg-01 { background-image: url('../assets/thumb_01.webp'); }
+.art-card.bg-02 { background-image: url('../assets/thumb_02.webp'); }
 .art-card.bg-03 { background-image: url('../assets/thumb_03.webp'); }
 .art-card.bg-04 { background-image: url('../assets/thumb_04.webp'); }
 
+/* =========================================================
+   Media / Player
+   ========================================================= */
+.player.card { background: #0f0f0f; }
+.player h2 { margin: 0 0 10px; }
+.player video,
+.player audio { width: 100%; margin-top: 8px; border-radius: 8px; }
 
-/* ---------------- 再生セクション ---------------- */
-.player.card{ background:#0f0f0f; }
-.player h2{ margin:0 0 10px; }
-.player video, .player audio{ width:100%; margin-top:8px; border-radius:8px; }
-
-/* ---------------- フッター ---------------- */
+/* =========================================================
+   Footer
+   ========================================================= */
 .footer{
-  text-align:center; color:#9a9a9a;
-  padding:24px 16px; border-top:1px solid #1a1a1a; margin-top:24px;
+  text-align: center;
+  color: #000;
+  padding: 24px 16px;
+  border-top: 1px solid #1a1a1a;
+  margin-top: 24px;
 }
-/* ---------------- レスポンシブ微調整 ---------------- */
-@media (min-width:1200px){
-  header .nav{ gap:16px; }
-  .actions .btn{ font-size:15px; }
-} /* ← ここで必ず閉じる */
 
-/* ここから通常ルール */
+/* =========================================================
+   Responsive tweaks
+   ========================================================= */
+@media (min-width: 1200px){
+  header .nav { gap: 16px; }
+  .actions .btn { font-size: 15px; }
+}
+
+/* 2カラムのユーティリティ（記事＋サイド等） */
+.grid { display: grid; gap: 16px; grid-template-columns: 1fr; }
+@media (min-width: 880px){
+  .grid { grid-template-columns: 1.1fr .9fr; }
+}
+
+/* =========================================================
+   Cover + Overlay（背景の上に小ギャラリーを重ねる）
+   ========================================================= */
 .image-overlay-wrapper {
   position: relative;
   overflow: hidden;
   height: auto;
-  min-height: 600px; /* 必要に応じて調整 */
+  min-height: 600px;
 }
 
-/* 背景画像をdivで表示（画像の代わりに） */
+/* 背景を<div>に敷く */
 .cover-image {
   position: relative;
   width: 100%;
-  padding-top: 140%; /* 画像の縦横比をキープ（例：縦長） */
+  padding-top: 140%;              /* 縦長比率。画像に合わせて調整可 */
   background-image: url('../assets/cover.webp');
   background-size: cover;
   background-position: center;
   border-radius: 12px;
 }
 
-/* ギャラリーを上に重ねる */
+/* 背景の上に置くギャラリー */
 .overlay-gallery {
   position: absolute;
   top: 5%;
   left: 50%;
   transform: translateX(-50%);
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2列 */
+  grid-template-columns: repeat(2, 1fr);
   gap: 16px;
   width: 90%;
   max-width: 600px;
   z-index: 2;
 }
-
-/* スマホで2列×2行に対応 */
 @media (max-width: 768px) {
   .overlay-gallery {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
     top: 4%;
   }
-} /* ← スマホ用メディアクエリもここで閉じる */
+}
 
-/* ▼▼ ここはメディアクエリの外に置く！ ▼▼ */
-.caption {
-  max-height: 0;
+/* =========================================================
+   Toggle Panel（「▼ 詳細を見る」開閉UI）
+   - JS が .expanded を付与/除去
+   ========================================================= */
+/* トグルボタン（暗背景で見やすい配色に統一） */
+.toggle-button{
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: #fff;                     /* 以前 #000 と競合 → 白で統一 */
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s ease, transform .08s ease;
+}
+.toggle-button:hover{ background: rgba(255,255,255,0.10); }
+.toggle-button:active{ transform: translateY(1px); }
+
+/* 開閉対象の本文 */
+.caption{
+  max-height: 0;                   /* 初期は閉じる */
   overflow: hidden;
   opacity: 0;
-  margin: 0;
+  margin-top: 0;
   transition: max-height .35s ease, opacity .35s ease, margin-top .35s ease;
 }
-.caption.expanded {
+.caption.expanded{
   opacity: 1;
   margin-top: 10px;
-}
-.toggle-button {
-  background: none; border: none; color: #ddd;
-  cursor: pointer; font-size: 14px; padding: 4px 0;
-  position: relative; z-index: 3; /* 念のため */
+  border-top: 1px dashed rgba(255,255,255,.12);
+  padding-top: 12px;
+  /* max-height はJSがコンテンツ高に合わせて一時的に設定 */
 }
 
+/* 下部クローズボタン（JSで追加される） */
+.bottom-close-button{
+  display: block;
+  margin: 20px auto 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.06);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
 
+/* =========================================================
+   Blog Post（白カード：読み物セクション）
+   ========================================================= */
+.blog-post{
+  background: #fff;
+  color: #000;                     /* 本文は黒で可読性UP */
+  border-radius: 10px;
+  padding: 1em;
+  margin-bottom: 1em;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.blog-post h3{
+  margin: 0 0 .5em;
+  color: #222;
+}
+.blog-post p{
+  margin: 0;
+  line-height: 1.6;
+  color: #444;
+}
 
+/* =========================================================
+   Buttons in .card（共通の大きめボタン）
+   ========================================================= */
+.card button,
+.card a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 80%;
+  margin: 8px auto;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  background: rgba(0,0,0,0.45);
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+.card button:hover,
+.card a:hover {
+  background: rgba(255,255,255,0.15);
+  transform: translateY(-2px);
+}
 
-
-
-
+/* =========================================================
+   Fixed Footer Quick Nav（フッター固定の簡易ナビ）
+   ========================================================= */
 .fixed-footer-nav {
   position: fixed;
   bottom: 20px;
@@ -206,48 +344,99 @@ header h1 { margin: 8px 0 0; font-size: 28px; }
   padding: 8px 20px;
   border-radius: 20px;
   display: flex;
-  gap: 8px;
+  gap: 16px;
   z-index: 1000;
   backdrop-filter: blur(6px);
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  max-width: 95vw;
-  justify-content: center;
-  flex-wrap: nowrap; /* 折り返さない */
 }
-
 .fixed-footer-nav a {
-  flex: 1 1 auto;
-  text-align: center;
-  min-width: 90px;     /* ← 最小幅を広めに */
-  max-width: 100px;    /* ← 最大幅で制限 */
   font-size: 14px;
-  padding: 8px 10px;
+  padding: 6px 12px;
   border-radius: 10px;
   background: linear-gradient(to right, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-  color: white;
+  color: #fff;
   text-decoration: none;
   transition: background 0.3s;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  white-space: nowrap;       /* 折り返さない */
-  overflow: hidden;          /* はみ出しカット */
-  text-overflow: ellipsis;   /* はみ出し時は … 表示 */
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.fixed-footer-nav a:hover { background: rgba(255,255,255,0.2); }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ===== Dark polish patch (最後に追記) ===================== */
+
+/* 1) 開閉領域が途中で切れないように（超安全マージン） */
+.caption.expanded{
+  max-height: 5000px !important;   /* 長文でも切れない */
+  opacity: 1;
+  margin-top: 10px;
+  border-top: 1px dashed rgba(255,255,255,.12);
+  padding-top: 12px;
+  background: rgba(12,12,12,0.65); /* 背景と分離してボタンが埋もれない */
+  backdrop-filter: blur(2px);
 }
 
-.fixed-footer-nav a:hover {
-  background: rgba(255, 255, 255, 0.2);
+/* 2) トグルボタンの見やすい配色（暗背景向け） */
+.toggle-button{
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s ease, transform .08s ease;
+}
+.toggle-button:hover{ background: rgba(255,255,255,0.12); }
+.toggle-button:active{ transform: translateY(1px); }
+
+/* 3) 下部の閉じるボタンも同トーンに */
+.bottom-close-button{
+  display:block;
+  margin:20px auto 0;
+  padding:10px 14px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.07);
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+}
+.bottom-close-button:hover{ background: rgba(255,255,255,.12); }
+
+/* 4) 白カードをやさしい暗色カードに（まぶしさ軽減） */
+.blog-post{
+  background: rgba(20,20,20,0.92);
+  color: #e9e9e9;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+}
+.blog-post h3{ color:#fff; }
+.blog-post p{ color:#d0d0d0; }
+
+/* 5) セクションのパネルも少し明るさ/境界を調整して読みやすく */
+.panel, .card{
+  background: rgba(15,15,15,0.88);
+  border: 1px solid rgba(255,255,255,0.06);
 }
 
-@media (max-width: 480px) {
-  .fixed-footer-nav {
-    flex-direction: row; /* 常に横並び */
-    gap: 8px;
-    padding: 10px;
-  }
-}
-
-.fixed-footer-nav {
-  left: 50%;
-  transform: translateX(-50%);
-  justify-content: center; /* ← これを追加すると中身が中央寄せになる */
+/* 6) 長文ページでスクロールが重い人向け：アニメ控えめ（任意） */
+@media (prefers-reduced-motion: reduce){
+  .caption{ transition:none !important; }
 }
 
