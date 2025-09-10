@@ -393,10 +393,9 @@
         <li>両方の <code>.zip</code> を展開し、<strong>同じフォルダ</strong>にまとめる（例：デスクトップ上の同一フォルダ）。</li>
       </ol>
 
-      <!-- 画像1：フォルダ配置（URLだけ差し替え） -->
       <figure>
-        <img src="【画像1のURL】" alt="Platform-Tools と Factory Image を同一フォルダに配置" style="width:100%;border-radius:10px;">
-        <figcaption>画像1：フォルダ配置の例（Platform-Tools と Factory Image を同じ場所へ）</figcaption>
+        <img src="../assets/グラフェンOS01.webp" alt="Platform-Tools と Factory Image を同一フォルダに配置" style="width:100%;border-radius:10px;">
+        <figcaption>※フォルダ配置の例（Platform-Tools と Factory Image を同じ場所へ）</figcaption>
       </figure>
     </div>
   </article>
@@ -408,7 +407,7 @@
     <div class="caption">
       <ol>
         <li>USBでPCに接続。</li>
-        <li>フォルダの空き領域で <strong>Shift + 右クリック →「ターミナルで開く」</strong> を選択。</li>
+        <li>フォルダの空き領域で <strong>Shift + 右クリック(5の画像の箇所) →「ターミナルで開く」</strong> を選択。</li>
         <li>認識確認：<br><code>.\fastboot devices</code></li>
         <li>ブートローダーの<strong>アンロック</strong>（この時点では書き込みは開始されません）：<br>
           <code>.\fastboot flashing unlock</code><br>
@@ -416,20 +415,20 @@
         </li>
       </ol>
 
-      <!-- 画像3：ターミナルの例 -->
+
       <figure>
-        <img src="【画像3のURL】" alt="fastboot devices / fastboot flashing unlock の実行例" style="width:100%;border-radius:10px;">
-        <figcaption>画像3：認識確認とアンロックコマンドの実行例</figcaption>
+        <img src="../assets/グラフェンOS02.webp"alt="fastboot devices / fastboot flashing unlock の実行例" style="width:100%;border-radius:10px;">
+        <figcaption>※認識確認とアンロックコマンドの実行例</figcaption>
       </figure>
 
       <ol start="5">
-        <li>同フォルダ内の <code>flash-all.bat</code>（macOS/Linuxは <code>flash-all.sh</code>）を<strong>実行</strong>。ここでROMの書き込みがスタート。PC画面にログが流れるので完了まで待機。</li>
+        <li>最後に同フォルダ内の <code>flash-all.bat</code>（macOS/Linuxは <code>flash-all.sh</code>）を<strong>実行</strong>。ここでROMの書き込みがスタート。PC画面にログが流れるので完了まで待機。</li>
       </ol>
 
       <!-- 画像2：flash-all.bat の位置例 -->
       <figure>
-        <img src="【画像2のURL】" alt="flash-all.bat の位置" style="width:100%;border-radius:10px;">
-        <figcaption>画像2：flash-all.bat の実行場所（同一フォルダにPlatform-Toolsの実行ファイルがある状態）</figcaption>
+        <img src="../assets/グラフェンOS03.webp" alt="flash-all.bat の位置" style="width:100%;border-radius:10px;">
+        <figcaption>※flash-all.bat の実行場所（同一フォルダにPlatform-Toolsの実行ファイルがある状態）</figcaption>
       </figure>
 
       <ol start="6">
