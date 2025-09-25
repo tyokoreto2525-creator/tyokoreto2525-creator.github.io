@@ -1,355 +1,315 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>音楽ギャラリー｜無料ダウンロード素材集</title>
-
-  <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background: url('../assets/cover.webp') no-repeat center center fixed;
-      background-size: cover;
-      color: white;
-    }
-
-    header {
-      background: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
-      text-align: center;
-      padding: 2em 1em 1em;
-    }
-
-    header h1 {
-      font-size: 2em;
-      margin-bottom: 0.3em;
-    }
-
-    header p {
-      font-size: 1em;
-      opacity: 0.8;
-      margin-bottom: 1.5em;
-    }
-
-    .gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      padding: 20px;
-      padding-bottom: 100px; /* フッター分の余白 */
-    }
-
-    .card {
-      position: relative;
-      width: 250px;
-      border-radius: 15px;
-      overflow: hidden;
-      backdrop-filter: blur(10px);
-      transition: backdrop-filter 0.3s ease;
-    }
-
-    .card.expanded {
-      backdrop-filter: blur(3px);
-    }
-
-    .card .overlay {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      filter: blur(10px) brightness(0.6);
-      transition: filter 0.3s ease;
-    }
-
-    .card.expanded .overlay {
-      filter: blur(2px) brightness(0.9);
-    }
-
-    .card .content {
-      position: relative;
-      padding: 20px;
-      z-index: 2;
-      text-align: center;
-    }
-
-    .card h2 {
-      font-size: 1.2em;
-      margin-bottom: 10px;
-    }
-
-    .card button,
-    .card a {
-      display: block;
-      width: 80%;
-      margin: 8px auto;
-      padding: 10px;
-      font-weight: bold;
-      color: white;
-      background: rgba(0, 0, 0, 0.5);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
-      border: none;
-      border-radius: 8px;
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    .card p {
-      display: none;
-      margin-top: 10px;
-      color: #fff;
-    }
-
-    .card.expanded p {
-      display: block;
-    }
-
-    @media (max-width: 800px) {
-      .card {
-        width: 90%;
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音楽ギャラリー｜無料ダウンロード素材集</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        background: url('../assets/cover.webp') no-repeat center center fixed;
+        background-size: cover;
+        color: white;
       }
-    }
 
-.fixed-footer-nav {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.6);
-  padding: 8px 20px;
-  border-radius: 20px;
-  display: flex;
-  gap: 8px;
-  z-index: 1000;
-  backdrop-filter: blur(6px);
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  max-width: 95vw;
-  justify-content: center;
-  flex-wrap: nowrap; /* 折り返さない */
-}
+      header {
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3));
+        text-align: center;
+        padding: 2em 1em 1em;
+      }
 
-.fixed-footer-nav a {
-  flex: 1 1 auto;
-  text-align: center;
-  min-width: 90px;     /* ← 最小幅を広めに */
-  max-width: 100px;    /* ← 最大幅で制限 */
-  font-size: 14px;
-  padding: 8px 10px;
-  border-radius: 10px;
-  background: linear-gradient(to right, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-  color: white;
-  text-decoration: none;
-  transition: background 0.3s;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  white-space: nowrap;       /* 折り返さない */
-  overflow: hidden;          /* はみ出しカット */
-  text-overflow: ellipsis;   /* はみ出し時は … 表示 */
-}
+      header h1 {
+        font-size: 2em;
+        margin-bottom: 0.3em;
+      }
 
-.fixed-footer-nav a:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
+      header p {
+        font-size: 1em;
+        opacity: 0.8;
+        margin-bottom: 1.5em;
+      }
 
-@media (max-width: 480px) {
-  .fixed-footer-nav {
-    flex-direction: row; /* 常に横並び */
-    gap: 8px;
-    padding: 10px;
-  }
-}
+      .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+        padding-bottom: 100px;
+        /* フッター分の余白 */
+      }
 
-.fixed-footer-nav {
-  left: 50%;
-  transform: translateX(-50%);
-  justify-content: center; /* ← これを追加すると中身が中央寄せになる */
-}
+      .card {
+        position: relative;
+        width: 250px;
+        border-radius: 15px;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+        transition: backdrop-filter 0.3s ease;
+      }
 
+      .card.expanded {
+        backdrop-filter: blur(3px);
+      }
 
-  </style>
-</head>
-<body>
+      .card .overlay {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        filter: blur(10px) brightness(0.6);
+        transition: filter 0.3s ease;
+      }
 
-  <!--  ヘッダーと説明 -->
-  <header>
-<h1>音楽ギャラリー</h1>
-<p>商用利用もOK！無料で使える音楽素材をどうぞ。</p>
-  </header>
+      .card.expanded .overlay {
+        filter: blur(2px) brightness(0.9);
+      }
 
-  <!--  ギャラリー本体 -->
-  <div class="gallery">
+      .card .content {
+        position: relative;
+        padding: 20px;
+        z-index: 2;
+        text-align: center;
+      }
 
-    <!-- カード① -->
-    <div class="card">
-      <div class="overlay" style="background-image: url('../assets/thumb_01.webp');"></div>
-      <div class="content">
-        <h2>囚ワレノ花</h2>
-        <button onclick="toggle(this)">▼ 詳細を見る</button>
-        <p>狂おしいほどの独占欲に囚われた少女が、愛する彼女を甘美な檻に閉じ込める耽美で背徳的なレズビアン愛の物語。</p>
-        <a href="../videos/囚ワレノ花.mp4" target="_blank">動画DL</a>
-        <a href="../music/囚ワレノ花.mp3" target="_blank">音声DL</a>
+      .card h2 {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+      }
+
+      .card button,
+      .card a {
+        display: block;
+        width: 80%;
+        margin: 8px auto;
+        padding: 10px;
+        font-weight: bold;
+        color: white;
+        background: rgba(0, 0, 0, 0.5);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        border: none;
+        border-radius: 8px;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .card p {
+        display: none;
+        margin-top: 10px;
+        color: #fff;
+      }
+
+      .card.expanded p {
+        display: block;
+      }
+
+      @media (max-width: 800px) {
+        .card {
+          width: 90%;
+        }
+      }
+
+      .fixed-footer-nav {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.6);
+        padding: 8px 20px;
+        border-radius: 20px;
+        display: flex;
+        gap: 8px;
+        z-index: 1000;
+        backdrop-filter: blur(6px);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        max-width: 95vw;
+        justify-content: center;
+        flex-wrap: nowrap;
+        /* 折り返さない */
+      }
+
+      .fixed-footer-nav a {
+        flex: 1 1 auto;
+        text-align: center;
+        min-width: 90px;
+        /* ← 最小幅を広めに */
+        max-width: 100px;
+        /* ← 最大幅で制限 */
+        font-size: 14px;
+        padding: 8px 10px;
+        border-radius: 10px;
+        background: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+        color: white;
+        text-decoration: none;
+        transition: background 0.3s;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        white-space: nowrap;
+        /* 折り返さない */
+        overflow: hidden;
+        /* はみ出しカット */
+        text-overflow: ellipsis;
+        /* はみ出し時は … 表示 */
+      }
+
+      .fixed-footer-nav a:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      @media (max-width: 480px) {
+        .fixed-footer-nav {
+          flex-direction: row;
+          /* 常に横並び */
+          gap: 8px;
+          padding: 10px;
+        }
+      }
+
+      .fixed-footer-nav {
+        left: 50%;
+        transform: translateX(-50%);
+        justify-content: center;
+        /* ← これを追加すると中身が中央寄せになる */
+      }
+    </style>
+  </head>
+  <body>
+    <!--  ヘッダーと説明 -->
+    <header>
+      <h1>音楽ギャラリー</h1>
+      <p>商用利用もOK！無料で使える音楽素材をどうぞ。</p>
+    </header>
+    <!--  ギャラリー本体 -->
+    <div class="gallery">
+      <!-- カード① -->
+      <div class="card">
+        <div class="overlay" style="background-image: url('../assets/thumb_01.webp');"></div>
+        <div class="content">
+          <h2>囚ワレノ花</h2>
+          <button onclick="toggle(this)">▼ 詳細を見る</button>
+          <p>狂おしいほどの独占欲に囚われた少女が、愛する彼女を甘美な檻に閉じ込める耽美で背徳的なレズビアン愛の物語。</p>
+          <a href="../videos/囚ワレノ花.mp4" target="_blank">動画DL</a>
+          <a href="../music/囚ワレノ花.mp3" target="_blank">音声DL</a>
+        </div>
+      </div>
+      <!-- カード② -->
+      <div class="card">
+        <div class="overlay" style="background-image: url('../assets/thumb_02.webp');"></div>
+        <div class="content">
+          <h2>熱に沈む</h2>
+          <button onclick="toggle(this)">▼ 詳細を見る</button>
+          <p>理性も記憶も焼き尽くされ、相手の熱に身も心も溺れ続ける狂おしい愛の物語。 </p>
+          <a href="../videos/熱に沈む.mp4" target="_blank">動画DL</a>
+          <a href="../music/熱に沈む.mp3" target="_blank">音声DL</a>
+        </div>
+      </div>
+      <!-- カード③ -->
+      <div class="card">
+        <div class="overlay" style="background-image: url('../assets/thumb_03.webp');"></div>
+        <div class="content">
+          <h2>プロフ詐欺ビースト★罠の出会い</h2>
+          <button onclick="toggle(this)">▼ 詳細を見る</button>
+          <p>現代の恋愛手法の一つである出会い系が、期待から一転して怪物級相手との恐怖と笑いに変わる物語。</p>
+          <a href="../videos/プロフ詐欺ビースト★罠の出会い.mp4" target="_blank">動画DL</a>
+          <a href="../music/プロフ詐欺ビースト★罠の出会い.mp3" target="_blank">音声DL</a>
+        </div>
+      </div>
+      <!-- カード④ -->
+      <div class="card">
+        <div class="overlay" style="background-image: url('../assets/thumb_04.webp');"></div>
+        <div class="content">
+          <h2>空想愛</h2>
+          <button onclick="toggle(this)">▼ 詳細を見る</button>
+          <p>触れる瞬間のときめきと、壊れそうな関係に揺れながらも相手を強く想う、切なくも抑えられない恋心の物語。</p>
+          <a href="../videos/空想愛.mp4" target="_blank">動画DL</a>
+          <a href="../music/空想愛.mp3" target="_blank">音声DL</a>
+        </div>
+      </div>
+      <!-- カード -->
+      <div class="card">
+        <div class="overlay" style="background-image: url('../assets/thumb_05.webp');"></div>
+        <div class="content">
+          <h2>咲いて、死にましょう</h2>
+          <button onclick="toggle(this)">▼ 詳細を見る</button>
+          <p>扇が誘う静寂の夜、崩れ落ちる命は花となり、死と美が溶け合う幽玄の舞。</p>
+          <a href="../videos/咲いて、死にましょう.mp4" target="_blank">動画DL</a>
+          <a href="../music/咲いて、死にましょう.mp3" target="_blank">音声DL</a>
+        </div>
+      </div>
+      <!-- カード -->
+      <div class="card">
+        <div class="overlay" style="background-image: url('../assets/thumb_06.webp');"></div>
+        <div class="content">
+          <h2>Addict†You</h2>
+          <button onclick="toggle(this)">▼ 詳細を見る</button>
+          <p>狂気と快楽が交錯する檻の中で、愛という毒に堕ちゆく背徳の依存愛の物語。</p>
+          <a href="../videos/Addict†You.mp4" target="_blank">動画DL</a>
+          <a href="../music/Addict†You.mp3" target="_blank">音声DL</a>
+        </div>
+      </div>
+      <!-- カード -->
+      <div class="card">
+        <div class="overlay" style="background-image: url('../assets/thumb_07.webp');"></div>
+        <div class="content">
+          <h2>すっぴんバレて恋が終わった朝</h2>
+          <button onclick="toggle(this)">▼ 詳細を見る</button>
+          <p>メイクの魔法が解けた朝、恋も終わる。だけど本当の私で始める再生の物語。</p>
+          <a href="../videos/すっぴんバレて恋が終わった朝.mp4" target="_blank">動画DL</a>
+          <a href="../music/すっぴんバレて恋が終わった朝.mp3" target="_blank">音声DL</a>
+        </div>
+      </div メイクの魔法が解けた朝、恋も終わる。だけど本当の私で始める再生の物語。 <!-- カード -->
+      <div class="card">
+        <div class="overlay" style="background-image: url('../assets/thumb_08.webp');"></div>
+        <div class="content">
+          <h2>深紅の檻で眠る夜</h2>
+          <button onclick="toggle(this)">▼ 詳細を見る</button>
+          <p>砕けたオルゴールが囁く闇。声を求め彷徨う、孤独と狂気に彩られた深紅の夢譚</p>
+          <a href="../videos/深紅の檻で眠る夜.mp4" target="_blank">動画DL</a>
+          <a href="../music/深紅の檻で眠る夜.mp3" target="_blank">音声DL</a>
+        </div>
+      </div>
+      <!-- カード -->
+      <div class="card">
+        <div class="overlay" style="background-image: url('../assets/thumb_09.webp');"></div>
+        <div class="content">
+          <h2>エステワールド</h2>
+          <button onclick="toggle(this)">▼ 詳細を見る</button>
+          <p>甘美な手技に身を委ね、溺れるほどに快感が暴走する背徳のエステ愛欲物語。</p>
+          <a href="../videos/エステワールド.mp4" target="_blank">動画DL</a>
+          <a href="../music/エステワールド.mp3" target="_blank">音声DL</a>
+        </div>
+      </div>
+      <!-- カード -->
+      <div class="card">
+        <div class="overlay" style="background-image: url('../assets/thumb_10.webp');"></div>
+        <div class="content">
+          <h2>きみのいない午後</h2>
+          <button onclick="toggle(this)">▼ 詳細を見る</button>
+          <p>失われた温もりを抱きしめながら、午後の静寂に少しずつ馴染んでいく哀惜の物語。</p>
+          <a href="../videos/きみのいない午後.mp4" target="_blank">動画DL</a>
+          <a href="../music/きみのいない午後.mp3" target="_blank">音声DL</a>
+        </div>
       </div>
     </div>
-
-    <!-- カード② -->
-    <div class="card">
-      <div class="overlay" style="background-image: url('../assets/thumb_02.webp');"></div>
-      <div class="content">
-        <h2>熱に沈む</h2>
-        <button onclick="toggle(this)">▼ 詳細を見る</button>
-        <p>理性も記憶も焼き尽くされ、相手の熱に身も心も溺れ続ける狂おしい愛の物語。
-</p>
-        <a href="../videos/熱に沈む.mp4" target="_blank">動画DL</a>
-        <a href="../music/熱に沈む.mp3" target="_blank">音声DL</a>
-      </div>
+    <script>
+      function toggle(btn) {
+        const card = btn.closest('.card');
+        card.classList.toggle('expanded');
+        btn.textContent = card.classList.contains('expanded') ? '▲ 閉じる' : '▼ 詳細を見る';
+      }
+    </script>
+    <!-- JavaScript -->
+    <script>
+      function toggle(btn) {
+        const card = btn.closest('.card');
+        card.classList.toggle('expanded');
+        btn.textContent = card.classList.contains('expanded') ? '▲ 閉じる' : '▼ 詳細を見る';
+      }
+    </script>
+    <div class="fixed-footer-nav" style="display:flex;flex-wrap:nowrap;justify-content:center;max-width:95vw;gap:16px">
+      <a href="../index.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">トップページ</a>
+      <a href="music.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">音楽素材</a>
+      <a href="blog00.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">ブログ</a>
     </div>
-
-    <!-- カード③ -->
-    <div class="card">
-      <div class="overlay" style="background-image: url('../assets/thumb_03.webp');"></div>
-      <div class="content">
-        <h2>プロフ詐欺ビースト★罠の出会い</h2>
-        <button onclick="toggle(this)">▼ 詳細を見る</button>
-        <p>現代の恋愛手法の一つである出会い系が、期待から一転して怪物級相手との恐怖と笑いに変わる物語。</p>
-        <a href="../videos/プロフ詐欺ビースト★罠の出会い.mp4" target="_blank">動画DL</a>
-        <a href="../music/プロフ詐欺ビースト★罠の出会い.mp3" target="_blank">音声DL</a>
-      </div>
-    </div>
-
-    <!-- カード④ -->
-    <div class="card">
-      <div class="overlay" style="background-image: url('../assets/thumb_04.webp');"></div>
-      <div class="content">
-        <h2>空想愛</h2>
-        <button onclick="toggle(this)">▼ 詳細を見る</button>
-        <p>触れる瞬間のときめきと、壊れそうな関係に揺れながらも相手を強く想う、切なくも抑えられない恋心の物語。</p>
-        <a href="../videos/空想愛.mp4" target="_blank">動画DL</a>
-        <a href="../music/空想愛.mp3" target="_blank">音声DL</a>
-      </div>
-    </div>
-
-
-
-
-
-
-    <!-- カード -->
-    <div class="card">
-      <div class="overlay" style="background-image: url('../assets/thumb_05.webp');"></div>
-      <div class="content">
-        <h2>咲いて、死にましょう</h2>
-        <button onclick="toggle(this)">▼ 詳細を見る</button>
-        <p>扇が誘う静寂の夜、崩れ落ちる命は花となり、死と美が溶け合う幽玄の舞。</p>
-        <a href="../videos/咲いて、死にましょう.mp4" target="_blank">動画DL</a>
-        <a href="../music/咲いて、死にましょう.mp3" target="_blank">音声DL</a>
-      </div>
-    </div>
-
-    <!-- カード -->
-    <div class="card">
-      <div class="overlay" style="background-image: url('../assets/thumb_06.webp');"></div>
-      <div class="content">
-        <h2>Addict†You</h2>
-        <button onclick="toggle(this)">▼ 詳細を見る</button>
-        <p>狂気と快楽が交錯する檻の中で、愛という毒に堕ちゆく背徳の依存愛の物語。</p>
-        <a href="../videos/Addict†You.mp4" target="_blank">動画DL</a>
-        <a href="../music/Addict†You.mp3" target="_blank">音声DL</a>
-      </div>
-    </div>
-
-
-    <!-- カード -->
-    <div class="card">
-      <div class="overlay" style="background-image: url('../assets/thumb_07.webp');"></div>
-      <div class="content">
-        <h2>すっぴんバレて恋が終わった朝</h2>
-        <button onclick="toggle(this)">▼ 詳細を見る</button>
-        <p>メイクの魔法が解けた朝、恋も終わる。だけど本当の私で始める再生の物語。</p>
-        <a href="../videos/すっぴんバレて恋が終わった朝.mp4" target="_blank">動画DL</a>
-        <a href="../music/すっぴんバレて恋が終わった朝.mp3" target="_blank">音声DL</a>
-      </div>
-    </div
-
-
-
-メイクの魔法が解けた朝、恋も終わる。だけど本当の私で始める再生の物語。
-    <!-- カード -->
-    <div class="card">
-      <div class="overlay" style="background-image: url('../assets/thumb_08.webp');"></div>
-      <div class="content">
-        <h2>深紅の檻で眠る夜</h2>
-        <button onclick="toggle(this)">▼ 詳細を見る</button>
-        <p>砕けたオルゴールが囁く闇。声を求め彷徨う、孤独と狂気に彩られた深紅の夢譚</p>
-        <a href="../videos/深紅の檻で眠る夜.mp4" target="_blank">動画DL</a>
-        <a href="../music/深紅の檻で眠る夜.mp3" target="_blank">音声DL</a>
-      </div>
-    </div>
-
-
-
-
-
-
-
-
-
-    <!-- カード -->
-    <div class="card">
-      <div class="overlay" style="background-image: url('../assets/thumb_09.webp');"></div>
-      <div class="content">
-        <h2>エステワールド</h2>
-        <button onclick="toggle(this)">▼ 詳細を見る</button>
-        <p>甘美な手技に身を委ね、溺れるほどに快感が暴走する背徳のエステ愛欲物語。</p>
-        <a href="../videos/エステワールド.mp4" target="_blank">動画DL</a>
-        <a href="../music/エステワールド.mp3" target="_blank">音声DL</a>
-      </div>
-    </div>
-
-
-
-
-    <!-- カード -->
-    <div class="card">
-      <div class="overlay" style="background-image: url('../assets/thumb_10.webp');"></div>
-      <div class="content">
-        <h2>きみのいない午後</h2>
-        <button onclick="toggle(this)">▼ 詳細を見る</button>
-        <p>失われた温もりを抱きしめながら、午後の静寂に少しずつ馴染んでいく哀惜の物語。</p>
-        <a href="../videos/きみのいない午後.mp4" target="_blank">動画DL</a>
-        <a href="../music/きみのいない午後.mp3" target="_blank">音声DL</a>
-      </div>
-    </div>
-
-
-
-  </div>
-
-  <script>
-    function toggle(btn) {
-      const card = btn.closest('.card');
-      card.classList.toggle('expanded');
-      btn.textContent = card.classList.contains('expanded') ? '▲ 閉じる' : '▼ 詳細を見る';
-    }
-  </script>
-
-
-<!-- JavaScript -->
-<script>
-  function toggle(btn) {
-    const card = btn.closest('.card');
-    card.classList.toggle('expanded');
-    btn.textContent = card.classList.contains('expanded') ? '▲ 閉じる' : '▼ 詳細を見る';
-  }
-</script>
-
-<div class="fixed-footer-nav">
-  <a href="../index.html">トップページ</a>
-  <a href="music.html">音楽素材</a>
-  <a href="blog00.html">ブログ</a>
-</div>
-
-
-</body>
-
-
-
+  </body>
 </html>
