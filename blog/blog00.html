@@ -8,38 +8,33 @@
 </head>
 <body>
 
-  <!-- ===== ヘッダー（ナビなし・パンくずだけ） ===== -->
+
   <header class="container">
     <h1>ブログ一覧</h1>
   </header>
 
-  <!-- ===== 本文 ===== -->
-  <main class="container">
 
-    <!-- ブログ一覧（必要に応じて article を増やす） -->
+  <main class="container">
     <section id="blog-index" class="wrap">
 
+      <!-- ===== 記事1 ===== -->
       <article class="panel blog-post" data-no-close="true">
-        <h3 style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;">
-          最強セキュリティAndroid「GrapheneOS」の導入ガイド
-          <!-- ← ここにURLだけ入れてください -->
-          <a class="title-link" href="blog01.html" target="_blank" rel="noopener"
-             style="font-size:.9rem;padding:.25rem .6rem;border:1px solid rgba(255,255,255,.18);border-radius:.6rem;background:rgba(255,255,255,.06);">
-            外部リンク
+        <h3 class="post-heading">
+          <a class="post-title" href="blog01.html" target="_blank" rel="noopener"
+             style="text-decoration:none;">
+            最強セキュリティAndroid「GrapheneOS」の導入ガイド
           </a>
         </h3>
-
-        <!-- 重要：ボタンの直後が .caption -->
-        <button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
-        <div class="caption">
+        <button class="toggle-button" aria-expanded="false" aria-controls="cap-01">▼ 詳細を見る</button>
+        <div class="caption" id="cap-01">
           <p>
             GrapheneOS（グラフェンOS）は、Google Pixel 専用の<strong>セキュリティ／プライバシー強化OS</strong>です。
-            公式Pixelのハード（Titan M、Verified Boot など）をフル活用しながら、メモリ安全性の向上や権限コントロール、
+            公式Pixelのハード（Titan M、Verified Boot など）を活用し、メモリ安全性の向上や権限コントロール、
             クリップボード自動消去、ネットワーク権限の個別無効化など<strong>細粒度の防御</strong>を実現します。
           </p>
           <p>
-            Google サービスは<strong>Sandboxed Google Play</strong>として任意で導入可。使わずに完全オフで運用することも可能。
-            ユーザープロファイルを分けることで、<strong>仕事／プライベート／実験用</strong>を物理的に隔離して安全に共存させられます。
+            Googleサービスは<strong>Sandboxed Google Play</strong>として任意導入可能。使わずに完全オフ運用もOK。
+            ユーザープロファイルを分けることで、<strong>仕事／プライベート／実験用</strong>を隔離して安全に共存できます。
           </p>
           <ul>
             <li><strong>向いている人：</strong>「利便性より安全」を選びたい、持ち歩く端末のリスクを最小化したい。</li>
@@ -49,36 +44,61 @@
         </div>
       </article>
 
-      <!-- 以降、必要なら同じパターンで記事を増やしてください -->
-      <!--
-      <article class="panel blog-post">
-        <h3>別記事タイトル
-          <a class="title-link" href="" target="_blank" rel="noopener">外部リンク</a>
+      <!-- ===== 記事2===== -->
+<article class="panel blog-post" data-no-close="true">
+  <h3 class="post-heading">
+          <a class="post-title" href="blog02.html" target="_blank" rel="noopener"
+             style="text-decoration:none;">
+      最強コスパで選ぶ「パソコン購入ガイド 2025」
+    </a>
+  </h3>
+  <button class="toggle-button" aria-expanded="false" aria-controls="cap-02">▼ 詳細を見る</button>
+  <div class="caption" id="cap-02">
+    <p>2025年版のパソコン購入基準と実例。場所・パーツ・中古活用まで徹底解説。</p>
+    <ul>
+      <li><strong>購入場所の比較</strong>：BTOがコスパ最強、中古は掘り出し物あり</li>
+      <li><strong>パーツ選び基準</strong>：i5/i7第11世代以上 + 16GB RAM + SSD必須</li>
+      <li><strong>購入実例</strong>：中古ノートPCを6万円台で快適環境に導入</li>
+    </ul>
+  </div>
+</article>
+
+
+      <!-- ===== 追加用テンプレ=====
+      <article class="panel blog-post" data-no-close="true">
+        <h3 class="post-heading">
+          <a class="post-title" href="blogXX.html" target="_blank" rel="noopener" style="text-decoration:none;">
+            （記事タイトル）
+          </a>
         </h3>
-        <button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
-        <div class="caption">
-          <p>本文…</p>
+        <button class="toggle-button" aria-expanded="false" aria-controls="cap-XX">▼ 詳細を見る</button>
+        <div class="caption" id="cap-XX">
+          <p>（概要）</p>
+          <ul>
+            <li>ポイント1</li>
+            <li>ポイント2</li>
+            <li>ポイント3</li>
+          </ul>
         </div>
       </article>
-      -->
-    </section>
+      ===== ここまでテンプレ ===== -->
 
+    </section>
   </main>
 
-  <!-- ===== フッター ===== -->
+
   <footer class="footer">
     <p>&copy; 2025 My Portfolio</p>
   </footer>
 
-  <!-- （任意）固定フッターナビ。 -->
-<div class="fixed-footer-nav">
-  <a href="../index.html">トップページ</a>
-  <a href="music.html">音楽素材</a>
-  <a href="blog00.html">ブログ</a>
-</div>
 
 
-  <!-- 開閉スクリプト（統合版） -->
   <script src="../js/toggleCaption.js" defer></script>
+
+    <div class="fixed-footer-nav" style="display:flex;flex-wrap:nowrap;justify-content:center;max-width:95vw;gap:16px">
+      <a href="../index.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">トップページ</a>
+      <a href="music.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">音楽素材</a>
+      <a href="blog00.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">ブログ</a>
+    </div>
 </body>
 </html>
