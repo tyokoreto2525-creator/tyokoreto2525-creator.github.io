@@ -15,11 +15,13 @@
       <button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
       <div class="caption">
         <section id="security-guide" class="wrap">
+          <hr>
           <h2>Windows設定ガイド：セキュリティ編</h2>
           <h3 class="chapter-title">基本防御（1〜10）【初心者向け／必須】</h3>
           <h3 class="chapter-title">強化防御（11〜20）【中級者向け／環境に応じて追加】</h3>
           <h3 class="chapter-title">発展防御（21〜35）【法人／上級者向け】</h3>
         </section>
+        <hr>
         <h4>1. Windows Update（パッチ適用）</h4>
         <p>
           <strong>なぜ：</strong>脆弱性を塞ぐ最重要の基本防御。
@@ -33,6 +35,7 @@
         <p>
           <strong>注意点：</strong>ドライバーの任意更新は不具合リスクあり。不調時は直前の更新をアンインストール。
         </p>
+        <hr>
         <h4>2. アカウント保護（2段階認証 & Windows Hello）</h4>
         <p>
           <strong>なぜ：</strong>パスワード流出時の最後の砦。ノート盗難時の実機保護。
@@ -48,6 +51,7 @@
         <p>
           <strong>補足：</strong>パスワードは「12文字以上の強固な1つ」を推奨。Huskyなどパスワード管理ツール活用。
         </p>
+        <hr>
         <h4>3. アプリ入手元の制限 & 権限の最小化</h4>
         <p>
           <strong>なぜ：</strong>不要アプリ混入や情報収集を防ぐ。
@@ -57,8 +61,11 @@
         </p>
         <ul>
           <li>アプリの入手元を「Microsoft Store のみ（推奨）」に。</li>
-          <li>位置情報／カメラ／マイクなど不要権限はオフ。</li>
+          <li>位置
+            <hr>情報／カメラ／マイクなど不要権限はオフ。
+          </li>
         </ul>
+        <hr>
         <h4>4. Windows セキュリティ（Defender）</h4>
         <p>
           <strong>なぜ：</strong>標準機能でウイルス・不正アクセスを防げる。
@@ -69,8 +76,11 @@
         <ul>
           <li>リアルタイム保護／クラウド提供の保護オン。</li>
           <li>「ランサムウェア防止」でフォルダーアクセス制御をオン。</li>
-          <li>ファイアウォールが有効か確認。</li>
+          <li>ファイア
+            <hr>ウォールが有効か確認。
+          </li>
         </ul>
+        <hr>
         <h4>5. SmartScreen</h4>
         <p>
           <strong>なぜ：</strong>フィッシングや未知マルウェアを遮断。
@@ -83,6 +93,7 @@
           <li>Microsoft Storeアプリ用：警告オン</li>
           <li>アプリとファイルの確認：警告オン</li>
         </ul>
+        <hr>
         <h4>6. 画面ロック & ログオン管理</h4>
         <p>
           <strong>なぜ：</strong>席を離れた隙のぞき見・持ち去り防止。
@@ -91,6 +102,7 @@
           <li>「PCのスリープ解除時にサインインを要求」を有効化。</li>
           <li>[Win] + [L] ですぐロックする習慣をつける。</li>
         </ul>
+        <hr>
         <h4>7. 標準ユーザー運用</h4>
         <p>
           <strong>なぜ：</strong>マルウェア侵入時の被害を縮小。
@@ -101,7 +113,9 @@
         <ul>
           <li>作業用は標準ユーザー。</li>
           <li>管理者は設定変更時のみ使用。</li>
-        </ul> 補足：「標準ユーザー」とは、普段の作業（メール、ブラウザ、Wordなど）だけができるアカウントです。「管理者アカウント」は、パソコン全体の設定を変えたり、新しいソフトを入れたりできる特別な権限を持っています。 <br>普段から管理者のまま使うと、ウイルスが入り込んだときにPC全体を壊される危険があります。そのため、日常作業は標準ユーザー、設定変更のときだけ管理者を使うのが安全です。 <h4>8. UAC（ユーザーアカウント制御）</h4>
+        </ul> 補足：「標準ユーザー」とは、普段の作業（メール、ブラウザ、Wordなど）だけができるアカウントです。「管理者アカウント」は、パソコン全体の設定を変えたり、新しいソフトを入れたりできる特別な権限を持っています。 <br>普段から管理者のまま使うと、ウイルスが入り込んだときにPC全体を壊される危険があります。そのため、日常作業は標準ユーザー、設定変更のときだけ管理者を使うのが安全です。
+        <hr>
+        <h4>8. UAC（ユーザーアカウント制御）</h4>
         <p>
           <strong>なぜ：</strong>権限昇格の確認で不正変更を防止。
         </p>
@@ -111,6 +125,7 @@
         <p>
           <strong>手順：</strong>スライダーを「常に通知」寄りに。
         </p>
+        <hr>
         <h4>9. コア分離／メモリ整合性</h4>
         <p>
           <strong>なぜ：</strong>ドライバ悪用やカーネル攻撃を低減。
@@ -121,6 +136,7 @@
         <p>
           <strong>手順：</strong>「メモリ整合性」をオン。
         </p>
+        <hr>
         <h4>10. セキュアブート & TPM確認</h4>
         <p>
           <strong>なぜ：</strong>起動改ざん防止と鍵管理。
@@ -131,7 +147,9 @@
         <ul>
           <li>「セキュアブートの状態」が有効か確認。</li>
           <li>[Win] + [R] → tpm.msc で「使用可能」を確認。</li>
-        </ul> 補足：TPMの確認において、TPM が使用可能です。TPM は使用できる状態です。TPM は使用する準備ができています。等と表示されていればOKです。 <h4>11. BitLocker / デバイス暗号化（Pro限定）</h4>
+        </ul> 補足：TPMの確認において、TPM が使用可能です。TPM は使用できる状態です。TPM は使用する準備ができています。等と表示されていればOKです。
+        <hr>
+        <h4>11. BitLocker / デバイス暗号化（Pro限定）</h4>
         <p>
           <strong>なぜ：</strong>盗難時にデータを無効化。
         </p>
@@ -149,6 +167,7 @@
         <p>
           <strong>補足：</strong>BitLockerはドライブ全体を <strong>暗号化（パスワード保護）</strong>し、盗難時でも他人が中身を読めないようにします。「暗号化」は、 <strong>正しい鍵（サインイン情報＋TPM、または回復キー）がないと開けない状態</strong>を意味します。回復キーは唯一の「合鍵」なので、必ず安全な場所に保管してください。
         </p>
+        <hr>
         <h4>12. リモートデスクトップ & 共有</h4>
         <p>
           <strong>なぜ：</strong>不要な侵入口を減らす。
@@ -163,6 +182,7 @@
         <p>
           <strong>補足：</strong>共有機能やリモート デスクトップは便利ですが、外部からの侵入経路にもなります。家や会社など、信頼できるネットワークのみで有効にしてください。
         </p>
+        <hr>
         <h4>13. ブラウザ防御の拡張</h4>
         <p>
           <strong>なぜ：</strong>攻撃の多くはブラウザ経由で行われるため。
@@ -180,6 +200,7 @@
         <p>
           <strong>補足：</strong>セキュリティ強化は重要ですが、「過剰設定」や「不明な拡張機能」は逆効果になる場合もあります。まずはブラウザ標準機能（セーフブラウジング、強固モードなど）を活用し、必要最低限の拡張のみ導入してください。
         </p>
+        <hr>
         <h4>14. メール経由の対策</h4>
         <p>
           <strong>なぜ：</strong>フィッシング詐欺や添付マルウェアなど、被害の多くがメール経由で発生するため。
@@ -194,6 +215,7 @@
         <p>
           <strong>補足：</strong>VirusTotal は、URLやファイルを60種類以上のウイルス検出エンジンで一括スキャンできる無料サービスです。ファイルを直接アップロードせず、まずは <strong>リンクだけ貼って確認</strong>すると安全です。※添付ファイルは拡張子（.exe, .zip, .jsなど）にも注意。
         </p>
+        <hr>
         <h4>15. 物理セキュリティ</h4>
         <p>
           <strong>なぜ：</strong>ソフトだけでなく、実物（ハード）も守るため。
@@ -207,6 +229,7 @@
         <p>
           <strong>補足：</strong>ケーブルロックは、ノートPC側面の「ロック穴（ケンジントンロック）」に取り付けます。BIOS/UEFI パスワードは、起動時に <strong>[Del] / [F2] / [F10]</strong> などを押して設定画面を開き、「Security（セキュリティ）」または「Password」メニューで設定します。設定するのは「管理者パスワード（Supervisor Password）」のみでOK。パスワードを忘れると自分でも解除できないことがあるため、 <strong>必ず紙などに控えて安全に保管</strong>してください。
         </p>
+        <hr>
         <h4>16. ソフトウェア管理</h4>
         <p>
           <strong>なぜ：</strong>古いソフトは脆弱性（セキュリティホール）が残りやすく、攻撃の足がかりになるため。
@@ -229,6 +252,7 @@
         <p>
           <strong>補足：</strong>アンインストールとは、単に削除するだけでなく、ソフトが作った設定・一時ファイル・レジストリなどを安全に取り除くことです。残骸が残ると、動作不良やセキュリティリスクにつながるため、定期的な整理がおすすめです。
         </p>
+        <hr>
         <h4>17. 侵入兆候の確認</h4>
         <p>
           <strong>なぜ：</strong>不正アクセスやマルウェアの兆候を早期に発見するため。
@@ -245,6 +269,7 @@
         <p>
           <strong>補足：</strong>イベントビューアは、Windows内部で起きた出来事（ログイン・アプリ動作・エラーなど）を記録するツールです。 <br> 定期的にチェックして、見覚えのないログインや警告がないか確認すると、侵入の早期発見につながります。
         </p>
+        <hr>
         <h4>18. ネットワーク設定</h4>
         <p>
           <strong>なぜ：</strong>Wi-Fiルーターも攻撃対象になり得るため、設定を強化して侵入を防ぐ。
@@ -277,6 +302,7 @@
         <p>
           <strong>注意：</strong>ファームウェア更新中は電源を切らないこと。更新を怠ると、既知の脆弱性を突かれて不正アクセスされる危険があります。
         </p>
+        <hr>
         <h4>19. バックアップ体制</h4>
         <p>
           <strong>なぜ：</strong>ウイルス感染や故障、盗難に遭っても復旧できることが本当の防御。
@@ -302,6 +328,7 @@
         <p>
           <strong>ポイント：</strong>クラウド：災害・盗難にも強い（外部保存）。NAS：自分のクラウドとしてプライバシー重視。外付けHDD：復旧が速く、履歴管理も簡単。→ この3つを組み合わせることで、最も堅牢なバックアップ体制を構築できる。
         </p>
+        <hr>
         <h4>20. グループポリシー高度設定（Pro限定）</h4>
         <p>
           <strong>なぜ：</strong>組織全体で統一したセキュリティルールを強制し、設定漏れを防ぐため。
@@ -326,6 +353,7 @@
         <p>
           <strong>補足：</strong>設定場所は「 <code>ローカル コンピューター ポリシー → コンピューターの構成 → 管理用テンプレート</code>」内。誤設定すると業務に影響する場合があるため、 <strong>テスト用PCで確認してから全体適用</strong>が望ましい。Homeエディションでは使用できないため、その場合は「セキュリティポリシー（secpol.msc）」やレジストリで代用可能。
         </p>
+        <hr>
         <h4>21. VPN利用（公共Wi-Fi対策）</h4>
         <p>
           <strong>なぜ：</strong>カフェ・ホテル・空港などの公共Wi-Fiは、通信内容を盗聴・改ざんされる中間者攻撃のリスクが高いため。
@@ -347,6 +375,7 @@
         <p>
           <strong>注意：</strong>「無料VPN」は、通信内容や閲覧履歴を収集・販売するケースもあり、 <strong>セキュリティリスクが高い</strong>。VPNは <strong>通信の安全確保</strong>を目的としたツールであり、完全な匿名化や違法行為の隠蔽を保証するものではありません。
         </p>
+        <hr>
         <h4>22. Microsoftアカウントのセキュリティ強化</h4>
         <p>
           <strong>なぜ：</strong>Microsoftアカウントが突破されると、PC・OneDrive・Outlook・Teamsなどクラウド全体が不正アクセスされる危険があるため。
@@ -363,6 +392,7 @@
         <p>
           <strong>補足：</strong>複数の認証手段を登録しておくと、端末紛失時もサインイン可能。「セキュリティ ダッシュボード」で <strong>最近のアクティビティ（ログイン履歴）</strong>を定期的に確認。不審なIPアドレス・地域・デバイスがあれば、即座にパスワードを変更。パスワード再利用は禁止。別サービスと同じものは使わない。可能なら <strong>2段階認証（MFA）を常に有効化</strong>。
         </p>
+        <hr>
         <h4>23. 外部認証アプリによるログイン通知</h4>
         <p>
           <strong>なぜ：</strong>サインインのたびに通知を受け取り、不正ログインを即時に発見できるため。
@@ -377,6 +407,7 @@
         <p>
           <strong>補足：</strong>この仕組みは <strong>多要素認証（MFA）</strong>の一種で、パスワード流出時の不正アクセスを防ぎます。アプリをインストールしたスマートフォンが <strong>紛失・故障</strong>した場合、再ログインできなくなる可能性があります。→ そのため、 <strong>バックアップコード</strong>を必ず安全な場所に保存しておくこと。Authyはクラウド同期に対応しており、機種変更時も復旧が簡単。Google Authenticatorを使う場合は、最近追加された「アカウント同期」機能を有効化しておくと安心。
         </p>
+        <hr>
         <h4>24. USB／外部デバイス制御（Pro向け）</h4>
         <p>
           <strong>なぜ：</strong>USBメモリなど外部デバイスを経由したマルウェア感染や、データの無断持ち出しを防ぐため。
@@ -394,6 +425,7 @@
         <p>
           <strong>注意：</strong>グループポリシー設定は <strong>Windows Pro / Enterprise</strong>限定。誤設定するとUSBマウスやキーボードも動かなくなる場合があるため、慎重に操作。家庭向けでは、セキュリティソフトの「USBスキャン機能」だけでも十分な場合があります。
         </p>
+        <hr>
         <h4>25. PowerShell／スクリプト制御</h4>
         <p>
           <strong>なぜ：</strong>PowerShellはシステム操作を自動化できる便利な機能だが、同時にマルウェアが悪用しやすい経路でもあるため。
@@ -402,8 +434,7 @@
           <strong>方法：</strong>管理者権限で PowerShell を開き、以下のコマンドを実行： <code>Set-ExecutionPolicy Restricted</code>→ 署名されていないスクリプトの実行を禁止し、不要な自動スクリプトをブロックします。
         </p>
         <p>
-          <strong>企業環境向け：</strong>
-          <br> 「Windows Defender Exploit Guard」や「AppLocker」などを使用すると、 <strong>PowerShellの実行権限やスクリプト種別を詳細に制御</strong>できます。
+          <strong>企業環境向け：</strong>「Windows Defender Exploit Guard」や「AppLocker」などを使用すると、 <strong>PowerShellの実行権限やスクリプト種別を詳細に制御</strong>できます。
         </p>
         <p>
           <strong>補足：</strong>「Restricted」は最も安全な設定で、スクリプトを完全にブロックします。開発者や管理者でスクリプトを使用する場合は、 <code>RemoteSigned</code>（署名付きまたはローカル作成のみ許可）に設定。PowerShellの設定確認： <code>Get-ExecutionPolicy</code>変更を戻す場合： <code>Set-ExecutionPolicy RemoteSigned</code> または <code>Unrestricted</code>
@@ -411,51 +442,156 @@
         <p>
           <strong>注意：</strong>誤ってスクリプトを無効化すると、社内管理ツールや自動更新が動かなくなる場合があります。業務でPowerShellを利用する場合は、IT管理者またはシステム担当者と調整して設定を行うこと。
         </p>
+        <hr>
         <h4>26. ブラウザのパスワード保存禁止</h4>
         <p>
-          <strong>なぜ：</strong>ブラウザに保存したパスワードは狙われやすい。
+          <strong>なぜ：</strong>ブラウザに保存されたパスワードは、マルウェアや不正ツールによって簡単に盗み出されることがあるため。
         </p>
         <p>
-          <strong>方法：</strong>Chrome/Edge/Firefox → 「設定」 → 「パスワード」 → 保存オフ。Bitwarden / 1Password などのパスワードマネージャを使用。
+          <strong>方法：</strong>Chrome / Edge / Firefox → 「設定」 → 「パスワード」 → 「パスワードを保存する」機能を <strong>オフ</strong>に設定。 <br> 代わりに、安全なパスワードマネージャーを使用。
         </p>
+        <ul>
+          <li>
+            <a href="https://bitwarden.com/" target="_blank" rel="noopener noreferrer">Bitwarden</a>（無料でも利用可能。オープンソースで信頼性が高い）
+          </li>
+          <li>
+            <a href="https://1password.com/" target="_blank" rel="noopener noreferrer">1Password</a>（有料だが、共有機能とセキュリティ監査が強力）
+          </li>
+          <li>Microsoft Entra / Google Password Manager など、 <strong>企業アカウント管理と連携できるツール</strong>も有効。 </li>
+        </ul>
+        <p>
+          <strong>補足：</strong>ブラウザのパスワード保存は手軽ですが、PCを乗っ取られた場合や同期機能の不正利用で <strong>全アカウントが漏れる危険</strong>があります。パスワードマネージャーはデータを <strong>暗号化して保管</strong>し、マスターパスワード1つで安全に管理できます。マスターパスワードは絶対に他と使い回さないこと。
+        </p>
+        <hr>
         <h4>27. フルディスク暗号化＋クラウド鍵管理</h4>
         <p>
-          <strong>なぜ：</strong>PC盗難時にデータを無効化できる。
+          <strong>なぜ：</strong>PCが盗難・紛失しても、ドライブを暗号化しておけば中身を読み取られずに済むため。
         </p>
         <p>
-          <strong>方法：</strong>Pro版はBitLocker、Home版はデバイス暗号化をON。回復キーをMicrosoftアカウントに保存して紙やUSB紛失リスクを減らす。
+          <strong>方法：</strong>
+          <strong>Windows Pro：</strong>BitLocker を有効化。 <strong>Windows Home：</strong>デバイス暗号化をオンにする（対応機種のみ）。 <br>
+          <br> 回復キー（復号用の合鍵）は <strong>Microsoftアカウントに保存</strong>しておくことで、紙やUSB紛失のリスクを減らせます。
         </p>
+        <p>
+          <strong>補足：</strong>暗号化とは、データを「正しい鍵」がないと開けない状態にすること。Microsoftアカウントに保存された回復キーは、 <a href="https://account.microsoft.com/devices/recoverykey" target="_blank" rel="noopener noreferrer">Microsoft 回復キー管理ページ</a>から確認できます。クラウド保存は暗号化された状態で保管され、Microsoftのセキュリティで保護されています。業務利用では、BitLockerをグループポリシーまたはIntuneなどの管理ツールで一括管理すると安全性が高まります。
+        </p>
+        <p>
+          <strong>注意：</strong>
+          <br> ・回復キーを紛失すると、自分でもデータを開けなくなります。 <br> ・暗号化中は電源を切らないこと（数時間かかる場合あり）。 <br> ・SSDを交換・再インストールする前に、必ず暗号化を解除してから作業を行う。
+        </p> らす。 </p>
+        <hr>
         <h4>28. BIOS/UEFIのセキュリティブート＋パスワード</h4>
         <p>
-          <strong>なぜ：</strong>外部USBからの不正起動や設定改ざんを防止。
+          <strong>なぜ：</strong>外部USBや不正なOSからの起動を防ぎ、システム設定の改ざんを防止するため。
         </p>
         <p>
-          <strong>方法：</strong>PC起動時にBIOS/UEFIへ入り、「セキュアブート」ON。管理者パスワードも設定。
+          <strong>方法：</strong>PC起動直後にメーカー別のキー（例： <strong>[F2]</strong>, <strong>[Del]</strong>, <strong>[F10]</strong> など）を押してBIOS/UEFI設定画面を開く。 <br> 「セキュリティ」または「ブート」メニューで以下を設定：
         </p>
+        <ul>
+          <li>
+            <strong>セキュアブート：</strong>ONにする（不正なOSやブートローダーを遮断）。
+          </li>
+          <li>
+            <strong>管理者パスワード（Supervisor Password）：</strong>設定変更時にパスワードを要求するようにする。
+          </li>
+        </ul>
+        <p>
+          <strong>補足：</strong>セキュアブートが有効なら、改ざんされたシステムや不正なUSBブートを防げます。パスワードを設定するのは「起動時のパスワード」ではなく、「設定変更時の保護」。設定後は必ずパスワードを <strong>紙などに控えて安全に保管</strong>。メーカーによって設定画面や呼び方が異なります。
+        </p>
+        <p>
+          <strong>主要メーカーのBIOS/UEFIキー：</strong>Dell： <code>F2</code> ／ HP： <code>Esc</code>または <code>F10</code> ／ Lenovo： <code>F1</code>または <code>F2</code>NEC / 富士通： <code>F2</code> ／ ASUS： <code>Del</code>または <code>F2</code> ／ Acer： <code>F2</code>※電源を入れてすぐにキーを連打すると入れます。
+        </p>
+        <p>
+          <strong>注意：</strong>パスワードを忘れると、メーカー修理が必要になる場合があります。セキュアブートを無効にすると、Linuxなど一部のOSが起動しなくなる場合があります。
+        </p>
+        <hr>
         <h4>29. セキュリティ監査ログのクラウド連携（上級者向け）</h4>
         <p>
-          <strong>なぜ：</strong>攻撃があった際に証拠をクラウドで保存。
+          <strong>なぜ：</strong>攻撃や不正アクセスが発生した際に、証拠となるログを安全なクラウド上へ自動保存し、改ざん・消失を防ぐため。
         </p>
         <p>
-          <strong>方法：</strong>イベントビューア → セキュリティログを Azure Monitor / SIEM に送信。
+          <strong>方法：</strong>「イベント ビューア」 → 「Windows ログ」 → 「セキュリティ」。ログを <strong>Azure Monitor</strong> や <strong>SIEM（Security Information and Event Management）</strong> システムへ転送して一元管理。
+        </p>
+        <ul>
+          <li>
+            <strong>Azure環境：</strong>「Azure Log Analytics Agent」または「Azure Monitor Agent」を導入し、 <a href="https://learn.microsoft.com/ja-jp/azure/azure-monitor/logs/" target="_blank" rel="noopener noreferrer">Azure Monitor Logs</a> に送信。
+          </li>
+          <li>
+            <strong>オンプレ・他社SIEM：</strong>SyslogやWindows Event Forwarding（WEF）を経由して連携可能。
+          </li>
+        </ul>
+        <p>
+          <strong>補足：</strong>ローカルに保存されたログは、攻撃者に削除・改ざんされるおそれがあります。クラウド保存により、 <strong>事後調査・インシデント対応・コンプライアンス証跡</strong>を確保できます。ログは容量が大きくなるため、保存期間・フィルタリングポリシーを設定しておくと効率的です。
         </p>
         <p>
-          <strong>対象：</strong>中小企業や玄人ユーザー向け。
+          <strong>対象：</strong>中小企業やIT部門を持つ組織、または高度な個人ユーザー。セキュリティ監査・フォレンジック分析を行う環境向け。
         </p>
+        <p>
+          <strong>参考：</strong>SIEM例： <a href="https://www.splunk.com/" target="_blank" rel="noopener noreferrer">Splunk</a> ／ <a href="https://www.ibm.com/qradar" target="_blank" rel="noopener noreferrer">IBM QRadar</a> ／ <a href="https://www.microsoft.com/security/business/siem-and-xdr/microsoft-sentinel" target="_blank" rel="noopener noreferrer">Microsoft Sentinel</a>
+        </p>
+        <hr>
         <h4>30. 定期的な自己診断</h4>
         <p>
-          <strong>なぜ：</strong>セキュリティ習慣を強化し、見落としを防ぐ。
+          <strong>なぜ：</strong>セキュリティ設定や運用習慣の見直しを定期的に行うことで、見落としや設定漏れを防ぎ、継続的に防御力を高めるため。
         </p>
         <p>
-          <strong>方法：</strong>Windows 標準の「セキュリティベースライン」や「Microsoft Safety Scanner」を利用。外部診断として Shodan などでネットワーク露出を確認。
+          <strong>方法：</strong>以下のツールや手順を用いて、月1回程度のセルフチェックを実施。
         </p>
+        <ul>
+          <li>
+            <strong>Windows セキュリティベースライン：</strong>
+            <br> Microsoftが推奨する設定基準をまとめたテンプレート。 <br>
+            <a href="https://learn.microsoft.com/ja-jp/windows/security/threat-protection/windows-security-baselines" target="_blank" rel="noopener noreferrer">Microsoft公式：Windows セキュリティベースライン</a>
+          </li>
+          <li>
+            <strong>Microsoft Safety Scanner：</strong>
+            <br> 無料のマルウェアスキャンツール。定期的にダウンロードして最新状態で使用。 <br>
+            <a href="https://docs.microsoft.com/ja-jp/windows/security/threat-protection/intelligence/safety-scanner-download" target="_blank" rel="noopener noreferrer">Microsoft Safety Scanner ダウンロード</a>
+          </li>
+          <li>
+            <strong>ネットワーク露出確認（上級者向け）：</strong>
+            <br>
+            <a href="https://www.shodan.io/" target="_blank" rel="noopener noreferrer">Shodan</a> などの外部スキャンサービスで、自分のIPやネットワークが外部公開されていないか確認。
+          </li>
+        </ul>
+        <p>
+          <strong>補足：</strong>セキュリティ診断は「問題が起きたとき」だけでなく、 <strong>定期的な習慣</strong>として行うことが重要。特にOS更新・ソフト導入・設定変更後は一度チェックを。企業では年1回以上、外部セキュリティ監査（ペンテストや脆弱性診断）を受けるとより安全。
+        </p>
+        <p>
+          <strong>ポイント：</strong>チェック頻度：個人は月1回、企業は四半期ごと。目的：問題発生前に異常を見つけ、即対応できる体制を保つこと。ツールは必ず <strong>公式サイトから直接ダウンロード</strong>。
+        </p>
+        <hr>
         <h4>31. Application Control（アプリケーション制御）</h4>
         <p>
-          <strong>なぜ：</strong>許可したアプリだけを実行できるようにして、不正アプリを遮断。
+          <strong>なぜ：</strong>許可したアプリケーションだけを実行できるようにし、不正ソフトや未知のマルウェアによる実行を根本的に防ぐため。
         </p>
         <p>
-          <strong>方法：</strong>Pro版以上で「Windows Defender Application Control (WDAC)」を有効化。
+          <strong>方法：</strong>
+          <br> Windows Pro / Enterprise で <strong>Windows Defender Application Control（WDAC）</strong> または <strong>AppLocker</strong> を利用。 <br> 1. [Win] + [R] → <code>gpedit.msc</code>
+          <br> 2. 「コンピューターの構成」 → 「Windowsの設定」 → 「セキュリティの設定」 → 「アプリケーション制御ポリシー」 <br> 3. 許可するアプリ・署名付き実行ファイルをポリシーに登録。
         </p>
+        <ul>
+          <li>
+            <strong>WDAC：</strong>ドライバーやスクリプトを含め、厳格にホワイトリスト化。企業環境向け。
+          </li>
+          <li>
+            <strong>AppLocker：</strong>フォルダや署名ベースで指定可能。中小企業・上級者向け。
+          </li>
+        </ul>
+        <p>
+          <strong>補足：</strong>
+          <br> ・アプリケーション制御は「実行そのものを制御」するため、アンチウイルスよりも上流で防御。 <br> ・署名済みアプリやMicrosoft公式ストアアプリを中心に許可設定を行う。 <br> ・誤設定すると必要なアプリが起動できなくなるため、 <strong>最初は「監査モード（Audit Mode）」でテスト</strong>するのがおすすめ。 <br> ・導入後は、イベントビューア → 「Applications and Services Logs」 → 「Microsoft → Windows → CodeIntegrity」から動作を確認。
+        </p>
+        <p>
+          <strong>対象：</strong>
+          <br> ・中小企業やセキュリティ重視の上級ユーザー。 <br> ・全社的に不明ソフト実行を防ぎたい場合に最適。
+        </p>
+        <p>
+          <strong>参考リンク：</strong>
+          <br> ・Microsoft公式： <a href="https://learn.microsoft.com/ja-jp/windows/security/application-security/application-control/windows-defender-application-control" target="_blank" rel="noopener noreferrer">Windows Defender Application Control（WDAC）</a>
+          <br> ・AppLockerガイド： <a href="https://learn.microsoft.com/ja-jp/windows/security/application-security/applocker/applocker-overview" target="_blank" rel="noopener noreferrer">AppLocker 概要</a>
+        </p>
+        <hr>
         <h4>32. Exploit Protection（エクスプロイト保護）</h4>
         <p>
           <strong>なぜ：</strong>アプリやOSの脆弱性を突いたゼロデイ攻撃を軽減する。メモリ破壊やバッファオーバーフロー攻撃からシステムを守る。
@@ -464,48 +600,87 @@
           <strong>開き方：</strong>[Win] + [I] → 「プライバシーとセキュリティ」 → 「Windows セキュリティ」 → 「アプリとブラウザーコントロール」 → 「Exploit Protection」
         </p>
         <p>
-          <strong>手順：</strong>
+          <strong>手順</strong>
         </p>
         <ul>
           <li>システム設定：既定で有効（確認推奨）。</li>
           <li>プログラム単位で緩和策を個別設定可能（例：古いアプリで不具合がある場合に調整）。</li>
         </ul>
         <p>
-          <strong>注意点：</strong>
+          <strong>注意点</strong>
         </p>
         <ul>
           <li>一部の古いアプリは誤作動する場合あり。必要なら「個別無効化」で調整。</li>
           <li>法人利用なら「セキュリティベースライン」で一括適用推奨。</li>
         </ul>
+        <hr>
         <h4>33. セキュリティソフト／EDRの追加導入（法人・上級者向け）</h4>
         <p>
-          <strong>なぜ：</strong>Defenderだけでも十分だが、標的型攻撃やゼロデイ攻撃では専用ソリューションが強い。
+          <strong>なぜ：</strong>標準のWindows Defenderでも十分な防御性能を持つが、標的型攻撃・ゼロデイ攻撃・内部不正など高度な脅威には、より専門的なEDR（Endpoint Detection and Response）が有効。
         </p>
         <p>
-          <strong>例：</strong>ESET、CrowdStrike、Microsoft Defender for Endpoint
+          <strong>目的：</strong>未知の脅威や不審な挙動をリアルタイムに検知・遮断。攻撃の経路・影響範囲を分析して、迅速に対応できる環境を整備。
         </p>
         <p>
-          <strong>対象：</strong>企業PCや重要データを扱う環境。
+          <strong>代表的ソリューション：</strong>
+          <br> ・ <a href="https://www.eset.com/jp/business/" target="_blank" rel="noopener noreferrer">ESET PROTECT</a>：軽量で誤検出が少なく、中小企業にも適用しやすい。 <br> ・ <a href="https://www.crowdstrike.com/" target="_blank" rel="noopener noreferrer">CrowdStrike Falcon</a>：クラウド分析型EDRの代表格。脅威ハンティング・自動対応が強力。 <br> ・ <a href="https://learn.microsoft.com/ja-jp/microsoft-365/security/defender-endpoint/" target="_blank" rel="noopener noreferrer">Microsoft Defender for Endpoint</a>：Defenderと統合し、企業全体のセキュリティを可視化可能。
         </p>
+        <p>
+          <strong>補足：</strong>EDRは単なる「ウイルス対策」ではなく、 <strong>端末全体の挙動を監視・記録して脅威を早期発見</strong>する仕組み。攻撃が成功しても、その後の動きを検知・遮断する「侵入後防御」が可能。Defender単体で十分なケースも多いため、コストと運用体制を考慮して導入を検討。クラウド管理コンソール（例：ESET PROTECT Cloud / Microsoft 365 Security Center）で全端末を一括監視できる。
+        </p>
+        <p>
+          <strong>対象：</strong>企業PC、研究開発端末、経理・顧客情報など重要データを扱う環境。中～大規模組織、または複数端末を集中管理したいユーザー。
+        </p>
+        <hr>
         <h4>34. セキュリティ教育 & 運用ルール（最終防御）</h4>
         <p>
-          <strong>なぜ：</strong>最大の弱点は「人間」。いくら設定しても、怪しいメールやUSBを安易に開けば突破される。
+          <strong>なぜ：</strong>最大の弱点は「人間」。どんなに強固な設定でも、怪しいメールやUSBを安易に開けば突破されてしまう。 <br> 日常的な行動こそが、最も重要なセキュリティ対策。
         </p>
         <p>
-          <strong>実践：</strong>
+          <strong>実践ルール</strong>
         </p>
         <ul>
-          <li>パスワード使い回し禁止</li>
-          <li>不審メールは即削除</li>
-          <li>重要操作は二重確認</li>
-          <li>定期的に自己点検</li>
+          <li>
+            <strong>パスワード使い回し禁止：</strong>1サービス1パスワードを徹底。
+          </li>
+          <li>
+            <strong>不審メール・添付は即削除：</strong>差出人・本文・リンクを確認し、怪しい場合は開かない。
+          </li>
+          <li>
+            <strong>重要操作は二重確認：</strong>送金・共有・削除などは、必ず他者確認または別ルートで再確認。
+          </li>
+          <li>
+            <strong>定期的な自己点検：</strong>毎月のアップデート・ウイルススキャン・バックアップを習慣化。
+          </li>
         </ul>
+        <p>
+          <strong>補足：</strong>セキュリティ意識は一度設定して終わりではなく、日々の行動で維持するもの。企業では、年1回以上の社内セキュリティ教育や模擬フィッシング訓練が効果的。個人でも、定期的に「怪しいサイト・アプリに注意」「更新を怠らない」を再確認するだけで被害は大幅に減ります。
+        </p>
+        <hr>
         <h4>35. 初心者向け用語解説</h4>
         <ul>
-          <li>UAC＝アプリが勝手に管理者権限を取らないようにする仕組み</li>
-          <li>TPM＝暗号化に使うチップ</li>
-          <li>コア分離＝ウイルスがWindowsの心臓部に入り込むのを防ぐ機能</li>
+          <li>
+            <strong>UAC（ユーザーアカウント制御）：</strong> アプリが勝手に管理者権限を取らないようにする仕組み。設定変更やインストール時に確認メッセージを出す。
+          </li>
+          <li>
+            <strong>TPM（Trusted Platform Module）：</strong> 暗号化やBitLockerの鍵を安全に保管する専用チップ。
+          </li>
+          <li>
+            <strong>コア分離：</strong> ウイルスや不正プログラムがWindowsの“心臓部（カーネル）”に侵入するのを防ぐ機能。 <br> 設定 → プライバシーとセキュリティ → Windows セキュリティ → デバイス セキュリティ から確認可能。
+          </li>
+          <li>
+            <strong>セキュアブート：</strong> 起動時に改ざんされたOSや不正なプログラムを遮断する仕組み。
+          </li>
+          <li>
+            <strong>BitLocker：</strong> ドライブ全体を暗号化して、盗難・紛失時にもデータを守る機能（Pro版のみ）。
+          </li>
+          <li>
+            <strong>EDR（Endpoint Detection and Response）：</strong> 端末の挙動を監視し、侵入後の攻撃も検知・遮断する仕組み。企業向けの高度防御。
+          </li>
         </ul>
+        <p>
+          <strong>まとめ：</strong>セキュリティ対策の最終目的は「人が安心してPCを使い続けられる環境」を作ること。設定・ツール・意識の3つを組み合わせてこそ、真の防御が成立します。
+        </p>
       </div>
     </article>
     <article class="panel blog-post" data-no-close="true">
@@ -1054,100 +1229,13 @@
             <a href="https://www.torproject.org/" target="_blank" rel="noopener">Tor Browser</a>
             <br> 匿名通信に特化し、追跡防止・広告ブロックを内蔵。匿名性を最優先した利用向き。 <br> ⚠ 注意点： 銀行や決済サービスでは不正アクセス扱いになる場合があり、金融用途には不向き。
           </p>
-          <p>その他候補： <a href="https://brave.com/" target="_blank" rel="noopener">Brave</a>（匿名性＋広告ブロック）、 <a href="https://floorp.app/" target="_blank" rel="noopener">Floorp</a>（国産Firefox派生）、 <a href="https://vivaldi.com/" target="_blank" rel="noopener">Vivaldi</a>（カスタマイズ性重視） </p>
-          <p>必須アドオン → <a href="https://ublockorigin.com/" target="_blank" rel="noopener">uBlock Origin</a>
-            <br> 広告とトラッキングを遮断し、読み込み速度向上とプライバシー保護を両立。
-          </p>
-          <p>補足： <br> ・HTTPS Everywhere は不要（すでにブラウザ標準機能化済み） <br> ・アドオンは「最終更新日」を必ず確認。更新停止はセキュリティリスク大 <br> ・アドオンは最小限に。増やすほどリスクも増える <br> ・ブラウザのパスワード保存は狙われやすいため禁止。 <a href="https://bitwarden.com/" target="_blank" rel="noopener">Bitwarden</a> / <a href="https://1password.com/" target="_blank" rel="noopener">1Password</a> などのパスワードマネージャを利用推奨。 </p>
-        </div>
-      </article>
-      <!-- 外部ツール強化編：2. セキュリティソフト -->
-      <article class="panel blog-post" data-no-close="true">
-        <h3>2. セキュリティソフト</h3>
-        <button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
-        <div class="caption">
-          <p>Windows 10/11 には <a href="https://support.microsoft.com/windows/windows-%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3-%E3%82%92%E9%96%8B%E3%81%8F-1415707e-18b6-a8f1-9af6-9f3f9eb74c3c" target="_blank" rel="noopener">Microsoft Defender</a> が標準搭載され、無料で基本的に十分な保護を提供します。 </p>
-          <p>
-            <strong>Defenderだけで十分なケース</strong>
-            <br> Windows 10/11 + Edge を利用し、怪しいサイトに行かない・メールをあまり使わない人。
-          </p>
-          <p>
-            <strong>有料ソフトを推奨するケース</strong>
-            <br> ネット利用が多い、フィッシングやランサムウェア対策を強化したい、VPNやパスワード管理も使いたい場合。
-          </p>
-          <p>
-            <strong>有料ソフト利用時の注意点</strong>
-            <br> 常駐は必ず1本に統一。二重常駐は逆効果。 <br>
-            <a href="https://www.ffri.jp/products/yarai/" target="_blank" rel="noopener">FFRI yarai</a> のような「補助型」は Defender と併用可能。
-          </p>
-          <p>
-            <strong>代表例</strong>
-            <br>
-            <a href="https://www.kaspersky.com/" target="_blank" rel="noopener">Kaspersky</a>：検出率トップクラス、ダブルVPN機能あり。性能は最高クラス。ただし地政学リスクがあり、利用は国や個人の判断次第。 <br>
-            <a href="https://www.eset.com/" target="_blank" rel="noopener">ESET</a>：軽量・安定、ノーログVPN付き。ビジネス用途でも無難。 <br>
-            <a href="https://jp.norton.com/" target="_blank" rel="noopener">Norton</a>：バランス型で幅広い利用者に。 <br>
-            <a href="https://www.ffri.jp/products/yarai/" target="_blank" rel="noopener">FFRI yarai</a>：国産。標的型攻撃やゼロデイ対策に強く、防御補助として優秀。 <br>
-            <a href="https://www.appguard.us/" target="_blank" rel="noopener">AppGuard</a>：ふるまい制御型。上級者向け。
-          </p>
-          <p>
-            <strong>補足</strong>
-            <br> ・セキュリティソフトは「定義ファイル更新の頻度」が重要。毎日更新されるものを選ぶ。 <br> ・多層防御の考え方 → Defender（標準）＋有料ソフト（総合防御）＋補助型（ゼロデイ対策）。
-          </p>
-        </div>
-      </article>
-      <!-- 外部ツール強化編：3. VPN利用 -->
-      <article class="panel blog-post" data-no-close="true">
-        <h3>3. VPN利用</h3>
-        <button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
-        <div class="caption">
-          <p>公共Wi-Fiや外出先での通信を安全にするには VPN が有効です。</p>
-          <p>
-            <strong>メリット</strong>
-            <br> ・通信を暗号化して盗聴・中間者攻撃を防ぐ <br> ・IPアドレスを隠してプライバシー保護 <br> ・地域制限コンテンツにアクセス可能
-          </p>
-          <p>
-            <strong>誤解防止</strong>
-            <br> VPNは「匿名化」ではなく「利用回線の暗号化」。 <br> プロバイダやVPN提供企業からは通信内容を見られる可能性があります。 <br> 選ぶ際は「ノーログポリシー」＋「第三者監査報告の有無」を確認すると安心。
-          </p>
-          <p>
-            <strong>選び方</strong>
-            <br>
-            <a href="https://www.expressvpn.com/" target="_blank" rel="noopener">ExpressVPN</a> / <a href="https://nordvpn.com/" target="_blank" rel="noopener">NordVPN</a> / <a href="https://protonvpn.com/" target="_blank" rel="noopener">ProtonVPN</a>（WireGuard対応、高速で信頼度高い、監査済み） <br> コスパ重視 → セキュリティソフト上位版に付属するVPN ( <a href="https://www.kaspersky.com/vpn-secure-connection" target="_blank" rel="noopener">Kaspersky</a> / <a href="https://www.eset.com/int/home/vpn/" target="_blank" rel="noopener">ESET</a>)
-          </p>
-          <p>
-            <strong>追加機能の確認ポイント</strong>
-            <br> ・WireGuard対応： 従来のOpenVPNより高速・安定 <br> ・ダブルVPN（マルチホップ）： 通信を複数サーバ経由にして匿名性強化 <br> ・キルスイッチ： VPN接続が切れた瞬間に通信を遮断し、IP漏洩を防止 <br> ・Split Tunneling： VPN経由と通常回線をアプリごとに使い分け可能
-          </p>
-          <p>⚠ 無料VPNは危険： 広告挿入・ログ収集・暗号化なしなど「逆に情報漏洩のリスク」</p>
-        </div>
-      </article>
-      <!-- 外部ツール強化編：まとめ -->
-      <article class="panel blog-post" data-no-close="true">
-        <h3>まとめ</h3>
-        <button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
-        <div class="caption">
-          <ul>
-            <li>無料で最低限守りたい → <a href="https://support.microsoft.com/windows/windows-%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3-%E3%82%92%E9%96%8B%E3%81%8F-1415707e-18b6-a8f1-9af6-9f3f9eb74c3c" target="_blank" rel="noopener">Microsoft Defender</a>
-            </li>
-            <li>ネット利用が多く包括的に守りたい → <a href="https://www.kaspersky.com/" target="_blank" rel="noopener">Kaspersky</a> / <a href="https://www.eset.com/" target="_blank" rel="noopener">ESET</a> / <a href="https://jp.norton.com/" target="_blank" rel="noopener">Norton</a>
-            </li>
-            <li>標準＋国産で強化したい → Defender + <a href="https://www.ffri.jp/products/yarai/" target="_blank" rel="noopener">FFRI yarai</a>
-            </li>
-            <li>VPNも欲しい＆コスパ重視 → セキュリティソフト上位版（ <a href="https://www.kaspersky.com/vpn-secure-connection" target="_blank" rel="noopener">Kaspersky</a> / <a href="https://www.eset.com/int/home/vpn/" target="_blank" rel="noopener">ESET</a>） </li>
-          </ul>
-          <p>補足： <br> ・初心者は「Edge + Defender + uBlock Origin」で十分安全。 <br> ・中級者以上は「ESETやKaspersky + ProtonVPN」などで多層防御を。 </p>
-        </div>
-      </article>
-    </section>
-    </main>
-    <footer class="footer">
-      <p>&copy; 2025 My Portfolio</p>
-    </footer>
-    <script src="../js/toggleCaption.js" defer></script>
-    <div class="fixed-footer-nav" style="display:flex;flex-wrap:nowrap;justify-content:center;max-width:95vw;gap:16px">
-      <a href="../index.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">トップページ</a>
-      <a href="music.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">音楽素材</a>
-      <a href="blog00.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">ブログ</a>
-    </div>
-  </body>
+          <p>その他候補： undefined<a href="https://brave.com/" target="_blank" rel="noopener">Brave</a>（匿名性＋広告ブロック）、 undefined<a href="https://floorp.app/" target="_blank" rel="noopener">Floorp</a>（国産Firefox派生）、 undefined<a href="https://vivaldi.com/" target="_blank" rel="noopener">Vivaldi</a>（カスタマイズ性重視） </p>
+          <p>必須アドオン → undefined<a href="https://ublockorigin.com/" target="_blank" rel="noopener">uBlock Origin</a>undefined<br> 広告とトラッキングを遮断し、読み込み速度向上とプライバシー保護を両立。 undefined</p>undefined<p>補足： undefined<br> ・HTTPS Everywhere は不要（すでにブラウザ標準機能化済み） undefined<br> ・アドオンは「最終更新日」を必ず確認。更新停止はセキュリティリスク大 undefined<br> ・アドオンは最小限に。増やすほどリスクも増える undefined<br> ・ブラウザのパスワード保存は狙われやすいため禁止。 undefined<a href="https://bitwarden.com/" target="_blank" rel="noopener">Bitwarden</a> / undefined<a href="https://1password.com/" target="_blank" rel="noopener">1Password</a> などのパスワードマネージャを利用推奨。 undefined</p>undefined
+        </div>undefined
+      </article>undefined
+      <!-- 外部ツール強化編：2. セキュリティソフト -->undefined<article class="panel blog-post" data-no-close="true">undefined<h3>2. セキュリティソフト</h3>undefined<button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>undefined<div class="caption">undefined<p>Windows 10/11 には undefined<a href="https://support.microsoft.com/windows/windows-%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3-%E3%82%92%E9%96%8B%E3%81%8F-1415707e-18b6-a8f1-9af6-9f3f9eb74c3c" target="_blank" rel="noopener">Microsoft Defender</a> が標準搭載され、無料で基本的に十分な保護を提供します。 undefined</p>undefined<p>undefined<strong>Defenderだけで十分なケース</strong>undefined<br> Windows 10/11 + Edge を利用し、怪しいサイトに行かない・メールをあまり使わない人。 undefined</p>undefined<p>undefined<strong>有料ソフトを推奨するケース</strong>undefined<br> ネット利用が多い、フィッシングやランサムウェア対策を強化したい、VPNやパスワード管理も使いたい場合。 undefined</p>undefined<p>undefined<strong>有料ソフト利用時の注意点</strong>undefined<br> 常駐は必ず1本に統一。二重常駐は逆効果。 undefined<br>undefined<a href="https://www.ffri.jp/products/yarai/" target="_blank" rel="noopener">FFRI yarai</a> のような「補助型」は Defender と併用可能。 undefined</p>undefined<p>undefined<strong>代表例</strong>undefined<br>undefined<a href="https://www.kaspersky.com/" target="_blank" rel="noopener">Kaspersky</a>：検出率トップクラス、ダブルVPN機能あり。性能は最高クラス。ただし地政学リスクがあり、利用は国や個人の判断次第。 undefined<br>undefined<a href="https://www.eset.com/" target="_blank" rel="noopener">ESET</a>：軽量・安定、ノーログVPN付き。ビジネス用途でも無難。 undefined<br>undefined<a href="https://jp.norton.com/" target="_blank" rel="noopener">Norton</a>：バランス型で幅広い利用者に。 undefined<br>undefined<a href="https://www.ffri.jp/products/yarai/" target="_blank" rel="noopener">FFRI yarai</a>：国産。標的型攻撃やゼロデイ対策に強く、防御補助として優秀。 undefined<br>undefined<a href="https://www.appguard.us/" target="_blank" rel="noopener">AppGuard</a>：ふるまい制御型。上級者向け。 undefined</p>undefined<p>undefined<strong>補足</strong>undefined<br> ・セキュリティソフトは「定義ファイル更新の頻度」が重要。毎日更新されるものを選ぶ。 undefined<br> ・多層防御の考え方 → Defender（標準）＋有料ソフト（総合防御）＋補助型（ゼロデイ対策）。 undefined</p>undefined</div>undefined</article>undefined
+      <!-- 外部ツール強化編：3. VPN利用 -->undefined<article class="panel blog-post" data-no-close="true">undefined<h3>3. VPN利用</h3>undefined<button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>undefined<div class="caption">undefined<p>公共Wi-Fiや外出先での通信を安全にするには VPN が有効です。</p>undefined<p>undefined<strong>メリット</strong>undefined<br> ・通信を暗号化して盗聴・中間者攻撃を防ぐ undefined<br> ・IPアドレスを隠してプライバシー保護 undefined<br> ・地域制限コンテンツにアクセス可能 undefined</p>undefined<p>undefined<strong>誤解防止</strong>undefined<br> VPNは「匿名化」ではなく「利用回線の暗号化」。 undefined<br> プロバイダやVPN提供企業からは通信内容を見られる可能性があります。 undefined<br> 選ぶ際は「ノーログポリシー」＋「第三者監査報告の有無」を確認すると安心。 undefined</p>undefined<p>undefined<strong>選び方</strong>undefined<br>undefined<a href="https://www.expressvpn.com/" target="_blank" rel="noopener">ExpressVPN</a> / undefined<a href="https://nordvpn.com/" target="_blank" rel="noopener">NordVPN</a> / undefined<a href="https://protonvpn.com/" target="_blank" rel="noopener">ProtonVPN</a>（WireGuard対応、高速で信頼度高い、監査済み） undefined<br> コスパ重視 → セキュリティソフト上位版に付属するVPN ( undefined<a href="https://www.kaspersky.com/vpn-secure-connection" target="_blank" rel="noopener">Kaspersky</a> / undefined<a href="https://www.eset.com/int/home/vpn/" target="_blank" rel="noopener">ESET</a>) undefined</p>undefined<p>undefined<strong>追加機能の確認ポイント</strong>undefined<br> ・WireGuard対応： 従来のOpenVPNより高速・安定 undefined<br> ・ダブルVPN（マルチホップ）： 通信を複数サーバ経由にして匿名性強化 undefined<br> ・キルスイッチ： VPN接続が切れた瞬間に通信を遮断し、IP漏洩を防止 undefined<br> ・Split Tunneling： VPN経由と通常回線をアプリごとに使い分け可能 undefined</p>undefined<p>⚠ 無料VPNは危険： 広告挿入・ログ収集・暗号化なしなど「逆に情報漏洩のリスク」</p>undefined</div>undefined</article>undefined
+      <!-- 外部ツール強化編：まとめ -->undefined<article class="panel blog-post" data-no-close="true">undefined<h3>まとめ</h3>undefined<button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>undefined<div class="caption">undefined<ul>undefined<li>無料で最低限守りたい → undefined<a href="https://support.microsoft.com/windows/windows-%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3-%E3%82%92%E9%96%8B%E3%81%8F-1415707e-18b6-a8f1-9af6-9f3f9eb74c3c" target="_blank" rel="noopener">Microsoft Defender</a>undefined</li>undefined<li>ネット利用が多く包括的に守りたい → undefined<a href="https://www.kaspersky.com/" target="_blank" rel="noopener">Kaspersky</a> / undefined<a href="https://www.eset.com/" target="_blank" rel="noopener">ESET</a> / undefined<a href="https://jp.norton.com/" target="_blank" rel="noopener">Norton</a>undefined</li>undefined<li>標準＋国産で強化したい → Defender + undefined<a href="https://www.ffri.jp/products/yarai/" target="_blank" rel="noopener">FFRI yarai</a>undefined</li>undefined<li>VPNも欲しい＆コスパ重視 → セキュリティソフト上位版（ undefined<a href="https://www.kaspersky.com/vpn-secure-connection" target="_blank" rel="noopener">Kaspersky</a> / undefined<a href="https://www.eset.com/int/home/vpn/" target="_blank" rel="noopener">ESET</a>） undefined</li>undefined</ul>undefined<p>補足： undefined<br> ・初心者は「Edge + Defender + uBlock Origin」で十分安全。 undefined<br> ・中級者以上は「ESETやKaspersky + ProtonVPN」などで多層防御を。 undefined</p>undefined</div>undefined</article>undefined
+    </section>undefined</main>undefined<footer class="footer">undefined<p>&copy; 2025 My Portfolio</p>undefined</footer>undefined<script src="../js/toggleCaption.js" defer></script>undefined<div class="fixed-footer-nav" style="display:flex;flex-wrap:nowrap;justify-content:center;max-width:95vw;gap:16px">undefined<a href="../index.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">トップページ</a>undefined<a href="music.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">音楽素材</a>undefined<a href="blog00.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">ブログ</a>undefined</div>undefined
+  </body>undefined
 </html>
