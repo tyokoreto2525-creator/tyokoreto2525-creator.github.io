@@ -419,22 +419,8 @@
     <footer class="footer">
       <p>&copy; 2025 My Portfolio</p>
     </footer>
-
-  <script>
-      function toggle(btn) {
-        const card = btn.closest('.card');
-        card.classList.toggle('expanded');
-        btn.textContent = card.classList.contains('expanded') ? '▲ 閉じる' : '▼ 詳細を見る';
-      }
-    </script>
-    <!-- JavaScript -->
-    <script>
-      function toggle(btn) {
-        const card = btn.closest('.card');
-        card.classList.toggle('expanded');
-        btn.textContent = card.classList.contains('expanded') ? '▲ 閉じる' : '▼ 詳細を見る';
-      }
-    </script>
+    <script src="../js/toggleCaption.js" defer></script>
+  
     <div class="fixed-footer-nav" style="display:flex;flex-wrap:nowrap;justify-content:center;max-width:95vw;gap:16px">
       <a href="../index.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">トップページ</a>
       <a href="music.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">音楽素材</a>
@@ -442,6 +428,7 @@
     </div>
   </body>
 </html>
+
 
 
 
