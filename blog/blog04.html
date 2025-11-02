@@ -17,194 +17,411 @@
       <div class="caption">
 
         <hr>
-          
-  <h4>ブラウザとアドオン</h4>
+          <h4>ブラウザとアドオン</h4>
 
 <p><strong>なぜ：</strong> インターネット利用の安全性は、まずブラウザ選びで大きく左右されます。Edge や Chrome はセキュリティ性能が高い一方、プライバシー重視の利用者には不十分と感じる場合があります。</p>
 
-<h5>推奨ブラウザ：</h5>
+<h5>おすすめブラウザ</h5>
 <ul>
-  <li>
-    <strong>LibreWolf：</strong> Firefox派生で不要機能を削除、データ収集を無効化。プライバシー特化で広告ブロッカーやプライバシー検索エンジンを標準搭載。<br>
-     <a href="https://librewolf.net" target="_blank" rel="noopener noreferrer">LibreWolf 公式サイト</a><br>
-     <em>注意：</em> 自動更新がなく、Firefox本体の更新に手動追随する必要あり。更新を忘れると脆弱性放置のリスク。
-  </li>
+  <li><strong><a href="https://librewolf.net" target="_blank" rel="noopener noreferrer">LibreWolf</a>：</strong> Firefox派生で不要機能・通信を削除し、データ収集を無効化。プライバシー特化設計で広告ブロッカーや安全検索エンジンを標準搭載。<br>
+  ※ LibreWolf は自動更新に対応していないため、公式サイトから手動で最新版を入手・更新する必要があります。</li>
 
-  <li>
-    <strong>Tor Browser：</strong> 匿名通信に特化し、追跡防止・広告ブロックを内蔵。匿名性を最優先する用途に適する。<br>
-     <a href="https://www.torproject.org/" target="_blank" rel="noopener noreferrer">Tor Project 公式サイト</a><br>
-     <em>注意：</em> 銀行や決済サイトでは不正アクセス扱いになる場合があり、金融用途には不向き。
-  </li>
+  <li><strong><a href="https://www.torproject.org/" target="_blank" rel="noopener noreferrer">Tor Browser</a>：</strong> 匿名通信に特化し、追跡防止・広告ブロックを内蔵。匿名性を最優先する用途に適します。<br>
+  ※ 銀行や決済サイトでは不正アクセス扱いになる場合があり、金融用途には不向きです。</li>
 
-  <li>
-    <strong>その他候補：</strong> 
-    <a href="https://brave.com/" target="_blank" rel="noopener noreferrer">Brave</a>（匿名性＋広告ブロック内蔵）／
-    <a href="https://floorp.app/" target="_blank" rel="noopener noreferrer">Floorp</a>（国産Firefox派生・UIカスタマイズ性高）／
-    <a href="https://vivaldi.com/" target="_blank" rel="noopener noreferrer">Vivaldi</a>（カスタマイズ性重視）。
-  </li>
+  <li><strong>その他候補：</strong> <a href="https://brave.com/" target="_blank" rel="noopener noreferrer">Brave</a>（広告ブロック・追跡防止内蔵）、<a href="https://floorp.app/" target="_blank" rel="noopener noreferrer">Floorp</a>（国産Firefox派生・カスタマイズ性高）、<a href="https://vivaldi.com/" target="_blank" rel="noopener noreferrer">Vivaldi</a>（自由度と細かな設定が可能）。</li>
+    <p><strong>参考情報：</strong>  
+<a href="https://privacytests.org/" target="_blank" rel="noopener noreferrer">PrivacyTests.org</a> では主要ブラウザ（Edge／Chrome／Firefox／Brave／LibreWolf／Vivaldiなど）のプライバシー保護テスト結果が公開されています。  
+定期的な検証で「トラッキング防御」「サードパーティCookie遮断」「指紋追跡耐性」などを比較しており、<strong>Brave</strong> と <strong>LibreWolf</strong> が総合的に高評価を獲得しています。ブラウザ選定の参考にしてください。</p>
+
+
 </ul>
 
-<h5>必須アドオン：</h5>
+<h5>おすすめアドオン</h5>
 <ul>
-  <li>
-    <strong>uBlock Origin：</strong> 広告・トラッキングを遮断し、読み込み速度向上とプライバシー保護を両立。<br>
-     <a href="https://ublockorigin.com/" target="_blank" rel="noopener noreferrer">uBlock Origin 公式サイト</a>
-  </li>
+  <li><strong><a href="https://ublockorigin.com/" target="_blank" rel="noopener noreferrer">uBlock Origin</a>：</strong> 広告とトラッキングを遮断し、読み込み速度を向上させつつプライバシーを保護。</li>
 </ul>
 
-<h5>補足：</h5>
+<h5>設定の基本</h5>
 <ul>
-  <li>「HTTPS Everywhere」は不要（現在はブラウザに標準統合）。</li>
-  <li>アドオンは「最終更新日」を必ず確認。更新が止まっているものはセキュリティリスクが高い。</li>
-  <li>拡張機能は最小限に。多いほど攻撃対象やデータ流出リスクが増える。</li>
-  <li>ブラウザのパスワード保存は危険。代わりに 
-    <a href="https://bitwarden.com/" target="_blank" rel="noopener noreferrer"><strong>Bitwarden</strong></a> や 
-    <a href="https://1password.com/" target="_blank" rel="noopener noreferrer"><strong>1Password</strong></a> 
-    などのパスワードマネージャを使用推奨。
-  </li>
+  <li>「セキュリティ」→「安全なDNS（DNS over HTTPS）」を有効化。</li>
+  <li>「プライバシー」→「サードパーティCookieをブロック」に設定。</li>
+  <li>「サイトの権限」→「位置情報」「通知」「マイク」「カメラ」は都度確認に変更。</li>
+  <li>「自動更新」を確認し、常に最新の状態を維持（LibreWolfは手動更新）。</li>
 </ul>
-  <hr></div>
-            
-  </article>
-   
 
-                 <article class="panel blog-post" data-no-close="true">
+<h5>セキュリティソフト連携</h5>
+<ul>
+  <li>ESET：Webアクセス保護／バンキング保護を有効化。</li>
+  <li>Kaspersky：ブラウザ保護拡張を使用してフィッシングを防止。</li>
+  <li>Norton：Safe Web や Password Manager を利用可能。</li>
+  <li>重複するアドオンを併用しない（競合や誤動作の原因になる）。</li>
+</ul>
+
+<p><strong>※まとめ：</strong>  
+ブラウザは更新頻度と信頼性を重視し、アドオンは最小限にすることが基本です。  
+「HTTPS Everywhere」は不要（標準統合済み）。  
+ブラウザ保存のパスワード機能は避け、<a href="https://bitwarden.com/" target="_blank" rel="noopener noreferrer">Bitwarden</a> や <a href="https://1password.com/" target="_blank" rel="noopener noreferrer">1Password</a> などのパスワードマネージャを使用してください。</p>    <hr>
+</div>
+  
+                   <article class="panel blog-post" data-no-close="true">
       <h3>セキュリティソフト</h3>
       <button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
       <div class="caption">
 
-        <hr>
-   
-   <h4>セキュリティソフト</h4>
-
-<p><strong>なぜ：</strong> Windows 10/11 には <strong>Microsoft Defender</strong> が標準搭載され、無料で基本的に十分な保護を提供します。 ただし、利用環境やリスク耐性に応じて有料ソフトを併用することで多層防御が可能になります。</p>
-
-<h5>Defenderだけで十分なケース：</h5>
-<ul>
-  <li>Windows 10/11 + Edge を利用し、怪しいサイトにアクセスしない。</li>
-  <li>メールや外部デバイス利用が少なく、個人利用中心。</li>
-  <li>定期的に Windows Update を実施し、Defender の定義更新が自動で行われている。</li>
-</ul>
-
-<h5>有料ソフトを推奨するケース：</h5>
-<ul>
-  <li>オンラインバンキング・決済・ショッピングを頻繁に行う。</li>
-  <li>不特定サイトや外部デバイスを多用し、マルウェア感染リスクが高い。</li>
-  <li>フィッシング／ランサムウェア対策を強化したい。</li>
-  <li>VPN・パスワード管理なども一括でカバーしたい。</li>
-</ul>
-
-<h5>利用時の注意点：</h5>
-<ul>
-  <li>常駐ソフトは<strong>必ず1本に統一</strong>する。二重常駐は競合や性能低下の原因になる。</li>
-  <li><strong>FFRI yarai</strong> のような「補助型（ふるまい検知）」は Defender と併用可能。</li>
-</ul>
-
-<h5>代表的なソフト：</h5>
-<ul>
-  <li>
-    <a href="https://www.kaspersky.co.jp/" target="_blank" rel="noopener noreferrer"><strong>Kaspersky</strong></a>：
-    検出率トップクラス、ダブルVPN機能あり。性能は最高クラス。<br>
-     <em>注意：</em> 地政学的リスク（ロシア製）を考慮し、利用は個人判断で。
-  </li>
-  <li>
-    <a href="https://www.eset.com/jp/" target="_blank" rel="noopener noreferrer"><strong>ESET</strong></a>：
-    軽量・安定でノーログVPN付き。ビジネス利用でも無難。
-  </li>
-  <li>
-    <a href="https://jp.norton.com/" target="_blank" rel="noopener noreferrer"><strong>Norton</strong></a>：
-    バランス型で幅広いユーザーに適する。クラウドバックアップやID保護も搭載。
-  </li>
-  <li>
-    <a href="https://www.ffri.jp/yarai/" target="_blank" rel="noopener noreferrer"><strong>FFRI yarai</strong></a>：
-    国産。標的型攻撃・ゼロデイ攻撃に強く、防御補助として優秀。
-  </li>
-  <li>
-    <a href="https://www.blueplanet-works.com/jp/appguard/" target="_blank" rel="noopener noreferrer"><strong>AppGuard</strong></a>：
-    ふるまい制御型。未知の攻撃を防ぐ上級者向け製品。
-  </li>
-</ul>
-
-<h5>補足：</h5>
-<ul>
-  <li>セキュリティソフトは「定義ファイルの更新頻度」が重要。毎日更新されるものを選ぶ。</li>
-  <li>多層防御の考え方：<br>
-    Defender（標準）＋ 有料ソフト（総合防御）＋ 補助型（ゼロデイ対策）でバランスを取る。
-  </li>
-  <li>無料ソフトを使う場合は、必ず公式サイトから入手。偽サイトや改ざん版に注意。</li>
-</ul>
-
-<hr>
+     
   </article>
-   
-
+      <hr>
+   <h4>セキュリティソフト</h4>
+   <p>
+     <strong>なぜ：</strong> Windows 10/11 には <strong>Microsoft Defender</strong> が標準搭載され、無料で基本的に十分な保護を提供します。 ただし、利用環境やリスク耐性に応じて有料ソフトを併用することで多層防御が可能になります。
+   </p>
+   <h5>Defenderだけで十分なケース</h5>
+   <ul>
+     <li>Windows 10/11 + Edge を利用し、怪しいサイトにアクセスしない。</li>
+     <li>メールや外部デバイス利用が少なく、個人利用中心。</li>
+     <li>定期的に Windows Update を実施し、Defender の定義更新が自動で行われている。</li>
+   </ul>
+   <h5>有料ソフトを推奨するケース</h5>
+   <ul>
+     <li>オンラインバンキング・決済・ショッピングを頻繁に行う。</li>
+     <li>不特定サイトや外部デバイスを多用し、マルウェア感染リスクが高い。</li>
+     <li>フィッシング／ランサムウェア対策を強化したい。</li>
+     <li>VPN・パスワード管理なども一括でカバーしたい。</li>
+   </ul>
+   <h5>利用時の注意点</h5>
+   <ul>
+     <li>常駐ソフトは <strong>必ず1本に統一</strong>する。二重常駐は競合や性能低下の原因になる。 </li>
+     <li>
+       <strong>FFRI yarai</strong> のような「補助型（ふるまい検知）」は Defender と併用可能。
+     </li>
+   </ul>
+   <h5>代表的なソフト</h5>
+   <ul>
+     <li>
+       <a href="https://www.kaspersky.co.jp/" target="_blank" rel="noopener noreferrer">
+         <strong>Kaspersky</strong>
+       </a>： 検出率トップクラス、ダブルVPN機能あり。性能は最高クラス。 <br>
+       <em>注意：</em> 地政学的リスク（ロシア製）を考慮し、利用は個人判断で。
+     </li>
+     <li>
+       <a href="https://www.eset.com/jp/" target="_blank" rel="noopener noreferrer">
+         <strong>ESET</strong>
+       </a>： 軽量・安定でノーログVPN付き。ビジネス利用でも無難。
+     </li>
+     <li>
+       <a href="https://jp.norton.com/" target="_blank" rel="noopener noreferrer">
+         <strong>Norton</strong>
+       </a>： バランス型で幅広いユーザーに適する。クラウドバックアップやID保護も搭載。
+     </li>
+     <li>
+       <a href="https://www.ffri.jp/yarai/" target="_blank" rel="noopener noreferrer">
+         <strong>FFRI yarai</strong>
+       </a>： 国産。標的型攻撃・ゼロデイ攻撃に強く、防御補助として優秀。
+     </li>
+     <li>
+       <a href="https://www.blueplanet-works.com/solution/solo.html" target="_blank" rel="noopener noreferrer">
+         <strong>AppGuard</strong>
+       </a>： ふるまい制御型。未知の攻撃を防ぐ上級者向け製品。
+     </li>
+   </ul>
+   <h5>おすすめセキュリティソフト（有料を試した中から）</h5>
+   <ul>
+     <li>
+       <strong>国と企業の信頼性：</strong> セキュリティソフトはOS深層にアクセスするため、企業や開発国の信頼性も重要です。性能だけでなく、運営体制・プライバシーポリシー・更新頻度を総合的に判断しましょう。
+     </li>
+     <li>
+       <a href="https://www.kaspersky.co.jp/" target="_blank" rel="noopener noreferrer">
+         <strong>Kaspersky（ロシア）</strong>
+       </a>： 多機能・新機能追加の速さ・検出精度のすべてで突出した性能を持つ総合セキュリティ製品。 特に挙動監視・ゼロデイ防御・VPNの品質で群を抜く。 ※ 一方で、開発国がロシアであるため、国際的な懸念を指摘する声もあります。採用判断は利用者個人・組織の方針次第です。
+     </li>
+     <li>
+       <a href="https://www.eset.com/jp/" target="_blank" rel="noopener noreferrer">
+         <strong>ESET（スロバキア）</strong>
+       </a>： 軽量で動作が安定しており、ノーログポリシーを掲げる信頼性の高い製品。 上位プランでは無制限VPNを利用でき、プライバシー保護にも優れています。家庭用・ビジネス用どちらにも適しています。
+     </li>
+     <li>
+       <a href="https://www.ffri.jp/yarai/" target="_blank" rel="noopener noreferrer">
+         <strong>FFRI yarai（日本・国産）</strong>
+       </a>： Windows Defender と併用して動作可能な「ふるまい検知型」防御を採用。 未知の攻撃や標的型攻撃への防御力が高く、国産製で安心感があります。 Defenderとの二重防衛によって、システム層の堅牢性がさらに強化されます。
+     </li>
+   </ul>
+   <p>
+     <strong>更新と維持：</strong> どのセキュリティソフトを使う場合でも、「定義ファイル更新」と「プログラム本体の更新」を両方最新に保つことが重要です。 更新が止まると防御力が大幅に低下します。 Windows Defender の更新状況は「Windows セキュリティ → ウイルスと脅威の防止 → 保護の更新」で確認可能です。 更新を怠ると、最新の脅威（ゼロデイ攻撃・新型フィッシングなど）に対処できなくなります。
+   </p>
+   <p>
+     <strong>注意</strong> ：市販ソフトを導入する際は、既存の Defender が自動的に無効化されることを確認してください。手動で無効にする必要はありません。また、ブラウザやメールアプリに統合された「Web保護」や「フィッシング防止」機能を活用すると、ネット利用時の安全性がさらに向上します。
+   </p>
+   <h5>補足とまとめ</h5>
+   <ul>
+     <li>セキュリティソフトは「定義ファイルの更新頻度」が重要。毎日更新されるものを選ぶ。</li>
+     <li>多層防御の考え方：Defender（標準）＋ 有料ソフト（総合防御）＋ 補助型（ゼロデイ対策）でバランスを取る。</li>
+     <li>無料ソフトを使う場合は、必ず公式サイトから入手。偽サイトや改ざん版に注意。</li>
+   </ul>
+   <p>
+     <strong>※まとめ：</strong> セキュリティの基本は「1本の常駐ソフト＋最新状態の維持」。不審なサイト・メールを避ける意識が最も強力な防御です。
+   </p>
+   <hr>         
+  </article>
+  
                  <article class="panel blog-post" data-no-close="true">
       <h3>VPN利用</h3>
       <button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
       <div class="caption">
 
+   
         <hr>
-   <h4>VPN利用</h4>
+<h4>VPN利用</h4>
 
-<p><strong>なぜ：</strong> 公共Wi-Fiや外出先での通信を安全にするには VPN が有効です。通信の暗号化により、盗聴・中間者攻撃・トラッキングから保護できます。</p>
+<p><strong>なぜ：</strong> 公共Wi-Fiや外出先での通信を安全にするには VPN が有効です。通信を暗号化することで、盗聴・中間者攻撃・トラッキングから保護できます。</p>
 
-<h5>メリット：</h5>
+<h5>メリット</h5>
 <ul>
-  <li>通信を暗号化して盗聴や改ざんを防ぐ。</li>
-  <li>IPアドレスを隠してプライバシーを強化。</li>
-  <li>地域制限コンテンツ（動画・ニュースサイトなど）にアクセス可能。</li>
+  <li>通信内容を暗号化し、盗聴や改ざんを防ぐ。</li>
+  <li>IPアドレスを隠し、プライバシーを強化。</li>
+  <li>地域制限コンテンツ（動画配信・ニュースサイトなど）にアクセス可能。</li>
 </ul>
 
-<h5>誤解防止：</h5>
+<h5>理解しておくべき点</h5>
 <ul>
-  <li>VPNは「匿名化」ではなく「通信経路の暗号化」。完全な匿名性は保証されません。</li>
-  <li>VPN提供企業やプロバイダには通信記録を保持できる権限があり、信頼性のある運営元を選ぶことが重要です。</li>
-  <li><strong>ノーログポリシー</strong>と<strong>第三者監査の実績</strong>を持つサービスを選ぶと安全性が高まります。</li>
+  <li>VPNは「匿名化」ではなく<strong>通信経路の暗号化</strong>であり、完全な匿名性を保証するものではありません。</li>
+  <li>VPN提供企業やプロバイダには通信記録を保持できる権限があります。<br>
+      信頼性の高い運営元を選ぶことが重要であり、<strong>「ノーログポリシー＋第三者監査実績」</strong>を持つサービスを選ぶことで安全性が向上します。</li>
+  <li>通信を暗号化する分、VPN利用時は<strong>速度がやや低下</strong>する傾向があります。高速回線を利用する場合でも、遅延が発生することがあります。</li>
+  <li>無料VPNは広告挿入・ログ収集・暗号化不十分などのリスクが高く、<strong>むしろVPNなしの方が安全な場合もあります。</strong> 信頼できる有料VPNのみ使用を推奨します。</li>
 </ul>
 
-<h5>推奨VPNサービス：</h5>
+<h5>代表的なVPNサービス</h5>
 <ul>
-  <li><a href="https://www.expressvpn.com/jp" target="_blank" rel="noopener noreferrer"><strong>ExpressVPN</strong></a>：速度・安定性ともに高水準。独自プロトコル「Lightway」で接続が速く、信頼度が高い。</li>
-  <li><a href="https://nordvpn.com/ja/" target="_blank" rel="noopener noreferrer"><strong>NordVPN</strong></a>：ノーログ監査済み。ダブルVPN・キルスイッチ対応でバランスが良い。</li>
-  <li><a href="https://protonvpn.com/" target="_blank" rel="noopener noreferrer"><strong>ProtonVPN</strong></a>：スイス拠点。WireGuard対応、高速で信頼性が高く、監査済み。</li>
+  <li><a href="https://www.expressvpn.com/" target="_blank" rel="noopener noreferrer"><strong>ExpressVPN</strong></a>：速度・安定性が非常に高く、独自プロトコル「Lightway」により接続が速く安全。信頼度も高い。</li>
+  <li><a href="https://nordvpn.com/ja/" target="_blank" rel="noopener noreferrer"><strong>NordVPN</strong></a>：ノーログ監査済み。ダブルVPN・キルスイッチ搭載でセキュリティと速度のバランスが優秀。</li>
+  <li><a href="https://protonvpn.com/ja/" target="_blank" rel="noopener noreferrer"><strong>ProtonVPN</strong></a>：スイス拠点。WireGuard対応で高速・安定。第三者監査済みで信頼性が高い。</li>
 </ul>
 
-<h5>コスパ重視の選択肢：</h5>
+<h5>コスパ重視の選択肢（セキュリティスイート付属VPN）</h5>
+<p>セキュリティソフトの上位版に付属するVPNは、1つの契約でマルウェア対策と通信保護をまとめて管理でき、コストと運用の手間を抑えられます。</p>
+
 <ul>
-  <li><a href="https://www.kaspersky.co.jp/" target="_blank" rel="noopener noreferrer"><strong>Kaspersky</strong></a> や <a href="https://www.eset.com/jp/" target="_blank" rel="noopener noreferrer"><strong>ESET</strong></a> の上位版に付属するVPNも有効。セキュリティ統合管理が可能。</li>
+  <li>
+    <a href="https://www.kaspersky.co.jp/" target="_blank" rel="noopener noreferrer"><strong>Kaspersky</strong></a>：
+    上位版に高品質VPNを同梱。<strong>ダブルVPN（マルチホップ）</strong>、<strong>キルスイッチ</strong>などを備え、匿名性と漏えい対策を強化。
+  </li>
+  <li>
+    <a href="https://www.eset.com/jp/" target="_blank" rel="noopener noreferrer"><strong>ESET</strong></a>：
+    軽量で安定。<strong>ノーログポリシー</strong>を明示し、プライバシーを重視。必要十分な速度と堅実な実装が特長。
+  </li>
 </ul>
 
-<h5>追加機能の確認ポイント：</h5>
+<p><strong>統合管理の利点：</strong> セキュリティソフト本体と同じダッシュボードで設定・更新を一元管理でき、通知や自動起動の競合が起きにくい。</p>
+
+<p><strong>選び方の目安：</strong> まずは既存のセキュリティ製品の上位プランを比較し、<em>同時接続台数</em>・<em>対応プロトコル（WireGuard など）</em>・<em>リージョン数</em>・<em>ログ方針</em>を確認するとよい。</p>
+
+<p><strong>留意点：</strong> VPNは暗号化処理により<strong>回線速度が低下</strong>する場合があります。動画視聴や大容量転送では近隣リージョンを選択し、必要に応じてオン／オフを切り替えて使うと快適です。</p>
+
+
+<h5>VPNの追加機能（確認ポイント）</h5>
 <ul>
   <li><strong>WireGuard対応：</strong> 従来のOpenVPNより高速・安定。</li>
   <li><strong>ダブルVPN（マルチホップ）：</strong> 通信を複数サーバ経由にして匿名性を強化。</li>
-  <li><strong>キルスイッチ：</strong> VPN切断時に通信を即遮断し、IP漏洩を防止。</li>
-  <li><strong>Split Tunneling：</strong> アプリごとにVPN経由と通常通信を使い分け可能。</li>
+  <li><strong>キルスイッチ：</strong> VPN切断時に通信を遮断し、IPや位置情報の漏洩を防止。</li>
+  <li><strong>Split Tunneling：</strong> アプリごとにVPN経由と通常回線を使い分け可能。</li>
 </ul>
 
-<p><strong>注意：</strong> 無料VPNは危険。広告挿入・ログ収集・暗号化なしなど、逆に情報漏洩のリスクが高い。信頼できる有料サービスのみ使用してください。</p>
-<hr> </article>
+<p><strong>※まとめ：</strong> VPNは「万能の盾」ではなく、通信経路の暗号化ツールです。信頼できる有料VPNを選び、常に最新バージョンを維持することが安全利用の鍵です。無料VPNや不明な運営元のサービスは避けましょう。</p>
+<hr>
+
+        
+        </article>
    
                  <article class="panel blog-post" data-no-close="true">
       <h3>Wi-Fiルーター</h3>
       <button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
       <div class="caption">
+<hr>
+<h4>Wi-Fiルーターのセキュリティ設定</h4>
+<p>
+  <strong>なぜ：</strong> ルーターは家庭内ネットワークの玄関口。ここを適切に守ることで、PC・スマートテレビ・IoT家電など家庭内すべての通信機器を一括で防御できます。さらに、PCやスマートフォン側でセキュリティソフトを併用すれば「ルーター＋端末」の二重防御体制となります。
+</p>
+<h5>設定の見直し（基本）</h5>
+<ul>
+  <li>
+    <strong>管理者パスワードの変更：</strong> ルーター背面の初期パスワードは誰でも確認できるため、必ず独自の強力なパスワードに変更し、安全な場所に保管。
+  </li>
+  <li>
+    <strong>ファームウェア更新：</strong> 管理画面から「自動更新」をONにして、最新の脆弱性修正を自動反映。
+  </li>
+  <li>
+    <strong>暗号化設定：</strong> 「WPA3」または「WPA2-AES」を使用（WEP・TKIPは無効）。
+  </li>
+  <li>
+    <strong>不要機能はOFF：</strong> メッシュ機能・バンドステアリング・UPnPなど、利用しない機能は停止してセキュリティと安定性を高める。
+  </li>
+</ul>
+<p><strong>Wi-Fi基本設定画面の例：</strong>  
+以下のように、2.4GHz／5GHz 通信機能のみONにし、他の機能（6GHz、メッシュ、バンドステアリング）はOFFで運用することで、無駄な通信を抑え、安定性とセキュリティを両立できます。</p>
+<img src="スクリーンショット 2025-11-02 081249.png" alt="Wi-Fi基本設定例" style="max-width: 600px; border-radius: 8px; box-shadow: 0 0 6px rgba(0,0,0,0.2);">
 
-        <hr>
-   <h4>Wi-Fiルーターのセキュリティ設定</h4> <p><strong>なぜ：</strong> ルーターは家庭内ネットワークの玄関。ここで守れば <strong>PC・スマートテレビ・ゲーム機・IoT家電まで一括で保護</strong>できます。さらに、PCやAndroidでセキュリティソフトを入れておけば<strong>ルーター＋端末の二重防御</strong>となり、フィッシングや不正通信に強くなります。</p> <h5>最優先（まずはこれだけ）</h5> <ul> <li><strong>ファームウェア更新を有効化：</strong> 管理画面にログインして「自動更新」または「定期チェック」をON。重大な脆弱性は更新でふさがります。</li> <li><strong>管理者パスワードを強力化：</strong> 既定の「admin/admin」は厳禁。20文字以上・記号混在の長いパスフレーズに。</li> <li><strong>暗号化方式は WPA3（なければ WPA2-AES）：</strong> 「WPA2/WPA3 混在」でも可。<em>TKIP</em>や<em>WEP</em>は使用しない。</li> </ul> <h5>推奨セキュリティ設定（家庭内機器を丸ごと守る）</h5> <ul> <li><strong>WPSを無効化：</strong> ピン方式は突破されやすい攻撃面になります。</li> <li><strong>リモート管理を無効化：</strong> 外部（WAN）からの管理画面アクセスは禁止。必要時のみ一時的に有効＋強認証。</li> <li><strong>UPnPをオフ（または手動でピンポイント許可）：</strong> 勝手なポート開放を防止。オンラインゲーム等で必要なら対象アプリだけ手動設定。</li> <li><strong>ゲスト/IoT用ネットワークを分離：</strong> スマート家電・来客用は「ゲストSSID」に接続し、<em>クライアント間通信を禁止</em>。メインLANへのアクセスを遮断。</li> <li><strong>DNSフィルタ／セーフDNS：</strong> ルーターで安全なDNS（例：マルウェアブロック機能のあるプロバイダや公共DNS）を指定し、悪性ドメインへの接続を遮断。</li> <li><strong>内蔵セキュリティ機能を有効化：</strong> ルーターに搭載の<strong>不正侵入防御（IPS）／悪性サイトブロック／ペアレンタルコントロール</strong>などがあればON。<em>家中の機器をまとめて守れる</em>のが利点。</li> <li><strong>SSID・パスワード管理：</strong> 既定SSIDは変更。SSID隠蔽は効果限定だが、<em>推測しにくい名称</em>にするのは有効。</li> <li><strong>ログ監視と通知：</strong> 管理画面のセキュリティログと不正アクセス通知をオン。異常時に気づける体制に。</li> </ul> <h5>運用のコツ（堅牢化と安定運用）</h5> <ul> <li><strong>設定バックアップ：</strong> 安定したら設定をエクスポート。買い替えや初期化時の復旧が即座に可能。</li> <li><strong>ISP一体型機器の見直し：</strong> 事業者提供ルーターで設定項目が少ない場合は「ブリッジ（AP）モード」にして、<em>自前の高機能ルーター</em>で保護層を構築。</li> <li><strong>端末側と二重に守る：</strong> PCやAndroidは<strong>Microsoft Defender／ESET 等のセキュリティソフト</strong>＋<strong>ブラウザ拡張（uBlock Originなど）</strong>で<em>ルーター防御と重ねがけ</em>。</li> <li><strong>来客時の安全運用：</strong> ゲストSSIDのパスは定期変更。QRコード配布を活用して本番SSIDを教えない。</li> </ul> <h5>手順（クイックスタート）</h5> <ol> <li>ルーター背面ラベル等のIPアドレスにアクセス（例：<code>http://192.168.0.1</code>）。</li> <li>管理者パスワードを<strong>長く強いもの</strong>に変更。</li> <li>「ファームウェア更新」を実行し、可能なら<strong>自動更新ON</strong>。</li> <li>Wi-Fi設定で<strong>WPA3（またはWPA2-AES）</strong>と<strong>強力なWi-Fiパスワード</strong>を設定。</li> <li><strong>WPS・UPnP・WAN側リモート管理</strong>をオフ。</li> <li>「ゲストネットワーク」を作成し、<em>LANアクセス禁止／クライアント間通信禁止</em>を設定。IoT機器はここへ移行。</li> <li>DNSフィルタや悪性サイトブロック等の<strong>内蔵セキュリティ</strong>をON。</li> <li>設定を<strong>バックアップ</strong>し、ログ通知を有効化。</li> </ol> <h5>よくある質問</h5> <ul> <li><strong>Q. ルーターのセキュリティ機能だけで十分？</strong><br> <strong>A.</strong> いいえ。<em>ルーター＝玄関の見張り</em>、<em>端末のセキュリティソフト＝室内の警備</em>。両方そろえてこそ効果最大です。</li> <li><strong>Q. IoT機器がWPA3に非対応です。</strong><br> <strong>A.</strong> メインはWPA3（またはWPA2-AES）維持のまま、<em>IoTは分離したゲストSSID（WPA2-AES）</em>に収容してください。</li> <li><strong>Q. UPnPを切ると一部アプリが動かない。</strong><br> <strong>A.</strong> そのアプリに必要なポートのみ<strong>手動でポート転送</strong>を設定。全面ONより安全です。</li> </ul> <p><em>ポイント：</em> ルーターを最新・堅牢に保つだけで、家中の機器が<strong>自動的に守られる土台</strong>ができます。そこへPC/Androidの<strong>セキュリティソフト</strong>を重ねれば、<strong>二重に安全</strong>で実運用にも強い構成になります。</p> <hr>
+<h5>その他の推奨設定</h5>
+<ul>
+  <li>WPS（ボタン接続機能）：OFF（PINコード経由の不正接続を防ぐ）。</li>
+  <li>リモート管理：OFF（外部からの設定画面アクセスを禁止）。</li>
+  <li>ゲストネットワーク：IoT機器や来客用に分離SSIDを設定し、メインLANへのアクセスを遮断。</li>
+  <li>DNSフィルタやセーフDNSを有効にして、悪性サイトやマルウェア通信をブロック。</li>
+</ul>
+<h5>購入時の注意点</h5>
+<p> Wi-Fiルーターを購入する際は、 <strong>契約中のプロバイダー（ISP）との互換性</strong>を必ず確認してください。例えば、 <strong>NEC Aterm WX5400T6</strong> は「IPv6対応」ですが、ソフトバンク光など一部プロバイダーでは「IPv4接続」でしか利用できないケースがあります。通信方式が合わないと本来の速度を発揮できませんが、 IPv4環境でも通信速度や安定性に大きな制限があるわけではなく、日常利用では体感差はほぼありません。 </p>
+<h5>代表的ルーター（個人的おすすめ：NEC）</h5>
+<ul>
+  <li><a href="https://www.aterm.jp/" target="_blank" rel="noopener noreferrer"><strong>NEC Atermシリーズ</strong></a>：安定性重視（家庭・法人問わず堅実）。国内シェアが高く、安定性と設定の分かりやすさが特徴。</li>
+  <li><a href="https://www.buffalo.jp/" target="_blank" rel="noopener noreferrer"><strong>BUFFALO WSRシリーズ</strong></a>：コスパ・自動化重視（家庭向け）。自動更新・セキュリティ機能が標準搭載され、価格と性能のバランスが良い。</li>
+</ul>
+
+<p>
+  <strong>※まとめ：</strong> 管理パスワード変更・自動更新・不要機能OFF、この3点を徹底するだけで、家庭の通信は格段に安全になります。さらに端末側のセキュリティソフトを併用すれば、堅牢な防御構成が完成します。
+</p>
+<section id="wifi-tips">
+  <h4>無線LANの安定化・工夫（設定＋運用）</h4>
+  <p>
+    ・段ボールにアルミホイルを何重かに巻いてルーター背面に設置すると、電波が端末のある方向へ集中しやすくなります。数百円で到達性や安定性が向上します。<br>
+    ・2.4GHzは障害物に強く遠距離通信に向きますが、電子レンジやBluetooth機器と干渉しやすいです。5GHzは高速でノイズに強い反面、壁などに弱いです。お昼時にWi-Fiが途切れる場合は電子レンジ干渉の可能性があるため、5GHz接続に切り替えるか、ルーターを遠ざけて設置してください。<br>
+    ・ルーターは床から少し高く、部屋の中央寄りに置くと電波が均等に広がります。金属棚や水槽などの反射・吸収物は避けると安定します。<br>
+    ・近隣のWi-Fiが多い場合はチャンネル干渉が起きます。管理画面でチャンネル自動選択を有効にするか、2.4GHzは「1・6・11」、5GHzは空いているチャンネルを選択してください。<br>
+    ・月に一度程度の再起動で内部負荷をリセットし、ファームウェアの自動更新をONにして常に最新状態を保つと、脆弱性の修正も自動で反映されます。
+  </p>
+  <p>
+    <strong>要点：</strong> まずは5GHz接続・設置位置の見直し・チャンネル最適化の3点で安定化を図ること。  
+    それでも不安定な場合は、アルミ反射板（リフレクター）や定期再起動を併用すると効果的です。
+  </p>
+</section>
+
+
+
+<hr>
+
    </article>
    
-                 <article class="panel blog-post" data-no-close="true">
-      <h3>パスワード管理</h3>
-      <button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
-      <div class="caption">
+       <article class="panel blog-post" data-no-close="true">
+     <h3>パスワード管理</h3>
+     <button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
+     <div class="caption">
+       <hr>
+       <h4>パスワード管理</h4>
+       <p>
+         <strong>なぜ：</strong> サイバー攻撃の多くは「パスワード漏洩」や「使い回し」から始まります。ブラウザの自動保存・同期機能は便利ですが、拡張機能や脆弱性経由で情報が流出するリスクがあり、安全とは言えません。
+       </p>
+       <h5>代表的なパスワード管理サービス</h5>
+       <ul>
+         <li>
+           <strong>
+             <a href="https://bitwarden.com/" target="_blank" rel="noopener noreferrer">Bitwarden</a>
+           </strong>： 無料で使えるオープンソースのパスワードマネージャ。AES-256 でエンドツーエンド暗号化され、運営側も内容を閲覧できません。クラウド／ローカル両対応で複数端末の安全な同期が可能。
+         </li>
+         <li>
+           <strong>
+             <a href="https://1password.com/jp/" target="_blank" rel="noopener noreferrer">1Password</a>
+           </strong>： 操作性が高く、二要素認証や秘密鍵保護などを標準搭載。法人・チーム運用にも最適。
+         </li>
+       </ul>
+       <h5>おすすめと補足</h5>
+       <p>
+         <strong>Bitwarden</strong> がおすすめ。無料でも監査済み・ノーログ設計・エンドツーエンド暗号化を採用。有料プランでは高度な認証や追加機能も利用可能です。
+       </p>
+       <h5>運用手順</h5>
+       <ol>
+         <li>
+           <a href="https://bitwarden.com/" target="_blank" rel="noopener noreferrer">Bitwarden</a> のアカウントを作成し、ログイン。
+         </li>
+         <li>ブラウザやスマホに保存されている既存のパスワードをインポート（または手動登録）。</li>
+         <li>Bitwarden の生成機能で各サイトのパスワードを長く複雑に更新。</li>
+         <li>ブラウザ側の「保存済みパスワード」を削除し、管理を Bitwarden に統一。</li>
+         <li>各端末に Bitwarden アプリ／拡張機能を入れて利用。ブラウザの保存提案は拒否。</li>
+         <li>可能なサービスでは <strong>二要素認証（2FA）</strong> を有効化、対応サイトでは <strong>パスキー（FIDO2/WebAuthn）</strong> を優先利用。 </li>
+       </ol>
+       <h5>パスワードの考え方</h5>
+       <ul>
+         <li>
+           <strong>長く・複雑で・唯一</strong> が最重要。定期的に 8 文字を変えるより、30 文字の強固なパスワードを長く使う方が安全。
+         </li>
+         <li>変更は「流出報告」や「不審ログイン」があったときのみで十分。</li>
+       </ul>
+       <h5>補足（現実的な運用）</h5>
+       <p>マネージャを使わない場合は、暗号化テキストや紙などの <strong>オフライン保管</strong>でも可。ただしクラウド保存や写真化は避けてください。 </p>
+       <p>
+         <strong>※まとめ：</strong> 長く・複雑で・使い回さないパスワードを、信頼できるマネージャで一元管理し、2FA／パスキーを併用する。これだけで大半の攻撃は防げます。
+       </p>
+       <hr>
+       </section>
+         
+    <article class="panel blog-post" data-no-close="true">
+  <h3>データの暗号化・削除（完全抹消）</h3>
+  <button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
+  <div class="caption">
+    <hr>
 
-        <hr>
-   <h4>パスワード管理</h4> <p><strong>なぜ：</strong> サイバー攻撃の多くは「パスワード漏洩」や「使い回し」から始まります。<strong>ブラウザの自動保存・生成機能は便利ですが、安全ではありません。</strong> 拡張機能や悪意あるサイトから盗まれるリスクがあり、特に同期機能を使うと複数端末から流出する危険があります。</p> <h5>安全なパスワード管理方法：</h5> <ul> <li><strong>Bitwarden：</strong> 無料で使えるオープンソースのパスワードマネージャ。AES-256bit暗号化で安全にクラウド同期でき、ローカル運用も可能。複数端末間で安全に共有できます。<br>  <a href="https://bitwarden.com/" target="_blank" rel="noopener noreferrer">公式サイト：Bitwarden</a></li> <li><strong>1Password：</strong> 操作性が高く、二要素認証・秘密鍵保護・自動生成などを標準搭載。法人やチーム利用にも向く。<br>  <a href="https://1password.com/" target="_blank" rel="noopener noreferrer">公式サイト：1Password</a></li> <li><strong>KeePassXC：</strong> オフライン専用の管理ソフト。データをクラウドに残さず、完全ローカルで暗号化保存。USB等で持ち運び可。<br> <a href="https://keepassxc.org/" target="_blank" rel="noopener noreferrer">公式サイト：KeePassXC</a></li> </ul> <h5>運用のポイント：</h5> <ul> <li><strong>ブラウザ保存を禁止：</strong> 「パスワードを保存しますか？」のポップアップは<strong>必ず拒否</strong>。代わりにマネージャで登録・生成。</li> <li><strong>二要素認証（2FA）を併用：</strong> メール・銀行・SNSなど重要サービスでは、パスワード＋ワンタイムコードで防御を二重化。</li> <li><strong>マスターパスワードを最強化：</strong> 単語を複数組み合わせた長文型（例：「coffee-bird-92!lake」）を採用。長くて複雑な方が強固。</li> <li><strong>使い回し禁止：</strong> 1つ漏れると全滅。全アカウント固有のパスワードを生成して登録。</li> <li><strong>緊急バックアップ：</strong> マネージャの暗号化エクスポートをUSB等に保管し、復号キーは紙で別管理。</li> </ul> <h5>よくある質問：</h5> <ul> <li><strong>Q. Bitwarden のクラウド保存は安全？</strong><br> <strong>A.</strong> はい。エンドツーエンド暗号化により、運営側も中身を閲覧できません。さらに自分専用サーバ構築も可能。</li> <li><strong>Q. 無料パスワードマネージャは危険？</strong><br> <strong>A.</strong> 広告付き・運営不明のものは危険。<strong>Bitwarden</strong> や <strong>KeePassXC</strong> のようなオープンソース製を選べば安全性が高いです。</li> <li><strong>Q. パスワードは頻繁に変えるべき？</strong><br> <strong>A.</strong> いいえ。<strong>「長くて複雑なパスワードを一貫して使う方が安全」</strong>です。頻繁に変更すると管理ミスや弱い再利用パスワードを生む原因になります。 パスワード変更は、流出報告が出たとき・疑わしいログインがあったときだけ行えば十分です。</li> <li><strong>Q. 紙にメモしてもいい？</strong><br> <strong>A.</strong> オフライン保管なら安全です。ただし、オンライン写真・クラウド同期は絶対に避けてください。</li> </ul> <p><em>補足：</em> 現代のセキュリティでは「長さ」が最重要。短くて頻繁に変えるよりも、<strong>長く・複雑で・唯一のパスワード</strong>を確実に管理する方が、実用的かつ安全です。</p> <hr>
-          
-          
-          
-          </section>
+    <h4>なぜ</h4>
+    <p>
+      ゴミ箱に入れて空にしてもデータはストレージ上に残り、復元ツールで戻される可能性があります。<br>
+      譲渡・廃棄時は<strong>完全抹消</strong>、日常運用中は<strong>暗号化</strong>で守るのが基本です。
+    </p>
+
+    <h4>削除（抹消）の基本</h4>
+    <ul>
+      <li><strong>通常削除／クイックフォーマットは不可：</strong> ファイル表だけ消えるため復元可能。</li>
+      <li><strong>HDD：</strong> ゼロ書き込み（フルフォーマット）や複数回上書きで<strong>Clear</strong>。処分時は上書き複数回または物理破壊で<strong>Destroy</strong>を推奨。</li>
+      <li><strong>SSD／NVMe：</strong> ウェアレベリングの性質上、従来の上書きは十分ではありません。<strong>メーカー提供の「Secure Erase / Sanitize」や「NVMe Format / Sanitize」</strong>、もしくは<strong>暗号化ドライブの鍵消去（Crypto-Erase）</strong>を用いるのが適切です。</li>
+      <li><strong>Windowsのフルフォーマット：</strong> 「クイック」のチェックを外したフルフォーマットはゼロ書き込みを行いますが、最終廃棄時は専用手順（上記Secure Erase等）または物理破壊を推奨。</li>
+    </ul>
+
+    <h5>代表的な抹消ソフト／方法</h5>
+    <ul>
+      <li><a href="https://function-fc.com/eraser8.html" target="_blank" rel="noopener noreferrer">HD革命 Eraserシリーズ</a>：起動メディアからOS非依存で全消去が可能。</li>
+      <li><a href="https://www.junglejapan.com/products/masshou/" target="_blank" rel="noopener noreferrer">完全抹消シリーズ</a>：ファイル／フォルダ単位の上書き抹消に対応。</li>
+      <li>ストレージメーカー純正ツール：Samsung Magician / Crucial Storage Executive などの<strong>Secure Erase / Sanitize</strong>機能を使用。</li>
+      <li>物理破壊：廃棄時の最終手段（HDDのプラッタ穿孔、SSD基板破砕）。</li>
+    </ul>
+
+    <h4>暗号化の基本</h4>
+    <ul>
+      <li><strong>平常時は暗号化で守る：</strong> 盗難・紛失・侵入時でも中身の読み取りを困難にします。</li>
+      <li><strong>3層で考える：</strong> ファイル／フォルダ暗号化 ＋ ドライブ全体暗号化（OS・外付け含む）。</li>
+      <li><strong>鍵管理が要：</strong> 復号キー（回復キー）の保管場所を分離（紙・オフライン）し、マスターパスワードは長く複雑に。</li>
+      <li><strong>Crypto-Erase：</strong> ドライブ全体を暗号化しておけば、処分時は鍵の安全消去だけで高速に<strong>Purge</strong>が可能。</li>
+    </ul>
+
+    <h5>おすすめ暗号化/削除ソフト</h5>
+    <ul>
+      <li><a href="https://www.microsoft.com/ja-jp/windows/compare-windows-11-home-vs-pro-versions#tabs1-2" target="_blank" rel="noopener noreferrer">BitLocker（Windows Pro 以上 / 一部HomeはDevice Encryption）</a>：OS標準のフルディスク暗号化。TPM対応PCでシームレス運用、回復キーのバックアップ必須。</li>
+    
+      <li><a href="https://www.de-net.com/products/file_data_security/" target="_blank" rel="noopener noreferrer">ファイル・データセキュリティ</a>：右クリックで手早くファイル／フォルダ暗号化・削除。</li>
+    </ul>
+
+    <h4>一体型で運用（例）</h4>
+    <p>
+      ファイル・データセキュリティ」で、日常は暗号化で保護し、不要になったデータはその場で完全抹消。さらにシステムドライブは<strong>BitLocker</strong>で常時暗号化し、処分時は<strong>回復キー削除（Crypto-Erase）</strong>またはメーカーのSecure Eraseで短時間パージが可能です。
+    </p>
+
+    <h4>譲渡・廃棄の実践チェックリスト</h4>
+    <ol>
+      <li>外付け・USB媒体を含め、暗号化の有無を確認（暗号化していない媒体は抹消対象）。</li>
+      <li>HDDは上書き複数回または抹消ツールで全消去、SSD/NVMeは<strong>Secure Erase / Sanitize / Crypto-Erase</strong>を実行。</li>
+      <li>必要に応じて物理破壊で最終処置。</li>
+      <li>OS再インストールや<strong>フル</strong>フォーマットは初期化用途として実施可（ただし処分時は抹消を優先）。</li>
+      <li>回復キー・鍵ファイル・バックアップ媒体の廃棄／保管も整理。</li>
+    </ol>
+
+    <h4>注意点</h4>
+    <ul>
+      <li>SSDでは従来の「全領域上書き」は残留リスクがあるため、<strong>メーカー推奨手順</strong>を必ず使用。</li>
+      <li>TRIMは復元可能性を下げますが<strong>抹消手段ではありません</strong>。</li>
+      <li>会社・官公庁の媒体は規程（NIST SP 800-88等）に準拠した手順に従うこと。</li>
+    </ul>
+
+    <p><strong>※まとめ：</strong> 運用中は「暗号化」で守り、手放すときは「抹消」で消す。これを徹底すれば、情報漏洩リスクは実用上ほぼゼロにできます。</p>
+
+    <hr>
+  </div>
+</article>
+
     </main>
     <footer class="footer">
       <p>&copy; 2025 My Portfolio</p>
