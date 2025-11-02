@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>パソコンの選び方と購入ガイド</title>
-    <link rel="stylesheet" href="../css/style.css" />
-  </head>
-  <body>
-    <header class="container">
-      <h2>Windows設定</h2>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Windows設定</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <header class="container">
+    <h1>Windows設定</h1>
+  </header>
+
+  <main class="container">
+    <section id="blog-index" class="wrap">
            
               <article class="panel blog-post" data-no-close="true">
       <h3> ブラウザとアドオン</h3>
@@ -419,13 +423,26 @@
   </div>
 </article>
 
-
-    </section>
+</section>
     </main>
     <footer class="footer">
       <p>&copy; 2025 My Portfolio</p>
     </footer>
-    <script src="../js/toggleCaption.js" defer></script>
+     <script>
+      function toggle(btn) {
+        const card = btn.closest('.card');
+        card.classList.toggle('expanded');
+        btn.textContent = card.classList.contains('expanded') ? '▲ 閉じる' : '▼ 詳細を見る';
+      }
+    </script>
+    <!-- JavaScript -->
+    <script>
+      function toggle(btn) {
+        const card = btn.closest('.card');
+        card.classList.toggle('expanded');
+        btn.textContent = card.classList.contains('expanded') ? '▲ 閉じる' : '▼ 詳細を見る';
+      }
+    </script>
     <div class="fixed-footer-nav" style="display:flex;flex-wrap:nowrap;justify-content:center;max-width:95vw;gap:16px">
       <a href="../index.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">トップページ</a>
       <a href="music.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">音楽素材</a>
