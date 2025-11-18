@@ -1,9 +1,106 @@
-  <!-- ギャラリー：画像 -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Midorimushi Portfolio</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<header class="container">
+  <h1>ちょこっとチョコレート / Portfolio(テスト)</h1>
+  <nav class="nav">
+    <a href="#contact">お問い合わせ</a>
+  </nav>
+</header>
+
+<main class="container">
+  <h2>Chocolate Mint</h2>
+  <p>テスト</p>
+
+  <!-- 背景画像＋上に重ねるギャラリー -->
+  <section id="works" class="card image-overlay-wrapper">
+    <div class="cover-image">
+      <!-- ↓ cover.webp を背景として指定したい場合は CSSで設定してください -->
+
+      <div class="overlay-gallery">
+
+        <!-- カード1：画像 -->
+        <div class="art-card bg-01">
+          <div class="art-content">
+            <h3>画像</h3>
+            <div class="caption-container">
+              <button
+                class="toggle-button open-gallery"
+                type="button"
+                data-gallery="gallery-01"
+              >
+                ▼ 詳細を見る
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- カード2：動画 -->
+        <div class="art-card bg-02">
+          <div class="art-content">
+            <h3>動画</h3>
+            <div class="caption-container">
+              <button
+                class="toggle-button open-gallery"
+                type="button"
+                data-gallery="gallery-02"
+              >
+                ▼ 詳細を見る
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- カード3：ブログ -->
+        <div class="art-card bg-03">
+          <div class="art-content">
+            <h3>ブログ</h3>
+            <div class="caption-container">
+              <button
+                class="toggle-button open-gallery"
+                type="button"
+                data-gallery="gallery-03"
+              >
+                ▼ 詳細を見る
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- カード4：その他 -->
+        <div class="art-card bg-04">
+          <div class="art-content">
+            <h3>その他</h3>
+            <div class="caption-container">
+              <button
+                class="toggle-button open-gallery"
+                type="button"
+                data-gallery="gallery-04"
+              >
+                ▼ 詳細を見る
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- overlay-gallery 終わり -->
+    </div><!-- cover-image 終わり -->
+  </section>
+
+  <!-- ===== フルスクリーン ギャラリー ===== -->
+
+  <!-- ギャラリー1：画像 -->
   <div id="gallery-01" class="gallery-modal" aria-hidden="true">
     <div class="gallery-inner">
       <button class="gallery-close" type="button">✕ 閉じる</button>
       <div class="gallery-images">
-        <!-- 好きなだけfigureを追加 -->
+        <!-- 好きな枚数だけ増やせます -->
         <figure>
           <a href="images/img01-1.webp" download>
             <img src="images/img01-1.webp" alt="画像1" />
@@ -20,7 +117,7 @@
     </div>
   </div>
 
-  <!-- ギャラリー：動画（ここにはサムネ画像とか静止画を置いてOK） -->
+  <!-- ギャラリー2：動画（ここではサムネ画像＋クリックで動画DLにしています） -->
   <div id="gallery-02" class="gallery-modal" aria-hidden="true">
     <div class="gallery-inner">
       <button class="gallery-close" type="button">✕ 閉じる</button>
@@ -35,14 +132,14 @@
     </div>
   </div>
 
-  <!-- ギャラリー：ブログ -->
+  <!-- ギャラリー3：ブログ -->
   <div id="gallery-03" class="gallery-modal" aria-hidden="true">
     <div class="gallery-inner">
       <button class="gallery-close" type="button">✕ 閉じる</button>
       <div class="gallery-images">
         <figure>
           <a href="blog/blog00.html">
-            <img src="images/blog-thumb01.webp" alt="ブログ1" />
+            <img src="images/blog-thumb01.webp" alt="ブログ一覧" />
           </a>
           <figcaption>ブログ一覧へ</figcaption>
         </figure>
@@ -50,7 +147,7 @@
     </div>
   </div>
 
-  <!-- ギャラリー：その他 -->
+  <!-- ギャラリー4：その他 -->
   <div id="gallery-04" class="gallery-modal" aria-hidden="true">
     <div class="gallery-inner">
       <button class="gallery-close" type="button">✕ 閉じる</button>
@@ -64,3 +161,62 @@
       </div>
     </div>
   </div>
+
+</main>
+
+<!-- フッターナビ -->
+<div class="fixed-footer-nav" style="display:flex;flex-wrap:nowrap;justify-content:center;max-width:95vw;gap:16px">
+  <a href="../index.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">トップページ</a>
+  <a href="blog/music.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">音楽素材</a>
+  <a href="blog/blog00.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">ブログ</a>
+</div>
+
+<!-- ギャラリー開閉用スクリプト -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // ▼詳細を見る クリックで対象ギャラリーを開く
+    document.querySelectorAll('.open-gallery').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const id = btn.getAttribute('data-gallery');
+        const modal = document.getElementById(id);
+        if (modal) {
+          modal.classList.add('is-open');
+          modal.setAttribute('aria-hidden', 'false');
+        }
+      });
+    });
+
+    // 閉じるボタン & 背景クリックで閉じる
+    document.querySelectorAll('.gallery-modal').forEach(function (modal) {
+      const closeBtn = modal.querySelector('.gallery-close');
+
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function () {
+          modal.classList.remove('is-open');
+          modal.setAttribute('aria-hidden', 'true');
+        });
+      }
+
+      // 背景クリックで閉じる（中身クリックは閉じない）
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) {
+          modal.classList.remove('is-open');
+          modal.setAttribute('aria-hidden', 'true');
+        }
+      });
+    });
+
+    // ESCキーで開いているモーダルを全部閉じる
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.gallery-modal.is-open').forEach(function (modal) {
+          modal.classList.remove('is-open');
+          modal.setAttribute('aria-hidden', 'true');
+        });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
