@@ -25,7 +25,7 @@
 
       <div class="overlay-gallery">
 
-        <!-- カード1：画像 -->
+        <!-- 作品1：画像 -->
         <div class="art-card bg-01">
           <div class="art-content">
             <h3>画像</h3>
@@ -37,11 +37,14 @@
               >
                 ▼ 詳細を見る
               </button>
+              <!-- 説明テキストは空でもOK（レイアウト維持のため残してあります） -->
+              <p id="cap-01" class="caption"></p>
             </div>
+            <!-- 再生／DLボタンは削除 -->
           </div>
         </div>
 
-        <!-- カード2：動画 -->
+        <!-- 作品2：動画 -->
         <div class="art-card bg-02">
           <div class="art-content">
             <h3>動画</h3>
@@ -53,11 +56,12 @@
               >
                 ▼ 詳細を見る
               </button>
+              <p id="cap-02" class="caption"></p>
             </div>
           </div>
         </div>
 
-        <!-- カード3：ブログ -->
+        <!-- 作品3：ブログ -->
         <div class="art-card bg-03">
           <div class="art-content">
             <h3>ブログ</h3>
@@ -69,11 +73,12 @@
               >
                 ▼ 詳細を見る
               </button>
+              <p id="cap-03" class="caption"></p>
             </div>
           </div>
         </div>
 
-        <!-- カード4：その他 -->
+        <!-- 作品4：その他 -->
         <div class="art-card bg-04">
           <div class="art-content">
             <h3>その他</h3>
@@ -85,12 +90,13 @@
               >
                 ▼ 詳細を見る
               </button>
+              <p id="cap-04" class="caption"></p>
             </div>
           </div>
         </div>
 
-      </div><!-- overlay-gallery 終わり -->
-    </div><!-- cover-image 終わり -->
+      </div> <!-- overlay-gallery 終わり -->
+    </div>   <!-- cover-image 終わり -->
   </section>
 
   <!-- ===== フルスクリーン ギャラリー ===== -->
@@ -100,7 +106,7 @@
     <div class="gallery-inner">
       <button class="gallery-close" type="button">✕ 閉じる</button>
       <div class="gallery-images">
-        <!-- 好きな枚数だけ増やせます -->
+        <!-- 好きなだけ figure を追加してOK -->
         <figure>
           <a href="images/img01-1.webp" download>
             <img src="images/img01-1.webp" alt="画像1" />
@@ -117,7 +123,7 @@
     </div>
   </div>
 
-  <!-- ギャラリー2：動画（ここではサムネ画像＋クリックで動画DLにしています） -->
+  <!-- ギャラリー2：動画（サムネ画像 + クリックで動画DL） -->
   <div id="gallery-02" class="gallery-modal" aria-hidden="true">
     <div class="gallery-inner">
       <button class="gallery-close" type="button">✕ 閉じる</button>
@@ -171,10 +177,12 @@
   <a href="blog/blog00.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">ブログ</a>
 </div>
 
+<!-- 以前の toggleCaption.js と toggle() 関係の <script> は削除してOK -->
+
 <!-- ギャラリー開閉用スクリプト -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    // ▼詳細を見る クリックで対象ギャラリーを開く
+    // ▼ 詳細を見る → 対応するギャラリーを開く
     document.querySelectorAll('.open-gallery').forEach(function (btn) {
       btn.addEventListener('click', function () {
         const id = btn.getAttribute('data-gallery');
@@ -186,7 +194,7 @@
       });
     });
 
-    // 閉じるボタン & 背景クリックで閉じる
+    // ✕閉じる ＋ 背景クリック → 閉じる
     document.querySelectorAll('.gallery-modal').forEach(function (modal) {
       const closeBtn = modal.querySelector('.gallery-close');
 
@@ -197,7 +205,6 @@
         });
       }
 
-      // 背景クリックで閉じる（中身クリックは閉じない）
       modal.addEventListener('click', function (e) {
         if (e.target === modal) {
           modal.classList.remove('is-open');
@@ -206,7 +213,7 @@
       });
     });
 
-    // ESCキーで開いているモーダルを全部閉じる
+    // ESCキーでも閉じる
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') {
         document.querySelectorAll('.gallery-modal.is-open').forEach(function (modal) {
