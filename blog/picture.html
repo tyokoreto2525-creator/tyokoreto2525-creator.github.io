@@ -1,28 +1,66 @@
-  <!-- 作品1：画像 -->
-  <div class="art-card bg-01">
-    <a href="#images" class="art-link">
-      <span class="art-link-title">画像</span>
-    </a>
+  <!-- ギャラリー：画像 -->
+  <div id="gallery-01" class="gallery-modal" aria-hidden="true">
+    <div class="gallery-inner">
+      <button class="gallery-close" type="button">✕ 閉じる</button>
+      <div class="gallery-images">
+        <!-- 好きなだけfigureを追加 -->
+        <figure>
+          <a href="images/img01-1.webp" download>
+            <img src="images/img01-1.webp" alt="画像1" />
+          </a>
+          <figcaption>画像1（クリックでダウンロード）</figcaption>
+        </figure>
+        <figure>
+          <a href="images/img01-2.webp" download>
+            <img src="images/img01-2.webp" alt="画像2" />
+          </a>
+          <figcaption>画像2（クリックでダウンロード）</figcaption>
+        </figure>
+      </div>
+    </div>
   </div>
 
-  <!-- 作品2：動画 -->
-  <div class="art-card bg-02">
-    <a href="#movies" class="art-link">
-      <span class="art-link-title">動画</span>
-    </a>
+  <!-- ギャラリー：動画（ここにはサムネ画像とか静止画を置いてOK） -->
+  <div id="gallery-02" class="gallery-modal" aria-hidden="true">
+    <div class="gallery-inner">
+      <button class="gallery-close" type="button">✕ 閉じる</button>
+      <div class="gallery-images">
+        <figure>
+          <a href="videos/sample01.mp4" download>
+            <img src="images/movie-thumb01.webp" alt="動画1サムネ" />
+          </a>
+          <figcaption>動画1（クリックで動画DL）</figcaption>
+        </figure>
+      </div>
+    </div>
   </div>
 
-  <!-- 作品3：ブログ -->
-  <div class="art-card bg-03">
-    <!-- ここは既存のブログページに直接飛ばす例 -->
-    <a href="blog/blog00.html" class="art-link">
-      <span class="art-link-title">ブログ</span>
-    </a>
+  <!-- ギャラリー：ブログ -->
+  <div id="gallery-03" class="gallery-modal" aria-hidden="true">
+    <div class="gallery-inner">
+      <button class="gallery-close" type="button">✕ 閉じる</button>
+      <div class="gallery-images">
+        <figure>
+          <a href="blog/blog00.html">
+            <img src="images/blog-thumb01.webp" alt="ブログ1" />
+          </a>
+          <figcaption>ブログ一覧へ</figcaption>
+        </figure>
+      </div>
+    </div>
   </div>
 
-  <!-- 作品4：その他 -->
-  <div class="art-card bg-04">
-    <a href="#others" class="art-link">
-      <span class="art-link-title">その他</span>
-    </a>
+  <!-- ギャラリー：その他 -->
+  <div id="gallery-04" class="gallery-modal" aria-hidden="true">
+    <div class="gallery-inner">
+      <button class="gallery-close" type="button">✕ 閉じる</button>
+      <div class="gallery-images">
+        <figure>
+          <a href="others/other01.zip" download>
+            <img src="images/other-thumb01.webp" alt="その他1" />
+          </a>
+          <figcaption>その他1（クリックでDL）</figcaption>
+        </figure>
+      </div>
+    </div>
   </div>
