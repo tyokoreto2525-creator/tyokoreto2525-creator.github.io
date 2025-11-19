@@ -101,26 +101,29 @@
   <!-- ここから下がフルスクリーンギャラリー -->
 
   <!-- ギャラリー1：画像 -->
-  <div id="gallery-01" class="gallery-modal" aria-hidden="true">
-    <div class="gallery-inner">
-      <button class="gallery-close" type="button">✕ 閉じる</button>
-      <div class="gallery-images">
-        <!-- 好きなだけ figure を増やしてOK -->
-        <figure>
-          <a href="images/img01-1.webp" download>
-            <img src="images/E01.webp" alt="画像1" />
-          </a>
-          <figcaption>画像1（クリックでダウンロード）</figcaption>
-        </figure>
-        <figure>
-          <a href="images/img01-2.webp" download>
-            <img src="images/img01-2.webp" alt="画像2" />
-          </a>
-          <figcaption>画像2（クリックでダウンロード）</figcaption>
-        </figure>
-      </div>
+<div id="gallery-01" class="gallery-modal" aria-hidden="true">
+  <div class="gallery-inner">
+    <button class="gallery-close" type="button">✕ 閉じる</button>
+    <div class="gallery-images">
+      <!-- 1枚目：thumb_01.webp をそのまま使う -->
+      <figure>
+        <a href="../assets/E01.webp" download>
+          <img src="../assets/E01.webp" alt="画像1" />
+        </a>
+        <figcaption>画像1（クリックでダウンロード）</figcaption>
+      </figure>
+
+      <!-- 2枚目：thumb_02.webp を使う例 -->
+      <figure>
+        <a href="../assets/E02.webp" download>
+          <img src="../assets/E02.webp" alt="画像2" />
+        </a>
+        <figcaption>画像2（クリックでダウンロード）</figcaption>
+      </figure>
     </div>
   </div>
+</div>
+
 
   <!-- ギャラリー2：動画用（サムネ画像 + クリックで動画DL） -->
   <div id="gallery-02" class="gallery-modal" aria-hidden="true">
@@ -226,4 +229,5 @@
 
 </body>
 </html>
+
 
