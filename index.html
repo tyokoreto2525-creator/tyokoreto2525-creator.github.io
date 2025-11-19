@@ -14,133 +14,215 @@
   </nav>
 </header>
 
-  <main class="container">
-    <h2>Chocolate Mint</h2>
-    <p>テスト</p>
+<main class="container">
+  <h2>Chocolate Mint</h2>
+  <p>テスト</p>
 
-    <!-- 背景画像＋上に重ねるギャラリー -->
-    <section id="works" class="card image-overlay-wrapper">
-      <div class="cover-image">
-        <!-- ↓ cover.webp を背景として指定したい場合は CSSで設定してください -->
+  <!-- 背景画像＋上に重ねるギャラリー -->
+  <section id="works" class="card image-overlay-wrapper">
+    <div class="cover-image">
+      <!-- ↓ cover.webp を背景として指定したい場合は CSSで設定してください -->
 
-  <div class="overlay-gallery">
+      <div class="overlay-gallery">
 
-  <!-- 作品1 -->
-  <div class="art-card bg-01">
-    <div class="art-content">
-      <h3>囚ワレノ花</h3>
-      <div class="caption-container">
-        <button class="toggle-button" type="button" aria-controls="cap-01" aria-expanded="false">▼ 詳細を見る</button>
-        <p id="cap-01" class="caption">
-          狂おしいほどの独占欲に囚われた少女が、愛する彼女を甘美な檻に閉じ込める耽美で背徳的なレズビアン愛の物語。
-        </p>
-      </div>
-      <div class="actions">
-        <a href="videos/囚ワレノ花.mp4">▶ 再生</a>
-        <a href="videos/囚ワレノ花.mp4">🎞 動画DL</a>
-        <a href="music/囚ワレノ花.mp3">🎵 音声DL</a>
+        <!-- 作品1：画像 -->
+        <div class="art-card bg-01">
+          <div class="art-content">
+            <h3>画像</h3>
+            <div class="caption-container">
+              <button
+                class="toggle-button open-gallery"
+                type="button"
+                data-gallery="gallery-01"
+              >
+                ▼ 詳細を見る
+              </button>
+              <!-- レイアウト維持用。中身は空でOK -->
+              <p id="cap-01" class="caption"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 作品2：動画 -->
+        <div class="art-card bg-02">
+          <div class="art-content">
+            <h3>動画</h3>
+            <div class="caption-container">
+              <button
+                class="toggle-button open-gallery"
+                type="button"
+                data-gallery="gallery-02"
+              >
+                ▼ 詳細を見る
+              </button>
+              <p id="cap-02" class="caption"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 作品3：ブログ -->
+        <div class="art-card bg-03">
+          <div class="art-content">
+            <h3>ブログ</h3>
+            <div class="caption-container">
+              <button
+                class="toggle-button open-gallery"
+                type="button"
+                data-gallery="gallery-03"
+              >
+                ▼ 詳細を見る
+              </button>
+              <p id="cap-03" class="caption"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 作品4：その他 -->
+        <div class="art-card bg-04">
+          <div class="art-content">
+            <h3>その他</h3>
+            <div class="caption-container">
+              <button
+                class="toggle-button open-gallery"
+                type="button"
+                data-gallery="gallery-04"
+              >
+                ▼ 詳細を見る
+              </button>
+              <p id="cap-04" class="caption"></p>
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- overlay-gallery 終わり -->
+    </div>   <!-- cover-image 終わり -->
+  </section>
+
+  <!-- ここから下がフルスクリーンギャラリー -->
+
+  <!-- ギャラリー1：画像 -->
+  <div id="gallery-01" class="gallery-modal" aria-hidden="true">
+    <div class="gallery-inner">
+      <button class="gallery-close" type="button">✕ 閉じる</button>
+      <div class="gallery-images">
+        <!-- 好きなだけ figure を増やしてOK -->
+        <figure>
+          <a href="images/img01-1.webp" download>
+            <img src="images/img01-1.webp" alt="画像1" />
+          </a>
+          <figcaption>画像1（クリックでダウンロード）</figcaption>
+        </figure>
+        <figure>
+          <a href="images/img01-2.webp" download>
+            <img src="images/img01-2.webp" alt="画像2" />
+          </a>
+          <figcaption>画像2（クリックでダウンロード）</figcaption>
+        </figure>
       </div>
     </div>
   </div>
 
-  <!-- 作品2 -->
-  <div class="art-card bg-02">
-    <div class="art-content">
-      <h3>熱に沈む</h3>
-      <div class="caption-container">
-        <button class="toggle-button" type="button" aria-controls="cap-02" aria-expanded="false">▼ 詳細を見る</button>
-        <p id="cap-02" class="caption">
-          理性も記憶も焼き尽くされ、相手の熱に身も心も溺れ続ける狂おしい愛の物語。
-        </p>
-      </div>
-      <div class="actions">
-        <a href="#play-02" class="btn">▶ 再生</a>
-        <a href="videos/熱に沈む.mp4" class="btn" download>🎞 動画DL</a>
-        <a href="music/熱に沈む.mp3" class="btn" download>🎵 音声DL</a>
+  <!-- ギャラリー2：動画用（サムネ画像 + クリックで動画DL） -->
+  <div id="gallery-02" class="gallery-modal" aria-hidden="true">
+    <div class="gallery-inner">
+      <button class="gallery-close" type="button">✕ 閉じる</button>
+      <div class="gallery-images">
+        <figure>
+          <a href="videos/sample01.mp4" download>
+            <img src="images/movie-thumb01.webp" alt="動画1サムネ" />
+          </a>
+          <figcaption>動画1（クリックで動画DL）</figcaption>
+        </figure>
       </div>
     </div>
   </div>
 
-  <!-- 作品3 -->
-  <div class="art-card bg-03">
-    <div class="art-content">
-      <h3>プロフ詐欺ビースト★罠の出会い</h3>
-      <div class="caption-container">
-        <button class="toggle-button" type="button" aria-controls="cap-03" aria-expanded="false">▼ 詳細を見る</button>
-        <p id="cap-03" class="caption">
-          現代の恋愛手法の一つである出会い系が、期待から一転して怪物級相手との恐怖と笑いに変わる物語。
-        </p>
-      </div>
-      <div class="actions">
-        <a href="#play-03" class="btn">▶ 再生</a>
-        <a href="videos/プロフ詐欺ビースト★罠の出会い.mp4" class="btn" download>🎞 動画DL</a>
-        <a href="music/プロフ詐欺ビースト★罠の出会い.mp3" class="btn" download>🎵 音声DL</a>
+  <!-- ギャラリー3：ブログ -->
+  <div id="gallery-03" class="gallery-modal" aria-hidden="true">
+    <div class="gallery-inner">
+      <button class="gallery-close" type="button">✕ 閉じる</button>
+      <div class="gallery-images">
+        <figure>
+          <a href="blog/blog00.html">
+            <img src="images/blog-thumb01.webp" alt="ブログ一覧" />
+          </a>
+          <figcaption>ブログ一覧へ</figcaption>
+        </figure>
       </div>
     </div>
   </div>
 
-  <!-- 作品4 -->
-  <div class="art-card bg-04">
-    <div class="art-content">
-      <h3>空想愛</h3>
-      <div class="caption-container">
-        <button class="toggle-button" type="button" aria-controls="cap-04" aria-expanded="false">▼ 詳細を見る</button>
-        <p id="cap-04" class="caption">
-          触れる瞬間のときめきと、壊れそうな関係に揺れながらも相手を強く想う、切なくも抑えられない恋心の物語。
-        </p>
-      </div>
-      <div class="actions">
-        <a href="#play-04" class="btn">▶ 再生</a>
-        <a href="videos/空想愛.mp4" class="btn" download>🎞 動画DL</a>
-        <a href="music/空想愛.mp3" class="btn" download>🎵 音声DL</a>
+  <!-- ギャラリー4：その他 -->
+  <div id="gallery-04" class="gallery-modal" aria-hidden="true">
+    <div class="gallery-inner">
+      <button class="gallery-close" type="button">✕ 閉じる</button>
+      <div class="gallery-images">
+        <figure>
+          <a href="others/other01.zip" download>
+            <img src="images/other-thumb01.webp" alt="その他1" />
+          </a>
+          <figcaption>その他1（クリックでDL）</figcaption>
+        </figure>
       </div>
     </div>
   </div>
 
+</main>
 
+<!-- フッターナビ（元のまま） -->
+<div class="fixed-footer-nav" style="display:flex;flex-wrap:nowrap;justify-content:center;max-width:95vw;gap:16px">
+  <a href="../index.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">トップページ</a>
+  <a href="blog/music.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">音楽素材</a>
+  <a href="blog/blog00.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">ブログ</a>
+</div>
 
-        </div> <!-- overlay-gallery 終わり -->
-      </div> <!-- cover-image 終わり -->
-    </section>
+<!-- 元の toggleCaption.js と inline の toggle() はもう使わないので削除 -->
 
- </main>
-<script src="js/toggleCaption.js"></script>
-
-
-  </div>
-
-  <script>
-    function toggle(btn) {
-      const card = btn.closest('.card');
-      card.classList.toggle('expanded');
-      btn.textContent = card.classList.contains('expanded') ? '▲ 閉じる' : '▼ 詳細を見る';
-    }
-  </script>
-
-
-<!-- JavaScript -->
+<!-- ギャラリー開閉用スクリプト -->
 <script>
-  function toggle(btn) {
-    const card = btn.closest('.card');
-    card.classList.toggle('expanded');
-    btn.textContent = card.classList.contains('expanded') ? '▲ 閉じる' : '▼ 詳細を見る';
-  }
+  document.addEventListener('DOMContentLoaded', function () {
+    // ▼ 詳細を見る → 対応するギャラリーを開く
+    document.querySelectorAll('.open-gallery').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const id = btn.getAttribute('data-gallery');
+        const modal = document.getElementById(id);
+        if (modal) {
+          modal.classList.add('is-open');
+          modal.setAttribute('aria-hidden', 'false');
+        }
+      });
+    });
+
+    // ✕閉じる ＋ 背景クリックで閉じる
+    document.querySelectorAll('.gallery-modal').forEach(function (modal) {
+      const closeBtn = modal.querySelector('.gallery-close');
+
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function () {
+          modal.classList.remove('is-open');
+          modal.setAttribute('aria-hidden', 'true');
+        });
+      }
+
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) {
+          modal.classList.remove('is-open');
+          modal.setAttribute('aria-hidden', 'true');
+        }
+      });
+    });
+
+    // ESCキーでも閉じる
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.gallery-modal.is-open').forEach(function (modal) {
+          modal.classList.remove('is-open');
+          modal.setAttribute('aria-hidden', 'true');
+        });
+      }
+    });
+  });
 </script>
-
-    <div class="fixed-footer-nav" style="display:flex;flex-wrap:nowrap;justify-content:center;max-width:95vw;gap:16px">
-      <a href="../index.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">トップページ</a>
-      <a href="blog/music.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">音楽素材</a>
-      <a href="blog/blog00.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">ブログ</a>
-    </div>
-
-</body>
-
-
 
 </body>
 </html>
-
-
-
-
-
