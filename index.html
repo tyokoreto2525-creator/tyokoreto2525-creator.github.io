@@ -6,7 +6,6 @@
   <title>Midorimushi Portfolio</title>
   <link rel="stylesheet" href="css/style.css" />
 
-  <!-- ここを丸ごと差し替え -->
   <style>
     /* 画像拡大ライトボックス */
     .image-lightbox {
@@ -54,7 +53,7 @@
       font-size: 0.9rem;
     }
 
-    /* モーダル本体（PC・スマホ共通でスクロール可能にする） */
+    /* モーダル本体（PC・スマホ共通） */
     .gallery-modal {
       position: fixed;
       inset: 0;
@@ -70,15 +69,13 @@
     .gallery-inner {
       position: relative;
       max-width: 1000px;
-      max-height: 90vh;          /* 画面からはみ出さない */
-      overflow-y: auto;          /* 中身が長いときスクロール */
+      max-height: 90vh;
+      overflow-y: auto;
       padding: 16px;
       background: rgba(0,0,0,0.9);
       border-radius: 10px;
       box-sizing: border-box;
     }
-
-    /* 元の閉じるボタン（PCで上に出したい用） */
     .gallery-close {
       padding: 6px 12px;
       border-radius: 4px;
@@ -104,7 +101,7 @@
       background: rgba(0,0,0,0.7);
       padding: 10px 12px;
       border-radius: 6px;
-      color: #f8f8f8; /* 文字色濃く（明るく） */
+      color: #f8f8f8;
     }
     .text-row-title {
       flex: 1 1 auto;
@@ -135,12 +132,12 @@
       display: block;
     }
 
-    /* ===== スマホ用調整ここから ===== */
+    /* ===== スマホ用調整 ===== */
     @media (max-width: 768px) {
 
-      /* 「詳細を見る」の4枚カードが隠れないように縦並び＋縮小 */
+      /* 「詳細を見る」の4カードが画面内に収まるように */
       .overlay-gallery {
-        position: static;          /* 真ん中固定をやめる */
+        position: static;
         transform: none;
         margin: 12px auto 20px;
         max-width: 94vw;
@@ -152,14 +149,13 @@
         width: 100%;
       }
 
-      /* モーダルはほぼ全画面で表示 */
+      /* モーダルはほぼ全画面＋下に閉じるボタン固定 */
       .gallery-inner {
         width: 96vw;
         max-height: 88vh;
-        padding-bottom: 56px;  /* 下の閉じるボタン分の余白 */
+        padding-bottom: 56px; /* 下ボタン分余白 */
       }
 
-      /* 閉じるボタンを画面下に固定して常に見えるようにする */
       .gallery-modal .gallery-close {
         position: fixed;
         bottom: 12px;
@@ -168,12 +164,403 @@
         z-index: 10001;
       }
     }
-    /* ===== スマホ用調整ここまで ===== */
-
   </style>
 </head>
 <body>
-  <!-- 以下は前に渡したHTMLそのままでOK（省略） -->
-  ...
+<header class="container">
+  <h1>ちょこっとチョコレート / Portfolio(テスト)</h1>
+  <nav class="nav">
+    <a href="#contact">お問い合わせ</a>
+  </nav>
+</header>
+
+<main class="container">
+  <h2>Chocolate Mint</h2>
+  <p>テスト</p>
+
+  <!-- 背景画像＋上に重ねるギャラリー -->
+  <section id="works" class="card image-overlay-wrapper">
+    <div class="cover-image">
+      <div class="overlay-gallery">
+
+        <!-- 作品1：画像 -->
+        <div class="art-card bg-01">
+          <div class="art-content">
+            <h3>画像</h3>
+            <div class="caption-container">
+              <button
+                class="toggle-button open-gallery"
+                type="button"
+                data-gallery="gallery-01"
+              >
+                ▼ 詳細を見る
+              </button>
+              <p id="cap-01" class="caption"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 作品2：動画 -->
+        <div class="art-card bg-02">
+          <div class="art-content">
+            <h3>動画</h3>
+            <div class="caption-container">
+              <button
+                class="toggle-button open-gallery"
+                type="button"
+                data-gallery="gallery-02"
+              >
+                ▼ 詳細を見る
+              </button>
+              <p id="cap-02" class="caption"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 作品3：ブログ -->
+        <div class="art-card bg-03">
+          <div class="art-content">
+            <h3>ブログ</h3>
+            <div class="caption-container">
+              <button
+                class="toggle-button open-gallery"
+                type="button"
+                data-gallery="gallery-03"
+              >
+                ▼ 詳細を見る
+              </button>
+              <p id="cap-03" class="caption"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 作品4：その他 -->
+        <div class="art-card bg-04">
+          <div class="art-content">
+            <h3>その他</h3>
+            <div class="caption-container">
+              <button
+                class="toggle-button open-gallery"
+                type="button"
+                data-gallery="gallery-04"
+              >
+                ▼ 詳細を見る
+              </button>
+              <p id="cap-04" class="caption"></p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ギャラリー1：画像一覧 -->
+  <div id="gallery-01" class="gallery-modal" aria-hidden="true">
+    <div class="gallery-inner">
+      <button class="gallery-close" type="button">✕ 閉じる</button>
+
+      <div class="gallery-images">
+
+        <!-- 1 -->
+        <figure>
+          <a href="../assets/E01.webp" download>
+            <img src="../assets/E01.webp" alt="黄昏の祈り">
+          </a>
+          <figcaption>黄昏の祈り</figcaption>
+          <button type="button" class="enlarge-btn">拡大</button>
+        </figure>
+
+        <!-- 2 -->
+        <figure>
+          <a href="../assets/E02.webp" download>
+            <img src="../assets/E02.webp" alt="碧雫のマーメイド">
+          </a>
+          <figcaption>碧雫のマーメイド</figcaption>
+          <button type="button" class="enlarge-btn">拡大</button>
+        </figure>
+
+        <!-- 3 -->
+        <figure>
+          <a href="../assets/E03.webp" download>
+            <img src="../assets/E03.webp" alt="森に囁く少女">
+          </a>
+          <figcaption>森に囁く少女</figcaption>
+          <button type="button" class="enlarge-btn">拡大</button>
+        </figure>
+
+        <!-- 4 -->
+        <figure>
+          <a href="../assets/E04.webp" download>
+            <img src="../assets/E04.webp" alt="水色リボンの微笑み">
+          </a>
+          <figcaption>水色リボンの微笑み</figcaption>
+          <button type="button" class="enlarge-btn">拡大</button>
+        </figure>
+
+        <!-- 5 -->
+        <figure>
+          <a href="../assets/E05.webp" download>
+            <img src="../assets/E05.webp" alt="内緒話の放課後">
+          </a>
+          <figcaption>内緒話の放課後</figcaption>
+          <button type="button" class="enlarge-btn">拡大</button>
+        </figure>
+
+        <!-- 6 -->
+        <figure>
+          <a href="../assets/E06.webp" download>
+            <img src="../assets/E06.webp" alt="紫煙のオラクル">
+          </a>
+          <figcaption>紫煙のオラクル</figcaption>
+          <button type="button" class="enlarge-btn">拡大</button>
+        </figure>
+
+        <!-- 7 -->
+        <figure>
+          <a href="../assets/E07.webp" download>
+            <img src="../assets/E07.webp" alt="春待ちの横顔">
+          </a>
+          <figcaption>春待ちの横顔</figcaption>
+          <button type="button" class="enlarge-btn">拡大</button>
+        </figure>
+
+        <!-- 8 -->
+        <figure>
+          <a href="../assets/E08.webp" download>
+            <img src="../assets/E08.webp" alt="照れ隠しのマーメイド">
+          </a>
+          <figcaption>照れ隠しのマーメイド</figcaption>
+          <button type="button" class="enlarge-btn">拡大</button>
+        </figure>
+
+        <!-- 9 -->
+        <figure>
+          <a href="../assets/E09.webp" download>
+            <img src="../assets/E09.webp" alt="雪花のドレス">
+          </a>
+          <figcaption>雪花のドレス</figcaption>
+          <button type="button" class="enlarge-btn">拡大</button>
+        </figure>
+
+        <!-- 10 -->
+        <figure>
+          <a href="../assets/E10.webp" download>
+            <img src="../assets/E10.webp" alt="雨上がりのまなざし">
+          </a>
+          <figcaption>雨上がりのまなざし</figcaption>
+          <button type="button" class="enlarge-btn">拡大</button>
+        </figure>
+
+        <!-- 11 -->
+        <figure>
+          <a href="../assets/E11.webp" download>
+            <img src="../assets/E11.webp" alt="紅き黒兎の晩餐">
+          </a>
+          <figcaption>紅き黒兎の晩餐</figcaption>
+          <button type="button" class="enlarge-btn">拡大</button>
+        </figure>
+
+      </div>
+
+      <p style="margin-top: 12px; font-size: 0.9rem; text-align: center;">
+        ※画像クリックでダウンロード、「拡大」で大きく表示されます。
+      </p>
+
+    </div>
+  </div>
+
+  <!-- 画像拡大ライトボックス -->
+  <div id="image-lightbox" class="image-lightbox" aria-hidden="true">
+    <div class="image-lightbox-inner">
+      <button class="image-lightbox-close" type="button">✕ 閉じる</button>
+      <img id="lightbox-img" src="" alt="">
+      <p id="lightbox-caption" class="image-lightbox-caption"></p>
+    </div>
+  </div>
+
+  <!-- ギャラリー2：動画 -->
+  <div id="gallery-02" class="gallery-modal" aria-hidden="true">
+    <div class="gallery-inner">
+      <button class="gallery-close" type="button">✕ 閉じる</button>
+      <div class="gallery-images">
+        <figure>
+          <a href="videos/sample01.mp4" download>
+            <img src="images/movie-thumb01.webp" alt="動画1サムネ" />
+          </a>
+          <figcaption>動画1（クリックで動画DL）</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+
+  <!-- ギャラリー3：ブログ -->
+  <div id="gallery-03" class="gallery-modal" aria-hidden="true">
+    <div class="gallery-inner">
+      <button class="gallery-close" type="button">✕ 閉じる</button>
+      <div class="gallery-images">
+        <figure>
+          <a href="blog/blog00.html">
+            <img src="images/blog-thumb01.webp" alt="ブログ一覧" />
+          </a>
+          <figcaption>ブログ一覧へ</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+
+  <!-- ギャラリー4：その他（タイトル／内容を見る） -->
+  <div id="gallery-04" class="gallery-modal" aria-hidden="true">
+    <div class="gallery-inner">
+      <button class="gallery-close" type="button">✕ 閉じる</button>
+
+      <h3 style="margin-bottom:12px;color:#fff;">その他テキスト</h3>
+
+      <div class="text-list">
+        <!-- 1つ目の項目 -->
+        <div>
+          <div class="text-row">
+            <span class="text-row-title">1.通信端末の分離と使い捨て設計</span>
+            <button type="button" class="text-toggle-btn" data-target="text-01">
+              内容を見る
+            </button>
+          </div>
+          <div id="text-01" class="text-body">
+1.通信端末の分離と使い捨て設計
+
+1.中古スマホ or 中古ノートPCを用意
+
+① 中古スマホまたは中古ノートPCを用意する。通信内容だけでなく、使用端末そのものの痕跡や特性を消すことが目的。端末が押収された場合でも「誰が使ったか」を特定できない構成を目指す。
+
+② 購入時は現金決済＋身分証不要＋防犯カメラが無い（または死角）店舗を選ぶ。理想的購入場所：フリーマーケット、質屋、個人店、中古ショップの対面販売など。顔・体型の特定を防ぐため、帽子・マスク・体型が分かりにくい服装を着用すること。万一カメラが存在しても、特定リスクを最小限に抑えられる。購入時刻と実使用タイミングには最低1日以上の時間差を設ける。あわせて、使用地点・移動経路にも変則性を持たせることで追跡困難化を図る。
+
+③  端末条件と前処理
+
+「初期化済み」「Googleアカウント未設定」「SIM不要（Wi-Fi専用）」の端末を選び、接続予定の周辺機器（USB、Wi-Fiドングル、SDカード等）にも個体識別番号（シリアル番号やベンダーID）が含まれていない／一般的な量産モデルを選定する。OSが記録するUSB機器や周辺機器の識別情報（Vendor ID・Product ID・Serial）もログ解析や識別に用いられる場合があるため、USBメモリやWi-Fiアダプタはシリアルレス・一般流通品を選ぶことで、さらなる特定回避に繋がる。BIOSロックが無効／解除可能なモデルを優先。ストレージには個人情報・ログイン履歴・クレジット情報が一切残っていないことを確認。通信機能（Wi-Fi／Bluetooth）は内蔵されている必要あり（ただし後に遮断可）。
+
+④ 使い捨て端末の基本運用ポリシー
+
+この端末は一時使用専用とし、「廃棄・譲渡・物理破壊」前提で使用。端末内には個人名や一意なデータ（顔写真、特定の文体、指紋、連絡帳）を一切保存しない。使用後の破棄は「パーツ単位」「複数箇所への分散廃棄」など、回収困難化を徹底。必要に応じて「SDカードに起動OS」「RAM上にのみデータ生成」など完全非残存設計に。
+
+（以下、続きの文章をそのままここに貼ってOK）
+          </div>
+        </div>
+
+        <!-- ここに同じ形式で 2,3,... を増やせる -->
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<!-- フッターナビ -->
+<div class="fixed-footer-nav" style="display:flex;flex-wrap:nowrap;justify-content:center;max-width:95vw;gap:16px">
+  <a href="../index.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">トップページ</a>
+  <a href="blog/music.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">音楽素材</a>
+  <a href="blog/blog00.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">ブログ</a>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+    // ▼ 詳細を見る → モーダルを開く
+    document.querySelectorAll('.open-gallery').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const id = btn.getAttribute('data-gallery');
+        const modal = document.getElementById(id);
+        if (modal) {
+          modal.classList.add('is-open');
+          modal.setAttribute('aria-hidden', 'false');
+        }
+      });
+    });
+
+    // ✕閉じる ＋ 背景クリックで閉じる
+    document.querySelectorAll('.gallery-modal').forEach(function (modal) {
+      const closeBtn = modal.querySelector('.gallery-close');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function () {
+          modal.classList.remove('is-open');
+          modal.setAttribute('aria-hidden', 'true');
+        });
+      }
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) {
+          modal.classList.remove('is-open');
+          modal.setAttribute('aria-hidden', 'true');
+        }
+      });
+    });
+
+    // ESCキーで全部閉じる
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.gallery-modal.is-open').forEach(function (modal) {
+          modal.classList.remove('is-open');
+          modal.setAttribute('aria-hidden', 'true');
+        });
+        const lb = document.getElementById('image-lightbox');
+        if (lb) {
+          lb.classList.remove('is-open');
+          lb.setAttribute('aria-hidden', 'true');
+        }
+      }
+    });
+
+    // 画像拡大ライトボックス
+    const lightbox = document.getElementById('image-lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+
+    document.querySelectorAll('#gallery-01 figure').forEach(function (fig) {
+      const btn = fig.querySelector('.enlarge-btn');
+      const img = fig.querySelector('img');
+      const cap = fig.querySelector('figcaption');
+      if (!btn || !img) return;
+
+      btn.addEventListener('click', function () {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt || '';
+        lightboxCaption.textContent = cap ? cap.textContent : (img.alt || '');
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+      });
+    });
+
+    const lbClose = document.querySelector('.image-lightbox-close');
+    if (lbClose) {
+      lbClose.addEventListener('click', function () {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+      });
+    }
+    lightbox.addEventListener('click', function (e) {
+      if (e.target === lightbox) {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+      }
+    });
+
+    // その他の「内容を見る」開閉
+    document.querySelectorAll('.text-toggle-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const id = btn.getAttribute('data-target');
+        const body = document.getElementById(id);
+        if (!body) return;
+        const isOpen = body.classList.contains('is-open');
+        if (isOpen) {
+          body.classList.remove('is-open');
+          btn.textContent = '内容を見る';
+        } else {
+          body.classList.add('is-open');
+          btn.textContent = '閉じる';
+        }
+      });
+    });
+
+  });
+</script>
+
 </body>
 </html>
