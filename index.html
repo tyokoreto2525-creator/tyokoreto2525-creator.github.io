@@ -5,6 +5,66 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Midorimushi Portfolio</title>
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ギャラリー内のタイトル行 */
+    .work-caption-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+    .work-title {
+      font-weight: bold;
+    }
+    /* タイトル横のボタン */
+    .open-detail {
+      font-size: 0.8rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      background: #f8f8f8;
+      cursor: pointer;
+    }
+    .open-detail:hover {
+      background: #eee;
+    }
+    /* 二重ポップアップ用のモーダル */
+    .detail-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      z-index: 9999; /* ギャラリーより上に表示 */
+    }
+    .detail-modal.is-open {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .detail-inner {
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      background: #fff;
+      padding: 16px 20px;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+    .detail-close {
+      float: right;
+      border: none;
+      background: transparent;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .detail-body {
+      margin-top: 8px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      white-space: pre-wrap; /* 原文の改行を活かす */
+    }
+  </style>
 </head>
 <body>
 <header class="container">
@@ -21,7 +81,7 @@
   <!-- 背景画像＋上に重ねるギャラリー -->
   <section id="works" class="card image-overlay-wrapper">
     <div class="cover-image">
-      <!-- ↓ cover.webp を背景として指定したい場合は CSSで設定してください -->
+      <!-- cover.webp を背景にしたい場合は CSSで設定 -->
 
       <div class="overlay-gallery">
 
@@ -37,7 +97,6 @@
               >
                 ▼ 詳細を見る
               </button>
-              <!-- レイアウト維持用。中身は空でOK -->
               <p id="cap-01" class="caption"></p>
             </div>
           </div>
@@ -94,122 +153,328 @@
           </div>
         </div>
 
-      </div> <!-- overlay-gallery 終わり -->
-    </div>   <!-- cover-image 終わり -->
+      </div> <!-- overlay-gallery -->
+    </div>   <!-- cover-image -->
   </section>
 
-  <!-- ここから下がフルスクリーンギャラリー -->
+  <!-- ギャラリー1：画像（ここから） -->
+  <div id="gallery-01" class="gallery-modal" aria-hidden="true">
+    <div class="gallery-inner">
+      <button class="gallery-close" type="button">✕ 閉じる</button>
 
- <div id="gallery-01" class="gallery-modal" aria-hidden="true">
-  <div class="gallery-inner">
-    <button class="gallery-close" type="button">✕ 閉じる</button>
+      <div class="gallery-images">
 
-
-    <div class="gallery-images">
-
-      <!-- 1 -->
-      <figure>
-        <a href="../assets/E01.webp" download>
+        <!-- 1 -->
+        <figure>
           <img src="../assets/E01.webp" alt="黄昏の祈り">
-        </a>
-        <figcaption>黄昏の祈り</figcaption>
-      </figure>
+          <figcaption>
+            <div class="work-caption-row">
+              <span class="work-title">黄昏の祈り</span>
+              <button
+                type="button"
+                class="open-detail"
+                data-detail="detail-e01"
+              >
+                内容を開く
+              </button>
+            </div>
+          </figcaption>
+        </figure>
 
-      <!-- 2 -->
-      <figure>
-        <a href="../assets/E02.webp" download>
+        <!-- 2 -->
+        <figure>
           <img src="../assets/E02.webp" alt="碧雫のマーメイド">
-        </a>
-        <figcaption>碧雫のマーメイド</figcaption>
-      </figure>
+          <figcaption>
+            <div class="work-caption-row">
+              <span class="work-title">碧雫のマーメイド</span>
+              <button
+                type="button"
+                class="open-detail"
+                data-detail="detail-e02"
+              >
+                内容を開く
+              </button>
+            </div>
+          </figcaption>
+        </figure>
 
-      <!-- 3 -->
-      <figure>
-        <a href="../assets/E03.webp" download>
+        <!-- 3 -->
+        <figure>
           <img src="../assets/E03.webp" alt="森に囁く少女">
-        </a>
-        <figcaption>森に囁く少女</figcaption>
-      </figure>
+          <figcaption>
+            <div class="work-caption-row">
+              <span class="work-title">森に囁く少女</span>
+              <button
+                type="button"
+                class="open-detail"
+                data-detail="detail-e03"
+              >
+                内容を開く
+              </button>
+            </div>
+          </figcaption>
+        </figure>
 
-      <!-- 4 -->
-      <figure>
-        <a href="../assets/E04.webp" download>
+        <!-- 4 -->
+        <figure>
           <img src="../assets/E04.webp" alt="水色リボンの微笑み">
-        </a>
-        <figcaption>水色リボンの微笑み</figcaption>
-      </figure>
+          <figcaption>
+            <div class="work-caption-row">
+              <span class="work-title">水色リボンの微笑み</span>
+              <button
+                type="button"
+                class="open-detail"
+                data-detail="detail-e04"
+              >
+                内容を開く
+              </button>
+            </div>
+          </figcaption>
+        </figure>
 
-      <!-- 5 -->
-      <figure>
-        <a href="../assets/E05.webp" download>
+        <!-- 5 -->
+        <figure>
           <img src="../assets/E05.webp" alt="内緒話の放課後">
-        </a>
-        <figcaption>内緒話の放課後</figcaption>
-      </figure>
+          <figcaption>
+            <div class="work-caption-row">
+              <span class="work-title">内緒話の放課後</span>
+              <button
+                type="button"
+                class="open-detail"
+                data-detail="detail-e05"
+              >
+                内容を開く
+              </button>
+            </div>
+          </figcaption>
+        </figure>
 
-      <!-- 6 -->
-      <figure>
-        <a href="../assets/E06.webp" download>
+        <!-- 6 -->
+        <figure>
           <img src="../assets/E06.webp" alt="紫煙のオラクル">
-        </a>
-        <figcaption>紫煙のオラクル</figcaption>
-      </figure>
+          <figcaption>
+            <div class="work-caption-row">
+              <span class="work-title">紫煙のオラクル</span>
+              <button
+                type="button"
+                class="open-detail"
+                data-detail="detail-e06"
+              >
+                内容を開く
+              </button>
+            </div>
+          </figcaption>
+        </figure>
 
-      <!-- 7 -->
-      <figure>
-        <a href="../assets/E07.webp" download>
+        <!-- 7 -->
+        <figure>
           <img src="../assets/E07.webp" alt="春待ちの横顔">
-        </a>
-        <figcaption>春待ちの横顔</figcaption>
-      </figure>
+          <figcaption>
+            <div class="work-caption-row">
+              <span class="work-title">春待ちの横顔</span>
+              <button
+                type="button"
+                class="open-detail"
+                data-detail="detail-e07"
+              >
+                内容を開く
+              </button>
+            </div>
+          </figcaption>
+        </figure>
 
-      <!-- 8 -->
-      <figure>
-        <a href="../assets/E08.webp" download>
+        <!-- 8 -->
+        <figure>
           <img src="../assets/E08.webp" alt="照れ隠しのマーメイド">
-        </a>
-        <figcaption>照れ隠しのマーメイド</figcaption>
-      </figure>
+          <figcaption>
+            <div class="work-caption-row">
+              <span class="work-title">照れ隠しのマーメイド</span>
+              <button
+                type="button"
+                class="open-detail"
+                data-detail="detail-e08"
+              >
+                内容を開く
+              </button>
+            </div>
+          </figcaption>
+        </figure>
 
-      <!-- 9 -->
-      <figure>
-        <a href="../assets/E09.webp" download>
+        <!-- 9 -->
+        <figure>
           <img src="../assets/E09.webp" alt="雪花のドレス">
-        </a>
-        <figcaption>雪花のドレス</figcaption>
-      </figure>
+          <figcaption>
+            <div class="work-caption-row">
+              <span class="work-title">雪花のドレス</span>
+              <button
+                type="button"
+                class="open-detail"
+                data-detail="detail-e09"
+              >
+                内容を開く
+              </button>
+            </div>
+          </figcaption>
+        </figure>
 
-      <!-- 10 -->
-      <figure>
-        <a href="../assets/E10.webp" download>
+        <!-- 10 -->
+        <figure>
           <img src="../assets/E10.webp" alt="雨上がりのまなざし">
-        </a>
-        <figcaption>雨上がりのまなざし</figcaption>
-      </figure>
+          <figcaption>
+            <div class="work-caption-row">
+              <span class="work-title">雨上がりのまなざし</span>
+              <button
+                type="button"
+                class="open-detail"
+                data-detail="detail-e10"
+              >
+                内容を開く
+              </button>
+            </div>
+          </figcaption>
+        </figure>
 
-      <!-- 11 -->
-      <figure>
-        <a href="../assets/E11.webp" download>
+        <!-- 11 -->
+        <figure>
           <img src="../assets/E11.webp" alt="紅き黒兎の晩餐">
-        </a>
-        <figcaption>紅き黒兎の晩餐</figcaption>
-      </figure>
+          <figcaption>
+            <div class="work-caption-row">
+              <span class="work-title">紅き黒兎の晩餐</span>
+              <button
+                type="button"
+                class="open-detail"
+                data-detail="detail-e11"
+              >
+                内容を開く
+              </button>
+            </div>
+          </figcaption>
+        </figure>
 
+      </div>
+
+      <p style="margin-top: 12px; font-size: 0.9rem; text-align: center;">
+        タイトルの「内容を開く」で作品のテキストが表示されます。
+      </p>
     </div>
-
-    <!-- ダウンロード説明はここで1回だけ -->
-    <p style="margin-top: 12px; font-size: 0.9rem; text-align: center;">
-      ※画像をクリックするとダウンロードできます。
-    </p>
-
   </div>
-</div>
+  <!-- ギャラリー1：ここまで -->
 
+  <!-- 作品ごとの二重ポップアップ（詳細モーダル） -->
+  <div id="detail-e01" class="detail-modal" aria-hidden="true">
+    <div class="detail-inner">
+      <button class="detail-close" type="button">✕ 閉じる</button>
+      <h3>黄昏の祈り</h3>
+      <div class="detail-body">
+        <!-- ★ここに「黄昏の祈り」の原文を入れる -->
+        <p>ここに「黄昏の祈り」の説明文やストーリーの原文を入れてください。</p>
+      </div>
+    </div>
+  </div>
 
+  <div id="detail-e02" class="detail-modal" aria-hidden="true">
+    <div class="detail-inner">
+      <button class="detail-close" type="button">✕ 閉じる</button>
+      <h3>碧雫のマーメイド</h3>
+      <div class="detail-body">
+        <!-- ★ここに「碧雫のマーメイド」の原文 -->
+        <p>ここに「碧雫のマーメイド」の原文。</p>
+      </div>
+    </div>
+  </div>
 
+  <div id="detail-e03" class="detail-modal" aria-hidden="true">
+    <div class="detail-inner">
+      <button class="detail-close" type="button">✕ 閉じる</button>
+      <h3>森に囁く少女</h3>
+      <div class="detail-body">
+        <p>ここに「森に囁く少女」の原文。</p>
+      </div>
+    </div>
+  </div>
 
+  <div id="detail-e04" class="detail-modal" aria-hidden="true">
+    <div class="detail-inner">
+      <button class="detail-close" type="button">✕ 閉じる</button>
+      <h3>水色リボンの微笑み</h3>
+      <div class="detail-body">
+        <p>ここに「水色リボンの微笑み」の原文。</p>
+      </div>
+    </div>
+  </div>
 
-  <!-- ギャラリー2：動画用（サムネ画像 + クリックで動画DL） -->
+  <div id="detail-e05" class="detail-modal" aria-hidden="true">
+    <div class="detail-inner">
+      <button class="detail-close" type="button">✕ 閉じる</button>
+      <h3>内緒話の放課後</h3>
+      <div class="detail-body">
+        <p>ここに「内緒話の放課後」の原文。</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="detail-e06" class="detail-modal" aria-hidden="true">
+    <div class="detail-inner">
+      <button class="detail-close" type="button">✕ 閉じる</button>
+      <h3>紫煙のオラクル</h3>
+      <div class="detail-body">
+        <p>ここに「紫煙のオラクル」の原文。</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="detail-e07" class="detail-modal" aria-hidden="true">
+    <div class="detail-inner">
+      <button class="detail-close" type="button">✕ 閉じる</button>
+      <h3>春待ちの横顔</h3>
+      <div class="detail-body">
+        <p>ここに「春待ちの横顔」の原文。</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="detail-e08" class="detail-modal" aria-hidden="true">
+    <div class="detail-inner">
+      <button class="detail-close" type="button">✕ 閉じる</button>
+      <h3>照れ隠しのマーメイド</h3>
+      <div class="detail-body">
+        <p>ここに「照れ隠しのマーメイド」の原文。</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="detail-e09" class="detail-modal" aria-hidden="true">
+    <div class="detail-inner">
+      <button class="detail-close" type="button">✕ 閉じる</button>
+      <h3>雪花のドレス</h3>
+      <div class="detail-body">
+        <p>ここに「雪花のドレス」の原文。</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="detail-e10" class="detail-modal" aria-hidden="true">
+    <div class="detail-inner">
+      <button class="detail-close" type="button">✕ 閉じる</button>
+      <h3>雨上がりのまなざし</h3>
+      <div class="detail-body">
+        <p>ここに「雨上がりのまなざし」の原文。</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="detail-e11" class="detail-modal" aria-hidden="true">
+    <div class="detail-inner">
+      <button class="detail-close" type="button">✕ 閉じる</button>
+      <h3>紅き黒兎の晩餐</h3>
+      <div class="detail-body">
+        <p>ここに「紅き黒兎の晩餐」の原文。</p>
+      </div>
+    </div>
+  </div>
+  <!-- 詳細モーダルここまで -->
+
+  <!-- ギャラリー2：動画用 -->
   <div id="gallery-02" class="gallery-modal" aria-hidden="true">
     <div class="gallery-inner">
       <button class="gallery-close" type="button">✕ 閉じる</button>
@@ -256,19 +521,17 @@
 
 </main>
 
-<!-- フッターナビ（元のまま） -->
+<!-- フッターナビ -->
 <div class="fixed-footer-nav" style="display:flex;flex-wrap:nowrap;justify-content:center;max-width:95vw;gap:16px">
   <a href="../index.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">トップページ</a>
   <a href="blog/music.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">音楽素材</a>
   <a href="blog/blog00.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">ブログ</a>
 </div>
 
-<!-- 元の toggleCaption.js と inline の toggle() はもう使わないので削除 -->
-
-<!-- ギャラリー開閉用スクリプト -->
+<!-- ギャラリー＆二重ポップアップ用スクリプト -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    // ▼ 詳細を見る → 対応するギャラリーを開く
+    // ▼ 詳細を見る（トップのカード） → 対応するギャラリーを開く
     document.querySelectorAll('.open-gallery').forEach(function (btn) {
       btn.addEventListener('click', function () {
         const id = btn.getAttribute('data-gallery');
@@ -280,7 +543,7 @@
       });
     });
 
-    // ✕閉じる ＋ 背景クリックで閉じる
+    // ✕閉じる ＋ 背景クリックでギャラリーを閉じる
     document.querySelectorAll('.gallery-modal').forEach(function (modal) {
       const closeBtn = modal.querySelector('.gallery-close');
 
@@ -299,24 +562,54 @@
       });
     });
 
-    // ESCキーでも閉じる
+    // ESCキーでギャラリー & 詳細モーダルを閉じる
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') {
         document.querySelectorAll('.gallery-modal.is-open').forEach(function (modal) {
           modal.classList.remove('is-open');
           modal.setAttribute('aria-hidden', 'true');
         });
+        document.querySelectorAll('.detail-modal.is-open').forEach(function (modal) {
+          modal.classList.remove('is-open');
+          modal.setAttribute('aria-hidden', 'true');
+        });
       }
+    });
+
+    // タイトル横の「内容を開く」 → 二重ポップアップ（詳細）
+    const detailOpenButtons = document.querySelectorAll('.open-detail');
+
+    detailOpenButtons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const id = btn.getAttribute('data-detail');
+        const modal = document.getElementById(id);
+        if (!modal) return;
+
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+      });
+    });
+
+    // 詳細モーダルの ✕ ＋ 背景クリック
+    document.querySelectorAll('.detail-modal').forEach(function (modal) {
+      const closeBtn = modal.querySelector('.detail-close');
+
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function () {
+          modal.classList.remove('is-open');
+          modal.setAttribute('aria-hidden', 'true');
+        });
+      }
+
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) {
+          modal.classList.remove('is-open');
+          modal.setAttribute('aria-hidden', 'true');
+        }
+      });
     });
   });
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
