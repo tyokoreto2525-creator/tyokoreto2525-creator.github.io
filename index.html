@@ -171,7 +171,80 @@
   <h2>Chocolate Mint</h2>
   <p>テスト</p>
 
-  <!-- ギャラリー1：画像一覧 -->
+  <!-- 背景画像＋上に重ねるギャラリー -->
+  <section id="works" class="card image-overlay-wrapper">
+    <div class="cover-image">
+      <div class="overlay-gallery">
+
+        <!-- 作品1：画像 -->
+        <div class="art-card bg-01">
+          <div class="art-content">
+            <h3>画像</h3>
+            <div class="caption-container">
+              <button
+                class="toggle-button open-gallery"
+                type="button"
+                data-gallery="gallery-01">
+                ▼ 詳細を見る
+              </button>
+              <p id="cap-01" class="caption"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 作品2：動画 -->
+        <div class="art-card bg-02">
+          <div class="art-content">
+            <h3>動画</h3>
+            <div class="caption-container">
+              <button
+                class="toggle-button open-gallery"
+                type="button"
+                data-gallery="gallery-02">
+                ▼ 詳細を見る
+              </button>
+              <p id="cap-02" class="caption"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 作品3：ブログ -->
+        <div class="art-card bg-03">
+          <div class="art-content">
+            <h3>ブログ</h3>
+            <div class="caption-container">
+              <button
+                class="toggle-button open-gallery"
+                type="button"
+                data-gallery="gallery-03">
+                ▼ 詳細を見る
+              </button>
+              <p id="cap-03" class="caption"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 作品4：その他 -->
+        <div class="art-card bg-04">
+          <div class="art-content">
+            <h3>その他</h3>
+            <div class="caption-container">
+              <button
+                class="toggle-button open-gallery"
+                type="button"
+                data-gallery="gallery-04">
+                ▼ 詳細を見る
+              </button>
+              <p id="cap-04" class="caption"></p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+   <!-- ギャラリー1：画像一覧 -->
   <div id="gallery-01" class="gallery-modal" aria-hidden="true">
     <div class="gallery-inner">
 
@@ -287,85 +360,6 @@
     </div>
   </div>
 
-
-        <!-- 作品2：動画 -->
-        <div class="art-card bg-02">
-          <div class="art-content">
-            <h3>動画</h3>
-            <div class="caption-container">
-              <button
-                class="toggle-button open-gallery"
-                type="button"
-                data-gallery="gallery-02">
-                ▼ 詳細を見る
-              </button>
-              <p id="cap-02" class="caption"></p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 作品3：ブログ -->
-        <div class="art-card bg-03">
-          <div class="art-content">
-            <h3>ブログ</h3>
-            <div class="caption-container">
-              <button
-                class="toggle-button open-gallery"
-                type="button"
-                data-gallery="gallery-03">
-                ▼ 詳細を見る
-              </button>
-              <p id="cap-03" class="caption"></p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 作品4：その他 -->
-        <div class="art-card bg-04">
-          <div class="art-content">
-            <h3>その他</h3>
-            <div class="caption-container">
-              <button
-                class="toggle-button open-gallery"
-                type="button"
-                data-gallery="gallery-04">
-                ▼ 詳細を見る
-              </button>
-              <p id="cap-04" class="caption"></p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ギャラリー1：画像一覧 -->
-  <div id="gallery-01" class="gallery-modal" aria-hidden="true">
-    <div class="gallery-inner">
-
-      <div class="gallery-images">
-        <!-- 画像たち（省略せず元のまま貼ってOK） -->
-        <figure>
-          <a href="../assets/E01.webp" download>
-            <img src="../assets/E01.webp" alt="黄昏の祈り">
-          </a>
-          <figcaption>黄昏の祈り</figcaption>
-          <button type="button" class="enlarge-btn">拡大</button>
-        </figure>
-
-        <!-- …中略：E02〜E11 まで今のまま… -->
-
-      </div>
-
-      <p style="margin-top: 12px; font-size: 0.9rem; text-align: center;">
-        ※画像クリックでダウンロード、「拡大」で大きく表示されます。
-      </p>
-
-      <!-- 下にまとめて閉じる -->
-      <button class="gallery-close" type="button">✕ 閉じる</button>
-    </div>
-  </div>
 
   <!-- 画像拡大ライトボックス -->
   <div id="image-lightbox" class="image-lightbox" aria-hidden="true">
@@ -588,4 +582,3 @@
 
 </body>
 </html>
-
