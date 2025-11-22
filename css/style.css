@@ -68,17 +68,16 @@ header h1 { margin: 8px 0 0; font-size: 28px; }
 
 /* =========================================================
    Card（汎用カード）
-   - 記事パネルや説明枠のベース
    ========================================================= */
 .card,
-.panel {                         /* panel=card見た目に合わせて統一 */
-  background: rgba(17,17,17,0.85);
+.panel {
+  background: rgba(15,15,15,0.88);
   backdrop-filter: blur(2px);
-  border: 1px solid rgba(17,17,17,0.85);
+  border: 1px solid rgba(255,255,255,0.06);
   border-radius: 14px;
   padding: 16px;
   margin: 18px 0;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.25);
 }
 
 .thumb {                         /* カード内画像 */
@@ -141,17 +140,17 @@ header h1 { margin: 8px 0 0; font-size: 28px; }
 
 /* カード内ボタン群 */
 .actions { display: flex; flex-wrap: wrap; gap: 8px; }
-.btn {
+.actions .btn {
   display: inline-block;
   padding: 8px 12px;
   border-radius: 8px;
   background: #ffffff0f;
-  color: #000;
+  color: #fff;
   text-decoration: none;
   border: 1px solid #ffffff22;
   font-size: 14px;
 }
-.btn:hover { background: #ffffff22; }
+.actions .btn:hover { background: #ffffff22; }
 
 /* 背景画像（assets/ 以下） */
 .art-card.bg-01 { background-image: url('../assets/thumb_01.webp'); }
@@ -172,7 +171,7 @@ header h1 { margin: 8px 0 0; font-size: 28px; }
    ========================================================= */
 .footer{
   text-align: center;
-  color: #000;
+  color: #e9e9e9;
   padding: 24px 16px;
   border-top: 1px solid #1a1a1a;
   margin-top: 24px;
@@ -236,76 +235,90 @@ header h1 { margin: 8px 0 0; font-size: 28px; }
 
 /* =========================================================
    Toggle Panel（「▼ 詳細を見る」開閉UI）
-   - JS が .expanded を付与/除去
    ========================================================= */
-/* トグルボタン（暗背景で見やすい配色に統一） */
 .toggle-button{
-  background: rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.07);
   border: 1px solid rgba(255,255,255,0.18);
-  color: #fff;                     /* 以前 #000 と競合 → 白で統一 */
+  color: #fff;
   padding: 10px 14px;
   border-radius: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: background .2s ease, transform .08s ease;
 }
-.toggle-button:hover{ background: rgba(255,255,255,0.10); }
+.toggle-button:hover{ background: rgba(255,255,255,0.12); }
 .toggle-button:active{ transform: translateY(1px); }
 
-/* 開閉対象の本文：初期は閉じる */
-.caption{
-  display: none;                 /* 高さ制限方式をやめて非表示に */
+/* 初期は非表示 */
+.caption {
+  display: none;
   opacity: 0;
   margin-top: 0;
   transition: opacity .25s ease, margin-top .25s ease;
 }
 
-/* ボタンが開状態のときに直後の .caption を展開 */
+/* クリックして開いたとき */
 .toggle-button[aria-expanded="true"] + .caption{
-  display: block;                /* 表示に切り替え */
-  opacity: 1;
-  margin-top: 10px;
-  border-top: 1px dashed rgba(255,255,255,.12);
+  display: block !important;
+  opacity: 1 !important;
+  max-height: none !important;
+  overflow: visible !important;
+  margin-top: 12px;
+  margin-bottom: 16px;
   padding-top: 12px;
-  max-height: none;              /* 高さ制限を完全撤廃 */
-  overflow: visible;
+  padding-bottom: 8px;
+  border-top: 1px dashed rgba(255,255,255,.12);
   background: rgba(12,12,12,0.65);
   backdrop-filter: blur(2px);
 }
 
+/* 中身が溢れても隠さない保険 */
+.caption * { overflow: visible !important; }
+
+/* 読みやすい余白 */
+.caption p { margin: .45em 0; }
+.caption ul, .caption ol { margin: .5em 0 .6em 1.2em; }
 
 /* 下部クローズボタン（JSで追加される） */
 .bottom-close-button{
-  display: block;
-  margin: 20px auto 0;
-  padding: 10px 14px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,.18);
-  background: rgba(255,255,255,.06);
-  color: #fff;
-  font-weight: 600;
-  cursor: pointer;
+  display:block;
+  margin:20px auto 0;
+  padding:10px 14px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.07);
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+}
+.bottom-close-button:hover{ background: rgba(255,255,255,.12); }
+
+/* 親で隠さないように */
+.container, .wrap, .panel.blog-post, .panel {
+  overflow: visible !important;
+  position: relative;
 }
 
 /* =========================================================
-   Blog Post（白カード：読み物セクション）
+   Blog Post（読み物セクション：ダーク版）
    ========================================================= */
 .blog-post{
-  background: #fff;
-  color: #000;                     /* 本文は黒で可読性UP */
+  background: rgba(20,20,20,0.92);
+  color: #e9e9e9;
   border-radius: 10px;
   padding: 1em;
   margin-bottom: 1em;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.25);
 }
 .blog-post h3{
   margin: 0 0 .5em;
-  color: #222;
+  color: #fff;
 }
 .blog-post p{
   margin: 0;
   line-height: 1.6;
-  color: #444;
+  color: #d0d0d0;
 }
 
 /* =========================================================
@@ -317,9 +330,10 @@ header h1 { margin: 8px 0 0; font-size: 28px; }
   align-items: center;
   justify-content: center;
   gap: 6px;
-  width: 80%;
+  width: auto;
+  min-width: 200px;
   margin: 8px auto;
-  padding: 10px;
+  padding: 10px 16px;
   font-size: 14px;
   font-weight: bold;
   color: #fff;
@@ -367,165 +381,14 @@ header h1 { margin: 8px 0 0; font-size: 28px; }
 }
 .fixed-footer-nav a:hover { background: rgba(255,255,255,0.2); }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* ===== Dark polish patch (最後に追記) ===================== */
-
-/* 1) 開閉領域が途中で切れないように（超安全マージン） */
-.caption.expanded{
-  max-height: 5000px !important;   /* 長文でも切れない */
-  opacity: 1;
-  margin-top: 10px;
-  border-top: 1px dashed rgba(255,255,255,.12);
-  padding-top: 12px;
-  background: rgba(12,12,12,0.65); /* 背景と分離してボタンが埋もれない */
-  backdrop-filter: blur(2px);
-}
-
-/* 2) トグルボタンの見やすい配色（暗背景向け） */
-.toggle-button{
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.18);
-  color: #fff;
-  padding: 10px 14px;
-  border-radius: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background .2s ease, transform .08s ease;
-}
-.toggle-button:hover{ background: rgba(255,255,255,0.12); }
-.toggle-button:active{ transform: translateY(1px); }
-
-/* 3) 下部の閉じるボタンも同トーンに */
-.bottom-close-button{
-  display:block;
-  margin:20px auto 0;
-  padding:10px 14px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.18);
-  background: rgba(255,255,255,.07);
-  color:#fff;
-  font-weight:600;
-  cursor:pointer;
-}
-.bottom-close-button:hover{ background: rgba(255,255,255,.12); }
-
-/* 4) 白カードをやさしい暗色カードに（まぶしさ軽減） */
-.blog-post{
-  background: rgba(20,20,20,0.92);
-  color: #e9e9e9;
-  border: 1px solid rgba(255,255,255,0.06);
-  box-shadow: 0 8px 18px rgba(0,0,0,0.25);
-}
-.blog-post h3{ color:#fff; }
-.blog-post p{ color:#d0d0d0; }
-
-/* 5) セクションのパネルも少し明るさ/境界を調整して読みやすく */
-.panel, .card{
-  background: rgba(15,15,15,0.88);
-  border: 1px solid rgba(255,255,255,0.06);
-}
-
-/* 6) 長文ページでスクロールが重い人向け：アニメ控えめ（任意） */
+/* アニメ控えめ設定 */
 @media (prefers-reduced-motion: reduce){
   .caption{ transition:none !important; }
 }
 
-
-
-
-
-/* ===== captionの見切れ最終パッチ ===== */
-
-/* 親側で絶対に隠さない＆積層の誤動作防止 */
-.container, .wrap, .panel.blog-post, .panel {
-  overflow: visible !important;
-  position: relative;
-}
-
-/* 初期は非表示（既存と重複OK） */
-.caption { display: none; opacity: 0; margin-top: 0; }
-
-/* 開いたら “確実に” 全文表示＆下に余白を作る */
-.toggle-button[aria-expanded="true"] + .caption{
-  display: block !important;
-  opacity: 1 !important;
-  max-height: none !important;
-  overflow: visible !important;
-  margin-top: 12px;
-  margin-bottom: 16px;          /* 次のパネルにめり込まないための余白 */
-  padding-top: 12px;
-  padding-bottom: 8px;          /* 下部ボタンや最終行が切れないように */
-  border-top: 1px dashed rgba(255,255,255,.12);
-  background: rgba(12,12,12,0.65);
-  backdrop-filter: blur(2px);
-}
-
-/* 中の要素が溢れても隠れないよう保険 */
-.caption * { overflow: visible !important; }
-
-/* 折り返しや段落の間隔を少し広げて読みやすく */
-.caption p { margin: .45em 0; }
-.caption ul, .caption ol { margin: .5em 0 .6em 1.2em; }
-
-
-
-
-
-
-
-
-
-
-
-/* footer可読性 */
-.footer{ color:#e9e9e9; }
-
-/* ダーク基調に合わせてボタン文字色を統一 */
-.actions .btn{ color:#fff; }
-
-/* カード内の大ボタンは可変幅のほうが汎用的 */
-.card button,
-.card a{
-  width: auto;
-  min-width: 200px;
-  padding: 10px 16px;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* ====== フルスクリーンギャラリー（閉じるボタンは1個だけ・下だけ） ====== */
+/* =========================================================
+   フルスクリーンギャラリー（閉じるボタンは1個だけ・下だけ）
+   ========================================================= */
 .gallery-modal {
   position: fixed;
   inset: 0;
@@ -570,15 +433,14 @@ header h1 { margin: 8px 0 0; font-size: 28px; }
   display: block;
 }
 
-/* 閉じるボタン：モーダルの一番下に1個だけ */
+/* 閉じるボタン：基本は下側1個 */
 .gallery-close {
-  position: sticky;           /* スクロールしても下に張り付く */
+  position: sticky;
   bottom: 0;
   margin: 20px auto 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   padding: 10px 18px;
   border-radius: 999px;
   border: none;
@@ -586,33 +448,11 @@ header h1 { margin: 8px 0 0; font-size: 28px; }
   color: #fff;
   font-weight: bold;
   cursor: pointer;
-
-  /* 変な縦長化を防ぐ保険 */
   width: auto;
   height: auto;
 }
 
-/* スマホ用に少しだけ調整 */
-@media (max-width: 768px) {
-  .gallery-inner {
-    max-width: 96vw;
-    max-height: 86vh;
-    padding: 16px 12px 56px;
-  }
-
-  .gallery-images img {
-    max-width: 180px;
-  }
-}
-
-/* カードの見た目は今のままでOK。必要なら微調整 */
-.art-content h3 {
-  margin-bottom: 12px;
-}
-
-
-
-/* ===== スマホ版ギャラリー閉じるボタン修正パッチ ===== */
+/* PC〜タブレットでの微調整 */
 @media (max-width: 768px) {
 
   /* モーダル自体は画面上の方に寄せる */
@@ -620,7 +460,6 @@ header h1 { margin: 8px 0 0; font-size: 28px; }
     align-items: flex-start !important;
   }
 
-  /* 本文が半分隠れないように余白を調整 */
   .gallery-inner {
     max-width: 96vw !important;
     max-height: 86vh !important;
@@ -628,7 +467,11 @@ header h1 { margin: 8px 0 0; font-size: 28px; }
     padding: 16px !important;
   }
 
-  /* ✕閉じるボタンを「縦長ピンク柱」にさせない＋画面下中央に固定 */
+  .gallery-images img {
+    max-width: 180px;
+  }
+
+  /* スマホでは閉じるボタンを画面下中央に固定 */
   .gallery-close {
     position: fixed !important;
     top: auto !important;
@@ -647,7 +490,7 @@ header h1 { margin: 8px 0 0; font-size: 28px; }
   }
 }
 
-
-
-
-
+/* カードタイトル少しだけ余白 */
+.art-content h3 {
+  margin-bottom: 12px;
+}
