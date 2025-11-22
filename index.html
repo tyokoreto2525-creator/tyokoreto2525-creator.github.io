@@ -171,26 +171,122 @@
   <h2>Chocolate Mint</h2>
   <p>テスト</p>
 
-  <!-- 背景画像＋上に重ねるギャラリー -->
-  <section id="works" class="card image-overlay-wrapper">
-    <div class="cover-image">
-      <div class="overlay-gallery">
+  <!-- ギャラリー1：画像一覧 -->
+  <div id="gallery-01" class="gallery-modal" aria-hidden="true">
+    <div class="gallery-inner">
 
-        <!-- 作品1：画像 -->
-        <div class="art-card bg-01">
-          <div class="art-content">
-            <h3>画像</h3>
-            <div class="caption-container">
-              <button
-                class="toggle-button open-gallery"
-                type="button"
-                data-gallery="gallery-01">
-                ▼ 詳細を見る
-              </button>
-              <p id="cap-01" class="caption"></p>
-            </div>
-          </div>
-        </div>
+      <div class="gallery-images">
+
+        <!-- 1 -->
+        <figure>
+          <a href="../assets/E01.webp" download>
+            <img src="../assets/E01.webp" alt="黄昏の祈り">
+          </a>
+          <figcaption>黄昏の祈り</figcaption>
+          <button type="button" class="enlarge-btn">拡大</button>
+        </figure>
+
+        <!-- 2 -->
+        <figure>
+          <a href="../assets/E02.webp" download>
+            <img src="../assets/E02.webp" alt="碧雫のマーメイド">
+          </a>
+          <figcaption>碧雫のマーメイド</figcaption>
+          <button type="button" class="enlarge-btn">拡大</button>
+        </figure>
+
+        <!-- 3 -->
+        <figure>
+          <a href="../assets/E03.webp" download>
+            <img src="../assets/E03.webp" alt="森に囁く少女">
+          </a>
+          <figcaption>森に囁く少女</figcaption>
+          <button type="button" class="enlarge-btn">拡大</button>
+        </figure>
+
+        <!-- 4 -->
+        <figure>
+          <a href="../assets/E04.webp" download>
+            <img src="../assets/E04.webp" alt="水色リボンの微笑み">
+          </a>
+          <figcaption>水色リボンの微笑み</figcaption>
+          <button type="button" class="enlarge-btn">拡大</button>
+        </figure>
+
+        <!-- 5 -->
+        <figure>
+          <a href="../assets/E05.webp" download>
+            <img src="../assets/E05.webp" alt="内緒話の放課後">
+          </a>
+          <figcaption>内緒話の放課後</figcaption>
+          <button type="button" class="enlarge-btn">拡大</button>
+        </figure>
+
+        <!-- 6 -->
+        <figure>
+          <a href="../assets/E06.webp" download>
+            <img src="../assets/E06.webp" alt="紫煙のオラクル">
+          </a>
+          <figcaption>紫煙のオラクル</figcaption>
+          <button type="button" class="enlarge-btn">拡大</button>
+        </figure>
+
+        <!-- 7 -->
+        <figure>
+          <a href="../assets/E07.webp" download>
+            <img src="../assets/E07.webp" alt="春待ちの横顔">
+          </a>
+          <figcaption>春待ちの横顔</figcaption>
+          <button type="button" class="enlarge-btn">拡大</button>
+        </figure>
+
+        <!-- 8 -->
+        <figure>
+          <a href="../assets/E08.webp" download>
+            <img src="../assets/E08.webp" alt="照れ隠しのマーメイド">
+          </a>
+          <figcaption>照れ隠しのマーメイド</figcaption>
+          <button type="button" class="enlarge-btn">拡大</button>
+        </figure>
+
+        <!-- 9 -->
+        <figure>
+          <a href="../assets/E09.webp" download>
+            <img src="../assets/E09.webp" alt="雪花のドレス">
+          </a>
+          <figcaption>雪花のドレス</figcaption>
+          <button type="button" class="enlarge-btn">拡大</button>
+        </figure>
+
+        <!-- 10 -->
+        <figure>
+          <a href="../assets/E10.webp" download>
+            <img src="../assets/E10.webp" alt="雨上がりのまなざし">
+          </a>
+          <figcaption>雨上がりのまなざし</figcaption>
+          <button type="button" class="enlarge-btn">拡大</button>
+        </figure>
+
+        <!-- 11 -->
+        <figure>
+          <a href="../assets/E11.webp" download>
+            <img src="../assets/E11.webp" alt="紅き黒兎の晩餐">
+          </a>
+          <figcaption>紅き黒兎の晩餐</figcaption>
+          <button type="button" class="enlarge-btn">拡大</button>
+        </figure>
+
+      </div>
+
+      <p style="margin-top: 12px; font-size: 0.9rem; text-align: center;">
+        ※画像クリックでダウンロード、「拡大」で大きく表示されます。
+      </p>
+
+      <!-- 下にまとめて閉じる -->
+      <button class="gallery-close" type="button">✕ 閉じる</button>
+    </div>
+  </div>
+
 
         <!-- 作品2：動画 -->
         <div class="art-card bg-02">
@@ -492,3 +588,4 @@
 
 </body>
 </html>
+
