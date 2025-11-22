@@ -614,5 +614,40 @@ header h1 { margin: 8px 0 0; font-size: 28px; }
 }
 
 
+/* ===== スマホ版ギャラリー閉じるボタン修正パッチ ===== */
+@media (max-width: 768px) {
+
+  /* モーダル自体は画面上の方に寄せる */
+  .gallery-modal {
+    align-items: flex-start !important;
+  }
+
+  /* 本文が半分隠れないように余白を調整 */
+  .gallery-inner {
+    max-width: 96vw !important;
+    max-height: 86vh !important;
+    margin-top: 6vh !important;
+    padding: 16px !important;
+  }
+
+  /* ✕閉じるボタンを「縦長ピンク柱」にさせない＋画面下中央に固定 */
+  .gallery-close {
+    position: fixed !important;
+    top: auto !important;
+    bottom: 14px !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: auto !important;
+    height: auto !important;
+    padding: 8px 16px !important;
+    border-radius: 999px !important;
+  }
+}
+
 
 
