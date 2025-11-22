@@ -409,42 +409,53 @@
     </div>
   </div>
 
-  <!-- ギャラリー4：その他（タイトル／内容を見る） -->
+ <!-- ギャラリー4：その他（タイトル／内容を見る） -->
 <div id="gallery-04" class="gallery-modal" aria-hidden="true">
   <div class="gallery-inner">
-    <!-- 上の閉じるボタン（ピンクのやつ）は今のまま -->
     <button class="gallery-close" type="button">✕ 閉じる</button>
 
     <h3 style="margin-bottom:12px;color:#fff;">その他テキスト</h3>
 
     <div class="text-list">
-      <!-- 1つ目の項目 -->
+
+      <!-- 1つ目：通信端末の分離と使い捨て設計 -->
       <div>
         <div class="text-row">
           <span class="text-row-title">1.通信端末の分離と使い捨て設計</span>
           <button
             type="button"
             class="text-toggle-btn js-load-article"
-            data-src="tokumei1.html"   <!-- 読み込むファイル -->
-            data-target="text-01"        <!-- 中身を入れる箱のID -->
+            data-src="tokumei1.html"
+            data-target="text-1"
           >
             内容を見る
           </button>
         </div>
+        <!-- 読み込み先の箱 -->
+        <div id="text-01" class="text-body"></div>
+      </div>
 
-
-              <div>
+      <!-- 2つ目：2.TailsOSの設定（例） -->
+      <div>
         <div class="text-row">
-          <span class="text-row-title">1.通信端末の分離と使い捨て設計</span>
+          <span class="text-row-title">2.TailsOSの設定</span>
           <button
             type="button"
             class="text-toggle-btn js-load-article"
-            data-src="tokumei2.html"   <!-- 読み込むファイル -->
-            data-target="text-01"        <!-- 中身を入れる箱のID -->
+            data-src="tokumei2.html"
+            data-target="text-2"
           >
             内容を見る
           </button>
         </div>
+        <!-- 読み込み先の箱 -->
+        <div id="text-02" class="text-body"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
         <!-- ★ここは中身を空にしておく（後でJSが tokumei01.html を流し込む） -->
         <div id="text-01" class="text-body" hidden></div>
@@ -572,6 +583,7 @@
 
 </body>
 </html>
+
 
 
 
