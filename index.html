@@ -126,7 +126,7 @@
       color: #f8f8f8;
       font-size: 0.9rem;
       line-height: 1.6;
-      white-space: pre-wrap;
+      white-space: normal;
     }
     .text-body.is-open {
       display: block;
@@ -409,66 +409,50 @@
     </div>
   </div>
 
-<!-- ギャラリー4：その他（タイトル／内容を見る） -->
-<div id="gallery-04" class="gallery-modal" aria-hidden="true">
-  <div class="gallery-inner">
-    <button class="gallery-close" type="button">✕ 閉じる</button>
+  <!-- ギャラリー4：その他（タイトル／内容を見る） -->
+  <div id="gallery-04" class="gallery-modal" aria-hidden="true">
+    <div class="gallery-inner">
+      <button class="gallery-close" type="button">✕ 閉じる</button>
 
-    <h3 style="margin-bottom:12px;color:#fff;">その他テキスト</h3>
+      <h3 style="margin-bottom:12px;color:#fff;">その他テキスト</h3>
 
-    <div class="text-list">
+      <div class="text-list">
 
-      <!-- 1つ目：通信端末の分離と使い捨て設計 -->
-      <div>
-        <div class="text-row">
-          <span class="text-row-title">1.通信端末の分離と使い捨て設計</span>
-          <button
-            type="button"
-            class="text-toggle-btn js-load-article"
-            data-src="tokumei1.html"
-            data-target="text-01"
-          >
-            内容を見る
-          </button>
+        <!-- 1つ目：通信端末の分離と使い捨て設計 -->
+        <div>
+          <div class="text-row">
+            <span class="text-row-title">1.通信端末の分離と使い捨て設計</span>
+            <button
+              type="button"
+              class="text-toggle-btn js-load-article"
+              data-src="tokumei1.html"
+              data-target="text-01"
+            >
+              内容を見る
+            </button>
+          </div>
+          <!-- 読み込み先の箱 -->
+          <div id="text-01" class="text-body"></div>
         </div>
-        <!-- 読み込み先の箱 -->
-        <div id="text-01" class="text-body"></div>
-      </div>
 
-      <!-- 2つ目：2.TailsOSの設定（例） -->
-      <div>
-        <div class="text-row">
-          <span class="text-row-title">2.TailsOSの設定</span>
-          <button
-            type="button"
-            class="text-toggle-btn js-load-article"
-            data-src="tokumei2.html"
-            data-target="text-02"
-          >
-            内容を見る
-          </button>
+        <!-- 2つ目：2.TailsOSの設定 -->
+        <div>
+          <div class="text-row">
+            <span class="text-row-title">2.TailsOSの設定</span>
+            <button
+              type="button"
+              class="text-toggle-btn js-load-article"
+              data-src="tokumei2.html"
+              data-target="text-02"
+            >
+              内容を見る
+            </button>
+          </div>
+          <!-- 読み込み先の箱 -->
+          <div id="text-02" class="text-body"></div>
         </div>
-        <!-- 読み込み先の箱 -->
-        <div id="text-02" class="text-body"></div>
+
       </div>
-
-    </div>
-  </div>
-</div>
-
-
-
-        <!-- ★ここは中身を空にしておく（後でJSが tokumei01.html を流し込む） -->
-        <div id="text-01" class="text-body" hidden></div>
-      </div>
-
-      <!-- 2つ目以降の項目を増やすときは、同じ形で
-           data-src と id="text-XX" だけ増やしていけばOK -->
-    </div>
-  </div>
-</div>
-
-       
     </div>
   </div>
 
@@ -484,7 +468,7 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
 
-    // ▼ 詳細を見る → モーダルを開く
+    /* ▼ 詳細を見る → モーダルを開く */
     document.querySelectorAll('.open-gallery').forEach(function (btn) {
       btn.addEventListener('click', function () {
         const id = btn.getAttribute('data-gallery');
@@ -496,7 +480,7 @@
       });
     });
 
-    // ✕閉じる ＋ 背景クリックで閉じる
+    /* ✕閉じる ＋ 背景クリックで閉じる */
     document.querySelectorAll('.gallery-modal').forEach(function (modal) {
       const closeBtn = modal.querySelector('.gallery-close');
       if (closeBtn) {
@@ -513,7 +497,7 @@
       });
     });
 
-    // ESCキーで全部閉じる
+    /* ESCキーで全部閉じる */
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') {
         document.querySelectorAll('.gallery-modal.is-open').forEach(function (modal) {
@@ -528,109 +512,7 @@
       }
     });
 
-    // 画像拡大ライトボックス
-    const lightbox = document.getElementById('image-lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const lightboxCaption = document.getElementById('lightbox-caption');
-
-    document.querySelectorAll('#gallery-01 figure').forEach(function (fig) {
-      const btn = fig.querySelector('.enlarge-btn');
-      const img = fig.querySelector('img');
-      const cap = fig.querySelector('figcaption');
-      if (!btn || !img) return;
-
-      btn.addEventListener('click', function () {
-        lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt || '';
-        lightboxCaption.textContent = cap ? cap.textContent : (img.alt || '');
-        lightbox.classList.add('is-open');
-        lightbox.setAttribute('aria-hidden', 'false');
-      });
-    });
-
-    const lbClose = document.querySelector('.image-lightbox-close');
-    if (lbClose) {
-      lbClose.addEventListener('click', function () {
-        lightbox.classList.remove('is-open');
-        lightbox.setAttribute('aria-hidden', 'true');
-      });
-    }
-    lightbox.addEventListener('click', function (e) {
-      if (e.target === lightbox) {
-        lightbox.classList.remove('is-open');
-        lightbox.setAttribute('aria-hidden', 'true');
-      }
-    });
-
-    // その他の「内容を見る」開閉
-    document.querySelectorAll('.text-toggle-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        const id = btn.getAttribute('data-target');
-        const body = document.getElementById(id);
-        if (!body) return;
-        const isOpen = body.classList.contains('is-open');
-        if (isOpen) {
-          body.classList.remove('is-open');
-          btn.textContent = '内容を見る';
-        } else {
-          body.classList.add('is-open');
-          btn.textContent = '閉じる';
-        }
-      });
-    });
-
-  });
-</script>
-
-</body>
- <script>
-  document.addEventListener('DOMContentLoaded', function () {
-
-    // ▼ 詳細を見る → モーダルを開く
-    document.querySelectorAll('.open-gallery').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        const id = btn.getAttribute('data-gallery');
-        const modal = document.getElementById(id);
-        if (modal) {
-          modal.classList.add('is-open');
-          modal.setAttribute('aria-hidden', 'false');
-        }
-      });
-    });
-
-    // ✕閉じる ＋ 背景クリックで閉じる
-    document.querySelectorAll('.gallery-modal').forEach(function (modal) {
-      const closeBtn = modal.querySelector('.gallery-close');
-      if (closeBtn) {
-        closeBtn.addEventListener('click', function () {
-          modal.classList.remove('is-open');
-          modal.setAttribute('aria-hidden', 'true');
-        });
-      }
-      modal.addEventListener('click', function (e) {
-        if (e.target === modal) {
-          modal.classList.remove('is-open');
-          modal.setAttribute('aria-hidden', 'true');
-        }
-      });
-    });
-
-    // ESCキーで全部閉じる
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') {
-        document.querySelectorAll('.gallery-modal.is-open').forEach(function (modal) {
-          modal.classList.remove('is-open');
-          modal.setAttribute('aria-hidden', 'true');
-        });
-        const lb = document.getElementById('image-lightbox');
-        if (lb) {
-          lb.classList.remove('is-open');
-          lb.setAttribute('aria-hidden', 'true');
-        }
-      }
-    });
-
-    // 画像拡大ライトボックス
+    /* 画像拡大ライトボックス */
     const lightbox = document.getElementById('image-lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxCaption = document.getElementById('lightbox-caption');
@@ -666,7 +548,7 @@
       });
     }
 
-    // 「内容を見る」ボタンで別HTMLを読み込み＆開閉
+    /* 「内容を見る」ボタンで別HTMLを読み込み＆開閉 */
     document.querySelectorAll('.js-load-article').forEach(function(btn){
       btn.addEventListener('click', async function(){
         const src      = btn.dataset.src;
@@ -685,11 +567,10 @@
 
           // 開閉トグル
           const isOpen = box.classList.toggle('is-open');
-          box.style.display = isOpen ? 'block' : 'none';
           btn.textContent   = isOpen ? '閉じる' : '内容を見る';
         } catch(e) {
           console.error(e);
-          box.style.display = 'block';
+          box.classList.add('is-open');
           box.textContent = '読み込みに失敗しました…';
         }
       });
@@ -698,12 +579,5 @@
   });
 </script>
 
-
+</body>
 </html>
-
-
-
-
-
-
-
