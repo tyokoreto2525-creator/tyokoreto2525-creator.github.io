@@ -17,9 +17,7 @@
       background: rgba(0,0,0,0.85);
       z-index: 9999;
     }
-    .image-lightbox.is-open {
-      display: flex;
-    }
+    .image-lightbox.is-open { display: flex; }
     .image-lightbox-inner {
       position: relative;
       max-width: 90vw;
@@ -63,27 +61,39 @@
       justify-content: center;
       z-index: 9000;
     }
-    .gallery-modal.is-open {
-      display: flex;
-    }
+    .gallery-modal.is-open { display: flex; }
+
     .gallery-inner {
       position: relative;
       max-width: 1000px;
       max-height: 90vh;
-      overflow-y: auto;
       padding: 16px;
       background: rgba(0,0,0,0.9);
       border-radius: 10px;
       box-sizing: border-box;
+      overflow-y: auto;
+
+      /* 下に閉じるボタンを固定したいので縦flex */
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 64px; /* ボタン分の余白 */
     }
+
+    /* 一番下の✕閉じるボタン（PC/スマホ共通） */
     .gallery-close {
-      padding: 6px 12px;
-      border-radius: 4px;
+      position: sticky;
+      bottom: 12px;
+      align-self: center;
+
+      margin-top: 20px;
+      padding: 8px 18px;
+      border-radius: 999px;
       border: none;
       background: #ff4f8a;
       color: #fff;
       cursor: pointer;
       font-size: 0.9rem;
+      font-weight: bold;
     }
 
     /* テキスト一覧用 */
@@ -128,14 +138,10 @@
       line-height: 1.6;
       white-space: normal;
     }
-    .text-body.is-open {
-      display: block;
-    }
+    .text-body.is-open { display: block; }
 
-    /* ===== スマホ用調整 ===== */
+    /* スマホ用調整 */
     @media (max-width: 768px) {
-
-      /* 「詳細を見る」の4カードが画面内に収まるように */
       .overlay-gallery {
         position: static;
         transform: none;
@@ -145,23 +151,10 @@
         flex-direction: column;
         gap: 12px;
       }
-      .art-card {
-        width: 100%;
-      }
-
-      /* モーダルはほぼ全画面＋下に閉じるボタン固定 */
+      .art-card { width: 100%; }
       .gallery-inner {
         width: 96vw;
         max-height: 88vh;
-        padding-bottom: 56px; /* 下ボタン分余白 */
-      }
-
-      .gallery-modal .gallery-close {
-        position: fixed;
-        bottom: 12px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 10001;
       }
     }
   </style>
@@ -191,8 +184,7 @@
               <button
                 class="toggle-button open-gallery"
                 type="button"
-                data-gallery="gallery-01"
-              >
+                data-gallery="gallery-01">
                 ▼ 詳細を見る
               </button>
               <p id="cap-01" class="caption"></p>
@@ -208,8 +200,7 @@
               <button
                 class="toggle-button open-gallery"
                 type="button"
-                data-gallery="gallery-02"
-              >
+                data-gallery="gallery-02">
                 ▼ 詳細を見る
               </button>
               <p id="cap-02" class="caption"></p>
@@ -225,8 +216,7 @@
               <button
                 class="toggle-button open-gallery"
                 type="button"
-                data-gallery="gallery-03"
-              >
+                data-gallery="gallery-03">
                 ▼ 詳細を見る
               </button>
               <p id="cap-03" class="caption"></p>
@@ -242,8 +232,7 @@
               <button
                 class="toggle-button open-gallery"
                 type="button"
-                data-gallery="gallery-04"
-              >
+                data-gallery="gallery-04">
                 ▼ 詳細を見る
               </button>
               <p id="cap-04" class="caption"></p>
@@ -258,11 +247,9 @@
   <!-- ギャラリー1：画像一覧 -->
   <div id="gallery-01" class="gallery-modal" aria-hidden="true">
     <div class="gallery-inner">
-      <button class="gallery-close" type="button">✕ 閉じる</button>
 
       <div class="gallery-images">
-
-        <!-- 1 -->
+        <!-- 画像たち（省略せず元のまま貼ってOK） -->
         <figure>
           <a href="../assets/E01.webp" download>
             <img src="../assets/E01.webp" alt="黄昏の祈り">
@@ -271,95 +258,7 @@
           <button type="button" class="enlarge-btn">拡大</button>
         </figure>
 
-        <!-- 2 -->
-        <figure>
-          <a href="../assets/E02.webp" download>
-            <img src="../assets/E02.webp" alt="碧雫のマーメイド">
-          </a>
-          <figcaption>碧雫のマーメイド</figcaption>
-          <button type="button" class="enlarge-btn">拡大</button>
-        </figure>
-
-        <!-- 3 -->
-        <figure>
-          <a href="../assets/E03.webp" download>
-            <img src="../assets/E03.webp" alt="森に囁く少女">
-          </a>
-          <figcaption>森に囁く少女</figcaption>
-          <button type="button" class="enlarge-btn">拡大</button>
-        </figure>
-
-        <!-- 4 -->
-        <figure>
-          <a href="../assets/E04.webp" download>
-            <img src="../assets/E04.webp" alt="水色リボンの微笑み">
-          </a>
-          <figcaption>水色リボンの微笑み</figcaption>
-          <button type="button" class="enlarge-btn">拡大</button>
-        </figure>
-
-        <!-- 5 -->
-        <figure>
-          <a href="../assets/E05.webp" download>
-            <img src="../assets/E05.webp" alt="内緒話の放課後">
-          </a>
-          <figcaption>内緒話の放課後</figcaption>
-          <button type="button" class="enlarge-btn">拡大</button>
-        </figure>
-
-        <!-- 6 -->
-        <figure>
-          <a href="../assets/E06.webp" download>
-            <img src="../assets/E06.webp" alt="紫煙のオラクル">
-          </a>
-          <figcaption>紫煙のオラクル</figcaption>
-          <button type="button" class="enlarge-btn">拡大</button>
-        </figure>
-
-        <!-- 7 -->
-        <figure>
-          <a href="../assets/E07.webp" download>
-            <img src="../assets/E07.webp" alt="春待ちの横顔">
-          </a>
-          <figcaption>春待ちの横顔</figcaption>
-          <button type="button" class="enlarge-btn">拡大</button>
-        </figure>
-
-        <!-- 8 -->
-        <figure>
-          <a href="../assets/E08.webp" download>
-            <img src="../assets/E08.webp" alt="照れ隠しのマーメイド">
-          </a>
-          <figcaption>照れ隠しのマーメイド</figcaption>
-          <button type="button" class="enlarge-btn">拡大</button>
-        </figure>
-
-        <!-- 9 -->
-        <figure>
-          <a href="../assets/E09.webp" download>
-            <img src="../assets/E09.webp" alt="雪花のドレス">
-          </a>
-          <figcaption>雪花のドレス</figcaption>
-          <button type="button" class="enlarge-btn">拡大</button>
-        </figure>
-
-        <!-- 10 -->
-        <figure>
-          <a href="../assets/E10.webp" download>
-            <img src="../assets/E10.webp" alt="雨上がりのまなざし">
-          </a>
-          <figcaption>雨上がりのまなざし</figcaption>
-          <button type="button" class="enlarge-btn">拡大</button>
-        </figure>
-
-        <!-- 11 -->
-        <figure>
-          <a href="../assets/E11.webp" download>
-            <img src="../assets/E11.webp" alt="紅き黒兎の晩餐">
-          </a>
-          <figcaption>紅き黒兎の晩餐</figcaption>
-          <button type="button" class="enlarge-btn">拡大</button>
-        </figure>
+        <!-- …中略：E02〜E11 まで今のまま… -->
 
       </div>
 
@@ -367,6 +266,8 @@
         ※画像クリックでダウンロード、「拡大」で大きく表示されます。
       </p>
 
+      <!-- 下にまとめて閉じる -->
+      <button class="gallery-close" type="button">✕ 閉じる</button>
     </div>
   </div>
 
@@ -382,7 +283,6 @@
   <!-- ギャラリー2：動画 -->
   <div id="gallery-02" class="gallery-modal" aria-hidden="true">
     <div class="gallery-inner">
-      <button class="gallery-close" type="button">✕ 閉じる</button>
       <div class="gallery-images">
         <figure>
           <a href="videos/sample01.mp4" download>
@@ -391,13 +291,13 @@
           <figcaption>動画1（クリックで動画DL）</figcaption>
         </figure>
       </div>
+      <button class="gallery-close" type="button">✕ 閉じる</button>
     </div>
   </div>
 
   <!-- ギャラリー3：ブログ -->
   <div id="gallery-03" class="gallery-modal" aria-hidden="true">
     <div class="gallery-inner">
-      <button class="gallery-close" type="button">✕ 閉じる</button>
       <div class="gallery-images">
         <figure>
           <a href="blog/blog00.html">
@@ -406,13 +306,13 @@
           <figcaption>ブログ一覧へ</figcaption>
         </figure>
       </div>
+      <button class="gallery-close" type="button">✕ 閉じる</button>
     </div>
   </div>
 
   <!-- ギャラリー4：その他（タイトル／内容を見る） -->
   <div id="gallery-04" class="gallery-modal" aria-hidden="true">
     <div class="gallery-inner">
-      <button class="gallery-close" type="button">✕ 閉じる</button>
 
       <h3 style="margin-bottom:12px;color:#fff;">その他テキスト</h3>
 
@@ -426,16 +326,14 @@
               type="button"
               class="text-toggle-btn js-load-article"
               data-src="tokumei1.html"
-              data-target="text-01"
-            >
+              data-target="text-01">
               内容を見る
             </button>
           </div>
-          <!-- 読み込み先の箱 -->
           <div id="text-01" class="text-body"></div>
         </div>
 
-        <!-- 2つ目：2.TailsOSの設定 -->
+        <!-- 2つ目：TailsOSの設定 -->
         <div>
           <div class="text-row">
             <span class="text-row-title">2.TailsOSの設定</span>
@@ -443,16 +341,16 @@
               type="button"
               class="text-toggle-btn js-load-article"
               data-src="tokumei2.html"
-              data-target="text-02"
-            >
+              data-target="text-02">
               内容を見る
             </button>
           </div>
-          <!-- 読み込み先の箱 -->
           <div id="text-02" class="text-body"></div>
         </div>
 
       </div>
+
+      <button class="gallery-close" type="button">✕ 閉じる</button>
     </div>
   </div>
 
@@ -468,7 +366,7 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
 
-    /* ▼ 詳細を見る → モーダルを開く */
+    // ▼ 詳細を見る → モーダルを開く
     document.querySelectorAll('.open-gallery').forEach(function (btn) {
       btn.addEventListener('click', function () {
         const id = btn.getAttribute('data-gallery');
@@ -480,29 +378,42 @@
       });
     });
 
-    /* ✕閉じる ＋ 背景クリックで閉じる */
+    // モーダルを閉じるときに共通で呼ぶ：中のテキストも全部閉じる
+    function closeModal(modal) {
+      if (!modal) return;
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+
+      // このモーダル内の「内容を見る」全部リセット
+      modal.querySelectorAll('.text-body').forEach(function (box) {
+        box.classList.remove('is-open');
+        box.style.display = 'none';
+      });
+      modal.querySelectorAll('.text-toggle-btn').forEach(function (btn) {
+        btn.textContent = '内容を見る';
+      });
+    }
+
+    // ✕閉じる ＋ 背景クリックで閉じる
     document.querySelectorAll('.gallery-modal').forEach(function (modal) {
       const closeBtn = modal.querySelector('.gallery-close');
       if (closeBtn) {
         closeBtn.addEventListener('click', function () {
-          modal.classList.remove('is-open');
-          modal.setAttribute('aria-hidden', 'true');
+          closeModal(modal);
         });
       }
       modal.addEventListener('click', function (e) {
         if (e.target === modal) {
-          modal.classList.remove('is-open');
-          modal.setAttribute('aria-hidden', 'true');
+          closeModal(modal);
         }
       });
     });
 
-    /* ESCキーで全部閉じる */
+    // ESCキーで全部閉じる
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') {
         document.querySelectorAll('.gallery-modal.is-open').forEach(function (modal) {
-          modal.classList.remove('is-open');
-          modal.setAttribute('aria-hidden', 'true');
+          closeModal(modal);
         });
         const lb = document.getElementById('image-lightbox');
         if (lb) {
@@ -512,7 +423,7 @@
       }
     });
 
-    /* 画像拡大ライトボックス */
+    // 画像拡大ライトボックス
     const lightbox = document.getElementById('image-lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxCaption = document.getElementById('lightbox-caption');
@@ -548,7 +459,7 @@
       });
     }
 
-    /* 「内容を見る」ボタンで別HTMLを読み込み＆開閉 */
+    // 「内容を見る」ボタンで別HTMLを読み込み＆開閉
     document.querySelectorAll('.js-load-article').forEach(function(btn){
       btn.addEventListener('click', async function(){
         const src      = btn.dataset.src;
@@ -565,12 +476,12 @@
             box.dataset.loaded = '1';
           }
 
-          // 開閉トグル
           const isOpen = box.classList.toggle('is-open');
+          box.style.display = isOpen ? 'block' : 'none';
           btn.textContent   = isOpen ? '閉じる' : '内容を見る';
         } catch(e) {
           console.error(e);
-          box.classList.add('is-open');
+          box.style.display = 'block';
           box.textContent = '読み込みに失敗しました…';
         }
       });
