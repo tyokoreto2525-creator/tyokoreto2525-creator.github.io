@@ -582,7 +582,39 @@
 </script>
 
 </body>
+  <script>
+  // 「内容を見る」ボタンで別HTMLを読み込み＆開閉
+  document.querySelectorAll('.js-load-article').forEach(function(btn){
+    btn.addEventListener('click', async function(){
+      const src      = btn.dataset.src;
+      const targetId = btn.dataset.target;
+      const box      = document.getElementById(targetId);
+      if (!box) return;
+
+      try {
+        // まだロードしてなければ1回だけ fetch
+        if (!box.dataset.loaded) {
+          const res  = await fetch(src);
+          const html = await res.text();
+          box.innerHTML       = html;
+          box.dataset.loaded  = '1';
+        }
+
+        // 開閉トグル
+        const isOpen = box.classList.toggle('is-open');
+        box.style.display = isOpen ? 'block' : 'none';
+        btn.textContent   = isOpen ? '閉じる' : '内容を見る';
+      } catch(e) {
+        console.error(e);
+        box.style.display = 'block';
+        box.textContent = '読み込みに失敗しました…';
+      }
+    });
+  });
+</script>
+
 </html>
+
 
 
 
