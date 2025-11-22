@@ -530,7 +530,7 @@ header h1 { margin: 8px 0 0; font-size: 28px; }
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.9);
-  display: none;          /* 初期状態では非表示 */
+  display: none;                 /* 初期状態では非表示 */
   align-items: center;
   justify-content: center;
   z-index: 9999;
@@ -569,49 +569,35 @@ header h1 { margin: 8px 0 0; font-size: 28px; }
   display: block;
 }
 
-/* 閉じるボタン（PC 基本） */
+/* 閉じるボタン（PC・スマホ共通） */
 .gallery-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
+  position: fixed;               /* 画面に固定 */
+  bottom: 16px;
+  right: 16px;
+  left: auto;
+  top: auto;
+  z-index: 10001;
+
+  /* ここで「縦長ピンク柱」にさせない */
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: auto !important;
+  height: auto !important;
+  padding: 8px 16px;
+  border-radius: 999px;
   border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
   background: #ff6699;
   color: #fff;
   font-weight: bold;
   cursor: pointer;
-
-  /* ここで「縦長のピンク柱」にならないよう固定 */
-  display: inline-block;
-  width: auto;
-  height: auto;
-}
-
-/* スマホ表示用：画面下に常に見えるようにする */
-@media (max-width: 768px) {
-
-  .gallery-inner {
-    max-width: 95vw;
-    max-height: 85vh;
-    padding: 16px;
-  }
-
-  .gallery-close {
-    position: fixed;          /* 画面に固定 */
-    top: auto;
-    bottom: 16px;
-    left: 50%;
-    right: auto;
-    transform: translateX(-50%);
-    z-index: 10001;
-  }
 }
 
 /* カードの見た目は今のままでOK。必要なら微調整 */
 .art-content h3 {
   margin-bottom: 12px;
 }
+
 
 
 /* ===== スマホ版ギャラリー閉じるボタン修正パッチ ===== */
@@ -648,6 +634,7 @@ header h1 { margin: 8px 0 0; font-size: 28px; }
     border-radius: 999px !important;
   }
 }
+
 
 
 
