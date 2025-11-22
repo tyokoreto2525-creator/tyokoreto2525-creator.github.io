@@ -409,7 +409,7 @@
     </div>
   </div>
 
- <!-- ギャラリー4：その他（タイトル／内容を見る） -->
+<!-- ギャラリー4：その他（タイトル／内容を見る） -->
 <div id="gallery-04" class="gallery-modal" aria-hidden="true">
   <div class="gallery-inner">
     <button class="gallery-close" type="button">✕ 閉じる</button>
@@ -426,7 +426,7 @@
             type="button"
             class="text-toggle-btn js-load-article"
             data-src="tokumei1.html"
-            data-target="text-1"
+            data-target="text-01"
           >
             内容を見る
           </button>
@@ -443,7 +443,7 @@
             type="button"
             class="text-toggle-btn js-load-article"
             data-src="tokumei2.html"
-            data-target="text-2"
+            data-target="text-02"
           >
             内容を見る
           </button>
@@ -455,6 +455,7 @@
     </div>
   </div>
 </div>
+
 
 
         <!-- ★ここは中身を空にしておく（後でJSが tokumei01.html を流し込む） -->
@@ -582,38 +583,124 @@
 </script>
 
 </body>
-  <script>
-  // 「内容を見る」ボタンで別HTMLを読み込み＆開閉
-  document.querySelectorAll('.js-load-article').forEach(function(btn){
-    btn.addEventListener('click', async function(){
-      const src      = btn.dataset.src;
-      const targetId = btn.dataset.target;
-      const box      = document.getElementById(targetId);
-      if (!box) return;
+ <script>
+  document.addEventListener('DOMContentLoaded', function () {
 
-      try {
-        // まだロードしてなければ1回だけ fetch
-        if (!box.dataset.loaded) {
-          const res  = await fetch(src);
-          const html = await res.text();
-          box.innerHTML       = html;
-          box.dataset.loaded  = '1';
+    // ▼ 詳細を見る → モーダルを開く
+    document.querySelectorAll('.open-gallery').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const id = btn.getAttribute('data-gallery');
+        const modal = document.getElementById(id);
+        if (modal) {
+          modal.classList.add('is-open');
+          modal.setAttribute('aria-hidden', 'false');
         }
+      });
+    });
 
-        // 開閉トグル
-        const isOpen = box.classList.toggle('is-open');
-        box.style.display = isOpen ? 'block' : 'none';
-        btn.textContent   = isOpen ? '閉じる' : '内容を見る';
-      } catch(e) {
-        console.error(e);
-        box.style.display = 'block';
-        box.textContent = '読み込みに失敗しました…';
+    // ✕閉じる ＋ 背景クリックで閉じる
+    document.querySelectorAll('.gallery-modal').forEach(function (modal) {
+      const closeBtn = modal.querySelector('.gallery-close');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function () {
+          modal.classList.remove('is-open');
+          modal.setAttribute('aria-hidden', 'true');
+        });
+      }
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) {
+          modal.classList.remove('is-open');
+          modal.setAttribute('aria-hidden', 'true');
+        }
+      });
+    });
+
+    // ESCキーで全部閉じる
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.gallery-modal.is-open').forEach(function (modal) {
+          modal.classList.remove('is-open');
+          modal.setAttribute('aria-hidden', 'true');
+        });
+        const lb = document.getElementById('image-lightbox');
+        if (lb) {
+          lb.classList.remove('is-open');
+          lb.setAttribute('aria-hidden', 'true');
+        }
       }
     });
+
+    // 画像拡大ライトボックス
+    const lightbox = document.getElementById('image-lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+
+    if (lightbox && lightboxImg && lightboxCaption) {
+      document.querySelectorAll('#gallery-01 figure').forEach(function (fig) {
+        const btn = fig.querySelector('.enlarge-btn');
+        const img = fig.querySelector('img');
+        const cap = fig.querySelector('figcaption');
+        if (!btn || !img) return;
+
+        btn.addEventListener('click', function () {
+          lightboxImg.src = img.src;
+          lightboxImg.alt = img.alt || '';
+          lightboxCaption.textContent = cap ? cap.textContent : (img.alt || '');
+          lightbox.classList.add('is-open');
+          lightbox.setAttribute('aria-hidden', 'false');
+        });
+      });
+
+      const lbClose = document.querySelector('.image-lightbox-close');
+      if (lbClose) {
+        lbClose.addEventListener('click', function () {
+          lightbox.classList.remove('is-open');
+          lightbox.setAttribute('aria-hidden', 'true');
+        });
+      }
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) {
+          lightbox.classList.remove('is-open');
+          lightbox.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }
+
+    // 「内容を見る」ボタンで別HTMLを読み込み＆開閉
+    document.querySelectorAll('.js-load-article').forEach(function(btn){
+      btn.addEventListener('click', async function(){
+        const src      = btn.dataset.src;
+        const targetId = btn.dataset.target;
+        const box      = document.getElementById(targetId);
+        if (!box) return;
+
+        try {
+          // まだロードしてなければ1回だけ fetch
+          if (!box.dataset.loaded) {
+            const res  = await fetch(src);
+            const html = await res.text();
+            box.innerHTML      = html;
+            box.dataset.loaded = '1';
+          }
+
+          // 開閉トグル
+          const isOpen = box.classList.toggle('is-open');
+          box.style.display = isOpen ? 'block' : 'none';
+          btn.textContent   = isOpen ? '閉じる' : '内容を見る';
+        } catch(e) {
+          console.error(e);
+          box.style.display = 'block';
+          box.textContent = '読み込みに失敗しました…';
+        }
+      });
+    });
+
   });
 </script>
 
+
 </html>
+
 
 
 
