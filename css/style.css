@@ -525,12 +525,12 @@ header h1 { margin: 8px 0 0; font-size: 28px; }
 
 
 
-/* ====== フルスクリーンギャラリー ====== */
+/* ====== フルスクリーンギャラリー（閉じるボタンは1個だけ・下だけ） ====== */
 .gallery-modal {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.9);
-  display: none;                 /* 初期状態では非表示 */
+  display: none;              /* 初期状態では非表示 */
   align-items: center;
   justify-content: center;
   z-index: 9999;
@@ -544,12 +544,13 @@ header h1 { margin: 8px 0 0; font-size: 28px; }
   position: relative;
   max-width: 90vw;
   max-height: 90vh;
-  padding: 24px;
+  padding: 20px 20px 60px;    /* 下に余白（ボタンぶん） */
   overflow: auto;
   background: rgba(0, 0, 0, 0.7);
   border-radius: 12px;
 }
 
+/* 画像たち */
 .gallery-images {
   display: flex;
   flex-wrap: wrap;
@@ -569,28 +570,39 @@ header h1 { margin: 8px 0 0; font-size: 28px; }
   display: block;
 }
 
-/* 閉じるボタン（PC・スマホ共通） */
+/* 閉じるボタン：モーダルの一番下に1個だけ */
 .gallery-close {
-  position: fixed;               /* 画面に固定 */
-  bottom: 16px;
-  right: 16px;
-  left: auto;
-  top: auto;
-  z-index: 10001;
-
-  /* ここで「縦長ピンク柱」にさせない */
-  display: inline-flex !important;
+  position: sticky;           /* スクロールしても下に張り付く */
+  bottom: 0;
+  margin: 20px auto 0;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: auto !important;
-  height: auto !important;
-  padding: 8px 16px;
+
+  padding: 10px 18px;
   border-radius: 999px;
   border: none;
   background: #ff6699;
   color: #fff;
   font-weight: bold;
   cursor: pointer;
+
+  /* 変な縦長化を防ぐ保険 */
+  width: auto;
+  height: auto;
+}
+
+/* スマホ用に少しだけ調整 */
+@media (max-width: 768px) {
+  .gallery-inner {
+    max-width: 96vw;
+    max-height: 86vh;
+    padding: 16px 12px 56px;
+  }
+
+  .gallery-images img {
+    max-width: 180px;
+  }
 }
 
 /* カードの見た目は今のままでOK。必要なら微調整 */
@@ -634,6 +646,7 @@ header h1 { margin: 8px 0 0; font-size: 28px; }
     border-radius: 999px !important;
   }
 }
+
 
 
 
