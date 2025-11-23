@@ -1,0 +1,132 @@
+<div class="blog-post">
+  <h3>3. GrapheneOS導入と運用設計</h3>
+
+  <h4>目的</h4>
+  <p>
+    PixelスマートフォンにGrapheneOSを導入することで、Androidの匿名性・プライバシー耐性を強化し、
+    アプリ・通信・ハードウェア・OSレベルまで匿名設計を貫く構成を目指す。
+  </p>
+
+  <h4>1. 使用端末（Pixelシリーズ限定）</h4>
+  <p>
+    GrapheneOSはGoogle Pixel端末にのみ正式対応している。推奨モデルは中古で入手しやすい
+    Pixel 5a / 6a / 7a など。端末はSIMを挿さず、Wi-Fi専用端末として利用することを基本とする。
+  </p>
+  <p>
+    GrapheneOSはPixel端末の公式ファームウェア更新が提供されている期間のみ、安全に使用できる。
+    サポート期限切れのPixelでは脆弱性修正が受けられず、匿名環境として危険になるため、
+    利用前にGoogleのPixelサポート情報を確認し、サポート中の端末だけを選ぶ。
+  </p>
+
+  <h4>2. GrapheneOSの導入手順（公式推奨）</h4>
+  <p>
+    準備するもの：対応Pixel端末（初期化済み）、PC（Linux / Windows / macOS のいずれか）、
+    USBケーブル。
+  </p>
+  <ol>
+    <li>PCのブラウザで <code>https://grapheneos.org/install</code> にアクセスし、公式Webインストーラを開く。</li>
+    <li>Pixelを「開発者モード＋USBデバッグON」にしてPCへ接続し、ブラウザから指示に従ってGrapheneOSを書き込む。</li>
+    <li>インストール完了後、端末をリセットし、GrapheneOSのみが入った「匿名専用スマホ」として運用する（電話・SMS用途とは分離）。</li>
+  </ol>
+  <p>
+    OSやアプリの更新は可能なかぎりVPN＋Tor経由で実施し、IPアドレスや接続ログから利用者を推定されるリスクを下げる。
+    アプリ入手はAurora StoreのAnonymousモードで行い、Googleアカウントとは完全に切り離す。
+    OS更新はGrapheneOS標準のOTAアップデート機能を使えば署名検証込みで行われ、改ざんリスクも小さい。
+  </p>
+
+  <h4>3. 初期構成（インストール後）</h4>
+  <ul>
+    <li>Googleサービスは一切有効化しない（microGも不要）。</li>
+    <li>必要なアプリは F-Droid または Aurora Store から匿名ダウンロード。</li>
+    <li>通信系アプリはすべてVPN / Tor経由で運用する前提とし、「素の回線」での通信は行わない。</li>
+  </ul>
+
+  <h4>4. 匿名通信アプリ構成（推奨）</h4>
+
+  <div class="table-wrapper">
+    <table class="app-table">
+      <thead>
+        <tr>
+          <th>用途</th>
+          <th>推奨アプリ（入手元）</th>
+          <th>備考</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">VPN接続</th>
+          <td>Mullvad / IVPN（公式サイト・WireGuard対応）</td>
+          <td>仮想通貨などで匿名購入可、ノーログポリシー</td>
+        </tr>
+        <tr>
+          <th scope="row">Tor通信</th>
+          <td>Orbot（F-Droid または GitHub）</td>
+          <td>VPNと組み合わせて Tor over VPN 構成が可能</td>
+        </tr>
+        <tr>
+          <th scope="row">メッセージ</th>
+          <td>Session / SimpleX / Briar（F-Droid）</td>
+          <td>完全分散型・電話番号不要の匿名ID</td>
+        </tr>
+        <tr>
+          <th scope="row">ブラウジング</th>
+          <td>Tor Browser（F-Droid または公式）</td>
+          <td>トラッキングブロック内蔵＋NoScript併用推奨</td>
+        </tr>
+        <tr>
+          <th scope="row">ファイアウォール</th>
+          <td>NetGuard（F-Droid）</td>
+          <td>root不要のアプリ別通信制御。VPNと併用して漏洩を抑制</td>
+        </tr>
+        <tr>
+          <th scope="row">QR対応鍵</th>
+          <td>OpenKeyChain / QRコード系ツール</td>
+          <td>GPG鍵の管理・QRコード共有に利用</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>
+    Tor Browserでは、標準の追跡防止機能に加えてNoScriptを併用することで、
+    JavaScriptによる指紋採取やトラッキングへの耐性がさらに高まる。
+    また、NetGuardのような非rootファイアウォールを入れて「許可したアプリだけ通信できる」状態にしておくと、
+    バックグラウンド通信や誤設定による情報漏洩をかなり抑えられる。
+  </p>
+
+  <h4>5. 通信構成（VPN + Tor 併用）</h4>
+  <p>
+    GrapheneOS上でOrbotをVPNモードで常時起動し、その上にMullvadなどの匿名VPNを多段接続することで、
+    VPN over Tor / Tor over VPN いずれの構成も取りうる。VPN側は「常時接続」と「VPN切断時は通信ブロック（Kill Switch）」を有効化。
+  </p>
+  <p>
+    AndroidのプライベートDNS設定には、ログ非保持を明言しているDoT/DoHプロバイダ
+    （例：<code>cloudflare-dns.com</code> など）を指定し、名前解決の漏洩も防ぐ。
+    さらにNetGuardで不要なアプリの通信を拒否し、「Tor / VPN経由のトラフィックだけが外に出る」構成を徹底する。
+  </p>
+
+  <h4>6. 匿名性・物理対策</h4>
+  <ul>
+    <li>端末にはSIMを挿さず、常にWi-Fiのみで運用。</li>
+    <li>Wi-FiはRaspberry&nbsp;Piなどの匿名中継ノードやネットカフェなど一時的なアクセスポイントを利用。</li>
+    <li>Bluetooth・位置情報・NFC・マイクはデフォルトでOFF。カメラは遮光テープや分解で物理遮断。</li>
+    <li>保管時はFaradayポーチなどで無線を物理的に遮断し、外観は安物ケース等で偽装する。</li>
+    <li>USB接続時はデータブロッカーを使い、電源供給のみ許可（データラインは遮断）。</li>
+    <li>Wi-Fi接続時は毎回ランダムMACアドレスを使用し、物理アドレスによる追跡を避ける（GrapheneOS設定から変更可能）。</li>
+  </ul>
+
+  <h4>7. その他の補強ポイント</h4>
+  <ul>
+    <li>GrapheneOSのプロファイル分離機能で、用途ごとに環境を分割（仮想ユーザーのように使い分け）。</li>
+    <li>ロック解除は短いPINではなく、推測困難な長文パスフレーズを推奨。</li>
+    <li>root化は行わない（GrapheneOS自体が高いセキュリティを提供しているため、rootはむしろ攻撃面を広げる）。</li>
+    <li>アプリごとのネットワーク権限（App sandbox firewall）を活用し、不要なプロファイルでは通信を完全に遮断することも可能。</li>
+    <li>カメラ・位置情報・クリップボードなどの権限は、プロファイル単位・アプリ単位で最小限に絞る。</li>
+  </ul>
+  <p>
+    GrapheneOSはストレージ全体をデフォルトで暗号化しており、
+    ロック解除用パスフレーズが暗号鍵素材の一部として利用される。
+    そのため、十分に長くランダム性の高いパスフレーズを設定することが、
+    匿名性と端末保護の要になる。
+  </p>
+</div>
