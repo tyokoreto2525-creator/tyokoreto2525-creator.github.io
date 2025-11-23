@@ -23,43 +23,43 @@
 
   <h5>1. Raspberry Pi（3B+ 以上推奨）→ 中継ノード本体</h5>
 
-  <!-- 画像だった表をHTMLテーブル化 -->
-  <table>
-    <thead>
-      <tr>
-        <th>項目</th>
-        <th>推奨ハード / 設定</th>
-        <th>備考</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>中継ノード</td>
-        <td>Raspberry Pi 3B+ / 4</td>
-        <td>microSDに Raspbian Lite を導入（GUI不要）</td>
-      </tr>
-      <tr>
-        <td>Wi-Fiアダプタ</td>
-        <td>USB接続 ×2（内1つは高出力モデル）</td>
-        <td>wlan0＝AP用、wlan1＝Wi-Fi接続用</td>
-      </tr>
-      <tr>
-        <td>電源</td>
-        <td>モバイルバッテリー（10,000mAh以上）</td>
-        <td>稼働時間目安：3〜5時間</td>
-      </tr>
-      <tr>
-        <td>通信方式</td>
-        <td>NAT＋IP転送＋hostapd＋dnsmasq構成</td>
-        <td>転送ルールは iptables で明示</td>
-      </tr>
-      <tr>
-        <td>操作方法</td>
-        <td>SSH／自動起動スクリプト</td>
-        <td>設置後は無人運用が理想</td>
-      </tr>
-    </tbody>
-  </table>
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th>項目</th>
+      <th>推奨ハード / 設定</th>
+      <th>備考</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>中継ノード</td>
+      <td>Raspberry Pi 3B+ / 4</td>
+      <td>microSDにRaspbian Liteを導入（GUI不要）</td>
+    </tr>
+    <tr>
+      <td>Wi-Fiアダプタ</td>
+      <td>USB接続 ×2<br>（内1つは高出力モデル）</td>
+      <td>wlan0 = AP用、<br>wlan1 = Wi-Fi接続用</td>
+    </tr>
+    <tr>
+      <td>電源</td>
+      <td>モバイルバッテリー<br>（10,000mAh以上）</td>
+      <td>稼働時間目安：3〜5時間</td>
+    </tr>
+    <tr>
+      <td>通信方式</td>
+      <td>NAT + IP転送 + hostapd + dnsmasq構成</td>
+      <td>転送ルールはiptablesで明示</td>
+    </tr>
+    <tr>
+      <td>操作方法</td>
+      <td>SSH／自動起動スクリプト</td>
+      <td>設置後は無人運用が理想</td>
+    </tr>
+  </tbody>
+</table>
+
 
   <h5>2. USB Wi-Fiアダプタ ×2</h5>
   <p>
@@ -108,3 +108,4 @@
     この構成は、いわゆる「Wi-Fiリピーター」や「Wi-Fi NATルーター」に近い動作をします。
   </p>
 </div>
+
