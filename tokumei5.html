@@ -1,0 +1,140 @@
+<div class="blog-post">
+  <h3>5. Raspberry PiによるWi-Fi中継装置の構築</h3>
+
+  <h4>～Wi-Fi中継装置の構築～</h4>
+
+  <h4>① Raspberry Pi OS Liteのインストール</h4>
+  <p>
+    Raspberry Pi Imager（公式）をPCにダウンロード・インストールします。  
+    SDカードをPCへ挿入し、Raspberry Pi OS Lite (64-bit) を書き込みます。  
+    書き込み後にSDカードを再挿入し、設定を行います。
+  </p>
+
+  <h4>② SSH有効化とWi-Fi設定</h4>
+  <p>/boot フォルダ内に「ssh」ファイルを作成し、SSHを有効化します。</p>
+
+  <p>Wi-Fi設定ファイル wpa_supplicant.conf を作成し、公共Wi-Fiの情報を記述します。</p>
+
+  <p>パスワード付きWi-Fiの例：</p>
+  <pre><code>country=JP
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+network={
+    ssid="YOUR_WIFI_NAME"
+    psk="YOUR_PASSWORD"
+}</code></pre>
+
+  <p>パスワードなしフリーWi-Fiの例：</p>
+  <pre><code>network={
+    ssid="7SPOT"
+    key_mgmt=NONE
+}</code></pre>
+
+  <h4>③ Raspberry Piを起動</h4>
+  <p>
+    SDカードを挿入しモバイルバッテリーで起動します。  
+    初期設定後、SSH経由で接続できるようになります。
+  </p>
+
+  <h4>④ 中継機能の設定（Wi-Fiブリッジ構成）</h4>
+  <p>
+    Raspberry Pi を中継Wi-Fiとして構成し、表側はPC用Wi-Fi、裏側はフリーWi-Fi接続にします。
+  </p>
+
+  <h4>⑤ SSH接続</h4>
+  <pre><code>ssh pi@raspberrypi.local</code></pre>
+  <p>初期パスワード：pi / raspberry</p>
+
+  <h4>⑥ 必要パッケージのインストール</h4>
+  <pre><code>sudo apt update
+sudo apt install hostapd dnsmasq iptables-persistent</code></pre>
+
+  <h4>⑦ hostapd設定（AP作成）</h4>
+  <pre><code>sudo nano /etc/hostapd/hostapd.conf</code></pre>
+  <pre><code>interface=wlan0
+driver=nl80211
+ssid=RelayAP
+hw_mode=g
+channel=7
+wmm_enabled=0
+macaddr_acl=0
+auth_algs=1
+ignore_broadcast_ssid=0</code></pre>
+
+  <p>設定ファイル登録：</p>
+  <pre><code>sudo nano /etc/default/hostapd</code></pre>
+  <pre><code>DAEMON_CONF="/etc/hostapd/hostapd.conf"</code></pre>
+
+  <h4>⑧ dnsmasq設定</h4>
+  <pre><code>sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig
+sudo nano /etc/dnsmasq.conf</code></pre>
+
+  <pre><code>interface=wlan0
+dhcp-range=192.168.50.2,192.168.50.20,255.255.255.0,24h</code></pre>
+
+  <h4>⑨ dhcpcd設定（IPアドレス固定）</h4>
+  <pre><code>sudo nano /etc/dhcpcd.conf</code></pre>
+  <pre><code>interface wlan0
+    static ip_address=192.168.50.1/24
+    nohook wpa_supplicant</code></pre>
+
+  <h4>⑩ NAT有効化（IPフォワード）</h4>
+  <pre><code>sudo nano /etc/sysctl.conf</code></pre>
+  <pre><code>net.ipv4.ip_forward=1</code></pre>
+
+  <p>NATルール追加：</p>
+  <pre><code>sudo iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE
+sudo netfilter-persistent save</code></pre>
+
+  <h4>⑪ 自動起動設定</h4>
+  <pre><code>sudo systemctl unmask hostapd
+sudo systemctl enable hostapd
+sudo systemctl enable dnsmasq
+sudo reboot</code></pre>
+
+  <h3>～ログを残さない・押収対策～</h3>
+
+  <h4>① MicroSD暗号化</h4>
+  <p>SDカード全体を暗号化して不正読取を防止します。</p>
+
+  <h4>② 自動ログイン無効化</h4>
+  <pre><code>sudo raspi-config</code></pre>
+  <p>System Options → Boot / Auto Login → Console, login required</p>
+
+  <h4>③ logrotateでログ自動削除</h4>
+  <pre><code>sudo nano /etc/logrotate.d/instant_delete</code></pre>
+  <pre><code>/var/log/*.log {
+    size 1k
+    missingok
+    notifempty
+    copytruncate
+    rotate 0
+    compress
+    delaycompress
+    sharedscripts
+    postrotate
+        rm -f /var/log/*.log
+    endscript
+}</code></pre>
+
+  <h4>④ syslog無効化</h4>
+  <pre><code>sudo systemctl stop rsyslog
+sudo systemctl disable rsyslog</code></pre>
+  <p>完全削除：</p>
+  <pre><code>sudo apt purge rsyslog</code></pre>
+
+  <h3>中継装置（Raspberry Pi）による「その場にいない通信」</h3>
+  <p>
+    PC → 中継用Wi-Fi（RelayAP） → Raspberry Pi → 公共Wi-Fi  
+    という経路により、あなた自身はフリーWi-Fiの物理範囲に存在しない状態で通信できます。
+  </p>
+
+  <h3>まとめ</h3>
+  <p>
+    2つのWi-Fiアダプタにより、  
+    ・wlan1：フリーWi-Fiへ接続  
+    ・wlan0：あなた専用のRelayAPを提供  
+    という構成が完成し、安全な場所から匿名通信が可能になります。
+  </p>
+
+</div>
