@@ -364,17 +364,51 @@
     </div>
   </div>
 
-  <!-- ギャラリー2：動画 -->
+   <!-- ギャラリー2：音楽 -->
   <div id="gallery-02" class="gallery-modal" aria-hidden="true">
     <div class="gallery-inner">
       <div class="gallery-images">
+
+        <!-- ① 音楽素材ページへのリンク（サムネ） -->
         <figure>
-          <a href="videos/sample01.mp4" download>
-            <img src="images/movie-thumb01.webp" alt="動画1サムネ" />
+          <!-- 音楽素材ページへのリンク先 -->
+          <a href="blog/music.html">
+            <!-- サムネ画像（好きな画像に差し替えOK） -->
+            <img src="images/music-page-thumb.webp" alt="音楽素材ページへ" />
           </a>
-          <figcaption>動画1（クリックで動画DL）</figcaption>
+          <figcaption>音楽素材ページへ</figcaption>
+          <p class="caption-note">画像クリックで音楽素材のページへ移動</p>
         </figure>
+
+        <!-- ② ここから下は .mp3 を直接開く／DLさせる例 -->
+
+        <figure>
+          <!-- 任意の music フォルダ内 mp3 に変更 -->
+          <a href="music/track01.mp3" download>
+            <img src="images/music-thumb01.webp" alt="曲タイトル1" />
+          </a>
+          <figcaption>曲タイトル1</figcaption>
+          <p class="caption-note">画像クリックでダウンロード</p>
+        </figure>
+
+        <figure>
+          <a href="music/track02.mp3" download>
+            <img src="images/music-thumb02.webp" alt="曲タイトル2" />
+          </a>
+          <figcaption>曲タイトル2</figcaption>
+          <p class="caption-note">画像クリックでダウンロード</p>
+        </figure>
+
+        <figure>
+          <a href="music/track03.mp3" download>
+            <img src="images/music-thumb03.webp" alt="曲タイトル3" />
+          </a>
+          <figcaption>曲タイトル3</figcaption>
+          <p class="caption-note">画像クリックでダウンロード</p>
+        </figure>
+
       </div>
+
       <button class="gallery-close" type="button">✕ 閉じる</button>
     </div>
   </div>
@@ -633,6 +667,7 @@
 
 </body>
 </html>
+
 
 
 
