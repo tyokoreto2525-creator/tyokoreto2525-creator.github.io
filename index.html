@@ -139,7 +139,14 @@
       white-space: normal;
     }
     .text-body.is-open { display: block; }
-
+    /* ギャラリー共通：画像を中央寄せ */
+    .gallery-images {
+      display: flex;
+      flex-wrap: wrap;       /* 横に並ぶのもOK */
+      justify-content: center; /* 全体を中央寄せ */
+      gap: 24px;             /* 図と図の間のすき間 */
+      text-align: center;    /* キャプション文字を中央 */
+    }
     /* スマホ用調整 */
     @media (max-width: 768px) {
       .overlay-gallery {
@@ -434,27 +441,10 @@
     <div class="gallery-inner">
       <div class="gallery-images">
 
-  <style>
-    /* 画像拡大ライトボックス */
-    .image-lightbox {
-      position: fixed;
-      inset: 0;
-      display: none;
-      align-items: center;
-      /* ここは元のまま続く */
-    }
+        <!-- ① 音楽素材ページへのリンク（サムネ） -->
+        <figure>
+          ...
 
-    /* ========= ギャラリー中央寄せ ========= */
-    .gallery-images {
-      display: flex;
-      flex-direction: column;  /* 縦並びのまま */
-      align-items: center;     /* figureごと中央寄せ */
-      text-align: center;      /* キャプション文字も中央 */
-    }
-  </style>
-
-
-</style>
 
         <!-- ① 音楽素材ページへのリンク（サムネ） -->
         <figure>
@@ -796,6 +786,7 @@
 
 </body>
 </html>
+
 
 
 
