@@ -433,10 +433,27 @@
   <div id="gallery-02" class="gallery-modal" aria-hidden="true">
     <div class="gallery-inner">
       <div class="gallery-images">
-<style>
-  .gallery-images {
-    text-align: center;
-  }
+
+  <style>
+    /* 画像拡大ライトボックス */
+    .image-lightbox {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      /* ここは元のまま続く */
+    }
+
+    /* ========= ギャラリー中央寄せ ========= */
+    .gallery-images {
+      display: flex;
+      flex-direction: column;  /* 縦並びのまま */
+      align-items: center;     /* figureごと中央寄せ */
+      text-align: center;      /* キャプション文字も中央 */
+    }
+  </style>
+
+
 </style>
 
         <!-- ① 音楽素材ページへのリンク（サムネ） -->
@@ -779,6 +796,7 @@
 
 </body>
 </html>
+
 
 
 
