@@ -7,9 +7,16 @@
   <link rel="stylesheet" href="css/style.css" />
 
   <style>
+/* ギャラリー内の画像を中央寄せ */
 .gallery-images figure {
-  margin: 0 auto 1rem; 
+  margin: 0 0 1rem;   /* 下だけ余白、左右は0でOK */
 }
+
+.gallery-images img {
+  display: block;
+  margin: 0 auto;     /* 画像を左右中央に */
+}
+
 
     /* 画像拡大ライトボックス */
     .image-lightbox {
@@ -169,17 +176,6 @@
       }
     }
 
-    /* ギャラリー2（音楽）の中身を縦並び＆中央寄せ */
-#gallery-02 .gallery-images {
-  display: flex;
-  flex-direction: column; /* 上から縦に並べる */
-  align-items: center;    /* 各要素を横方向に中央寄せ */
-}
-
-/* ギャラリー2の figure は下に少し余白だけつける */
-#gallery-02 .gallery-images figure {
-  margin: 0 0 1.5rem;
-}
 
   </style>
 </head>
@@ -803,6 +799,7 @@
 
 </body>
 </html>
+
 
 
 
