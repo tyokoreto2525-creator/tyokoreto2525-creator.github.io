@@ -168,6 +168,19 @@
         max-height: 88vh;
       }
     }
+
+    /* ギャラリー2（音楽）の中身を縦並び＆中央寄せ */
+#gallery-02 .gallery-images {
+  display: flex;
+  flex-direction: column; /* 上から縦に並べる */
+  align-items: center;    /* 各要素を横方向に中央寄せ */
+}
+
+/* ギャラリー2の figure は下に少し余白だけつける */
+#gallery-02 .gallery-images figure {
+  margin: 0 0 1.5rem;
+}
+
   </style>
 </head>
 <body>
@@ -790,6 +803,7 @@
 
 </body>
 </html>
+
 
 
 
