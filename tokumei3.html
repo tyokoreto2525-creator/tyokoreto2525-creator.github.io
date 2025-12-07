@@ -1,141 +1,187 @@
-<div class="blog-post">
-  <h3>3. GrapheneOS導入と運用設計</h3>
+    <div class="container">
+        <h1>究極の匿名通信 完全ガイド：第三章</h1>
+        <h2>通信経路の物理的分離（レベル2）【完全戦術マニュアル】</h2>
+        <h3>～あなたはそこにいない。通信だけが、遠くで生まれる【実践編】～</h3>
+        
+        <p>この章の目的は、あなたの物理的な存在と、通信の発信源を<strong>完全に分離</strong>することです。これにより、防犯カメラ、電波ログ、目撃者証言といった、あらゆる物理的な追跡を不能にします。</p>
+        
+        <h2 id="section3-1">3.1. この戦術の全体像と原理</h2>
+        <p>まず、何をやるのかを頭の中にインストールしてください。</p>
+        <ul>
+            <li><strong>あなたの行動</strong>: あなたは、<strong>カフェの中には絶対に入りません</strong>。カフェから数十メートル離れた、安全な場所（車の中、別の建物など）にいます。</li>
+            <li><strong>装置の役割</strong>: あなたが事前に設置した小さな装置（Raspberry Pi）が、あなたの代わりにカフェのフリーWi-Fiに接続し、あなた専用の「秘密のWi-Fi」を発信します。</li>
+            <li><strong>通信の流れ</strong>: あなたのPCはその「秘密のWi-Fi」に接続します。すると、あなたの通信は自動的に装置を経由し、カフェのフリーWi-Fiからインターネットに流れていきます。</li>
+        </ul>
+        <blockquote>
+            <p>[あなたのPC]  ←→  [あなた専用の秘密Wi-Fi]  ←→  [Raspberry Pi]  ←→  [カフェのフリーWi-Fi]<br>
+              (安全な場所)       (装置が発信)           (装置が中継)       (発信元)</p>
+        </blockquote>
+        <ul>
+            <li><strong>結果</strong>: カフェのWi-Fiの記録には「Raspberry Piという機器が接続した」とだけ残ります。あなたがそこにいたという物理的な証拠は一切残りません。</li>
+        </ul>
 
-  <h4>目的</h4>
-  <p>
-    PixelスマートフォンにGrapheneOSを導入することで、Androidの匿名性・プライバシー耐性を強化し、
-    アプリ・通信・ハードウェア・OSレベルまで匿名設計を貫く構成を目指す。
-  </p>
+        <h2 id="section3-2">3.2. 必要な機材（揃えるリスト）</h2>
+        <table>
+            <tr>
+                <th>項目</th>
+                <th>推奨ハード / 設定</th>
+                <th>なぜこれが必要か？（理由）</th>
+            </tr>
+            <tr>
+                <td><strong>中継ノード</strong></td>
+                <td>Raspberry Pi 4 Model B</td>
+                <td>処理性能が高く、安定した通信を保証するため。</td>
+            </tr>
+            <tr>
+                <td><strong>OS</strong></td>
+                <td>Raspberry Pi OS Lite (64-bit)</td>
+                <td>画面や余計な機能がない分、軽量で高速に動作するため。</td>
+            </tr>
+            <tr>
+                <td><strong>Wi-Fiアダプタ</strong></td>
+                <td>USB接続 ×2</td>
+                <td><strong>wlan0（AP用）</strong>: PCと接続するため。<br><strong>wlan1（クライアント用）</strong>: カフェのWi-Fiと接続するため。</td>
+            </tr>
+            <tr>
+                <td><strong>電源</strong></td>
+                <td>Anker, RAVPowerなどの20,000mAh以上のバッテリー</td>
+                <td>長時間の作戦を想定し、バッテリー切れのリスクを減らすため。</td>
+            </tr>
+            <tr>
+                <td><strong>MicroSD</strong></td>
+                <td>SanDisk Extreme Pro 32GB以上</td>
+                <td>OSの動作が快適になるため。書き込み速度が重要。</td>
+            </tr>
+            <tr>
+                <td><strong>（オプション）指向性アンテナ</strong></td>
+                <td>2.4GHz用</td>
+                <td>遠くのWi-Fiも確実に捉えるための、より専門的な装備。</td>
+            </tr>
+        </table>
 
-  <h4>1. 使用端末（Pixelシリーズ限定）</h4>
-  <p>
-    GrapheneOSはGoogle Pixel端末にのみ正式対応している。推奨モデルは中古で入手しやすい
-    Pixel 5a / 6a / 7a など。端末はSIMを挿さず、Wi-Fi専用端末として利用することを基本とする。
-  </p>
-  <p>
-    GrapheneOSはPixel端末の公式ファームウェア更新が提供されている期間のみ、安全に使用できる。
-    サポート期限切れのPixelでは脆弱性修正が受けられず、匿名環境として危険になるため、
-    利用前にGoogleのPixelサポート情報を確認し、サポート中の端末だけを選ぶ。
-  </p>
+        <h2 id="section3-3">3.3. 【最重要】設置前の準備（安全な場所で行う）</h2>
+        <p>ここまでの準備が、作戦の成否を分けます。すべてはあなたの安全な場所（自宅など）で済ませてください。</p>
+        
+        <h3>ステップ1：OSの書き込みとWi-Fi設定</h3>
+        <ol>
+            <li><strong>OS書き込み</strong>: 作業用PCで「Raspberry Pi Imager」を起動し、MicroSDカードに「Raspberry Pi OS Lite (64-bit)」を書き込みます。</li>
+            <li><strong>SSHとWi-Fiのヘッドレス設定</strong>:
+                <ul>
+                    <li>書き込み完了後、MicroSDカードをPCに再挿入します。</li>
+                    <li><strong>SSH有効化</strong>: <code>boot</code> ドライブ直下に <code>ssh</code> という名前の<strong>空のファイル</strong>を作成します。</li>
+                    <li><strong>Wi-Fi設定</strong>: 同じく<code>boot</code>ドライブに <code>wpa_supplicant.conf</code> という名前のテキストファイルを作成し、<strong>あなたがこれから設置する場所のWi-Fi情報</strong>を以下のように記述します。</li>
+                </ul>
+                <pre><code>country=JP
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
 
-  <h4>2. GrapheneOSの導入手順（公式推奨）</h4>
-  <p>
-    準備するもの：対応Pixel端末（初期化済み）、PC（Linux / Windows / macOS のいずれか）、
-    USBケーブル。
-  </p>
-  <ol>
-    <li>PCのブラウザで <code>https://grapheneos.org/install</code> にアクセスし、公式Webインストーラを開く。</li>
-    <li>Pixelを「開発者モード＋USBデバッグON」にしてPCへ接続し、ブラウザから指示に従ってGrapheneOSを書き込む。</li>
-    <li>インストール完了後、端末をリセットし、GrapheneOSのみが入った「匿名専用スマホ」として運用する（電話・SMS用途とは分離）。</li>
-  </ol>
-  <p>
-    OSやアプリの更新は可能なかぎりVPN＋Tor経由で実施し、IPアドレスや接続ログから利用者を推定されるリスクを下げる。
-    アプリ入手はAurora StoreのAnonymousモードで行い、Googleアカウントとは完全に切り離す。
-    OS更新はGrapheneOS標準のOTAアップデート機能を使えば署名検証込みで行われ、改ざんリスクも小さい。
-  </p>
+# -- 接続したいWi-Fiの情報をここに書く --
+# 例：マクドナルドのフリーWi-Fiの場合
+network={
+    ssid="_Wi-Fi_FREE_"  # ←実際のWi-Fi名に書き換える
+    key_mgmt=NONE        # ←パスワードなしならこのまま
+}
 
-  <h4>3. 初期構成（インストール後）</h4>
-  <ul>
-    <li>Googleサービスは一切有効化しない（microGも不要）。</li>
-    <li>必要なアプリは F-Droid または Aurora Store から匿名ダウンロード。</li>
-    <li>通信系アプリはすべてVPN / Tor経由で運用する前提とし、「素の回線」での通信は行わない。</li>
-  </ul>
+# 例：スターバックスのWi-Fiの場合
+# network={
+#    ssid="Starbucks_Wi-Fi" # ←実際のWi-Fi名に書き換える
+#    psk="paper_password"    # ←紙に書かれていたパスワードに書き換える
+# }</code></pre>
+                <blockquote>
+                    <p><strong>【原理】</strong>: この設定により、Raspberry Piは電源を入れた瞬間に、自動的に目標のWi-Fiに接続しようとします。</p>
+                </blockquote>
+            </li>
+        </ol>
 
-  <h4>4. 匿名通信アプリ構成（推奨）</h4>
+        <h2 id="section3-4">3.4. 中継機能の詳細設定（Raspberry Piに接続して行う）</h2>
+        
+        <h3>ステップ2：Raspberry Piに接続し、中継装置としての「魂」を入れる</h3>
+        <ol>
+            <li><strong>接続</strong>: MicroSDカードとWi-Fiアダプタ2つ、モバイルバッテリーをRaspberry Piに接続して起動します。数分待ち、あなたのPCのターミナルから <code>ssh pi@raspberrypi.local</code> で接続します。</li>
+            <li><strong>基本ソフトのインストール</strong>: 以下のコマンドをコピー＆ペーストして実行します。
+                <pre><code>sudo apt update && sudo apt install hostapd dnsmasq iptables-persistent -y</code></pre>
+                <blockquote>
+                    <p><strong>【原理】</strong>: <code>hostapd</code>は「秘密のWi-Fi」を、<code>dnsmasq</code>はIPアドレスを管理するためのソフトウェアです。</p>
+                </blockquote>
+            </li>
+            <li><strong>「秘密のWi-Fi（RelayAP）」の設定</strong>:
+                <pre><code>sudo nano /etc/hostapd/hostapd.conf</code></pre>
+                開いたファイルに、以下をコピペします。
+                <pre><code>interface=wlan0
+driver=nl80211
+ssid=RelayAP
+hw_mode=g
+channel=11
+wmm_enabled=0
+macaddr_acl=0
+auth_algs=1
+ignore_broadcast_ssid=0</code></pre>
+                <blockquote>
+                    <p><strong>【原理】</strong>: これで、Raspberry Piは <code>RelayAP</code> という名前のWi-Fiを発信する準備をしました。</p>
+                </blockquote>
+            </li>
+            <li><strong>IPアドレスの固定と通信転送の許可</strong>:
+                <pre><code>sudo nano /etc/dhcpcd.conf</code></pre>
+                ファイルの一番下に以下を追記します。
+                <pre><code>interface wlan0
+static ip_address=192.168.50.1/24
+nohook wpa_supplicant</code></pre>
+                <blockquote>
+                    <p><strong>【原理】</strong>: これで、Raspberry Piが「秘密のWi-Fi」の親（IPアドレス: 192.168.50.1）になることを定義しました。</p>
+                </blockquote>
+                <pre><code>sudo nano /etc/sysctl.conf</code></pre>
+                <code>#net.ipv4.ip_forward=1</code> の行の <code>#</code> を削除します。
+                <blockquote>
+                    <p><strong>【原理】</strong>: これで、Raspberry Piが「通信の橋渡し（ルーター）」として働くことを許可しました。</p>
+                </blockquote>
+            </li>
+            <li><strong>NATルールの適用とサービスの有効化</strong>:
+                <pre><code>sudo iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE
+sudo netfilter-persistent save
+sudo systemctl unmask hostapd && sudo systemctl enable hostapd && sudo systemctl enable dnsmasq
+sudo reboot</code></pre>
+                <blockquote>
+                    <p><strong>【原理】</strong>: これで、あなたのPCからの通信をカフェのWi-Fiに中継するルールが適用され、Raspberry Piを再起動しても設定が消えないようになります。</p>
+                </blockquote>
+            </li>
+        </ol>
 
-  <div class="table-wrapper">
-   <table style="width:100%; border-collapse: collapse; font-size: 15px;">
-  <thead>
-    <tr style="background:#333; color:#fff;">
-      <th style="border:1px solid #666; padding:8px;">用途</th>
-      <th style="border:1px solid #666; padding:8px;">推奨アプリ（入手元）</th>
-      <th style="border:1px solid #666; padding:8px;">備考</th>
-    </tr>
-  </thead>
-  <tbody>
+        <h2 id="section3-5">3.5. 【究極の防御】押収対策（痕跡を残さないための仕込み）</h2>
+        <p>装置が見つかった時のために、「何も語らない」ように設定します。</p>
+        
+        <h3>ステップ3：ログの完全無効化</h3>
+        <ol>
+            <li>Raspberry PiにSSHで接続し、以下のコマンドを実行します。
+                <pre><code>sudo nano /etc/logrotate.d/instant_delete</code></pre>
+                開いたファイルに、以下をコピペして保存します。
+                <pre><code>/var/log/*.log {
+    size 1k
+    rotate 0
+    copytruncate
+    sharedscripts
+    postrotate
+        rm -f /var/log/*.log
+    endscript
+}</code></pre>
+            </li>
+            <li>続いて、ログ機能そのものを停止します。
+                <pre><code>sudo systemctl stop rsyslog && sudo systemctl disable rsyslog && sudo apt purge rsyslog -y</code></pre>
+                <blockquote>
+                    <p><strong>【原理】</strong>: これで、Raspberry Piは自分の動作ログをファイルとして保存しなくなります。電源を切れば、記憶はすべて消える「忘れっぽいコンピュータ」になります。</p>
+                </blockquote>
+            </li>
+        </ol>
 
-    <tr>
-      <td style="border:1px solid #666; padding:8px;">VPN接続</td>
-      <td style="border:1px solid #666; padding:8px;">Mullvad / IVPN（公式サイト・WireGuard対応）</td>
-      <td style="border:1px solid #666; padding:8px;">仮想通貨などで匿名購入可、ノーログポリシー</td>
-    </tr>
+        <h2 id="section3-6">3.6. 実践的な運用手順（作戦開始！）</h2>
+        
+        <h3>ステップ4：設置と通信</h3>
+        <ol>
+            <li><strong>設置</strong>: あなたは、準備済みのRaspberry Piを標的のカフェの近く（屋上、植え込みの陰など）に、誰にも見られないようにそっと設置し、すぐにその場を離れます。</li>
+            <li><strong>待機</strong>: 数分間、Raspberry Piが起動し、カフェのWi-Fiに接続するのを待ちます。</li>
+            <li><strong>通信</strong>: あなたはカフェから離れた安全な場所（車の中など）に移動し、あなたの匿名PC（Tails OS）で <code>RelayAP</code> に接続します。</li>
+            <li><strong>確認</strong>: Torブラウザを開き、Webサイトが見られれば成功です。</li>
+        </ol>
 
-    <tr>
-      <td style="border:1px solid #666; padding:8px;">Tor通信</td>
-      <td style="border:1px solid #666; padding:8px;">Orbot（F-Droid または GitHub）</td>
-      <td style="border:1px solid #666; padding:8px;">VPNと組み合わせて Tor over VPN 構成が可能</td>
-    </tr>
-
-    <tr>
-      <td style="border:1px solid #666; padding:8px;">メッセージ</td>
-      <td style="border:1px solid #666; padding:8px;">Session / SimpleX / Briar（F-Droid）</td>
-      <td style="border:1px solid #666; padding:8px;">完全分散型・電話番号不要の匿名ID</td>
-    </tr>
-
-    <tr>
-      <td style="border:1px solid #666; padding:8px;">ブラウジング</td>
-      <td style="border:1px solid #666; padding:8px;">Tor Browser（F-Droid または公式）</td>
-      <td style="border:1px solid #666; padding:8px;">トラッキングブロック内蔵＋NoScript併用推奨</td>
-    </tr>
-
-    <tr>
-      <td style="border:1px solid #666; padding:8px;">ファイアウォール</td>
-      <td style="border:1px solid #666; padding:8px;">NetGuard（F-Droid）</td>
-      <td style="border:1px solid #666; padding:8px;">root不要のアプリ別通信制御。VPNと併用して漏洩抑制</td>
-    </tr>
-
-    <tr>
-      <td style="border:1px solid #666; padding:8px;">QR対応鍵</td>
-      <td style="border:1px solid #666; padding:8px;">OpenKeyChain / QRコード系ツール</td>
-      <td style="border:1px solid #666; padding:8px;">GPG鍵の管理・QRコード共有に利用</td>
-    </tr>
-
-  </tbody>
-</table>
-
-  </div>
-
-  <p>
-    Tor Browserでは、標準の追跡防止機能に加えてNoScriptを併用することで、
-    JavaScriptによる指紋採取やトラッキングへの耐性がさらに高まる。
-    また、NetGuardのような非rootファイアウォールを入れて「許可したアプリだけ通信できる」状態にしておくと、
-    バックグラウンド通信や誤設定による情報漏洩をかなり抑えられる。
-  </p>
-
-  <h4>5. 通信構成（VPN + Tor 併用）</h4>
-  <p>
-    GrapheneOS上でOrbotをVPNモードで常時起動し、その上にMullvadなどの匿名VPNを多段接続することで、
-    VPN over Tor / Tor over VPN いずれの構成も取りうる。VPN側は「常時接続」と「VPN切断時は通信ブロック（Kill Switch）」を有効化。
-  </p>
-  <p>
-    AndroidのプライベートDNS設定には、ログ非保持を明言しているDoT/DoHプロバイダ
-    （例：<code>cloudflare-dns.com</code> など）を指定し、名前解決の漏洩も防ぐ。
-    さらにNetGuardで不要なアプリの通信を拒否し、「Tor / VPN経由のトラフィックだけが外に出る」構成を徹底する。
-  </p>
-
-  <h4>6. 匿名性・物理対策</h4>
-  <ul>
-    <li>端末にはSIMを挿さず、常にWi-Fiのみで運用。</li>
-    <li>Wi-FiはRaspberry&nbsp;Piなどの匿名中継ノードやネットカフェなど一時的なアクセスポイントを利用。</li>
-    <li>Bluetooth・位置情報・NFC・マイクはデフォルトでOFF。カメラは遮光テープや分解で物理遮断。</li>
-    <li>保管時はFaradayポーチなどで無線を物理的に遮断し、外観は安物ケース等で偽装する。</li>
-    <li>USB接続時はデータブロッカーを使い、電源供給のみ許可（データラインは遮断）。</li>
-    <li>Wi-Fi接続時は毎回ランダムMACアドレスを使用し、物理アドレスによる追跡を避ける（GrapheneOS設定から変更可能）。</li>
-  </ul>
-
-  <h4>7. その他の補強ポイント</h4>
-  <ul>
-    <li>GrapheneOSのプロファイル分離機能で、用途ごとに環境を分割（仮想ユーザーのように使い分け）。</li>
-    <li>ロック解除は短いPINではなく、推測困難な長文パスフレーズを推奨。</li>
-    <li>root化は行わない（GrapheneOS自体が高いセキュリティを提供しているため、rootはむしろ攻撃面を広げる）。</li>
-    <li>アプリごとのネットワーク権限（App sandbox firewall）を活用し、不要なプロファイルでは通信を完全に遮断することも可能。</li>
-    <li>カメラ・位置情報・クリップボードなどの権限は、プロファイル単位・アプリ単位で最小限に絞る。</li>
-  </ul>
-  <p>
-    GrapheneOSはストレージ全体をデフォルトで暗号化しており、
-    ロック解除用パスフレーズが暗号鍵素材の一部として利用される。
-    そのため、十分に長くランダム性の高いパスフレーズを設定することが、
-    匿名性と端末保護の要になる。
-  </p>
-</div>
-
+        <h2 id="conclusion">結論</h2>
+        <p>この章の設定を完璧に実行すれば、あなたのRaspberry Piは単なる中継装置ではなく、<strong>「痕跡を残さない幻の通信端末」</strong>となります。あなたは安全な場所から、この幻を遠隔操作し、完全な匿名性を確保できるのです。</p>
+    </div>
