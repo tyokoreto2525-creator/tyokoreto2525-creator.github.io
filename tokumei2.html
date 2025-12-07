@@ -2,253 +2,222 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>究極の匿名通信 完全ガイド：第二章 Tails OSの究極的運用</title>
+    <title>究極の匿名通信 完全ガイド：第二章</title>
+</head>
+<body>
+
+<!-- 
+このコンテンツは、モーダルウィンドウ内での表示を前提としています。
+全体を '.tokumei-article' クラスでラップし、スタイルをスコープ化することで、
+親ページのCSSの影響を完全に排除し、どのような背景色でも最適に表示されるように設計されています。
+-->
+<div class="tokumei-article">
+
     <style>
-        /* --- General Styling & Typography --- */
-        :root {
-            --primary-color: #0d47a1;
-            --secondary-color: #1976d2;
-            --accent-color: #d32f2f;
-            --success-color: #2e7d32;
-            --code-bg: #1e1e1e;
-            --code-text: #d4d4d4;
-            --command-color: #4fc3f7; /* Light Blue */
-            --option-color: #ce9178; /* Orange */
-            --comment-color: #6a9955; /* Green */
-            --keyword-color: #c586c0; /* Purple */
-            --string-color: #ce9178; /* Orange */
-        }
-        body {
+        /* このスタイルブロックは、親ページのスタイルを上書きしないように、
+           .tokumei-article クラスでスコープを限定しています。 */
+        .tokumei-article {
             font-family: 'SF Pro Display', 'Helvetica Neue', 'Segoe UI', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
             line-height: 1.7;
-            background-color: #f5f7fa;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        .paper-container {
-            max-width: 880px;
-            margin: 3em auto;
-            background-color: #ffffff;
-            padding: 40px 60px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
-            border-radius: 8px;
+            color: #f0f0f0; /* 明るい文字色をデフォルトに */
+            padding: 20px;
+            background-color: transparent; /* 親の背景色を透過 */
         }
 
-        /* --- Headings --- */
-        h1, h2, h3, h4 {
+        .tokumei-article h1,
+        .tokumei-article h2,
+        .tokumei-article h3,
+        .tokumei-article h4 {
             font-weight: 700;
             line-height: 1.3;
+            color: #ffffff; /* 見出しは白で統一 */
         }
-        h1 {
-            font-size: 2.5em;
+
+        .tokumei-article h1 {
+            font-size: 2.2em;
             text-align: center;
-            color: var(--primary-color);
             margin-bottom: 0.5em;
+            border-bottom: 2px solid #555;
+            padding-bottom: 10px;
         }
-        h2 {
-            font-size: 1.9em;
-            margin-top: 3em;
-            padding-bottom: 0.3em;
-            border-bottom: 1px solid #e0e0e0;
-            position: relative;
-        }
-        h3 {
-            font-size: 1.4em;
+
+        .tokumei-article h2 {
+            font-size: 1.7em;
             margin-top: 2.5em;
-            color: var(--secondary-color);
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid #777;
         }
-        h4 {
-            font-size: 1.15em;
-            margin-top: 1.8em;
-            color: var(--accent-color);
+
+        .tokumei-article h3 {
+            font-size: 1.3em;
+            margin-top: 2em;
+            color: #81d4fa; /* 見出し3はアクセントカラーに */
+        }
+
+        .tokumei-article h4 {
+            font-size: 1.1em;
+            margin-top: 1.5em;
+            color: #ff8a80; /* 見出し4は別のアクセントカラーに */
         }
         
-        /* --- Text Elements --- */
-        p {
+        .tokumei-article p {
             margin-bottom: 1.2em;
         }
-        strong {
-            color: var(--accent-color);
+
+        .tokumei-article strong {
+            color: #ff8a80; /* 強調は見出し4と同じ色で */
             font-weight: 600;
         }
-        a {
-            color: var(--secondary-color);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
 
-        /* --- Separator --- */
-        hr {
+        .tokumei-article hr {
             border: 0;
-            height: 2px;
-            background-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.1), rgba(0,0,0,0));
-            margin: 3em 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.3), rgba(255,255,255,0));
+            margin: 2.5em 0;
         }
 
-        /* --- Code Blocks (Syntax Highlighting) --- */
-        pre {
-            background-color: var(--code-bg);
-            color: var(--code-text);
-            padding: 1.5em;
+        /* コードブロック：ダークテーマで統一 */
+        .tokumei-article pre {
+            background-color: #2b2b2b;
+            color: #f0f0f0;
+            padding: 1.2em;
             border-radius: 6px;
             overflow-x: auto;
             font-family: 'SF Mono', 'Fira Code', 'Consolas', 'Liberation Mono', 'Menlo', monospace;
             font-size: 0.9em;
             line-height: 1.5;
             white-space: pre;
+            border: 1px solid #555;
         }
-        code {
+
+        .tokumei-article code {
             font-family: inherit;
         }
-        .command { color: var(--command-color); }
-        .option { color: var(--option-color); }
-        .comment { color: var(--comment-color); font-style: italic; }
-        .keyword { color: var(--keyword-color); }
-        .string { color: var(--string-color); }
 
-        /* --- Inline Code --- */
-        p > code, li > code {
-            background-color: #eef2f5;
-            color: var(--primary-color);
+        .tokumei-article .command { color: #ffcc66; } /* 黄色 */
+        .tokumei-article .option { color: #cc99cc; } /* 紫 */
+        .tokumei-article .comment { color: #99cc99; } /* 緑 */
+        .tokumei-article .keyword { color: #6699cc; } /* 青 */
+        .tokumei-article .string { color: #cc9966; } /* オレンジ */
+
+        /* インラインコード */
+        .tokumei-article p > code {
+            background-color: #444;
+            color: #ffcc66;
             padding: 0.2em 0.5em;
             border-radius: 4px;
             font-size: 0.9em;
             font-weight: 600;
         }
 
-        /* --- Lists --- */
-        ul {
+        /* リスト：シンプルな黒丸に */
+        .tokumei-article ul {
             list-style: none;
             padding-left: 0;
         }
-        li {
-            padding-left: 2em;
+
+        .tokumei-article li {
+            padding-left: 1.5em;
             position: relative;
             margin-bottom: 1em;
         }
-        li::before {
-            content: '•'; /* Simple bullet point */
-            color: var(--secondary-color);
+
+        .tokumei-article li::before {
+            content: '•';
+            color: #81d4fa; /* アクセントカラーと同じ */
             font-size: 1.2em;
             position: absolute;
-            left: 0.2em;
+            left: 0;
             top: 0.1em;
-            line-height: 1;
         }
 
-        /* --- Blockquotes --- */
-        blockquote {
+        /* 引用ブロック */
+        .tokumei-article blockquote {
             margin: 1.5em 0;
             padding: 1em 1.5em;
-            border-left: 5px solid var(--secondary-color);
-            background-color: #f5f7fa;
-            color: #555;
+            border-left: 5px solid #81d4fa;
+            background-color: rgba(0,0,0,0.3);
+            color: #ccc;
         }
-        blockquote p {
+
+        .tokumei-article blockquote p {
             margin: 0;
         }
 
-        /* --- Tables --- */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 2em 0;
-            font-size: 0.95em;
-        }
-        th, td {
-            padding: 1em;
-            text-align: left;
-            border-bottom: 1px solid #e0e0e0;
-            vertical-align: top;
-        }
-        thead th {
-            font-weight: 600;
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--secondary-color);
-        }
-
-        /* --- Conclusion Box --- */
-        .conclusion-box {
-            margin-top: 3em;
-            padding: 2em;
-            background-color: #f1f8e9;
-            border-left: 5px solid var(--success-color);
+        /* 結論ボックス */
+        .tokumei-article .conclusion-box {
+            margin-top: 2.5em;
+            padding: 1.5em;
+            background-color: rgba(76, 175, 80, 0.2); /* 緑を透過 */
+            border-left: 5px solid #4caf50;
             border-radius: 0 6px 6px 0;
         }
-        .conclusion-box h3 {
+
+        .tokumei-article .conclusion-box h3 {
             margin-top: 0;
-            color: var(--success-color);
+            color: #a5d6a7; /* 薄い緑 */
             border: none;
             padding: 0;
         }
-
     </style>
-</head>
-<body>
 
-    <div class="paper-container">
-        <h1>究極の匿名通信 完全ガイド：第二章</h1>
-        <h2>Tails OSの究極的運用（レベル1）</h2>
-        <h3>～電源を切るその瞬間まで、そしてその瞬間に、完璧な匿名を保つための聖典～</h3>
-        
-        <p>この章の目的は、Tails OSを「使うツール」から、「あなたの意志で動く、信頼できる相棒」へと昇華させることです。ここに記載された設定を一つ一つ実行することで、あなたのUSBは国家レベルの監視にも耐えうる「黒い箱」となります。</p>
-        
-        <hr>
+    <h1>究極の匿名通信 完全ガイド：第二章</h1>
+    <h2>Tails OSの究極的運用（レベル1）</h2>
+    <h3>～電源を切るその瞬間まで、そしてその瞬間に、完璧な匿名を保つための聖典～</h3>
+    
+    <p>この章の目的は、Tails OSを「使うツール」から、「あなたの意志で動く、信頼できる相棒」へと昇華させることです。ここに記載された設定を一つ一つ実行することで、あなたのUSBは国家レベルの監視にも耐えうる「黒い箱」となります。</p>
+    
+    <hr>
 
-        <h2 id="section2-1">2.1. クリーンなUSBインストールと複製</h2>
-        <h4>目的</h4>
-        <p>最初から完璧でなければならない。インストールプロセス自体に、あなたの痕跡を残してはならない。</p>
-        
-        <h4>実行手順</h4>
-        <ul>
-            <li><strong>ダウンロード</strong>: 作業用PCで、Tails公式サイトの署名を検証し、最新版イメージをダウンロードする。</li>
-            <li><strong>書き込み</strong>: balenaEtcherを使い、現金で購入し、個体識別番号のないUSB（インストール用）にイメージを書き込む。</li>
-            <li><strong>クローン</strong>: このインストール用USBから、別の現金で購入したUSB（本番用）へ、Tails Installerを使って完全にクローンを作成する。</li>
-        </ul>
+    <h2 id="section2-1">2.1. クリーンなUSBインストールと複製</h2>
+    <h4>目的</h4>
+    <p>最初から完璧でなければならない。インストールプロセス自体に、あなたの痕跡を残してはならない。</p>
+    
+    <h4>実行手順</h4>
+    <ul>
+        <li><strong>ダウンロード</strong>: 作業用PCで、Tails公式サイトの署名を検証し、最新版イメージをダウンロードする。</li>
+        <li><strong>書き込み</strong>: balenaEtcherを使い、現金で購入し、個体識別番号のないUSB（インストール用）にイメージを書き込む。</li>
+        <li><strong>クローン</strong>: このインストール用USBから、別の現金で購入したUSB（本番用）へ、Tails Installerを使って完全にクローンを作成する。</li>
+    </ul>
 
-        <h4>完璧への道</h4>
-        <p>インストール用USBは、作業が完了次第、物理的に破壊する。本番用USBは、ラベルを剥がし、表面を細かいサンドペーパーで削り、製造番号などの刻印を物理的に消去する。</p>
-        
-        <hr>
+    <h4>完璧への道</h4>
+    <p>インストール用USBは、作業が完了次第、物理的に破壊する。本番用USBは、ラベルを剥がし、表面を細かいサンドペーパーで削り、製造番号などの刻印を物理的に消去する。</p>
+    
+    <hr>
 
-        <h2 id="section2-2">2.2. Persistentストレージの最適化と暗号化</h2>
-        <h4>目的</h4>
-        <p>持続するデータは、同時にリスクとなる。最小限のデータを、最高の暗号で守る。</p>
-        
-        <h4>実行手順</h4>
-        <ul>
-            <li><strong>有効化</strong>: 「Tails Persistent Storage」から有効化し、32文字以上の、記号を含む完全にランダムなパスワードを設定する。</li>
-            <li><strong>パスワード生成例</strong>: <code class="command">openssl rand -base64 32</code> で生成された文字列をそのまま使用する。</li>
-            <li><strong>項目の選択</strong>: 「Personal Data」「Network Connections」「GnuPG」「Dotfiles」にのみチェックを入れる。その他は無効にし、攻撃対象面を最小限に抑える。</li>
-            <li><strong>二重暗号化</strong>: Persistent内に保存するファイル（特に.conf, .key, .txt）は、さらにGPGで暗号化する。</li>
-        </ul>
+    <h2 id="section2-2">2.2. Persistentストレージの最適化と暗号化</h2>
+    <h4>目的</h4>
+    <p>持続するデータは、同時にリスクとなる。最小限のデータを、最高の暗号で守る。</p>
+    
+    <h4>実行手順</h4>
+    <ul>
+        <li><strong>有効化</strong>: 「Tails Persistent Storage」から有効化し、32文字以上の、記号を含む完全にランダムなパスワードを設定する。</li>
+        <li><strong>パスワード生成例</strong>: <code class="command">openssl rand -base64 32</code> で生成された文字列をそのまま使用する。</li>
+        <li><strong>項目の選択</strong>: 「Personal Data」「Network Connections」「GnuPG」「Dotfiles」にのみチェックを入れる。その他は無効にし、攻撃対象面を最小限に抑える。</li>
+        <li><strong>二重暗号化</strong>: Persistent内に保存するファイル（特に.conf, .key, .txt）は、さらにGPGで暗号化する。</li>
+    </ul>
 
-        <h4>GPGによる二重暗号化コマンド例</h4>
-        <pre><code><span class="comment"># ファイルを暗号化する</span>
+    <h4>GPGによる二重暗号化コマンド例</h4>
+    <pre><code><span class="comment"># ファイルを暗号化する</span>
 <span class="command">gpg</span> <span class="option">-c</span> <span class="option">--cipher-algo</span> <span class="string">AES256</span> <span class="option">--compress-algo</span> <span class="string">1</span> <span class="option">--s2k-mode</span> <span class="string">3</span> <span class="option">--s2k-digest-algo</span> <span class="string">SHA512</span> <span class="option">--s2k-count</span> <span class="string">65536</span> secret_file.txt
 
 <span class="comment"># ファイルを復号する</span>
 <span class="command">gpg</span> <span class="option">-d</span> secret_file.txt.gpg</code></pre>
 
-        <hr>
+    <hr>
 
-        <h2 id="section2-3">2.3. VPNの完全自動化とKill Switchの実装</h2>
-        <h4>目的</h4>
-        <p>人間はミスをする。システムは、人間のミスを補完しなければならない。VPNへの接続は、意識しなくて当たり前でなければならない。</p>
-        
-        <h4>実行手順</h4>
-        <ul>
-            <li><strong>プロバイダ選定</strong>: MullvadやIVPNなど、監査済みノーログ、匿名登録（メール不要）、Moneroでの支払い可能なプロバイダを選定する。</li>
-            <li><strong>設定ファイルの強化</strong>: Persistentに保存する.ovpnファイルを、以下のように最大限に強化する。</li>
-        </ul>
+    <h2 id="section2-3">2.3. VPNの完全自動化とKill Switchの実装</h2>
+    <h4>目的</h4>
+    <p>人間はミスをする。システムは、人間のミスを補完しなければならない。VPNへの接続は、意識しなくて当たり前でなければならない。</p>
+    
+    <h4>実行手順</h4>
+    <ul>
+        <li><strong>プロバイダ選定</strong>: MullvadやIVPNなど、監査済みノーログ、匿名登録（メール不要）、Moneroでの支払い可能なプロバイダを選定する。</li>
+        <li><strong>設定ファイルの強化</strong>: Persistentに保存する.ovpnファイルを、以下のように最大限に強化する。</li>
+    </ul>
 
-        <h4>強化された.ovpnファイルの例</h4>
-        <pre><code><span class="comment"># --- 基本設定 ---</span>
+    <h4>強化された.ovpnファイルの例</h4>
+    <pre><code><span class="comment"># --- 基本設定 ---</span>
 <span class="keyword">client</span>
 <span class="keyword">dev</span> <span class="string">tun</span>
 <span class="keyword">proto</span> <span class="string">udp</span>
@@ -271,13 +240,13 @@
 <span class="keyword">block-outside-dns</span>
 <span class="keyword">ping-exit</span> <span class="string">60</span>
 <span class="keyword">ping-restart</span> <span class="string">10</span></code></pre>
-        
-        <ul>
-            <li><strong>起動時自動接続スクリプト</strong>: <code>~/Persistent/vpn_auto.sh</code> を作成し、以下を記述する。</li>
-        </ul>
+    
+    <ul>
+        <li><strong>起動時自動接続スクリプト</strong>: <code>~/Persistent/vpn_auto.sh</code> を作成し、以下を記述する。</li>
+    </ul>
 
-        <h4>vpn_auto.shの内容</h4>
-        <pre><code><span class="comment">#!/bin/bash</span>
+    <h4>vpn_auto.shの内容</h4>
+    <pre><code><span class="comment">#!/bin/bash</span>
 <span class="comment"># VPN接続が確立するまで待つループ</span>
 <span class="keyword">while</span> ! ip route show dev tun0 >/dev/null <span class="string">2>&1</span>; <span class="keyword">do</span>
   <span class="command">echo</span> <span class="string">"Connecting to VPN..."</span>
@@ -286,39 +255,39 @@
 <span class="keyword">done</span>
 <span class="command">echo</span> <span class="string">"VPN is connected."</span></code></pre>
 
-        <ul>
-            <li><strong>crontabでの自動実行</strong>: <code class="command">crontab -e</code> で以下を追記し、起動時に自動実行させる。</li>
-        </ul>
+    <ul>
+        <li><strong>crontabでの自動実行</strong>: <code class="command">crontab -e</code> で以下を追記し、起動時に自動実行させる。</li>
+    </ul>
 
-        <h4>crontabの設定</h4>
-        <pre><code><span class="keyword">@reboot</span> /home/amnesia/Persistent/vpn_auto.sh</code></pre>
+    <h4>crontabの設定</h4>
+    <pre><code><span class="keyword">@reboot</span> /home/amnesia/Persistent/vpn_auto.sh</code></pre>
 
-        <hr>
+    <hr>
 
-        <h2 id="section2-4">2.4. RAMフォレンジックとCold Boot Attackの完全な無力化</h2>
-        <h4>目的</h4>
-        <p>電源を切った後の数秒が、すべてを決する。その数秒のリスクすら許容しない。</p>
-        
-        <h4>実行手順</h4>
-        <ul>
-            <li><strong>起動時RAMゼロ化</strong>: 毎回の起動時に、GRUBメニューで<code>e</code>を押し、<code>quiet</code>パラメータの後に<code>mem=erase</code>を追記する。</li>
-            <li><strong>Panicボタン（RAM消去＆シャットダウン）</strong>: <code>~/Desktop/emergency_panic.desktop</code> を作成する。</li>
-        </ul>
+    <h2 id="section2-4">2.4. RAMフォレンジックとCold Boot Attackの完全な無力化</h2>
+    <h4>目的</h4>
+    <p>電源を切った後の数秒が、すべてを決する。その数秒のリスクすら許容しない。</p>
+    
+    <h4>実行手順</h4>
+    <ul>
+        <li><strong>起動時RAMゼロ化</strong>: 毎回の起動時に、GRUBメニューで<code>e</code>を押し、<code>quiet</code>パラメータの後に<code>mem=erase</code>を追記する。</li>
+        <li><strong>Panicボタン（RAM消去＆シャットダウン）</strong>: <code>~/Desktop/emergency_panic.desktop</code> を作成する。</li>
+    </ul>
 
-        <h4>emergency_panic.desktopの内容</h4>
-        <pre><code><span class="keyword">[Desktop Entry]</span>
+    <h4>emergency_panic.desktopの内容</h4>
+    <pre><code><span class="keyword">[Desktop Entry]</span>
 <span class="keyword">Type</span>=<span class="string">Application</span>
 <span class="keyword">Name</span>=<span class="string">EMERGENCY PANIC</span>
 <span class="keyword">Exec</span>=/home/amnesia/Persistent/memwipe.sh
 <span class="keyword">Icon</span>=<span class="string">dialog-error</span>
 <span class="keyword">Terminal</span>=<span class="string">false</span></code></pre>
 
-        <ul>
-            <li><strong>RAM消去スクリプト</strong>: <code>~/Persistent/memwipe.sh</code> を作成し、以下を記述する。</li>
-        </ul>
+    <ul>
+        <li><strong>RAM消去スクリプト</strong>: <code>~/Persistent/memwipe.sh</code> を作成し、以下を記述する。</li>
+    </ul>
 
-        <h4>memwipe.shの内容</h4>
-        <pre><code><span class="comment">#!/bin/bash</span>
+    <h4>memwipe.shの内容</h4>
+    <pre><code><span class="comment">#!/bin/bash</span>
 <span class="comment"># スワップを無効化</span>
 <span class="command">sudo swapoff</span> <span class="option">-a</span>
 <span class="comment"># 可能な限りのRAMをゼロで埋める（/dev/memは非推奨なため、より安全な方法）</span>
@@ -327,37 +296,37 @@
 <span class="comment"># 即時シャットダウン</span>
 <span class="command">sudo poweroff</span></code></pre>
 
-        <ul>
-            <li><strong>実行権限付与</strong>: <code class="command">chmod +x ~/Persistent/memwipe.sh</code> と <code class="command">chmod +x ~/Desktop/emergency_panic.desktop</code> を実行する。</li>
-        </ul>
+    <ul>
+        <li><strong>実行権限付与</strong>: <code class="command">chmod +x ~/Persistent/memwipe.sh</code> と <code class="command">chmod +x ~/Desktop/emergency_panic.desktop</code> を実行する。</li>
+    </ul>
 
-        <hr>
+    <hr>
 
-        <h2 id="section2-5">2.5. 物理・論理的な情報リークの完全な遮断</h2>
-        <h4>目的</h4>
-        <p>あらゆる意図しない通信は、敵への招待状である。OSが許可した通信以外は、一切存在してはならない。</p>
-        
-        <h4>実行手順</h4>
-        <ul>
-            <li><strong>Unsafe Browserの恒久的無効化</strong>: Tailsの起動オプションで、毎回「Disable Unsafe Browser」を選択するのを忘れないように、デスクトップの壁紙にその手順を書き記した画像を設定する。</li>
-            <li><strong>MACアドレスの偽装確認</strong>: 起動時の「More Options」で「Hide the computer's MAC address」にチェックが入っていることを、起動のたびに確認する習慣をつける。</li>
-            <li><strong>DNSリークの定期チェック</strong>: <code>~/Persistent/dns_leak_check.sh</code> を作成する。（これは概念であり、実際の実装には高度なスクリプトが必要）</li>
-            <li><strong>GPG鍵のQRコード化</strong>: <code class="command">gpg --export -a your-user-id | qrencode -o ~/Persistent/publickey.png</code> を実行し、USBを介さない鍵交換を可能にする。</li>
-        </ul>
+    <h2 id="section2-5">2.5. 物理・論理的な情報リークの完全な遮断</h2>
+    <h4>目的</h4>
+    <p>あらゆる意図しない通信は、敵への招待状である。OSが許可した通信以外は、一切存在してはならない。</p>
+    
+    <h4>実行手順</h4>
+    <ul>
+        <li><strong>Unsafe Browserの恒久的無効化</strong>: Tailsの起動オプションで、毎回「Disable Unsafe Browser」を選択するのを忘れないように、デスクトップの壁紙にその手順を書き記した画像を設定する。</li>
+        <li><strong>MACアドレスの偽装確認</strong>: 起動時の「More Options」で「Hide the computer's MAC address」にチェックが入っていることを、起動のたびに確認する習慣をつける。</li>
+        <li><strong>DNSリークの定期チェック</strong>: <code>~/Persistent/dns_leak_check.sh</code> を作成する。（これは概念であり、実際の実装には高度なスクリプトが必要）</li>
+        <li><strong>GPG鍵のQRコード化</strong>: <code class="command">gpg --export -a your-user-id | qrencode -o ~/Persistent/publickey.png</code> を実行し、USBを介さない鍵交換を可能にする。</li>
+    </ul>
 
-        <hr>
+    <hr>
 
-        <h2 id="section2-6">2.6. 運用の自動化とオペレーショナル・セキュリティ（OPSEC）</h2>
-        <h4>目的</h4>
-        <p>最強のツールも、使う人間が脆弱なら無意味だ。完璧な手順を、完璧に実行するための仕組みが必要。</p>
-        
-        <h4>実行手順</h4>
-        <ul>
-            <li><strong>起動チェックリストのデスクトップ表示</strong>: デスクトップに<code>checklist.txt</code>を置き、以下の内容を記載する。</li>
-        </ul>
+    <h2 id="section2-6">2.6. 運用の自動化とオペレーショナル・セキュリティ（OPSEC）</h2>
+    <h4>目的</h4>
+    <p>最強のツールも、使う人間が脆弱なら無意味だ。完璧な手順を、完璧に実行するための仕組みが必要。</p>
+    
+    <h4>実行手順</h4>
+    <ul>
+        <li><strong>起動チェックリストのデスクトップ表示</strong>: デスクトップに<code>checklist.txt</code>を置き、以下の内容を記載する。</li>
+    </ul>
 
-        <h4>checklist.txtの内容</h4>
-        <pre><code><span class="string">[Tails OS Ultimate Checklist]</span>
+    <h4>checklist.txtの内容</h4>
+    <pre><code><span class="string">[Tails OS Ultimate Checklist]</span>
 
 <span class="string">1. 起動オプション:</span>
    - mem=erase 追加済み？
@@ -374,24 +343,24 @@
 <span class="string">4. 終了時:</span>
    - Persistentに不要なファイルは残っていないか？</code></pre>
 
+    <ul>
+        <li><strong>USBの物理的管理</strong>: 使用しない時は、静電気防止袋に入れ、金属製の箱（ファラデーケージ）で保管する。</li>
+        <li>複数のTails USBを同じ場所で保管せず、地理的に分散させる。</li>
+    </ul>
+
+    <div class="conclusion-box">
+        <h3>結論：これが完璧に近いTails OSの姿</h3>
+        <p>このマニュアルに沿って構築・運用されたTails USBは、単なるライブOSではありません。それは、以下の特性を持つ、一つの完成されたシステムです。</p>
         <ul>
-            <li><strong>USBの物理的管理</strong>: 使用しない時は、静電気防止袋に入れ、金属製の箱（ファラデーケージ）で保管する。</li>
-            <li>複数のTails USBを同じ場所で保管せず、地理的に分散させる。</li>
+            <li><strong>自己防衛</strong>: VPNのKill Switch、RAMゼロ化、Panicボタンにより、内外からのあらゆる脅威から自らを守る。</li>
+            <li><strong>自動化</strong>: 人為的ミスの可能性を極限まで排除し、意識しなくても最高のセキュリティ状態を維持する。</li>
+            <li><strong>痕跡の不在</strong>: 電源を切れば、物理的な痕跡を除き、あなたが存在したという事実をデジタル世界から完全に抹消する。</li>
+            <li><strong>運用の思想</strong>: あなたが迷わないよう、チェックリストという「羅針盤」を内蔵している。</li>
         </ul>
-
-        <div class="conclusion-box">
-            <h3>結論：これが完璧に近いTails OSの姿</h3>
-            <p>このマニュアルに沿って構築・運用されたTails USBは、単なるライブOSではありません。それは、以下の特性を持つ、一つの完成されたシステムです。</p>
-            <ul>
-                <li><strong>自己防衛</strong>: VPNのKill Switch、RAMゼロ化、Panicボタンにより、内外からのあらゆる脅威から自らを守る。</li>
-                <li><strong>自動化</strong>: 人為的ミスの可能性を極限まで排除し、意識しなくても最高のセキュリティ状態を維持する。</li>
-                <li><strong>痕跡の不在</strong>: 電源を切れば、物理的な痕跡を除き、あなたが存在したという事実をデジタル世界から完全に抹消する。</li>
-                <li><strong>運用の思想</strong>: あなたが迷わないよう、チェックリストという「羅針盤」を内蔵している。</li>
-            </ul>
-            <p>このレベルに達して初めて、あなたはTails OSを「完璧に近い」状態で運用できると言えるでしょう。</p>
-        </div>
-
+        <p>このレベルに達して初めて、あなたはTails OSを「完璧に近い」状態で運用できると言えるでしょう。</p>
     </div>
+
+</div> <!-- .tokumei-article の閉じタグ -->
 
 </body>
 </html>
