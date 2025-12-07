@@ -1,111 +1,113 @@
-<div class="blog-post">
-  <h3>4. Wi-Fi経路の物理分離構成：Raspberry Pi中継活用編</h3>
 
-  <h4>概要</h4>
-  <p>
-    中継装置（Raspberry Pi＋USB Wi-Fiアダプタ×2、および指向性アンテナ）を用いて、公共Wi-Fiへの直接接続を避けた物理的分離通信構成を実現します。
-    通信端末（ノートPCなど）と中継ノードを物理的に分離することで、「現場に本人が存在しない」状況を作り、防犯カメラや電波ログによる特定リスクを極限まで低減します。
-  </p>
+    <div class="container">
+        <h1>究極の匿名通信 完全ガイド：第四章</h1>
+        <h2>匿名通信の実践【完全統合マニュアル】</h2>
+        <h3>～完璧な道具と、完璧な術で、闇を駆けるための唯一の聖典～</h3>
+        
+        <p>この章は、これまでに構築してきた「物理的匿名」「OSレベル匿名」「経路の匿名」を、実際の情報収集とコミュニケーションという「目的」のために統合する、最終的な指針です。ここに記載された一つ一つの行動が、あなたの生存を左右します。</p>
+        
+        <h2 id="section4-1">4.1. 最終的な通信スタックの構成と運用</h2>
+        <p>ここでは、これまでに構築した各レベルの防御を、一つの目的のためにどのように組み合わせるか、その具体的な手順と理由を解説します。</p>
+        
+        <h3 id="section4-1-1">4.1.1. 安全な情報収集のための通信経路</h3>
+        <p>これは、最も標準的で、かつ強力な匿名性を確保するための構成です。</p>
+        <table>
+            <tr>
+                <th>項目</th>
+                <th>選択するツール</th>
+                <th>なぜこれを選ぶのか？（理由と代替案）</th>
+            </tr>
+            <tr>
+                <td><strong>VPNプロバイダ</strong></td>
+                <td><strong>Mullvad</strong></td>
+                <td><strong>理由</strong>: 支払いに現金やMoneroが使え、メールアドレスの登録が不要。独立系の監査機関によるノーログ監査を定期的に公開しており、信頼性が最も高い。<br><strong>無料VPNはNG</strong>: 無料VPNは、あなたの通信データを販売したり、広告を注入したりするビジネスモデルであり、匿名性とは真逆です。絶対に使用してはなりません。</td>
+            </tr>
+            <tr>
+                <td><strong>匿名ブラウザ</strong></td>
+                <td><strong>Tor Browser</strong></td>
+                <td><strong>理由</strong>: トラフィックを世界中のリレーを経由させることで、アクセス先のサーバーからあなたのIPアドレスを隠します。Cookieや履歴などを自動的に消去するなど、匿名性を第一に設計された唯一のブラウザです。</td>
+            </tr>
+            <tr>
+                <td><strong>通信経路の全体像</strong></td>
+                <td><code>[あなたのPC] → [Raspberry Pi] → [公共Wi-Fi] → [Mullvad VPN] → [Torネットワーク] → [Webサイト]</code></td>
+                <td><strong>理由</strong>: この構成により、多層防御が実現します。<br>1. <strong>ISP（インターネット会社）</strong>には、あなたがMullvadに接続したことしか見えません。<br>2. <strong>Mullvad</strong>には、あなたがTorネットワークに接続したことしか見えません。<br>3. <strong>Webサイト</strong>には、Torの最終出口ノードのIPアドレスしか見えません。<br>各階層で監視主体が異なるため、一つの箇所が情報を漏らしても、あなたの特定には繋がりません。</td>
+            </tr>
+        </table>
+        
+        <h3 id="section4-1-2">4.1.2. 極秘の1対1通信のための構成</h3>
+        <p>特定の相手と、より安全にメッセージをやり取りするための構成です。</p>
+        <table>
+            <tr>
+                <th>項目</th>
+                <th>選択するツール</th>
+                <th>なぜこれを選ぶのか？（理由と具体的な手続き）</th>
+            </tr>
+            <tr>
+                <td><strong>メールサービス</strong></td>
+                <td><strong>ProtonMail (.onionアドレス経由)</strong></td>
+                <td><strong>理由</strong>: ProtonMailはスイスの法に基づき、ユーザーデータを保護します。特に、Torの.onionアドレスからアクセスすることで、ProtonMailにあなたのIPアドレスが一切記録されなくなります。<br><strong>アカウント作成</strong>: .onionサイトから作成する場合、メールアドレスの確認は不要です。必要なのはユーザー名とパスワードだけです。個人情報は一切入力しません。</td>
+            </tr>
+            <tr>
+                <td><strong>暗号化方式</strong></td>
+                <td><strong>GPG (OpenPGP)</strong></td>
+                <td><strong>理由</strong>: ProtonMailの内部暗号化も強力ですが、GPGは自分で秘密鍵と公開鍵を管理できるため、サービス自体が侵害された場合でも安全性を保てます。「エンドツーエンド暗号化の王様」です。<br><br><strong>【具体的な手順】</strong><br>1. <strong>鍵ペアの生成</strong>: Tailsの「Passwords and Keys」アプリを開き、「GnuPG」→「新しいキーペア」を選択。強力なパスフレーズを設定して鍵を生成します。<br>2. <strong>公開鍵のエクスポートとQRコード化</strong>: 生成した公開鍵をエクスポートし、<code>gpg --export -a your-user-id | qrencode -o ~/Persistent/publickey.png</code> を実行してQRコード画像を生成します。<br>3. <strong>鍵の交換</strong>: このQRコードを相手のスマホで読み取ってもらうか、安全な方法で画像ファイルを渡します。<br>4. <strong>相手の公開鍵のインポート</strong>: 相手から受け取った公開鍵を、あなたのGPGにインポートします。<br>5. <strong>暗号化と復号</strong>: メッセージを書き、GPGを使い相手の公開鍵で暗号化して送信。受け取った暗号化メッセージは、あなたの秘密鍵とパスフレーズで復号します。</td>
+            </tr>
+            <tr>
+                <td><strong>課金（有料プランの場合）</strong></td>
+                <td><strong>MoneroまたはBitcoin</strong></td>
+                <td><strong>理由</strong>: クレジットカードやPayPalを使えば、支払い情報からあなたが特定されます。Monero（モネロ）は取引の追跡が極めて困難なプライバシー重視の仮想通貨であり、最も安全な決済手段です。Bitcoinも、ミキサー（混ぜ合わせサービス）を利用すれば匿名性を高められます。<br><br><strong>【Moneroの具体的な手順】</strong><br>1. <strong>ウォレットの入手</strong>: 公式サイトから「Monero GUI Wallet」などをダウンロードし、TailsのPersistent領域に保存します。<br>2. <strong>ウォレットの作成</strong>: ウォレットを起動し、新しいウォレットを作成。25個の単語からなる「シードフレーズ」が表示されるので、これを<strong>紙に書き写し、安全な場所に保管します</strong>。デジタルデータとして保存してはいけません。<br>3. <strong>Moneroの入手</strong>: 現金でMoneroを購入できる両替所（稀ですが存在する）を探すか、BitcoinをMoneroに交換するサービス（non-KYCサービス）を利用します。<br>4. <strong>送金</strong>: ProtonMailの支払いページに表示されるMoneroアドレスに、あなたのウォレットから送金します。取引はブロックチェーン上で追跡不可能になります。</td>
+            </tr>
+        </table>
 
-  <h4>中継装置構成（例）</h4>
-  <p>
-    [ノートパソコン（物理的に距離を置いた安全な場所）]
-    →（SSH接続または物理操作）
-    →[Raspberry Pi（中継ノード）]
-    → USB Wi-Fiアダプタ1（wlan0）：RelayAPとしてPCにWi-Fi提供
-    → USB Wi-Fiアダプタ2（wlan1）：公共Wi-Fiへのクライアント接続用
-  </p>
-  <p>
-    wlan0とwlan1はOS設定で役割を固定し、IP転送とNAT設定により中継通信を構築します。
-  </p>
+        <h2 id="section4-2">4.2. 通信前の最終チェックリスト（運用の儀式）</h2>
+        <p>完璧な道具でも、使う前に油断すれば意味がありません。通信を開始する前に、毎回この儀式を行います。</p>
+        
+        <h3>ステップ1：Tails OSの更新と確認</h3>
+        <ol>
+            <li><strong>最新版の確認</strong>: Tailsは脆弱性対策のために頻繁にアップデートされます。古いバージョンを使い続けるのは、家の鍵を開けっ放しにするのと同じです。</li>
+            <li><strong>更新方法</strong>:
+                <ul>
+                    <li>Tailsを起動し、右上のメニューから「Applications」→「Tails Upgrader」を選択します。</li>
+                    <li>利用可能なアップデートがある場合は、自動的に表示されるので、画面の指示に従ってアップグレードを完了させます。</li>
+                </ul>
+            </li>
+            <li><strong>確認</strong>: アップデート後、必ず再起動し、バージョンが最新であることを確認します。</li>
+        </ol>
 
-  <h4>必要な構成機材</h4>
+        <h3>ステップ2：接続テスト</h3>
+        <ol>
+            <li><strong>VPN接続確認</strong>: ターミナルを開き、<code>curl ifconfig.me</code> と入力します。ここに表示されるIPアドレスが、あなたの本来のIPアドレスと<strong>異なっていれば</strong>、VPNは正常に機能しています。</li>
+            <li><strong>Tor接続確認</strong>: Tor Browserを起動し、<a href="https://check.torproject.org" target="_blank" rel="noopener noreferrer">https://check.torproject.org</a> にアクセスします。「Congratulations. This browser is configured to use Tor.」と表示されれば、Torは正常に機能しています。</li>
+            <li><strong>DNSリーク確認</strong>: Tor Browserから、<a href="https://ipleak.net" target="_blank" rel="noopener noreferrer">https://ipleak.net</a> や <a href="https://dnsleaktest.com" target="_blank" rel="noopener noreferrer">https://dnsleaktest.com</a> にアクセスします。「DNS Server Info」に表示されるIPアドレスが、複数の国のTorリレーになっていれば、DNSリークは発生していません。</li>
+        </ol>
+        
+        <h2 id="section4-3">4.3. 【新規追加】匿名コミュニティでの情報発信術</h2>
+        <p>単に情報を得るだけでなく、あなた自身が情報を発信する場合の術です。</p>
+        <table>
+            <tr>
+                <th>項目</th>
+                <th>ツール/手法</th>
+                <th>具体的な手順と注意点</th>
+            </tr>
+            <tr>
+                <td><strong>ファイル共有</strong></td>
+                <td><strong>OnionShare</strong></td>
+                <td><strong>理由</strong>: Torネットワーク上で、あなたのPCを直接サーバーにしてファイルを共有するツール。中央サーバーを介さないため、ファイルが永遠にネットワーク上に残ることはありません。<br><strong>手順</strong>: TailsにOnionShareをインストールし、共有したいファイルを選択して「Start Sharing」を押すと、一時的な.onionアドレスが発行されます。このアドレスを相手に伝え、指定の時間内にダウンロードしてもらいます。時間が切れれば、アドレスは無効になります。</td>
+            </tr>
+            <tr>
+                <td><strong>ブログ/情報サイト</strong></td>
+                <td><strong>Raspberry Pi + Nginx</strong></td>
+                <td><strong>理由</strong>: あなたの管理するRaspberry Piを、TorのHidden Service（隠れサービス）として公開することで、検閲やDDoS攻撃を受けにくい、あなただけの情報サイトを運営できます。<br><strong>手順</strong>: Raspberry PiにNginxをインストールし、<code>/etc/tor/torrc</code> を編集してHidden Serviceを設定します。これにより、<code>xxxxxxxxxxxxxx.onion</code>という、あなただけのアドレスが発行されます。</td>
+            </tr>
+        </table>
 
-  <h5>1. Raspberry Pi（3B+ 以上推奨）→ 中継ノード本体</h5>
-
-<table class="custom-table">
-  <thead>
-    <tr>
-      <th>項目</th>
-      <th>推奨ハード / 設定</th>
-      <th>備考</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>中継ノード</td>
-      <td>Raspberry Pi 3B+ / 4</td>
-      <td>microSDにRaspbian Liteを導入（GUI不要）</td>
-    </tr>
-    <tr>
-      <td>Wi-Fiアダプタ</td>
-      <td>USB接続 ×2<br>（内1つは高出力モデル）</td>
-      <td>wlan0 = AP用、<br>wlan1 = Wi-Fi接続用</td>
-    </tr>
-    <tr>
-      <td>電源</td>
-      <td>モバイルバッテリー<br>（10,000mAh以上）</td>
-      <td>稼働時間目安：3〜5時間</td>
-    </tr>
-    <tr>
-      <td>通信方式</td>
-      <td>NAT + IP転送 + hostapd + dnsmasq構成</td>
-      <td>転送ルールはiptablesで明示</td>
-    </tr>
-    <tr>
-      <td>操作方法</td>
-      <td>SSH／自動起動スクリプト</td>
-      <td>設置後は無人運用が理想</td>
-    </tr>
-  </tbody>
-</table>
-
-
-  <h5>2. USB Wi-Fiアダプタ ×2</h5>
-  <p>
-    1つはPCと接続用、もう1つはフリーWi-Fi接続用として使用します。
-  </p>
-
-  <h5>3. モバイルバッテリー</h5>
-  <p>
-    ラズパイ用電源（数時間稼働を想定）。屋外設置時でも安定稼働できる容量（10,000mAh以上）を推奨します。
-  </p>
-
-  <h5>4. MicroSD（8GB以上）</h5>
-  <p>
-    OSインストール先として使用します。購入時は店頭・中古店・フリマで現金決済をおすすめします。
-  </p>
-
-  <h4>設置・中継場所</h4>
-  <p>
-    安全でアクセス可能な物理的な場所（例：ビルの裏、車内、木陰、廃ビル脇など）を選択します。
-    防犯カメラや目撃者リスクを回避するため、ラズパイを設置後はすぐにその場を離れます。
-  </p>
-  <p>
-    設置と撤去時にカメラ等に映らないよう注意し、ラズパイには個人ファイルやログを一切残さず、
-    OS起動時に自動クリア（RAMディスク運用や logrotate 併用）の構成が望ましいです。
-    事前にモバイルバッテリーや通信範囲のテストを行い、Wi-Fi中継器＋ラズパイ＋指向性アンテナを使用して、
-    数百メートル先のフリーWi-Fiに接続可能です。
-  </p>
-
-  <h4>接続方法（運用）</h4>
-  <p>
-    PCを RelayAP に接続（ラズパイがAPモードで提供）し、ラズパイが wlan1 経由でフリーWi-Fiに接続します。
-    その結果、あなたの通信は「ラズパイ → 公共Wi-Fi」を通ります。
-  </p>
-  <p>
-    指向性アンテナ（Yagi型・パラボラ型）やアンプ付きUSBアダプタ（例：ALFA AWUS036ACHなど）を活用することで、
-    視界が開けた環境下では数百メートル先のアクセスポイントにも接続可能です。
-  </p>
-
-  <h4>まとめ</h4>
-  <p>
-    適切に設定されていれば、ラズパイは1つのWi-Fiアダプタ（wlan1）でフリーWi-Fiに接続し、
-    もう1つのアダプタ（wlan0）で「あなた専用の中継Wi-Fi（RelayAP）」を提供します。
-  </p>
-  <p>
-    これにより、パソコンは「RelayAP」に接続することで、ラズパイを通じてフリーWi-Fiに接続する構成が完成します。
-    この構成は、いわゆる「Wi-Fiリピーター」や「Wi-Fi NATルーター」に近い動作をします。
-  </p>
-</div>
-
+        <h2 id="conclusion">結論：技術は道具、儀式が魂</h2>
+        <p>この章で述べた手順は、一見面倒に感じるかもしれません。しかし、この毎回のチェックと儀式こそが、あなたの技術を「ただの道具」から「信頼できる相棒」へと昇華させるのです。</p>
+        <ul>
+            <li>なぜMullvadなのかを理解し、正しく支払う。</li>
+            <li>なぜProtonMailの.onionサイトを使うのかを理解し、正しくアカウントを作る。</li>
+            <li>なぜGPGとMoneroなのかを理解し、その具体的な使い方をマスターする。</li>
+            <li>なぜ更新と接続テストが必要なのかを理解し、毎回実行する。</li>
+        </ul>
+        <p>この一つ一つの行動が、あなたの匿名性を構成する、最も小さく、そして最も強固なブロックとなるのです。</p>
+    </div>
