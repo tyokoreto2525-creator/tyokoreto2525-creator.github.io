@@ -1,4 +1,4 @@
-    <div class="container">
+  <div class="container">
         <h1>究極の匿名通信 完全ガイド：第二章</h1>
         <h2>Tails OSの究極的運用（レベル1）</h2>
         <h3>～電源を切るその瞬間まで、そしてその瞬間に、完璧な匿名を保つための聖典～</h3>
@@ -8,26 +8,31 @@
         <h2 id="section2-1">2.1. クリーンなUSBインストールと複製</h2>
         <h4>目的</h4>
         <p>最初から完璧でなければならない。インストールプロセス自体に、あなたの痕跡を残してはならない。</p>
+        
         <h4>実行手順</h4>
         <ul>
             <li><strong>ダウンロード</strong>: 作業用PCで、Tails公式サイトの署名を検証し、最新版イメージをダウンロードする。</li>
-            <li><strong>書き込み</strong>: <code>balenaEtcher</code>を使い、<strong>現金で購入し、個体識別番号のないUSB（インストール用）</strong>にイメージを書き込む。</li>
-            <li><strong>クローン</strong>: このインストール用USBから、別の<strong>現金で購入したUSB（本番用）</strong>へ、Tails Installerを使って完全にクローンを作成する。</li>
+            <li><strong>書き込み</strong>: balenaEtcherを使い、現金で購入し、個体識別番号のないUSB（インストール用）にイメージを書き込む。</li>
+            <li><strong>クローン</strong>: このインストール用USBから、別の現金で購入したUSB（本番用）へ、Tails Installerを使って完全にクローンを作成する。</li>
         </ul>
+
         <h4>完璧への道</h4>
         <p>インストール用USBは、作業が完了次第、物理的に破壊する。本番用USBは、ラベルを剥がし、表面を細かいサンドペーパーで削り、製造番号などの刻印を物理的に消去する。</p>
+        
+        <hr>
 
         <h2 id="section2-2">2.2. Persistentストレージの最適化と暗号化</h2>
         <h4>目的</h4>
         <p>持続するデータは、同時にリスクとなる。最小限のデータを、最高の暗号で守る。</p>
+        
         <h4>実行手順</h4>
         <ul>
-            <li><strong>有効化</strong>: 「Tails Persistent Storage」から有効化し、<strong>32文字以上の、記号を含む完全にランダムなパスワード</strong>を設定する。
-                <br><strong>パスワード生成例</strong>: <code>openssl rand -base64 32</code> で生成された文字列をそのまま使用する。
-            </li>
+            <li><strong>有効化</strong>: 「Tails Persistent Storage」から有効化し、32文字以上の、記号を含む完全にランダムなパスワードを設定する。</li>
+            <li><strong>パスワード生成例</strong>: <code class="command">openssl rand -base64 32</code> で生成された文字列をそのまま使用する。</li>
             <li><strong>項目の選択</strong>: 「Personal Data」「Network Connections」「GnuPG」「Dotfiles」にのみチェックを入れる。その他は無効にし、攻撃対象面を最小限に抑える。</li>
-            <li><strong>二重暗号化</strong>: Persistent内に保存するファイル（特に<code>.conf</code>, <code>.key</code>, <code>.txt</code>）は、さらに<strong>GPGで暗号化</strong>する。</li>
+            <li><strong>二重暗号化</strong>: Persistent内に保存するファイル（特に.conf, .key, .txt）は、さらにGPGで暗号化する。</li>
         </ul>
+
         <h4>GPGによる二重暗号化コマンド例</h4>
         <pre><code># ファイルを暗号化する
 gpg -c --cipher-algo AES256 --compress-algo 1 --s2k-mode 3 --s2k-digest-algo SHA512 --s2k-count 65536 secret_file.txt
@@ -35,14 +40,18 @@ gpg -c --cipher-algo AES256 --compress-algo 1 --s2k-mode 3 --s2k-digest-algo SHA
 # ファイルを復号する
 gpg -d secret_file.txt.gpg</code></pre>
 
+        <hr>
+
         <h2 id="section2-3">2.3. VPNの完全自動化とKill Switchの実装</h2>
         <h4>目的</h4>
         <p>人間はミスをする。システムは、人間のミスを補完しなければならない。VPNへの接続は、意識しなくて当たり前でなければならない。</p>
+        
         <h4>実行手順</h4>
-        <ol>
-            <li><strong>プロバイダ選定</strong>: MullvadやIVPNなど、<strong>監査済みノーログ、匿名登録（メール不要）、Moneroでの支払い可能</strong>なプロバイダを選定する。</li>
-            <li><strong>設定ファイルの強化</strong>: Persistentに保存する<code>.ovpn</code>ファイルを、以下のように最大限に強化する。</li>
-        </ol>
+        <ul>
+            <li><strong>プロバイダ選定</strong>: MullvadやIVPNなど、監査済みノーログ、匿名登録（メール不要）、Moneroでの支払い可能なプロバイダを選定する。</li>
+            <li><strong>設定ファイルの強化</strong>: Persistentに保存する.ovpnファイルを、以下のように最大限に強化する。</li>
+        </ul>
+
         <h4>強化された.ovpnファイルの例</h4>
         <pre><code># --- 基本設定 ---
 client
@@ -67,9 +76,11 @@ tls-crypt tc.key
 block-outside-dns
 ping-exit 60
 ping-restart 10</code></pre>
-        <ol start="3">
+        
+        <ul>
             <li><strong>起動時自動接続スクリプト</strong>: <code>~/Persistent/vpn_auto.sh</code> を作成し、以下を記述する。</li>
-        </ol>
+        </ul>
+
         <h4>vpn_auto.shの内容</h4>
         <pre><code>#!/bin/bash
 # VPN接続が確立するまで待つループ
@@ -79,20 +90,26 @@ while ! ip route show dev tun0 >/dev/null 2>&1; do
   sleep 5
 done
 echo "VPN is connected."</code></pre>
-        <ol start="4">
-            <li><strong>crontabでの自動実行</strong>: <code>crontab -e</code> で以下を追記し、起動時に自動実行させる。</li>
-        </ol>
+
+        <ul>
+            <li><strong>crontabでの自動実行</strong>: <code class="command">crontab -e</code> で以下を追記し、起動時に自動実行させる。</li>
+        </ul>
+
         <h4>crontabの設定</h4>
         <pre><code>@reboot /home/amnesia/Persistent/vpn_auto.sh</code></pre>
+
+        <hr>
 
         <h2 id="section2-4">2.4. RAMフォレンジックとCold Boot Attackの完全な無力化</h2>
         <h4>目的</h4>
         <p>電源を切った後の数秒が、すべてを決する。その数秒のリスクすら許容しない。</p>
+        
         <h4>実行手順</h4>
-        <ol>
+        <ul>
             <li><strong>起動時RAMゼロ化</strong>: 毎回の起動時に、GRUBメニューで<code>e</code>を押し、<code>quiet</code>パラメータの後に<code>mem=erase</code>を追記する。</li>
             <li><strong>Panicボタン（RAM消去＆シャットダウン）</strong>: <code>~/Desktop/emergency_panic.desktop</code> を作成する。</li>
-        </ol>
+        </ul>
+
         <h4>emergency_panic.desktopの内容</h4>
         <pre><code>[Desktop Entry]
 Type=Application
@@ -100,9 +117,11 @@ Name=EMERGENCY PANIC
 Exec=/home/amnesia/Persistent/memwipe.sh
 Icon=dialog-error
 Terminal=false</code></pre>
-        <ol start="3">
+
+        <ul>
             <li><strong>RAM消去スクリプト</strong>: <code>~/Persistent/memwipe.sh</code> を作成し、以下を記述する。</li>
-        </ol>
+        </ul>
+
         <h4>memwipe.shの内容</h4>
         <pre><code>#!/bin/bash
 # スワップを無効化
@@ -112,28 +131,36 @@ sudo swapoff -a
 sudo dd if=/dev/zero of=/dev/null bs=1M count=1000 &
 # 即時シャットダウン
 sudo poweroff</code></pre>
-        <ol start="4">
-            <li><strong>実行権限付与</strong>: <code>chmod +x ~/Persistent/memwipe.sh</code> と <code>chmod +x ~/Desktop/emergency_panic.desktop</code> を実行する。</li>
-        </ol>
+
+        <ul>
+            <li><strong>実行権限付与</strong>: <code class="command">chmod +x ~/Persistent/memwipe.sh</code> と <code class="command">chmod +x ~/Desktop/emergency_panic.desktop</code> を実行する。</li>
+        </ul>
+
+        <hr>
 
         <h2 id="section2-5">2.5. 物理・論理的な情報リークの完全な遮断</h2>
         <h4>目的</h4>
         <p>あらゆる意図しない通信は、敵への招待状である。OSが許可した通信以外は、一切存在してはならない。</p>
+        
         <h4>実行手順</h4>
         <ul>
             <li><strong>Unsafe Browserの恒久的無効化</strong>: Tailsの起動オプションで、毎回「Disable Unsafe Browser」を選択するのを忘れないように、デスクトップの壁紙にその手順を書き記した画像を設定する。</li>
             <li><strong>MACアドレスの偽装確認</strong>: 起動時の「More Options」で「Hide the computer's MAC address」にチェックが入っていることを、起動のたびに確認する習慣をつける。</li>
             <li><strong>DNSリークの定期チェック</strong>: <code>~/Persistent/dns_leak_check.sh</code> を作成する。（これは概念であり、実際の実装には高度なスクリプトが必要）</li>
-            <li><strong>GPG鍵のQRコード化</strong>: <code>gpg --export -a your-user-id | qrencode -o ~/Persistent/publickey.png</code> を実行し、USBを介さない鍵交換を可能にする。</li>
+            <li><strong>GPG鍵のQRコード化</strong>: <code class="command">gpg --export -a your-user-id | qrencode -o ~/Persistent/publickey.png</code> を実行し、USBを介さない鍵交換を可能にする。</li>
         </ul>
+
+        <hr>
 
         <h2 id="section2-6">2.6. 運用の自動化とオペレーショナル・セキュリティ（OPSEC）</h2>
         <h4>目的</h4>
         <p>最強のツールも、使う人間が脆弱なら無意味だ。完璧な手順を、完璧に実行するための仕組みが必要。</p>
+        
         <h4>実行手順</h4>
-        <ol>
+        <ul>
             <li><strong>起動チェックリストのデスクトップ表示</strong>: デスクトップに<code>checklist.txt</code>を置き、以下の内容を記載する。</li>
-        </ol>
+        </ul>
+
         <h4>checklist.txtの内容</h4>
         <pre><code>[Tails OS Ultimate Checklist]
 
@@ -151,22 +178,22 @@ sudo poweroff</code></pre>
 
 4. 終了時:
    [ ] Persistentに不要なファイルは残っていないか？</code></pre>
-        <ol start="2">
-            <li><strong>USBの物理的管理</strong>:
-                <ul>
-                    <li>使用しない時は、静電気防止袋に入れ、金属製の箱（ファラデーケージ）で保管する。</li>
-                    <li>複数のTails USBを同じ場所で保管せず、地理的に分散させる。</li>
-                </ul>
-            </li>
-        </ol>
 
-        <h2 id="conclusion">結論：これが完璧に近いTails OSの姿</h2>
-        <p>このマニュアルに沿って構築・運用されたTails USBは、単なるライブOSではありません。それは、以下の特性を持つ、一つの<strong>完成されたシステム</strong>です。</p>
         <ul>
-            <li><strong>自己防衛</strong>: VPNのKill Switch、RAMゼロ化、Panicボタンにより、内外からのあらゆる脅威から自らを守る。</li>
-            <li><strong>自動化</strong>: 人為的ミスの可能性を極限まで排除し、意識しなくても最高のセキュリティ状態を維持する。</li>
-            <li><strong>痕跡の不在</strong>: 電源を切れば、物理的な痕跡を除き、あなたが存在したという事実をデジタル世界から完全に抹消する。</li>
-            <li><strong>運用の思想</strong>: あなたが迷わないよう、チェックリストという「羅針盤」を内蔵している。</li>
+            <li><strong>USBの物理的管理</strong>: 使用しない時は、静電気防止袋に入れ、金属製の箱（ファラデーケージ）で保管する。</li>
+            <li>複数のTails USBを同じ場所で保管せず、地理的に分散させる。</li>
         </ul>
-        <p>このレベルに達して初めて、あなたはTails OSを「完璧に近い」状態で運用できると言えるでしょう。これが、私が提示する95点を超える解答です。</p>
+
+        <div class="conclusion-box">
+            <h3>結論：これが完璧に近いTails OSの姿</h3>
+            <p>このマニュアルに沿って構築・運用されたTails USBは、単なるライブOSではありません。それは、以下の特性を持つ、一つの完成されたシステムです。</p>
+            <ul>
+                <li><strong>自己防衛</strong>: VPNのKill Switch、RAMゼロ化、Panicボタンにより、内外からのあらゆる脅威から自らを守る。</li>
+                <li><strong>自動化</strong>: 人為的ミスの可能性を極限まで排除し、意識しなくても最高のセキュリティ状態を維持する。</li>
+                <li><strong>痕跡の不在</strong>: 電源を切れば、物理的な痕跡を除き、あなたが存在したという事実をデジタル世界から完全に抹消する。</li>
+                <li><strong>運用の思想</strong>: あなたが迷わないよう、チェックリストという「羅針盤」を内蔵している。</li>
+            </ul>
+            <p>このレベルに達して初めて、あなたはTails OSを「完璧に近い」状態で運用できると言えるでしょう。これが、私が提示する95点を超える解答です。</p>
+        </div>
+
     </div>
