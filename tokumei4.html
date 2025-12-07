@@ -1,5 +1,4 @@
-
-    <div class="container">
+  <div class="container">
         <h1>究極の匿名通信 完全ガイド：第四章</h1>
         <h2>匿名通信の実践【完全統合マニュアル】</h2>
         <h3>～完璧な道具と、完璧な術で、闇を駆けるための唯一の聖典～</h3>
@@ -50,7 +49,7 @@
             <tr>
                 <td><strong>暗号化方式</strong></td>
                 <td><strong>GPG (OpenPGP)</strong></td>
-                <td><strong>理由</strong>: ProtonMailの内部暗号化も強力ですが、GPGは自分で秘密鍵と公開鍵を管理できるため、サービス自体が侵害された場合でも安全性を保てます。「エンドツーエンド暗号化の王様」です。<br><br><strong>【具体的な手順】</strong><br>1. <strong>鍵ペアの生成</strong>: Tailsの「Passwords and Keys」アプリを開き、「GnuPG」→「新しいキーペア」を選択。強力なパスフレーズを設定して鍵を生成します。<br>2. <strong>公開鍵のエクスポートとQRコード化</strong>: 生成した公開鍵をエクスポートし、<code>gpg --export -a your-user-id | qrencode -o ~/Persistent/publickey.png</code> を実行してQRコード画像を生成します。<br>3. <strong>鍵の交換</strong>: このQRコードを相手のスマホで読み取ってもらうか、安全な方法で画像ファイルを渡します。<br>4. <strong>相手の公開鍵のインポート</strong>: 相手から受け取った公開鍵を、あなたのGPGにインポートします。<br>5. <strong>暗号化と復号</strong>: メッセージを書き、GPGを使い相手の公開鍵で暗号化して送信。受け取った暗号化メッセージは、あなたの秘密鍵とパスフレーズで復号します。</td>
+                <td><strong>理由</strong>: ProtonMailの内部暗号化も強力ですが、GPGは自分で秘密鍵と公開鍵を管理できるため、サービス自体が侵害された場合でも安全性を保てます。「エンドツーエンド暗号化の王様」です。<br><br><strong>【具体的な手順】</strong><br>1. <strong>鍵ペアの生成</strong>: Tailsの「Passwords and Keys」アプリを開き、「GnuPG」→「新しいキーペア」を選択。強力なパスフレーズを設定して鍵を生成します。<br>2. <strong>公開鍵のエクスポートとQRコード化</strong>: 生成した公開鍵をエクスポートし、<code class="command">gpg --export -a your-user-id | qrencode -o ~/Persistent/publickey.png</code> を実行してQRコード画像を生成します。<br>3. <strong>鍵の交換</strong>: このQRコードを相手のスマホで読み取ってもらうか、安全な方法で画像ファイルを渡します。<br>4. <strong>相手の公開鍵のインポート</strong>: 相手から受け取った公開鍵を、あなたのGPGにインポートします。<br>5. <strong>暗号化と復号</strong>: メッセージを書き、GPGを使い相手の公開鍵で暗号化して送信。受け取った暗号化メッセージは、あなたの秘密鍵とパスフレーズで復号します。</td>
             </tr>
             <tr>
                 <td><strong>課金（有料プランの場合）</strong></td>
@@ -76,7 +75,7 @@
 
         <h3>ステップ2：接続テスト</h3>
         <ol>
-            <li><strong>VPN接続確認</strong>: ターミナルを開き、<code>curl ifconfig.me</code> と入力します。ここに表示されるIPアドレスが、あなたの本来のIPアドレスと<strong>異なっていれば</strong>、VPNは正常に機能しています。</li>
+            <li><strong>VPN接続確認</strong>: ターミナルを開き、<code class="command">curl ifconfig.me</code> と入力します。ここに表示されるIPアドレスが、あなたの本来のIPアドレスと<strong>異なっていれば</strong>、VPNは正常に機能しています。</li>
             <li><strong>Tor接続確認</strong>: Tor Browserを起動し、<a href="https://check.torproject.org" target="_blank" rel="noopener noreferrer">https://check.torproject.org</a> にアクセスします。「Congratulations. This browser is configured to use Tor.」と表示されれば、Torは正常に機能しています。</li>
             <li><strong>DNSリーク確認</strong>: Tor Browserから、<a href="https://ipleak.net" target="_blank" rel="noopener noreferrer">https://ipleak.net</a> や <a href="https://dnsleaktest.com" target="_blank" rel="noopener noreferrer">https://dnsleaktest.com</a> にアクセスします。「DNS Server Info」に表示されるIPアドレスが、複数の国のTorリレーになっていれば、DNSリークは発生していません。</li>
         </ol>
@@ -101,13 +100,16 @@
             </tr>
         </table>
 
-        <h2 id="conclusion">結論：技術は道具、儀式が魂</h2>
-        <p>この章で述べた手順は、一見面倒に感じるかもしれません。しかし、この毎回のチェックと儀式こそが、あなたの技術を「ただの道具」から「信頼できる相棒」へと昇華させるのです。</p>
-        <ul>
-            <li>なぜMullvadなのかを理解し、正しく支払う。</li>
-            <li>なぜProtonMailの.onionサイトを使うのかを理解し、正しくアカウントを作る。</li>
-            <li>なぜGPGとMoneroなのかを理解し、その具体的な使い方をマスターする。</li>
-            <li>なぜ更新と接続テストが必要なのかを理解し、毎回実行する。</li>
-        </ul>
-        <p>この一つ一つの行動が、あなたの匿名性を構成する、最も小さく、そして最も強固なブロックとなるのです。</p>
+        <div class="conclusion-box">
+            <h3>結論：技術は道具、儀式が魂</h3>
+            <p>この章で述べた手順は、一見面倒に感じるかもしれません。しかし、この毎回のチェックと儀式こそが、あなたの技術を「ただの道具」から「信頼できる相棒」へと昇華させるのです。</p>
+            <ul>
+                <li>なぜMullvadなのかを理解し、正しく支払う。</li>
+                <li>なぜProtonMailの.onionサイトを使うのかを理解し、正しくアカウントを作る。</li>
+                <li>なぜGPGとMoneroなのかを理解し、その具体的な使い方をマスターする。</li>
+                <li>なぜ更新と接続テストが必要なのかを理解し、毎回実行する。</li>
+            </ul>
+            <p>この一つ一つの行動が、あなたの匿名性を構成する、最も小さく、そして最も強固なブロックとなるのです。</p>
+        </div>
+
     </div>
