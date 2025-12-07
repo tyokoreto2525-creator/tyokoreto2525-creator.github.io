@@ -3,12 +3,12 @@
         <h2>通信経路の物理的分離（レベル2）【完全戦術マニュアル】</h2>
         <h3>～あなたはそこにいない。通信だけが、遠くで生まれる【実践編】～</h3>
         
-        <p>この章の目的は、あなたの物理的な存在と、通信の発信源を<strong>完全に分離</strong>することです。これにより、防犯カメラ、電波ログ、目撃者証言といった、あらゆる物理的な追跡を不能にします。</p>
+        <p>この章の目的は、あなたの物理的な存在と、通信の発信源を完全に分離することです。これにより、防犯カメラ、電波ログ、目撃者証言といった、あらゆる物理的な追跡を不能にします。</p>
         
         <h2 id="section3-1">3.1. この戦術の全体像と原理</h2>
         <p>まず、何をやるのかを頭の中にインストールしてください。</p>
         <ul>
-            <li><strong>あなたの行動</strong>: あなたは、<strong>カフェの中には絶対に入りません</strong>。カフェから数十メートル離れた、安全な場所（車の中、別の建物など）にいます。</li>
+            <li><strong>あなたの行動</strong>: あなたは、カフェの中には絶対に入りません。カフェから数十メートル離れた、安全な場所（車の中、別の建物など）にいます。</li>
             <li><strong>装置の役割</strong>: あなたが事前に設置した小さな装置（Raspberry Pi）が、あなたの代わりにカフェのフリーWi-Fiに接続し、あなた専用の「秘密のWi-Fi」を発信します。</li>
             <li><strong>通信の流れ</strong>: あなたのPCはその「秘密のWi-Fi」に接続します。すると、あなたの通信は自動的に装置を経由し、カフェのフリーWi-Fiからインターネットに流れていきます。</li>
         </ul>
@@ -69,7 +69,7 @@
                 <ul>
                     <li>書き込み完了後、MicroSDカードをPCに再挿入します。</li>
                     <li><strong>SSH有効化</strong>: <code>boot</code> ドライブ直下に <code>ssh</code> という名前の<strong>空のファイル</strong>を作成します。</li>
-                    <li><strong>Wi-Fi設定</strong>: 同じく<code>boot</code>ドライブに <code>wpa_supplicant.conf</code> という名前のテキストファイルを作成し、<strong>あなたがこれから設置する場所のWi-Fi情報</strong>を以下のように記述します。</li>
+                    <li><strong>Wi-Fi設定</strong>: 同じく<code>boot</code>ドライブに <code>wpa_supplicant.conf</code> という名前のテキストファイルを作成し、あなたがこれから設置する場所のWi-Fi情報を以下のように記述します。</li>
                 </ul>
                 <pre><code>country=JP
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
@@ -97,15 +97,15 @@ network={
         
         <h3>ステップ2：Raspberry Piに接続し、中継装置としての「魂」を入れる</h3>
         <ol>
-            <li><strong>接続</strong>: MicroSDカードとWi-Fiアダプタ2つ、モバイルバッテリーをRaspberry Piに接続して起動します。数分待ち、あなたのPCのターミナルから <code>ssh pi@raspberrypi.local</code> で接続します。</li>
+            <li><strong>接続</strong>: MicroSDカードとWi-Fiアダプタ2つ、モバイルバッテリーをRaspberry Piに接続して起動します。数分待ち、あなたのPCのターミナルから <code class="command">ssh pi@raspberrypi.local</code> で接続します。</li>
             <li><strong>基本ソフトのインストール</strong>: 以下のコマンドをコピー＆ペーストして実行します。
-                <pre><code>sudo apt update && sudo apt install hostapd dnsmasq iptables-persistent -y</code></pre>
+                <pre><code class="command">sudo apt update && sudo apt install hostapd dnsmasq iptables-persistent -y</code></pre>
                 <blockquote>
                     <p><strong>【原理】</strong>: <code>hostapd</code>は「秘密のWi-Fi」を、<code>dnsmasq</code>はIPアドレスを管理するためのソフトウェアです。</p>
                 </blockquote>
             </li>
             <li><strong>「秘密のWi-Fi（RelayAP）」の設定</strong>:
-                <pre><code>sudo nano /etc/hostapd/hostapd.conf</code></pre>
+                <pre><code class="command">sudo nano /etc/hostapd/hostapd.conf</code></pre>
                 開いたファイルに、以下をコピペします。
                 <pre><code>interface=wlan0
 driver=nl80211
@@ -121,7 +121,7 @@ ignore_broadcast_ssid=0</code></pre>
                 </blockquote>
             </li>
             <li><strong>IPアドレスの固定と通信転送の許可</strong>:
-                <pre><code>sudo nano /etc/dhcpcd.conf</code></pre>
+                <pre><code class="command">sudo nano /etc/dhcpcd.conf</code></pre>
                 ファイルの一番下に以下を追記します。
                 <pre><code>interface wlan0
 static ip_address=192.168.50.1/24
@@ -129,14 +129,14 @@ nohook wpa_supplicant</code></pre>
                 <blockquote>
                     <p><strong>【原理】</strong>: これで、Raspberry Piが「秘密のWi-Fi」の親（IPアドレス: 192.168.50.1）になることを定義しました。</p>
                 </blockquote>
-                <pre><code>sudo nano /etc/sysctl.conf</code></pre>
+                <pre><code class="command">sudo nano /etc/sysctl.conf</code></pre>
                 <code>#net.ipv4.ip_forward=1</code> の行の <code>#</code> を削除します。
                 <blockquote>
                     <p><strong>【原理】</strong>: これで、Raspberry Piが「通信の橋渡し（ルーター）」として働くことを許可しました。</p>
                 </blockquote>
             </li>
             <li><strong>NATルールの適用とサービスの有効化</strong>:
-                <pre><code>sudo iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE
+                <pre><code class="command">sudo iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE
 sudo netfilter-persistent save
 sudo systemctl unmask hostapd && sudo systemctl enable hostapd && sudo systemctl enable dnsmasq
 sudo reboot</code></pre>
@@ -152,7 +152,7 @@ sudo reboot</code></pre>
         <h3>ステップ3：ログの完全無効化</h3>
         <ol>
             <li>Raspberry PiにSSHで接続し、以下のコマンドを実行します。
-                <pre><code>sudo nano /etc/logrotate.d/instant_delete</code></pre>
+                <pre><code class="command">sudo nano /etc/logrotate.d/instant_delete</code></pre>
                 開いたファイルに、以下をコピペして保存します。
                 <pre><code>/var/log/*.log {
     size 1k
@@ -165,7 +165,7 @@ sudo reboot</code></pre>
 }</code></pre>
             </li>
             <li>続いて、ログ機能そのものを停止します。
-                <pre><code>sudo systemctl stop rsyslog && sudo systemctl disable rsyslog && sudo apt purge rsyslog -y</code></pre>
+                <pre><code class="command">sudo systemctl stop rsyslog && sudo systemctl disable rsyslog && sudo apt purge rsyslog -y</code></pre>
                 <blockquote>
                     <p><strong>【原理】</strong>: これで、Raspberry Piは自分の動作ログをファイルとして保存しなくなります。電源を切れば、記憶はすべて消える「忘れっぽいコンピュータ」になります。</p>
                 </blockquote>
@@ -182,6 +182,9 @@ sudo reboot</code></pre>
             <li><strong>確認</strong>: Torブラウザを開き、Webサイトが見られれば成功です。</li>
         </ol>
 
-        <h2 id="conclusion">結論</h2>
-        <p>この章の設定を完璧に実行すれば、あなたのRaspberry Piは単なる中継装置ではなく、<strong>「痕跡を残さない幻の通信端末」</strong>となります。あなたは安全な場所から、この幻を遠隔操作し、完全な匿名性を確保できるのです。</p>
+        <div class="conclusion-box">
+            <h3>結論</h3>
+            <p>この章の設定を完璧に実行すれば、あなたのRaspberry Piは単なる中継装置ではなく、<strong>「痕跡を残さない幻の通信端末」</strong>となります。あなたは安全な場所から、この幻を遠隔操作し、完全な匿名性を確保できるのです。</p>
+        </div>
+
     </div>
