@@ -2,75 +2,190 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>最終章：完結</title>
+    <title>究極の匿名通信 完全ガイド：第五章</title>
+</head>
+<body>
+
+<div class="tokumei-article-final">
+
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        /* --- このスタイルは、親ページの如何なるCSSとも干渉しない --- */
+        .tokumei-article-final * {
+            box-sizing: border-box;
+        }
+
+        .tokumei-article-final {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
             line-height: 1.8;
-            color: #333;
-            background-color: #f4f4f9;
-            margin: 0;
+            color: #e0e0e0;
+            background-color: #1a1a1a;
             padding: 2em;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 2em 3em;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #444;
         }
-        h1, h2, h3 {
-            color: #1a1a1a;
-            font-weight: 600;
+
+        .tokumei-article-final h1, .tokumei-article-final h2, .tokumei-article-final h3, .tokumei-article-final h4, .tokumei-article-final h5 {
+            color: #ffffff;
+            font-weight: 700;
+            line-height: 1.3;
         }
-        h1 {
-            font-size: 2em;
-            border-bottom: 2px solid #333;
+
+        .tokumei-article-final h1 {
+            font-size: 2.2em;
+            text-align: center;
+            border-bottom: 2px solid #f44336; /* 第五章は赤 */
             padding-bottom: 0.5em;
             margin-bottom: 1em;
         }
-        h2 {
-            font-size: 1.5em;
+
+        .tokumei-article-final h2 {
+            font-size: 1.7em;
+            margin-top: 2.5em;
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid #555;
+        }
+
+        .tokumei-article-final h3 {
+            font-size: 1.3em;
             margin-top: 2em;
-            margin-bottom: 1em;
+            color: #f44336; /* 第五章のアクセントカラー */
         }
-        h3 {
-            font-size: 1.2em;
+
+        .tokumei-article-final h4 {
+            font-size: 1.1em;
             margin-top: 1.5em;
-            margin-bottom: 0.8em;
+            color: #ff7043;
         }
-        p {
-            margin-bottom: 1em;
+
+        .tokumei-article-final h5 {
+            font-size: 1.0em;
+            margin-top: 1.2em;
+            color: #ab47bc; /* 補強案の見出し用 */
         }
-        strong {
-            font-weight: 700;
-            color: #0056b3;
+        
+        .tokumei-article-final p {
+            margin-bottom: 1.2em;
         }
-        blockquote {
-            border-left: 4px solid #0056b3;
+
+        .tokumei-article-final strong {
+            color: #ff7043;
+            font-weight: 600;
+        }
+
+        .tokumei-article-final a {
+            color: #4fc3f7;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .tokumei-article-final a:hover {
+            text-decoration: underline;
+        }
+
+        .tokumei-article-final hr {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.2), rgba(255,255,255,0));
+            margin: 2.5em 0;
+        }
+
+        /* --- コードブロック --- */
+        .tokumei-article-final pre {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 1.5em;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'SF Mono', 'Fira Code', 'Consolas', 'Liberation Mono', 'Menlo', monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+            white-space: pre;
+            border: 1px solid #555;
+        }
+
+        .tokumei-article-final code {
+            font-family: inherit;
+        }
+        .tokumei-article-final .command { color: #a6e22e; }
+        .tokumei-article-final .option { color: #fd971f; }
+        .tokumei-article-final .comment { color: #75715e; font-style: italic; }
+        .tokumei-article-final .keyword { color: #66d9ef; }
+        .tokumei-article-final .string { color: #e6db74; }
+
+        /* --- インラインコード --- */
+        .tokumei-article-final p > code {
+            background-color: #444;
+            color: #a6e22e;
+            padding: 0.2em 0.5em;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        /* --- リスト --- */
+        .tokumei-article-final ul {
+            list-style: none;
             padding-left: 1.5em;
-            margin: 1.5em 0;
-            color: #555;
-            font-style: italic;
         }
-        ul {
-            list-style-type: none;
+        .tokumei-article-final li {
+            margin-bottom: 0.8em;
+            position: relative;
+        }
+        .tokumei-article-final li::before {
+            content: '▸';
+            color: #f44336; /* 第五章のアクセントカラー */
+            position: absolute;
+            left: -1.2em;
+            font-size: 1.2em;
+        }
+
+        /* --- 引用ブロック --- */
+        .tokumei-article-final blockquote {
+            margin: 1.5em 0;
+            padding: 1em 1.5em;
+            border-left: 5px solid #f44336;
+            background-color: rgba(244, 67, 54, 0.1);
+            color: #b0bec5;
+        }
+        .tokumei-article-final blockquote p {
+            margin: 0;
+        }
+
+        /* --- 補強ボックス --- */
+        .tokumei-article-final .enhancement-box {
+            margin-top: 2em;
+            padding: 1.5em;
+            background-color: rgba(171, 71, 188, 0.1);
+            border-left: 5px solid #ab47bc;
+            border-radius: 0 6px 6px 0;
+        }
+        .tokumei-article-final .enhancement-box h5 {
+            margin-top: 0;
+            color: #ce93d8;
+            border: none;
+            padding: 0;
+        }
+
+        /* --- 結論ボックス --- */
+        .tokumei-article-final .conclusion-box {
+            margin-top: 2.5em;
+            padding: 1.5em;
+            background-color: rgba(76, 175, 80, 0.15);
+            border-left: 5px solid #4caf50;
+            border-radius: 0 6px 6px 0;
+        }
+        .tokumei-article-final .conclusion-box h3 {
+            margin-top: 0;
+            color: #81c784;
+            border: none;
+            padding: 0;
+        }
+        .tokumei-article-final .conclusion-box ul {
             padding-left: 0;
         }
-        li {
-            padding-left: 1.5em;
-            text-indent: -1.5em;
-            margin-bottom: 0.5em;
+        .tokumei-article-final .conclusion-box li::before {
+            color: #81c784;
         }
-        li::before {
-            content: "• ";
-            color: #0056b3;
-            font-weight: bold;
-            display: inline-block;
-            width: 1.5em;
-            text-indent: 0;
-        }
+
     </style>
 </head>
 <body>
@@ -105,6 +220,9 @@
         <p>それこそが、この体系があなたに与える、最後の、そして最高の術です。</p>
         <p>この覚悟を胸に、闇に還りなさい。</p>
         <p>あなたは、もはや誰にも追跡されません。</p>
-    </div>
+</div>
+
 </body>
 </html>
+
+
