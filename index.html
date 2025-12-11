@@ -186,7 +186,7 @@
   <nav class="nav">
     <a href="#"
        class="nav-popup-trigger"
-       data-popup-img="../assets/K.webp"
+       data-popup-img="../assets/k.webp"
        data-popup-alt="共有についてのご案内">
       共有
     </a>
@@ -855,14 +855,9 @@
       <button class="gallery-close" type="button">✕ 閉じる</button>
     </div>
   </div>
-
-
-      
-
-
-    
+ 
       </main>
-<!-- ▼ ナビ（共有・お問い合わせ）専用のモーダル -->
+<!-- ▼ 共有／お問い合わせ用：1枚画像ポップアップ -->
 <div id="nav-popup" class="image-lightbox" aria-hidden="true">
   <div class="image-lightbox-inner">
     <button class="image-lightbox-close" type="button">✕ 閉じる</button>
@@ -879,6 +874,32 @@
     </div>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+
+
+        // ▼ ナビ（共有／お問い合わせ）クリックで1枚画像ポップアップ
+    document.querySelectorAll('.nav-popup-trigger').forEach(function(a){
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+
+        const imgSrc = a.dataset.popupImg;
+        const imgAlt = a.dataset.popupAlt || '';
+
+        const modal = document.getElementById('nav-popup');
+        const img   = document.getElementById('nav-popup-img');
+        const cap   = document.getElementById('nav-popup-caption');
+
+        if (!modal || !img || !imgSrc) return;
+
+        img.src = imgSrc;
+        img.alt = imgAlt;
+        cap.textContent = imgAlt;
+
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+      });
+    });
+
+    
 
     // ▼ 詳細を見る → モーダルを開く
     document.querySelectorAll('.open-gallery').forEach(function (btn) {
@@ -1038,3 +1059,4 @@ document.getElementById('nav-popup').addEventListener('click', function(e){
 
 </body>
 </html>
+
