@@ -1002,15 +1002,39 @@
     });
 
   });
+
+
+
+  // ▼ ナビリンク（共有／お問い合わせ）クリックでポップアップ
+document.querySelectorAll('.nav-popup-trigger').forEach(function(a){
+  a.addEventListener('click', function(e){
+    e.preventDefault();
+
+    const imgSrc = a.dataset.popupImg;
+    const imgAlt = a.dataset.popupAlt;
+
+    const modal  = document.getElementById('nav-popup');
+    const img    = document.getElementById('nav-popup-img');
+    const cap    = document.getElementById('nav-popup-caption');
+
+    img.src = imgSrc;
+    img.alt = imgAlt || '';
+    cap.textContent = imgAlt || '';
+
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+  });
+});
+
+// 背景クリックでモーダルを閉じる
+document.getElementById('nav-popup').addEventListener('click', function(e){
+  if (e.target.id === 'nav-popup') {
+    this.classList.remove('is-open');
+    this.setAttribute('aria-hidden', 'true');
+  }
+});
+
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
