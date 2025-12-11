@@ -1,30 +1,28 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>メインGIF</title>
+<!-- DOCTYPE / html / head / body は全部いらない -->
+
+<div class="mizika-article">
   <style>
-    body {
+    /* ここから下は .mizika-article の中だけに効く */
+
+    .mizika-article {
       background: #000;
-      margin: 0;
       padding: 20px;
       text-align: center;
       color: #fff;
       font-family: sans-serif;
+      border-radius: 8px;
     }
-    .hero-gif img {
+
+    .mizika-article .hero-gif img {
       max-width: 100%;
       height: auto;
+      display: block;
+      margin: 0 auto;
     }
   </style>
-</head>
-<body>
 
-  <!-- GIF 基礎（タイプ5の原型） -->
+  <!-- GIF 基礎 -->
   <div class="hero-gif">
-    <img src="../assets/kousin.gif" alt="Chocolate Mint メインビジュアル">
+    <img src="../assets/00.gif" alt="Chocolate Mint メインビジュアル">
   </div>
-
-</body>
-</html>
+</div>
