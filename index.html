@@ -958,7 +958,7 @@
       }
     });
 
-    // 画像拡大ライトボックス
+    // 画像拡大ライトボックス（ギャラリー）＆ nav-popup 共通
     const lightbox = document.getElementById('image-lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxCaption = document.getElementById('lightbox-caption');
@@ -978,21 +978,31 @@
           lightbox.setAttribute('aria-hidden', 'false');
         });
       });
+    }
 
-      const lbClose = document.querySelector('.image-lightbox-close');
-      if (lbClose) {
-        lbClose.addEventListener('click', function () {
-          lightbox.classList.remove('is-open');
-          lightbox.setAttribute('aria-hidden', 'true');
+    // ▼ 全ての .image-lightbox に対して「閉じる」処理を共通化
+    document.querySelectorAll('.image-lightbox').forEach(function(modal){
+      const closeBtn = modal.querySelector('.image-lightbox-close');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function () {
+          modal.classList.remove('is-open');
+          modal.setAttribute('aria-hidden', 'true');
+          const img = modal.querySelector('img');
+          if (img) img.src = '';
         });
       }
-      lightbox.addEventListener('click', function (e) {
-        if (e.target === lightbox) {
-          lightbox.classList.remove('is-open');
-          lightbox.setAttribute('aria-hidden', 'true');
+
+      // 背景クリックでも閉じる
+      modal.addEventListener('click', function(e){
+        if (e.target === modal) {
+          modal.classList.remove('is-open');
+          modal.setAttribute('aria-hidden', 'true');
+          const img = modal.querySelector('img');
+          if (img) img.src = '';
         }
       });
-    }
+    });
+
 
     // 「内容を見る」ボタンで別HTMLを読み込み＆開閉
     document.querySelectorAll('.js-load-article').forEach(function(btn){
@@ -1059,4 +1069,5 @@ document.getElementById('nav-popup').addEventListener('click', function(e){
 
 </body>
 </html>
+
 
