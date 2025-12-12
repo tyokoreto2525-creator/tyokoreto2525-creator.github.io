@@ -175,10 +175,19 @@
         max-height: 88vh;
       }
     }
-      .fixed-footer-nav {
-        left: 50%;
-        transform: translateX(-50%);
-        justify-content: center;
+.fixed-footer-nav{
+  position: fixed;
+  left: 0;
+  right: 0;          /* 両端を0にして */
+  bottom: 20px;
+  width: max-content; /* 中身幅にして */
+  margin: 0 auto;     /* 自動で中央寄せ */
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  z-index: 1000;
+}
+
 
   </style>
 </head>
@@ -1072,6 +1081,7 @@ document.getElementById('nav-popup').addEventListener('click', function(e){
 
 </body>
 </html>
+
 
 
 
