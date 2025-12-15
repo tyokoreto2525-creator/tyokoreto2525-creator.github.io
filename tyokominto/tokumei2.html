@@ -212,10 +212,10 @@
     
     <hr>
 
-  <hr>
+<hr>
 <h2 id="section2-2">2.2. Persistentストレージの最適化と暗号化</h2>
 <h4>目的</h4>
-<p>持続するデータは、同時にリスクとなる。最小限のデータを、最高の暗号で守る。</p>
+<p>持続するデータは、同時にリスクとなる。最小限のデータを、最高の暗号で守る。人為的ミスの可能性を減らし、初心者でも安全に運用できるようにする。</p>
 <h4>実行手順</h4>
 <ul>
     <li><strong>有効化</strong>: 「Tails Persistent Storage」から有効化し、32文字以上の、記号を含む完全にランダムなパスワードを設定する。</li>
@@ -231,9 +231,8 @@
 <div class="enhancement-box">
 <h5>[補強] Persistentストレージの物理的隠蔽（隠しボリューム）</h5>
 <p>Persistentストレージは「痕跡」です。通常の暗号化に加え、LUKSによる「隠しボリューム」を作成することで、たとえUSBが押収され、通常のパスワードが破られても、最も重要なデータの存在自体を隠蔽します。</p>
-<ul>
-    <li><strong>概念</strong>: 通常のPersistentパーティションとは別に、LUKSで暗号化された第三のパーティションをUSBに作成します。このパーティションは、特別なコマンドでしかマウント（接続）できず、通常のTails使用時には存在すら認識されません。</li>
-</ul>
+<p><strong>概念</strong>: 通常のPersistentパーティションとは別に、LUKSで暗号化された第三のパーティションをUSBに作成します。このパーティションは、特別なコマンドでしかマウント（接続）できず、通常のTails使用時には存在すら認識されません。</p>
+<p><strong>注意</strong>: 隠しボリュームの作成と運用は、誤操作によるデータ消失のリスクがあります。ここでは、リスクを最小限に抑えるための安全スクリプトも併せて提供します。</p>
 <p><strong>隠しボリュームの作成手順</strong></p>
 <ol>
     <li>Tailsを起動し、アプリケーションメニューから「ユーティリティ」→「ディスク」(<code class="command">gnome-disks</code>)を起動します。</li>
@@ -244,19 +243,52 @@
     <li>「消去」ドロップダウンから「LUKS暗号化パーティションの作成」を選択し、<strong>通常のPersistentパスワードとは別の、強力なパスワード</strong>を設定して「フォーマット」ボタンを押します。</li>
     <li>フォーマットが完了したら、「ディスク」アプリケーションは閉じて構いません。</li>
 </ol>
-<p><strong>隠しボリュームの使用方法</strong></p>
-<p>通常のTails使用時は、このパーティションには一切触れません。最も重要なGPG秘密鍵などを保存する必要がある時のみ、以下の手順でアクセスします。</p>
+<p><strong>隠しボリュームの安全な運用方法</strong></p>
+<p>通常のTails使用時は、このパーティションには一切触れません。最も重要なGPG秘密鍵などを保存する必要がある時のみ、以下の<strong>安全スクリプト</strong>を使用してアクセスします。これにより、デバイス名の打ち間違いやコマンドミスのリスクを大幅に低減します。</p>
 <ol>
-    <li>ターミナルを開き、隠しボリュームのデバイス名を確認します。<code class="command">lsblk -f</code> コマンドを実行し、TYPEが<code>crypto_LUKS</code>になっているものを探します（例: <code>/dev/sdb3</code>）。このデバイス名をメモします。</li>
-    <li>以下のコマンドで隠しボリュームをアンロックします。パスワードの入力を求められるので、先ほど設定したパスワードを入力します。<br>
-    <code class="command">sudo cryptsetup luksOpen /dev/sdXN hidden_volume</code><br>
-    （<code>/dev/sdXN</code>は、先ほどメモしたデバイス名に置き換えてください）</li>
-    <li>アンロックしたボリュームを<code>/mnt</code>にマウントします。<br>
-    <code class="command">sudo mount /dev/mapper/hidden_volume /mnt</code></li>
-    <li><code class="command">nautilus /mnt</code> を実行するか、ファイルマネージャーで<code>/mnt</code>を開き、重要なファイルを保存・読み込みします。</li>
-    <li><strong>【最重要】使用後のアンマウント</strong>: 使用が終わったら、必ず痕跡を消します。ターミナルで以下のコマンドを順に実行してください。<br>
-    <code class="command">sudo umount /mnt</code><br>
-    <code class="command">sudo cryptsetup close hidden_volume</code></li>
+    <li>Persistentフォルダに、<code>mount_hidden.sh</code>という名前でスクリプトファイルを作成します。</li>
+    <li>以下の内容をコピー＆ペーストして保存します。
+    <pre><code><span class="comment">#!/bin/bash</span>
+<span class="comment"># 隠しボリュームを安全にマウントするためのスクリプト</span>
+
+<span class="comment"># --- 設定項目：ここだけをあなたの環境に合わせて書き換えてください ---</span>
+<span class="keyword">HIDDEN_DEVICE</span>=<span class="string">"/dev/sdX3"</span> <span class="comment"># 例: "/dev/sdb3" (lsblk -fで確認したデバイス名)</span>
+<span class="keyword">MOUNT_POINT</span>=<span class="string">"/mnt/hidden"</span>
+
+<span class="comment"># --- 以下は基本変更しないでください ---</span>
+<span class="keyword">MOUNTED_DEVICE</span>=<span class="string">"/dev/mapper/hidden_volume"</span>
+
+<span class="command">echo</span> <span class="string">"隠しボリュームをマウントします..."</span>
+
+<span class="comment"># 1. LUKSボリュームのアンロック</span>
+<span class="command">sudo cryptsetup</span> <span class="option">luksOpen</span> <span class="string">"$HIDDEN_DEVICE"</span> hidden_volume
+
+<span class="comment"># 2. マウントポイントの作成（存在しない場合のみ）</span>
+<span class="command">sudo mkdir</span> <span class="option">-p</span> <span class="string">"$MOUNT_POINT"</span>
+
+<span class="comment"># 3. マウント</span>
+<span class="command">sudo mount</span> <span class="string">"$MOUNTED_DEVICE"</span> <span class="string">"$MOUNT_POINT"</span>
+
+<span class="command">echo</span> <span class="string">"隠しボリュームが $MOUNT_POINT にマウントされました。"</span>
+<span class="command">echo</span> <span class="string">"アンマウントするには、ターミナルで 'sudo umount $MOUNT_POINT && sudo cryptsetup close hidden_volume' を実行してください。"</span>
+<span class="command">nautilus</span> <span class="string">"$MOUNT_POINT"</span></code></pre>
+    </li>
+    <li><strong>【最重要】スクリプトの権限を付与</strong>:
+    <pre><code><span class="command">chmod</span> <span class="option">+x</span> ~/Persistent/mount_hidden.sh</code></pre>
+    </li>
+    <li><strong>隠しボリュームの使用方法</strong>:
+        <ol>
+            <li>ターミナルを開き、<code class="command">lsblk -f</code> を実行して、隠しボリュームのデバイス名（例: <code>/dev/sdb3</code>）を確認します。</li>
+            <li>スクリプト内の<code>HIDDEN_DEVICE</code>の値を、先ほど確認したデバイス名に書き換えて保存します。</li>
+            <li>ターミナルでスクリプトを実行します: <code class="command">~/Persistent/mount_hidden.sh</code></li>
+            <li>パスワードの入力を求められるので、隠しボリューム用のパスワードを入力します。</li>
+            <li>ファイルマネージャーが開くので、そこで重要なファイルを保存・読み込みします。</li>
+        </ol>
+    </li>
+    <li><strong>【最重要】使用後のアンマウント</strong>: 使用が終わったら、必ず痕跡を消します。ターミナルで以下のコマンドを順に実行してください。
+    <pre><code><span class="command">sudo umount</span> <span class="string">/mnt/hidden</span>
+<span class="command">sudo cryptsetup</span> <span class="option">close</span> hidden_volume</code></pre>
+    </li>
 </ol>
 </div>
 
@@ -739,6 +771,7 @@ VPN接続が不安定で、意図せず平文のDNSサーバーに問い合わ�
 
 </body>
 </html>
+
 
 
 
