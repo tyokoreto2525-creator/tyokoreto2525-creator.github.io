@@ -634,55 +634,112 @@ VPN接続が不安定で、意図せず平文のDNSサーバーに問い合わ�
 </div>
     
 
-    <h2 id="section2-6">2.6. 運用の自動化とオペレーショナル・セキュリティ（OPSEC）</h2>
-    <h4>目的</h4>
-    <p>最強のツールも、使う人間が脆弱なら無意味だ。完璧な手順を、完璧に実行するための仕組みが必要。</p>
-    
-    <h4>実行手順</h4>
-    <ul>
-        <li><strong>起動チェックリストのデスクトップ表示</strong>: デスクトップに<code>checklist.txt</code>を置き、以下の内容を記載する。</li>
-    </ul>
+<hr>
+<h2 id="section2-6">2.6. 運用の自動化とオペレーショナル・セキュリティ（OPSEC）</h2>
+<h4>目的</h4>
+<p>最強のツールも、使う人間が脆弱なら無意味だ。完璧な手順を、完璧に実行するための仕組みが必要。人間が「確認し忘れる」こと自体をシステムが検知し、警告する。運用は「意識」ではなく「仕組み」によって担保される。</p>
+<h4>実行手順</h4>
+<ul>
+    <li><strong>起動時自動診断システム</strong>: Tails起動時に、すべての重要なセキュリティ設定（RAMゼロ化、MAC偽装、VPN接続など）を自動でチェックし、一つでも問題があればデスクトップ全体に警告を表示する。</li>
+    <li><strong>運用チェックリストのデスクトップ表示</strong>: システムによる自動診断を補完するものとして、デスクトップに<code>checklist.txt</code>を置き、人間が目で確認できるようにする。</li>
+    <li><strong>USBの物理的管理</strong>: 使用しない時は、静電気防止袋に入れ、金属製の箱（ファラデーケージ）で保管する。複数のTails USBを同じ場所で保管せず、地理的に分散させる。</li>
+</ul>
+<hr>
+<h3>【実装】起動時自動診断システム</h3>
+<p>このシステムは、あなたがログインした直後に、すべてのセキュリティ設定が正しく適用されているかを自動で診断し、結果を通知します。これにより、「確認し忘れ」という人為的ミスを根絶します。</p>
+<h4>ステップ 1: 診断スクリプトの作成</h4>
+<ol>
+    <li>Persistentフォルダに、<code>startup_diagnosis.sh</code>という名前でスクリプトファイルを作成します。</li>
+    <li>以下の内容をコピー＆ペーストして保存します。
+    <pre><code><span class="comment">#!/bin/bash</span>
+<span class="comment"># --- 診断結果を格納する変数 ---</span>
+<span class="keyword">ISSUES_FOUND</span>=<span class="string">""</span>
 
-    <h4>checklist.txtの内容</h4>
-    <pre><code><span class="string">[Tails OS Ultimate Checklist]</span>
+<span class="comment"># --- 診断項目1: RAMゼロ化設定の確認 ---</span>
+<span class="keyword">if</span> ! <span class="command">grep</span> <span class="option">-q</span> <span class="string">"mem=erase"</span> /proc/cmdline; <span class="keyword">then</span>
+  <span class="keyword">ISSUES_FOUND</span>+=<span class="string">"[CRITICAL] RAM zeroization (mem=erase) is NOT active!\n"</span>
+<span class="keyword">fi</span>
 
-<span class="string">1. 起動オプション:</span>
-   - mem=erase 追加済み？
-   - Disable Unsafe Browser チェック済み？
-   - Hide MAC Address チェック済み？
+<span class="comment"># --- 診断項目2: MACアドレス偽装の確認 ---</span>
+<span class="keyword">SPOOFED_MAC</span>=<span class="string">$(cat /var/lib/tails/mac-spoofed-mac)</span>
+<span class="keyword">CURRENT_MAC</span>=<span class="string">$(ip link show eth0 | grep -o -E '([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}')</span>
+<span class="keyword">if</span> [ <span class="string">"$SPOOFED_MAC"</span> <span class="keyword">!=</span> <span class="string">"$CURRENT_MAC"</span> ]; <span class="keyword">then</span>
+  <span class="keyword">ISSUES_FOUND</span>+=<span class="string">"[CRITICAL] MAC address is NOT spoofed!\n"</span>
+<span class="keyword">fi</span>
 
-<span class="string">2. 接続確認:</span>
-   - VPN自動接続を確認 (curl ifconfig.me)
-   - Tor接続を確認 (check.torproject.org)
+<span class="comment"># --- 診断項目3: Unsafe Browser無効化の確認 ---</span>
+<span class="keyword">if</span> [ <span class="option">-f</span> <span class="string">"/usr/bin/unsafe-browser"</span> ]; <span class="keyword">then</span>
+  <span class="keyword">ISSUES_FOUND</span>+=<span class="string">"[WARNING] Unsafe Browser is still enabled!\n"</span>
+<span class="keyword">fi</span>
 
-<span class="string">3. 緊急時:</span>
-   - Panicボタンはデスクトップにあるか？
+<span class="comment"># --- 診断項目4: VPN接続の確認 ---</span>
+<span class="command">sleep</span> <span class="string">20</span> <span class="comment"># VPN接続が完了するのを待つ</span>
+<span class="keyword">if</span> ! ip route show dev tun0 >/dev/null <span class="string">2>&1</span>; <span class="keyword">then</span>
+  <span class="keyword">ISSUES_FOUND</span>+=<span class="string">"[INFO] VPN is not connected. Check your scripts.\n"</span>
+<span class="keyword">fi</span>
 
-<span class="string">4. 終了時:</span>
-   - Persistentに不要なファイルは残っていないか？</code></pre>
-
-    <ul>
-        <li><strong>USBの物理的管理</strong>: 使用しない時は、静電気防止袋に入れ、金属製の箱（ファラデーケージ）で保管する。</li>
-        <li>複数のTails USBを同じ場所で保管せず、地理的に分散させる。</li>
-    </ul>
-
-    <div class="conclusion-box">
-        <h3>結論：これが完璧を超えたTails OSの姿</h3>
-        <p>このマニュアルに沿って構築・運用されたTails USBは、もはや単なるライブOSではありません。それは、以下の特性を持つ、一つの完成された生命体です。</p>
+<span class="comment"># --- 診断結果の通知 ---</span>
+<span class="keyword">if</span> [ <span class="option">-z</span> <span class="string">"$ISSUES_FOUND"</span> ]; <span class="keyword">then</span>
+  <span class="comment"># 問題がない場合</span>
+  <span class="command">notify-send</span> <span class="string">"Startup Diagnosis"</span> <span class="string">"All security checks PASSED. System is secure."</span>
+<span class="keyword">else</span>
+  <span class="comment"># 問題が見つかった場合</span>
+  <span class="command">notify-send</span> <span class="option">-u</span> <span class="string">critical</span> <span class="string">"Startup Diagnosis FAILED"</span> <span class="string">"$ISSUES_FOUND"</span>
+<span class="keyword">fi</span></code></pre>
+    </li>
+    <li><strong>【最重要】スクリプトの権限を付与</strong>:
+    <pre><code><span class="command">chmod</span> <span class="option">+x</span> ~/Persistent/startup_diagnosis.sh</code></pre>
+    </li>
+</ol>
+<h4>ステップ 2: 「起動時アプリケーション」への登録</h4>
+<ol>
+    <li>「起動するアプリケーション」設定画面を開きます。</li>
+    <li>「追加」ボタンをクリックし、以下の情報を入力します。
         <ul>
-            <li><strong>自己防衛</strong>: VPNのKill Switch、RAMゼロ化、Panicボタンにより、内外からのあらゆる脅威から自らを守る。</li>
-            <li><strong>完全自動化</strong>: 人為的ミスの可能性をゼロにし、意識しなくても最高のセキュリティ状態を維持する。</li>
-            <li><strong>痕跡の不在</strong>: 電源を切れば、物理的な痕跡を除き、存在したという事実をデジタル世界から完全に抹消する。</li>
-            <li><strong>深層防御</strong>: 隠しボリュームという最後の砦を持ち、たとえ全てが破られても、最も重要な秘密を守り抜く。</li>
-            <li><strong>運用の思想</strong>: 迷わないよう、チェックリストという「羅針盤」を内蔵している。</li>
+            <li><strong>名前</strong>: <code>Startup Diagnosis</code></li>
+            <li><strong>コマンド</strong>: <code>/home/amnesia/Persistent/startup_diagnosis.sh</code></li>
         </ul>
+    </li>
+    <li>「追加」ボタンを押して閉じます。</li>
+</ol>
+<p>これで、次回以降の起動時に、自動でセキュリティ診断が実行されるようになります。</p>
+<hr>
+<h3>【運用補助】デスクトップチェックリスト</h3>
+<p>自動診断システムは強力ですが、人間の「目での確認」と「感覚」を補完するものとして、チェックリストもデスクトップに配置します。これは、システムが「正常」と言った場合でも、自分の目で状況を確認するための最終確認手段として機能します。</p>
+<h4>checklist.txtの内容</h4>
+<pre><code><span class="string">[Tails OS Ultimate Checklist]</span>
 
-    </div>
+<span class="string">-- System Diagnosis --</span>
+[✓] 起動時に "Startup Diagnosis PASSED" と通知されたか？
+[✓] 警告（CRITICAL/WARNING）は表示されていないか？
+
+<span class="string">-- Connection Check --</span>
+[✓] VPN接続は自動でされているか？ (curl ifconfig.me)
+[✓] Tor接続は正常か？ (check.torproject.org)
+
+<span class="string">-- Emergency --</span>
+[✓] Panicボタンはデスクトップにあるか？
+
+<span class="string">-- Shutdown --</span>
+[✓] Persistentに不要なファイルは残っていないか？</code></pre>
+<div class="conclusion-box">
+<h3>結論：これが完璧を超えたTails OSの姿</h3>
+<p>このマニュアルに沿って構築・運用されたTails USBは、もはや単なるライブOSではありません。それは、以下の特性を持つ、一つの完成された生命体です。</p>
+<ul>
+    <li><strong>自己防衛</strong>: VPNのKill Switch、RAMゼロ化、Panicボタンにより、内外からのあらゆる脅威から自らを守る。</li>
+    <li><strong>完全自動化</strong>: 人為的ミスの可能性をゼロにし、意識しなくても最高のセキュリティ状態を維持する。</li>
+    <li><strong>自己診断</strong>: 起動時に自らの状態を診断し、異常があれば即座に使用者に警告する。</li>
+    <li><strong>痕跡の不在</strong>: 電源を切れば、物理的な痕跡を除き、存在したという事実をデジタル世界から完全に抹消する。</li>
+    <li><strong>深層防御</strong>: 隠しボリュームという最後の砦を持ち、たとえ全てが破られても、最も重要な秘密を守り抜く。</li>
+    <li><strong>運用の思想</strong>: 迷わないよう、チェックリストという「羅針盤」を内蔵している。</li>
+</ul>
+</div>
 
 </div>
 
 </body>
 </html>
+
 
 
 
