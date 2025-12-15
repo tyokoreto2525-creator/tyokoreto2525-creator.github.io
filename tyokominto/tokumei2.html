@@ -212,45 +212,55 @@
     
     <hr>
 
-    <h2 id="section2-2">2.2. Persistentストレージの最適化と暗号化</h2>
-    <h4>目的</h4>
-    <p>持続するデータは、同時にリスクとなる。最小限のデータを、最高の暗号で守る。</p>
-    
-    <h4>実行手順</h4>
-    <ul>
-        <li><strong>有効化</strong>: 「Tails Persistent Storage」から有効化し、32文字以上の、記号を含む完全にランダムなパスワードを設定する。</li>
-        <li><strong>パスワード生成例</strong>: <code class="command">openssl rand -base64 32</code> で生成された文字列をそのまま使用する。</li>
-        <li><strong>項目の選択</strong>: 「Personal Data」「Network Connections」「GnuPG」「Dotfiles」にのみチェックを入れる。その他は無効にし、攻撃対象面を最小限に抑える。</li>
-        <li><strong>二重暗号化</strong>: Persistent内に保存するファイル（特に.conf, .key, .txt）は、さらにGPGで暗号化する。</li>
-    </ul>
-
-    <h4>GPGによる二重暗号化コマンド例</h4>
-    <pre><code><span class="comment"># ファイルを暗号化する</span>
+  <hr>
+<h2 id="section2-2">2.2. Persistentストレージの最適化と暗号化</h2>
+<h4>目的</h4>
+<p>持続するデータは、同時にリスクとなる。最小限のデータを、最高の暗号で守る。</p>
+<h4>実行手順</h4>
+<ul>
+    <li><strong>有効化</strong>: 「Tails Persistent Storage」から有効化し、32文字以上の、記号を含む完全にランダムなパスワードを設定する。</li>
+    <li><strong>パスワード生成例</strong>: <code class="command">openssl rand -base64 32</code> で生成された文字列をそのまま使用する。</li>
+    <li><strong>項目の選択</strong>: 「Personal Data」「Network Connections」「GnuPG」「Dotfiles」にのみチェックを入れる。その他は無効にし、攻撃対象面を最小限に抑える。</li>
+    <li><strong>二重暗号化</strong>: Persistent内に保存するファイル（特に.conf, .key, .txt）は、さらにGPGで暗号化する。</li>
+</ul>
+<h4>GPGによる二重暗号化コマンド例</h4>
+<pre><code><span class="comment"># ファイルを暗号化する</span>
 <span class="command">gpg</span> <span class="option">-c</span> <span class="option">--cipher-algo</span> <span class="string">AES256</span> <span class="option">--compress-algo</span> <span class="string">1</span> <span class="option">--s2k-mode</span> <span class="string">3</span> <span class="option">--s2k-digest-algo</span> <span class="string">SHA512</span> <span class="option">--s2k-count</span> <span class="string">65536</span> secret_file.txt
-
 <span class="comment"># ファイルを復号する</span>
 <span class="command">gpg</span> <span class="option">-d</span> secret_file.txt.gpg</code></pre>
-
-    <div class="enhancement-box">
-        <h5>[補強] Persistentストレージの物理的隠蔽（隠しボリューム）</h5>
-        <p>Persistentストレージは「痕跡」です。通常の暗号化に加え、LUKSによる「隠しボリューム」を作成することで、たとえUSBが押収され、通常のパスワードが破られても、最も重要なデータの存在自体を隠蔽します。</p>
-        <ul>
-            <li><strong>概念</strong>: 通常のPersistentパーティションとは別に、LUKSで暗号化された第三のパーティションをUSBに作成します。このパーティションは、特別なコマンドでしかマウント（接続）できず、通常のTails使用時には存在すら認識されません。</li>
-            <li><strong>実行の概要</strong>:
-                <ol>
-                    <li>Tailsを起動し、<code>gnome-disks</code>（ディスクユーティリティ）を起動します。</li>
-                    <li>USBメモリの未使用領域に、新しいパーティションを「残りのすべて」で作成します。</li>
-                    <li>作成したパーティションを右クリックし、「フォーマット」→「LUKS暗号化パーティションの作成」を選択し、別の強力なパスワードを設定します。</li>
-                    <li>通常のTails使用時は、このパーティションには一切触れません。</li>
-                    <li>最も重要なGPG秘密鍵などを保存する必要がある時のみ、ターミナルを開き、<code class="command">sudo cryptsetup luksOpen /dev/sdXN hidden_volume</code>（/dev/sdXNは隠しボリュームのデバイス名）でアンロックし、<code class="command">sudo mount /dev/mapper/hidden_volume /mnt/</code>でマウントして使用します。</li>
-                </ol>
-            </li>
-        </ul>
-    </div>
+<div class="enhancement-box">
+<h5>[補強] Persistentストレージの物理的隠蔽（隠しボリューム）</h5>
+<p>Persistentストレージは「痕跡」です。通常の暗号化に加え、LUKSによる「隠しボリューム」を作成することで、たとえUSBが押収され、通常のパスワードが破られても、最も重要なデータの存在自体を隠蔽します。</p>
+<ul>
+    <li><strong>概念</strong>: 通常のPersistentパーティションとは別に、LUKSで暗号化された第三のパーティションをUSBに作成します。このパーティションは、特別なコマンドでしかマウント（接続）できず、通常のTails使用時には存在すら認識されません。</li>
+</ul>
+<p><strong>隠しボリュームの作成手順</strong></p>
+<ol>
+    <li>Tailsを起動し、アプリケーションメニューから「ユーティリティ」→「ディスク」(<code class="command">gnome-disks</code>)を起動します。</li>
+    <li>左側のデバイス一覧から、Tails USBメモリ（例: 8.0 GB Flash Disk）を選択します。ストレージの容量グラフ下部にある「空き領域」の部分をクリックします。</li>
+    <li>ウィンドウ下部の「＋」ボタンを押し、新しいパーティションを作成します。</li>
+    <li>「サイズ」は「残りのすべて」、「名前」は空のまま、「タイプ」は「その他」を選択し、「作成」ボタンを押します。</li>
+    <li>新しく作成されたパーティション（通常は末尾の番号が大きいもの）をクリックし、歯車アイコンから「フォーマット」を選択します。</li>
+    <li>「消去」ドロップダウンから「LUKS暗号化パーティションの作成」を選択し、<strong>通常のPersistentパスワードとは別の、強力なパスワード</strong>を設定して「フォーマット」ボタンを押します。</li>
+    <li>フォーマットが完了したら、「ディスク」アプリケーションは閉じて構いません。</li>
+</ol>
+<p><strong>隠しボリュームの使用方法</strong></p>
+<p>通常のTails使用時は、このパーティションには一切触れません。最も重要なGPG秘密鍵などを保存する必要がある時のみ、以下の手順でアクセスします。</p>
+<ol>
+    <li>ターミナルを開き、隠しボリュームのデバイス名を確認します。<code class="command">lsblk -f</code> コマンドを実行し、TYPEが<code>crypto_LUKS</code>になっているものを探します（例: <code>/dev/sdb3</code>）。このデバイス名をメモします。</li>
+    <li>以下のコマンドで隠しボリュームをアンロックします。パスワードの入力を求められるので、先ほど設定したパスワードを入力します。<br>
+    <code class="command">sudo cryptsetup luksOpen /dev/sdXN hidden_volume</code><br>
+    （<code>/dev/sdXN</code>は、先ほどメモしたデバイス名に置き換えてください）</li>
+    <li>アンロックしたボリュームを<code>/mnt</code>にマウントします。<br>
+    <code class="command">sudo mount /dev/mapper/hidden_volume /mnt</code></li>
+    <li><code class="command">nautilus /mnt</code> を実行するか、ファイルマネージャーで<code>/mnt</code>を開き、重要なファイルを保存・読み込みします。</li>
+    <li><strong>【最重要】使用後のアンマウント</strong>: 使用が終わったら、必ず痕跡を消します。ターミナルで以下のコマンドを順に実行してください。<br>
+    <code class="command">sudo umount /mnt</code><br>
+    <code class="command">sudo cryptsetup close hidden_volume</code></li>
+</ol>
+</div>
 
     <hr>
-
-  <hr>
 <h2 id="section2-3">2.3. Tailsの内部から制御する絶対的VPN迷彩化</h2>
 <h4>目的</h4>
 <p>VPNプロバイダを信用しないことを前提とする。TailsのTorという絶対的なセキュリティ基盤を一切破壊せず、その上でTorの通信をVPNという「迷彩」で覆い隠す。自動化は行うが、その制御はTailsの標準機能の範囲内で完結させ、外部のツールに頼らない、絶対に安定した構築を目指す。ここまでの試行錯誤を経て辿り着いたこの構成は、Tailsという特殊なOSの思想と技術的な制約に最も深く整合しており、我々が目指す「究極の匿名通信」の形として、極めて高い完成度を誇ります。</p>
@@ -383,65 +393,7 @@ VPNが切れても、Torの Kill Switchは生きているため平文には戻�
 <h4>最終的な判断</h4>
 <p>目的がモデルAであれば、VPNは不要であり、使わない方が安全です。モデルBやCに直面している場合にのみ、我々が構築した「VPN迷彩」は強力な武器となります。最も重要なのは、自分がどのモデルに該当するのかを常に意識し、不要なリスクを冒さないことです。</p>
     
-    <h2 id="section2-4">2.4. RAMフォレンジックとCold Boot Attackの完全な無力化</h2>
-    <h4>目的</h4>
-    <p>電源を切った後の数秒が、すべてを決する。その数秒のリスクすら許容しない。</p>
-    
-    <h4>実行手順</h4>
-    <ul>
-        <li><strong>起動時RAMゼロ化</strong>: 毎回の起動時に、GRUBメニューで<code>e</code>を押し、<code>quiet</code>パラメータの後に<code>mem=erase</code>を追記する。</li>
-        <li><strong>Panicボタン（RAM消去＆シャットダウン）</strong>: <code>~/Desktop/emergency_panic.desktop</code> を作成する。</li>
-    </ul>
-
-    <h4>emergency_panic.desktopの内容</h4>
-    <pre><code><span class="keyword">[Desktop Entry]</span>
-<span class="keyword">Type</span>=<span class="string">Application</span>
-<span class="keyword">Name</span>=<span class="string">EMERGENCY PANIC</span>
-<span class="keyword">Exec</span>=/home/amnesia/Persistent/memwipe.sh
-<span class="keyword">Icon</span>=<span class="string">dialog-error</span>
-<span class="keyword">Terminal</span>=<span class="string">false</span></code></pre>
-
-    <ul>
-        <li><strong>RAM消去スクリプト</strong>: <code>~/Persistent/memwipe.sh</code> を作成し、以下を記述する。</li>
-    </ul>
-
-    <h4>memwipe.shの内容</h4>
-    <pre><code><span class="comment">#!/bin/bash</span>
-<span class="comment"># スワップを無効化</span>
-<span class="command">sudo swapoff</span> <span class="option">-a</span>
-<span class="comment"># 可能な限りのRAMをゼロで埋める（/dev/memは非推奨なため、より安全な方法）</span>
-<span class="comment"># 注意：このコマンドはシステムを不安定にする可能性があるが、緊急時には有効</span>
-<span class="command">sudo dd</span> <span class="keyword">if</span>=/dev/zero <span class="keyword">of</span>=/dev/null <span class="keyword">bs</span>=<span class="string">1M</span> <span class="keyword">count</span>=<span class="string">1000</span> <span class="string">&</span>
-<span class="comment"># 即時シャットダウン</span>
-<span class="command">sudo poweroff</span></code></pre>
-
-    <ul>
-        <li><strong>実行権限付与</strong>: <code class="command">chmod +x ~/Persistent/memwipe.sh</code> と <code class="command">chmod +x ~/Desktop/emergency_panic.desktop</code> を実行する。</li>
-    </ul>
-
-    <div class="enhancement-box">
-        <h5>[補強] RAMゼロ化の完全自動化</h5>
-        <p>手動でのGRUB編集は、人為的ミスのリスクをゼロにはできません。Tails Greeterの設定ファイルをPersistentに保存することで、起動オプションを永続化し、RAMゼロ化を完全に自動化します。</p>
-        <ul>
-            <li><strong>実行手順</strong>:
-                <ol>
-                    <li>Tailsを起動し、Persistentストレージをアンロックします。</li>
-                    <li>ターミナルを開き、設定ファイルを保存するディレクトリを作成します: <code class="command">mkdir -p ~/Persistent/tails-greeter</code></li>
-                    <li>お好きなテキストエディタ（geditなど）で、設定ファイルを新規作成します: <code class="command">gedit ~/Persistent/tails-greeter/boot-options.ini</code></li>
-                    <li>開いたファイルに、以下の内容を<strong>コピー＆ペースト</strong>し、保存して閉じます。
-                        <pre><code><span class="keyword">[TailsGreeter]</span>
-<span class="keyword">admin_password</span>=<span class="string">false</span>
-<span class="keyword">mac_spoofing</span>=<span class="string">true</span>
-<span class="keyword">network_connection</span>=<span class="string">false</span>
-<span class="comment"># 以下の行が、RAMゼロ化を自動で有効にする設定です</span>
-<span class="keyword">kernel_options</span>=<span class="string">mem=erase</span></code></pre>
-                    </li>
-                    <li>次回以降の起動から、Tails Greeter画面で何も操作しなくても、これらの設定（特に<code>mem=erase</code>）が自動で適用されます。</li>
-                </ol>
-            </li>
-        </ul>
-    </div>
-
+  ああ
     <hr>
 
     <h2 id="section2-5">2.5. 物理・論理的な情報リークの完全な遮断</h2>
@@ -536,6 +488,7 @@ VPNが切れても、Torの Kill Switchは生きているため平文には戻�
 
 </body>
 </html>
+
 
 
 
