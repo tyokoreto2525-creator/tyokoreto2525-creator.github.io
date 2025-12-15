@@ -393,51 +393,246 @@ VPNが切れても、Torの Kill Switchは生きているため平文には戻�
 <h4>最終的な判断</h4>
 <p>目的がモデルAであれば、VPNは不要であり、使わない方が安全です。モデルBやCに直面している場合にのみ、我々が構築した「VPN迷彩」は強力な武器となります。最も重要なのは、自分がどのモデルに該当するのかを常に意識し、不要なリスクを冒さないことです。</p>
     
-  ああ
-    <hr>
+ <hr>
+<h2 id="section2-4">2.4. RAMフォレンジックとCold Boot Attackへの対策</h2>
+<h4>目的</h4>
+<p>電源を切った後の数秒が、すべてを決する。その数秒のリスクを許容しない。Tailsは、このCold Boot AttackからRAMを保護するための複数の防御層を備えています。</p>
+<h4>Tailsの標準的なRAM保護機能</h4>
+<p>Tailsは、あなたが意識しなくても、常にRAMの保護を試みています。</p>
+<ul>
+    <li><strong>自動的なRAM消去</strong>: Tailsを通常通りシャットダウンするか、USBメモリを物理的に抜くと、システムは自動的にRAMの大部分を上書きします。これは、Linuxカーネルの`init_on_free`機能によって実現されています^1^。</li>
+    <li><strong>プロセス終了時の消去</strong>: あるプロセスが終了した際、そのプロセスが使用していたメモリ領域は即座に解放され、上書きされます^1^。</li>
+</ul>
+<p>これらの標準機能は、多くの状況において十分な保護を提供します。しかし、より高度な脅威に対しては、追加の対策を講じることができます。</p>
+<h4>追加対策1: 起動時のRAM消去強化</h4>
+<p>起動プロセスの段階からRAM消去を確実に行いたい場合、カーネルオプションを利用できます。これは、特に起動直後に物理的なアクセスが想定される場合に有効な防御層です。</p>
+<p><strong>手動での設定（非推奨）</strong>: 毎回の起動時に、GRUBメニューで<code>e</code>を押し、<code>quiet</code>パラメータの後に<code>mem=erase</code>を追記する。これは人為的ミスのリスクがあるため推奨されません。</p>
+<p><strong>【推奨】RAMゼロ化の完全自動化</strong>: Tails Greeterの設定ファイルをPersistentに保存することで、起動オプションを永続化し、RAMゼロ化を完全に自動化します。</p>
+<ul>
+    <li><strong>実行手順</strong>:
+        <ol>
+            <li>Tailsを起動し、Persistentストレージをアンロックします。</li>
+            <li>ターミナルを開き、設定ファイルを保存するディレクトリを作成します: <code class="command">mkdir -p ~/Persistent/tails-greeter</code></li>
+            <li>お好きなテキストエディタ（geditなど）で、設定ファイルを新規作成します: <code class="command">gedit ~/Persistent/tails-greeter/boot-options.ini</code></li>
+            <li>開いたファイルに、以下の内容を<strong>コピー＆ペースト</strong>し、保存して閉じます。
+            <pre><code><span class="keyword">[TailsGreeter]</span>
+<span class="keyword">admin_password</span>=<span class="string">false</span>
+<span class="keyword">mac_spoofing</span>=<span class="string">true</span>
+<span class="keyword">network_connection</span>=<span class="string">false</span>
+<span class="comment"># 以下の行が、RAMゼロ化を自動で有効にする設定です</span>
+<span class="keyword">kernel_options</span>=<span class="string">mem=erase</span></code></pre>
+            </li>
+            <li>次回以降の起動から、Tails Greeter画面で何も操作しなくても、これらの設定（特に<code>mem=erase</code>）が自動で適用されます。</li>
+        </ol>
+    </li>
+</ul>
+<h4>追加対策2: 緊急時の即時シャットダウン（Panicボタン）</h4>
+<p><strong>目的</strong>: 突然の物理的脅威（部屋に侵入者など）に直面した際、攻撃者があなたのPCに触れる前に、可能な限り速く、確実に電源を落とすことが目的です。RAMを「消去する」ことではなく、「シャットダウンする」ことに重点を置きます。</p>
+<p><strong>注意</strong>: Cold Boot Attackに対する100%完全な対策は、電源を即座に切断することです。ソフトウェアによるRAM消去は、物理的な攻撃速度には敵わない場合があります。このボタンは、あくまで最後の手段としての心理的安定と、標準的なシャットダウンプロセスを確実に実行するためのものです。</p>
+<p><strong>手順：</strong></p>
+<ol>
+    <li>Persistentフォルダに、<code>emergency_panic.sh</code>という名前でスクリプトファイルを作成します。</li>
+    <li>以下の内容をコピー＆ペーストして保存します。
+    <pre><code><span class="comment">#!/bin/bash</span>
+<span class="comment"># 緊急時の即時シャットダウンスクリプト</span>
+<span class="comment"># RAMを消去する試みは、システム不安定を招きかねないため行わない。</span>
+<span class="comment"># 最も確実な防御は、攻撃者が操作できる前に電源を落とすことです。</span>
 
-    <h2 id="section2-5">2.5. 物理・論理的な情報リークの完全な遮断</h2>
-    <h4>目的</h4>
-    <p>あらゆる意図しない通信は、敵への招待状である。OSが許可した通信以外は、一切存在してはならない。</p>
-    
-    <h4>実行手順</h4>
-    <ul>
-        <li><strong>Unsafe Browserの恒久的無効化</strong>: Tailsの起動オプションで、毎回「Disable Unsafe Browser」を選択するのを忘れないように、デスクトップの壁紙にその手順を書き記した画像を設定する。</li>
-        <li><strong>MACアドレスの偽装確認</strong>: 起動時の「More Options」で「Hide the computer's MAC address」にチェックが入っていることを、起動のたびに確認する習慣をつける。</li>
-        <li><strong>DNSリークの定期チェック</strong>: <code>~/Persistent/dns_leak_check.sh</code> を作成する。（これは概念であり、実際の実装には高度なスクリプトが必要）</li>
-        <li><strong>GPG鍵のQRコード化</strong>: <code class="command">gpg --export -a your-user-id | qrencode -o ~/Persistent/publickey.png</code> を実行し、USBを介さない鍵交換を可能にする。</li>
-    </ul>
+<span class="comment"># スワップを無効化</span>
+<span class="command">sudo swapoff</span> <span class="option">-a</span>
 
-    <div class="enhancement-box">
-        <h5>[補強] GPG鍵のQRコード化：詳細解説</h5>
-        <p>初心者にとって、一行のコマンドは「魔法」に見えます。ここでは、その魔法を解体し、一字一句の意味を解説します。</p>
+<span class="comment"># ディスクキャッシュをクリアし、できる限りのデータを書き込ませる</span>
+<span class="command">sync</span>
+
+<span class="comment"># 即時シャットダウン</span>
+<span class="command">sudo poweroff</span></code></pre>
+    </li>
+    <li><strong>【最重要】スクリプトの権限を付与</strong>:
+        <pre><code><span class="command">chmod</span> <span class="option">+x</span> ~/Persistent/emergency_panic.sh</code></pre>
+    </li>
+    <li><strong>デスクトップにPanicボタンを作成</strong>:
         <ul>
-            <li><strong>コマンドの分解</strong>: <code class="command">gpg --export -a your-user-id | qrencode -o ~/Persistent/publickey.png</code></li>
-            <li><strong>Part 1: <code class="command">gpg --export -a your-user-id</code></strong>
-                <ul>
-                    <li><code class="command">gpg</code>: GPGプログラムを呼び出します。</li>
-                    <li><code class="option">--export</code>: 鍵を「書き出し（エクスポート）」するための命令です。</li>
-                    <li><code class="option">-a</code>: 「ASCII（アスキー）形式」で出力するオプションです。これにより、バイナリデータではなく、テキストとして読める形式（「-----BEGIN PGP PUBLIC KEY BLOCK-----」で始まるアレ）になります。テキスト形式にすることで、次の<code>qrencode</code>コマンドがデータを扱いやすくなります。</li>
-                    <li><code class="string">your-user-id</code>: ここが唯一書き換える部分です。GPG鍵の「名前」や「メールアドレス」を指定します。もし自分のユーザーIDが分からない場合、ターミナルで <code class="command">gpg --list-secret-keys --keyid-format LONG</code> を実行し、<code>uid</code>と書かれた行に表示される情報（例: <code>uid [ultimate] Test User (test) &lt;test@example.com&gt;</code>）を参考にします。</li>
-                </ul>
+            <li>デスクトップで右クリックし、「新しいドキュメント」→「空のドキュメント」を選び、ファイル名を <code>emergency_panic.desktop</code> にします。</li>
+            <li><code>emergency_panic.desktop</code> をテキストエディタで開き、以下の内容をコピー＆ペーストして保存します。
+            <pre><code><span class="keyword">[Desktop Entry]</span>
+<span class="keyword">Type</span>=<span class="string">Application</span>
+<span class="keyword">Name</span>=<span class="string">EMERGENCY PANIC</span>
+<span class="keyword">Exec</span>=/home/amnesia/Persistent/emergency_panic.sh
+<span class="keyword">Icon</span>=<span class="string">dialog-error</span>
+<span class="keyword">Terminal</span>=<span class="string">false</span></code></pre>
             </li>
-            <li><strong>Part 2: <code class="command">|</code> (パイプ)</strong>
-                <ul>
-                    <li>これは「パイプ」と呼ばれる記号です。「左側のコマンドの出力結果を、右側のコマンドの入力として渡す」という、非常に強力な機能です。この場合、<code>gpg</code>が書き出したASCII形式の公開鍵のテキストデータを、直接<code>qrencode</code>に渡しています。</li>
-                </ul>
+            <li><strong>【最重要】デスクトップエントリの権限を付与</strong>:
+                <pre><code><span class="command">chmod</span> <span class="option">+x</span> ~/Desktop/emergency_panic.desktop</code></pre>
             </li>
-            <li><strong>Part 3: <code class="command">qrencode -o ~/Persistent/publickey.png</code></strong>
-                <ul>
-                    <li><code class="command">qrencode</code>: QRコードを生成するプログラムです。</li>
-                    <li><code class="option">-o</code>: 「output（出力）」の略です。出力先のファイル名を指定します。</li>
-                    <li><code class="string">~/Persistent/publickey.png</code>: 出力される画像ファイルの名前と場所です。<code>~/Persistent/</code>はTailsのPersistentストレージ内を指すので、シャットダウンしてもこの画像は消えません。</li>
-                </ul>
-            </li>
-            <li><strong>まとめ</strong>: つまりこの一行のコマンドは、「<strong>公開鍵をテキスト形式で取り出し、それをQRコード画像に変換して、Persistentストレージに保存する</strong>」という一連の作業を、一瞬で行うためのものです。</li>
         </ul>
-    </div>
-
+    </li>
+</ol>
+<div class="enhancement-box">
+<h5>[補強] 物理的な最終防御</h5>
+<p>ソフトウェアの対策には限界があります。Cold Boot Attackに対する唯一ほぼ確実な対策は、物理的なものです。</p>
+<ul>
+    <li><strong>USBの抜き取り</strong>: Tailsは、USBメモリが物理的に抜かれたことを検知すると、非常に迅速なシャットダウンプロセスを開始し、RAMの消去を試みます^1,2^。これは、最も信頼できる緊急対策の一つです。</li>
+    <li><strong>物理的な電源切断</strong>: 可能であれば、ノートPCのバッテリーを外しておくか、電源コードを物理的に引き抜くのが、最も確実な方法です。攻撃者がPCに触れる前に、電力の供給を絶ってください。</li>
+</ul>
+</div>
     <hr>
+
+<hr>
+<h2 id="section2-5">2.5. 物理・論理的な情報リークの完全な遮断</h2>
+<h4>目的</h4>
+<p>あらゆる意図しない通信は、敵への招待状である。OSが許可した通信以外は、一切存在してはならない。人間が「確認し忘れる」ことを前提とし、システムが自動で検知・警告する仕組みを構築する。</p>
+<h4>実行手順</h4>
+<ul>
+    <li><strong>Unsafe Browserの恒久的無効化</strong>: 「忘れないようにする」という人間依存のアプローチをやめ、起動スクリプトでUnsafe Browserの実行ファイルを恒久的に無効化し、物理的に起動不能にする。</li>
+    <li><strong>MACアドレスの自動検証と警告</strong>: 起動時に自動でMACアドレスが偽装されているかを確認し、偽装されていなかった場合はデスクトップ全体に警告を表示する。</li>
+    <li><strong>DNSリークの定期チェック</strong>: VPN接続時など、DNSリークが発生しやすい状況で定期的にDNSサーバーをチェックし、意図しないサーバーが使われていたら警告する。</li>
+    <li><strong>GPG鍵のQRコード化</strong>: <code class="command">gpg --export -a your-user-id | qrencode -o ~/Persistent/publickey.png</code> を実行し、USBを介さない鍵交換を可能にする。</li>
+</ul>
+<hr>
+<h3>【実装】自動防御システムの構築</h3>
+<p>以下のスクリプトを「起動時アプリケーション」に登録することで、人間が意識しなくても、システムが常にあなたの匿名性を監視・保護します。</p>
+<h4>ステップ 1: Unsafe Browserを物理的に起動不能にする</h4>
+<p><strong>これは何をするのか？</strong><br>
+Unsafe Browserの実行ファイルをリネーム（名前変更）することで、システムから起動できないようにします。これにより、ユーザーが間違ってクリックしても、エラーが出て起動に失敗するようになります。</p>
+<p><strong>どうなるのか？</strong><br>
+デスクトップのUnsafe Browserアイコンは残りますが、クリックしても「起動できません」というエラーが表示されるだけで、危険なブラウザが立ち上がることはありません。</p>
+<p><strong>手順：</strong></p>
+<ol>
+    <li>Persistentフォルダに、<code>disable_unsafe_browser.sh</code>という名前でスクリプトファイルを作成します。</li>
+    <li>以下の内容をコピー＆ペーストして保存します。
+    <pre><code><span class="comment">#!/bin/bash</span>
+<span class="comment"># Unsafe Browserの実行ファイルをリネームし、起動不能にする</span>
+
+<span class="keyword">UNSAFE_BROWSER_EXEC</span>=<span class="string">"/usr/bin/unsafe-browser"</span>
+<span class="keyword">RENAMED_EXEC</span>=<span class="string">"/usr/bin/unsafe-browser.disabled"</span>
+
+<span class="comment"># もし無効化されていなければ、リネームする</span>
+<span class="keyword">if</span> [ <span class="option">-f</span> <span class="string">"$UNSAFE_BROWSER_EXEC"</span> ]; <span class="keyword">then</span>
+  <span class="command">sudo mv</span> <span class="string">"$UNSAFE_BROWSER_EXEC"</span> <span class="string">"$RENAMED_EXEC"</span>
+<span class="keyword">fi</span></code></pre>
+    </li>
+    <li><strong>【最重要】スクリプトの権限を付与</strong>:
+    <pre><code><span class="command">chmod</span> <span class="option">+x</span> ~/Persistent/disable_unsafe_browser.sh</code></pre>
+    </li>
+    <li><strong>「起動時アプリケーション」への登録</strong>:
+        <ul>
+            <li>「起動するアプリケーション」設定画面から、このスクリプトを追加します。</li>
+            <li>「名前」: <code>Disable Unsafe Browser</code></li>
+            <li>「コマンド」: <code>/home/amnesia/Persistent/disable_unsafe_browser.sh</code></li>
+        </ul>
+    </li>
+</ol>
+<h4>ステップ 2: MACアドレスの自動検証と警告</h4>
+<p><strong>これは何をするのか？</strong><br>
+起動時に現在のMACアドレスを確認し、それがTailsの偽装機能（macchanger）によって変更されたものかどうかを判定します。もし偽装されていなければ、画面に警告を表示し続けます。</p>
+<p><strong>どうなるのか？</strong><br>
+万が一起動オプションでMACアドレスの偽装を忘れても、デスクトップに警告が表示されるため、すぐに気づくことができます。</p>
+<p><strong>手順：</strong></p>
+<ol>
+    <li>Persistentフォルダに、<code>check_mac_spoof.sh</code>という名前でスクリプトファイルを作成します。</li>
+    <li>以下の内容をコピー＆ペーストして保存します。
+    <pre><code><span class="comment">#!/bin/bash</span>
+<span class="comment"># MACアドレスが偽装されているかを確認し、警告する</span>
+
+<span class="comment"># Tailsが偽装したと記録しているMACアドレス</span>
+<span class="keyword">SPOOFED_MAC</span>=<span class="string">$(cat /var/lib/tails/mac-spoofed-mac)</span>
+<span class="comment"># 現在実際に使われているMACアドレス</span>
+<span class="keyword">CURRENT_MAC</span>=<span class="string">$(ip link show eth0 | grep -o -E '([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}')</span>
+
+<span class="keyword">if</span> [ <span class="string">"$SPOOFED_MAC"</span> <span class="keyword">!=</span> <span class="string">"$CURRENT_MAC"</span> ]; <span class="keyword">then</span>
+  <span class="comment"># 偽装されていない場合、警告を表示し続ける</span>
+  <span class="keyword">while</span> <span class="keyword">true</span>; <span class="keyword">do</span>
+    <span class="command">notify-send</span> <span class="option">-u</span> <span class="string">critical</span> <span class="string">"WARNING: MAC Spoofing Failed!"</span> <span class="string">"Your real MAC address is exposed. Reboot immediately."</span>
+    <span class="command">sleep</span> <span class="string">60</span>
+  <span class="keyword">done</span>
+<span class="keyword">fi</span></code></pre>
+    </li>
+    <li><strong>【最重要】スクリプトの権限を付与</strong>:
+    <pre><code><span class="command">chmod</span> <span class="option">+x</span> ~/Persistent/check_mac_spoof.sh</code></pre>
+    </li>
+    <li><strong>「起動時アプリケーション」への登録</strong>:
+        <ul>
+            <li>「起動するアプリケーション」設定画面から、このスクリプトを追加します。</li>
+            <li>「名前」: <code>MAC Spoof Check</code></li>
+            <li>「コマンド」: <code>/home/amnesia/Persistent/check_mac_spoof.sh</code></li>
+        </ul>
+    </li>
+</ol>
+<h4>ステップ 3: DNSリークの定期チェック</h4>
+<p><strong>これは何をするのか？</strong><br>
+定期的に現在利用しているDNSサーバーを確認し、意図しないサーバー（例: 8.8.8.8 や ISPのDNS）が使われていないかを監視します。</p>
+<p><strong>どうなるのか？</strong><br>
+VPN接続が不安定で、意図せず平文のDNSサーバーに問い合わせてしまった場合、それを即座に検知し、警告を表示します。</p>
+<p><strong>手順：</strong></p>
+<ol>
+    <li>Persistentフォルダに、<code>check_dns_leak.sh</code>という名前でスクリプトファイルを作成します。</li>
+    <li>以下の内容をコピー＆ペーストして保存します。
+    <pre><code><span class="comment">#!/bin/bash</span>
+<span class="comment"># DNSリークを定期的にチェックする</span>
+
+<span class="comment"># これはVPN接続時にのみ実行する</span>
+<span class="keyword">while</span> ! ip route show dev tun0 >/dev/null <span class="string">2>&1</span>; <span class="keyword">do</span>
+  <span class="command">sleep</span> <span class="string">30</span> <span class="comment"># VPNが接続されるまで待機</span>
+<span class="keyword">done</span>
+
+<span class="comment"># 監視対象の危険なDNSサーバーリスト（例）</span>
+<span class="keyword">BAD_DNS</span>=<span class="string">("8.8.8.8" "1.1.1.1")</span>
+
+<span class="keyword">while</span> <span class="keyword">true</span>; <span class="keyword">do</span>
+  <span class="comment"># 現在のDNSサーバーを取得</span>
+  <span class="keyword">CURRENT_DNS</span>=<span class="string">$(nmcli dev show | grep IP4.DNS | awk '{print $2}')</span>
+  
+  <span class="comment"># 危険なDNSサーバーリストと照合</span>
+  <span class="keyword">for</span> bad_dns <span class="keyword">in</span> <span class="string">"${BAD_DNS[@]}"</span>; <span class="keyword">do</span>
+    <span class="keyword">if</span> [[ <span class="string">"$CURRENT_DNS"</span> == <span class="string">*"$bad_dns"</span>* ]]; <span class="keyword">then</span>
+      <span class="command">notify-send</span> <span class="option">-u</span> <span class="string">critical</span> <span class="string">"CRITICAL: DNS LEAK DETECTED!"</span> <span class="string">"Your traffic is NOT protected by VPN. Disconnect immediately!"</span>
+      <span class="command">sleep</span> <span class="string">30</span>
+    <span class="keyword">fi</span>
+  <span class="keyword">done</span>
+  <span class="command">sleep</span> <span class="string">300</span> <span class="comment"># 5分ごとにチェック</span>
+<span class="keyword">done</span></code></pre>
+    </li>
+    <li><strong>【最重要】スクリプトの権限を付与</strong>:
+    <pre><code><span class="command">chmod</span> <span class="option">+x</span> ~/Persistent/check_dns_leak.sh</code></pre>
+    </li>
+    <li><strong>「起動時アプリケーション」への登録</strong>:
+        <ul>
+            <li>「起動するアプリケーション」設定画面から、このスクリプトを追加します。</li>
+            <li>「名前」: <code>DNS Leak Monitor</code></li>
+            <li>「コマンド」: <code>/home/amnesia/Persistent/check_dns_leak.sh</code></li>
+        </ul>
+    </li>
+</ol>
+<hr>
+<div class="enhancement-box">
+<h5>[補強] GPG鍵のQRコード化：詳細解説</h5>
+<p>初心者にとって、一行のコマンドは「魔法」に見えます。ここでは、その魔法を解体し、一字一句の意味を解説します。</p>
+<ul>
+    <li><strong>コマンドの分解</strong>: <code class="command">gpg --export -a your-user-id | qrencode -o ~/Persistent/publickey.png</code></li>
+    <li><strong>Part 1: <code class="command">gpg --export -a your-user-id</code></strong>
+        <ul>
+            <li><code class="command">gpg</code>: GPGプログラムを呼び出します。</li>
+            <li><code class="option">--export</code>: 鍵を「書き出し（エクスポート）」するための命令です。</li>
+            <li><code class="option">-a</code>: 「ASCII（アスキー）形式」で出力するオプションです。これにより、バイナリデータではなく、テキストとして読める形式（「-----BEGIN PGP PUBLIC KEY BLOCK-----」で始まるアレ）になります。テキスト形式にすることで、次の<code>qrencode</code>コマンドがデータを扱いやすくなります。</li>
+            <li><code class="string">your-user-id</code>: ここが唯一書き換える部分です。GPG鍵の「名前」や「メールアドレス」を指定します。もし自分のユーザーIDが分からない場合、ターミナルで <code class="command">gpg --list-secret-keys --keyid-format LONG</code> を実行し、<code>uid</code>と書かれた行に表示される情報（例: <code>uid [ultimate] Test User (test) &lt;test@example.com&gt;</code>）を参考にします。</li>
+        </ul>
+    </li>
+    <li><strong>Part 2: <code class="command">|</code> (パイプ)</strong>
+        <ul>
+            <li>これは「パイプ」と呼ばれる記号です。「左側のコマンドの出力結果を、右側のコマンドの入力として渡す」という、非常に強力な機能です。この場合、<code>gpg</code>が書き出したASCII形式の公開鍵のテキストデータを、直接<code>qrencode</code>に渡しています。</li>
+        </ul>
+    </li>
+    <li><strong>Part 3: <code class="command">qrencode -o ~/Persistent/publickey.png</code></strong>
+        <ul>
+            <li><code class="command">qrencode</code>: QRコードを生成するプログラムです。</li>
+            <li><code class="option">-o</code>: 「output（出力）」の略です。出力先のファイル名を指定します。</li>
+            <li><code class="string">~/Persistent/publickey.png</code>: 出力される画像ファイルの名前と場所です。<code>~/Persistent/</code>はTailsのPersistentストレージ内を指すので、シャットダウンしてもこの画像は消えません。</li>
+        </ul>
+    </li>
+    <li><strong>まとめ</strong>: つまりこの一行のコマンドは、「<strong>公開鍵をテキスト形式で取り出し、それをQRコード画像に変換して、Persistentストレージに保存する</strong>」という一連の作業を、一瞬で行うためのものです。</li>
+</ul>
+</div>
+    
 
     <h2 id="section2-6">2.6. 運用の自動化とオペレーショナル・セキュリティ（OPSEC）</h2>
     <h4>目的</h4>
@@ -488,6 +683,7 @@ VPNが切れても、Torの Kill Switchは生きているため平文には戻�
 
 </body>
 </html>
+
 
 
 
