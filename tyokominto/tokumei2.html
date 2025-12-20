@@ -228,34 +228,41 @@
 <span class="command">gpg</span> <span class="option">-c</span> <span class="option">--cipher-algo</span> <span class="string">AES256</span> <span class="option">--compress-algo</span> <span class="string">1</span> <span class="option">--s2k-mode</span> <span class="string">3</span> <span class="option">--s2k-digest-algo</span> <span class="string">SHA512</span> <span class="option">--s2k-count</span> <span class="string">65536</span> secret_file.txt
 <span class="comment"># ファイルを復号する</span>
 <span class="command">gpg</span> <span class="option">-d</span> secret_file.txt.gpg</code></pre>
+<p><strong>【補強】GPG復号作業の徹底</strong><br>
+復号したファイルは、必ず <code>/tmp</code> (RAMディスク) 上で行い、シャットダウンで自動的に消滅させるように徹底してください。Persistent内に復号したファイルを保存してしまうと、二重暗号化の意味が失われます。</p>
+
 <div class="enhancement-box">
-<h5>[補強] Persistentストレージの物理的隠蔽（隠しボリューム）</h5>
-<p>Persistentストレージは「痕跡」です。通常の暗号化に加え、LUKSによる「隠しボリューム」を作成することで、たとえUSBが押収され、通常のパスワードが破られても、最も重要なデータの存在自体を隠蔽します。</p>
-<p><strong>概念</strong>: 通常のPersistentパーティションとは別に、LUKSで暗号化された第三のパーティションをUSBに作成します。このパーティションは、特別なコマンドでしかマウント（接続）できず、通常のTails使用時には存在すら認識されません。</p>
-<p><strong>注意</strong>: 隠しボリュームの作成と運用は、誤操作によるデータ消失のリスクがあります。ここでは、リスクを最小限に抑えるための安全スクリプトも併せて提供します。</p>
-<p><strong>隠しボリュームの作成手順</strong></p>
-<ol>
-    <li>Tailsを起動し、アプリケーションメニューから「ユーティリティ」→「ディスク」(<code class="command">gnome-disks</code>)を起動します。</li>
-    <li>左側のデバイス一覧から、Tails USBメモリ（例: 8.0 GB Flash Disk）を選択します。ストレージの容量グラフ下部にある「空き領域」の部分をクリックします。</li>
-    <li>ウィンドウ下部の「＋」ボタンを押し、新しいパーティションを作成します。</li>
-    <li>「サイズ」は「残りのすべて」、「名前」は空のまま、「タイプ」は「その他」を選択し、「作成」ボタンを押します。</li>
-    <li>新しく作成されたパーティション（通常は末尾の番号が大きいもの）をクリックし、歯車アイコンから「フォーマット」を選択します。</li>
-    <li>「消去」ドロップダウンから「LUKS暗号化パーティションの作成」を選択し、<strong>通常のPersistentパスワードとは別の、強力なパスワード</strong>を設定して「フォーマット」ボタンを押します。</li>
-    <li>フォーマットが完了したら、「ディスク」アプリケーションは閉じて構いません。</li>
-</ol>
-<p><strong>隠しボリュームの安全な運用方法</strong></p>
-<p>通常のTails使用時は、このパーティションには一切触れません。最も重要なGPG秘密鍵などを保存する必要がある時のみ、以下の<strong>安全スクリプト</strong>を使用してアクセスします。これにより、デバイス名の打ち間違いやコマンドミスのリスクを大幅に低減します。</p>
-<ol>
-    <li>Persistentフォルダに、<code>mount_hidden.sh</code>という名前でスクリプトファイルを作成します。</li>
-    <li>以下の内容をコピー＆ペーストして保存します。
-    <pre><code><span class="comment">#!/bin/bash</span>
+    <h5>[補強] Persistentストレージの物理的隠蔽（隠しボリューム）</h5>
+    <p>Persistentストレージは「痕跡」です。通常の暗号化に加え、LUKSによる「隠しボリューム」を作成することで、たとえUSBが押収され、通常のパスワードが破られても、最も重要なデータの存在自体を隠蔽します。</p>
+    <p><strong>概念</strong>: 通常のPersistentパーティションとは別に、LUKSで暗号化された第三のパーティションをUSBに作成します。このパーティションは、特別なコマンドでしかマウント（接続）できず、通常のTails使用時には存在すら認識されません。</p>
+    <p><strong>注意</strong>: 隠しボリュームの作成と運用は、誤操作によるデータ消失のリスクがあります。ここでは、リスクを最小限に抑えるための安全スクリプトも併せて提供します。</p>
+    <p><strong>隠しボリュームの作成手順</strong></p>
+    <ol>
+        <li>Tailsを起動し、アプリケーションメニューから「ユーティリティ」→「ディスク」(<code class="command">gnome-disks</code>)を起動します。</li>
+        <li>左側のデバイス一覧から、Tails USBメモリ（例: 8.0 GB Flash Disk）を選択します。ストレージの容量グラフ下部にある「空き領域」の部分をクリックします。</li>
+        <li>ウィンドウ下部の「＋」ボタンを押し、新しいパーティションを作成します。</li>
+        <li>「サイズ」は「残りのすべて」、「名前」は一見無害な名前（例: <code>USB-Backup</code>）を入力し、「タイプ」は「その他」を選択し、「作成」ボタンを押します。</li>
+        <li>新しく作成されたパーティション（通常は末尾の番号が大きいもの）をクリックし、歯車アイコンから「フォーマット」を選択します。</li>
+        <li>「消去」ドロップダウンから「LUKS暗号化パーティションの作成」を選択し、<strong>通常のPersistentパスワードとは別の、強力なパスワード</strong>を設定して「フォーマット」ボタンを押します。</li>
+        <li>フォーマットが完了したら、「ディスク」アプリケーションは閉じて構いません。</li>
+    </ol>
+    <p><strong>隠しボリュームの安全な運用方法</strong></p>
+    <p>通常のTails使用時は、このパーティションには一切触れません。最も重要なGPG秘密鍵などを保存する必要がある時のみ、以下の<strong>安全スクリプト</strong>を使用してアクセスします。これにより、デバイス名の打ち間違いやコマンドミスのリスクを大幅に低減します。</p>
+    <ol>
+        <li><strong>UUIDの確認</strong>: ターミナルを開き、<code class="command">lsblk -f</code> を実行して、先ほど作成した隠しボリュームの <strong>UUID</strong> を確認します。UUIDは、デバイスの接続順に関わらず変わらない一意のIDです。</li>
+        <li>Persistentフォルダに、<code>mount_hidden.sh</code>という名前でスクリプトファイルを作成します。</li>
+        <li>以下の内容をコピー＆ペーストして保存します。
+            <pre><code><span class="comment">#!/bin/bash</span>
 <span class="comment"># 隠しボリュームを安全にマウントするためのスクリプト</span>
 
 <span class="comment"># --- 設定項目：ここだけをあなたの環境に合わせて書き換えてください ---</span>
-<span class="keyword">HIDDEN_DEVICE</span>=<span class="string">"/dev/sdX3"</span> <span class="comment"># 例: "/dev/sdb3" (lsblk -fで確認したデバイス名)</span>
+<span class="comment"># lsblk -f で確認した UUID（例: a1b2c3d4-e5f6-...）をここに入力してください</span>
+<span class="keyword">HIDDEN_UUID</span>=<span class="string">"ここにUUIDを貼る"</span>
 <span class="keyword">MOUNT_POINT</span>=<span class="string">"/mnt/hidden"</span>
 
 <span class="comment"># --- 以下は基本変更しないでください ---</span>
+<span class="comment"># UUIDからデバイス名を自動的に特定</span>
+<span class="keyword">HIDDEN_DEVICE</span>=<span class="string">"/dev/disk/by-uuid/$HIDDEN_UUID"</span>
 <span class="keyword">MOUNTED_DEVICE</span>=<span class="string">"/dev/mapper/hidden_volume"</span>
 
 <span class="command">echo</span> <span class="string">"隠しボリュームをマウントします..."</span>
@@ -272,24 +279,30 @@
 <span class="command">echo</span> <span class="string">"隠しボリュームが $MOUNT_POINT にマウントされました。"</span>
 <span class="command">echo</span> <span class="string">"アンマウントするには、ターミナルで 'sudo umount $MOUNT_POINT && sudo cryptsetup close hidden_volume' を実行してください。"</span>
 <span class="command">nautilus</span> <span class="string">"$MOUNT_POINT"</span></code></pre>
-    </li>
-    <li><strong>【最重要】スクリプトの権限を付与</strong>:
-    <pre><code><span class="command">chmod</span> <span class="option">+x</span> ~/Persistent/mount_hidden.sh</code></pre>
-    </li>
-    <li><strong>隠しボリュームの使用方法</strong>:
-        <ol>
-            <li>ターミナルを開き、<code class="command">lsblk -f</code> を実行して、隠しボリュームのデバイス名（例: <code>/dev/sdb3</code>）を確認します。</li>
-            <li>スクリプト内の<code>HIDDEN_DEVICE</code>の値を、先ほど確認したデバイス名に書き換えて保存します。</li>
-            <li>ターミナルでスクリプトを実行します: <code class="command">~/Persistent/mount_hidden.sh</code></li>
-            <li>パスワードの入力を求められるので、隠しボリューム用のパスワードを入力します。</li>
-            <li>ファイルマネージャーが開くので、そこで重要なファイルを保存・読み込みします。</li>
-        </ol>
-    </li>
-    <li><strong>【最重要】使用後のアンマウント</strong>: 使用が終わったら、必ず痕跡を消します。ターミナルで以下のコマンドを順に実行してください。
-    <pre><code><span class="command">sudo umount</span> <span class="string">/mnt/hidden</span>
+        </li>
+        <li><strong>【最重要】スクリプトの権限を付与</strong>:
+            <pre><code><span class="command">chmod</span> <span class="option">+x</span> ~/Persistent/mount_hidden.sh</code></pre>
+        </li>
+        <li><strong>【最重要】スクリプトのバックアップ（予備手段）</strong><br>
+            <code>mount_hidden.sh</code> を Persistent に配置するのは利便性が高いですが、もし Persistent 自体が破損した場合、隠しボリュームへの扉（UUID）も失われてしまいます。この最悪の事態を避けるため、<strong>スクリプトの内容、特にUUIDは必ず別の手段でバックアップしてください。</strong><br>
+            <strong>推奨されるバックアップ方法：</strong>
+            <ul>
+                <li><strong>紙への記録:</strong> 最も確実で、電子的な痕跡を一切残さない方法です。UUIDを含むスクリプト全体を紙に書き写し、物理的に安全な場所に保管します。</li>
+                <li><strong>暗号化されたクラウドストレージ:</strong> Torブラウザ経由でアクセスできる、暗号化されたメールサービスの下書きやファイル保存サービスに保存します。</li>
+            </ul>
+        </li>
+        <li><strong>隠しボリュームの使用方法</strong>:
+            <ol>
+                <li>ターミナルでスクリプトを実行します: <code class="command">~/Persistent/mount_hidden.sh</code></li>
+                <li>パスワードの入力を求められるので、隠しボリューム用のパスワードを入力します。</li>
+                <li>ファイルマネージャーが開くので、そこで重要なファイルを保存・読み込みします。</li>
+            </ol>
+        </li>
+        <li><strong>【最重要】使用後のアンマウント</strong>: 使用が終わったら、必ず痕跡を消します。ターミナルで以下のコマンドを順に実行してください。
+            <pre><code><span class="command">sudo umount</span> <span class="string">/mnt/hidden</span>
 <span class="command">sudo cryptsetup</span> <span class="option">close</span> hidden_volume</code></pre>
-    </li>
-</ol>
+        </li>
+    </ol>
 </div>
 
     <hr>
@@ -319,10 +332,10 @@ VPNプロセスは、自分のIPアドレスを知る術がありません。す
 <ol>
     <li>VPNプロバイダからダウンロードした.ovpnファイルを、Persistentフォルダに保存します（例: stealth_vpn.ovpn）。</li>
     <li>テキストエディタでstealth_vpn.ovpnを開き、<strong>remoteで始まる行をすべてコメントアウト（行頭に#を追加）します。
-    <pre><code><span class="comment">#remote jp.givemeproxy.com 1194</span></code></pre>
+        <pre><code><span class="comment">#remote jp.givemeproxy.com 1194</span></code></pre>
     </li>
     <li>そして、その下にSockプロキシ経由での接続設定を追記します。
-    <pre><code><span class="comment"># --- Tor SOCKSプロキシ経由で接続する ---</span>
+        <pre><code><span class="comment"># --- Tor SOCKSプロキシ経由で接続する ---</span>
 <span class="keyword">socks-proxy</span> <span class="string">127.0.0.1</span> <span class="string">9050</span>
 <span class="keyword">socks-proxy-retry</span>
 <span class="comment"># --- VPNサーバーはホスト名で指定（解決はTorが行う） ---</span>
@@ -338,15 +351,17 @@ cronの代わりに、Tailsが公式に提供する「スタートアップア�
 <ol>
     <li>Persistentフォルダに、start_vpn.shという名前でスクリプトファイルを作成します。</li>
     <li>以下の内容をコピー＆ペーストして保存します。
-    <pre><code><span class="comment">#!/bin/bash</span>
+        <pre><code><span class="comment">#!/bin/bash</span>
 <span class="command">sleep</span> <span class="string">15</span> <span class="comment"># 15秒待機して、Torの接続が完全に安定するのを保証する</span>
+<span class="comment"># IPv6リークを完全に封鎖する</span>
+<span class="command">sudo sysctl</span> <span class="option">-w</span> <span class="string">net.ipv6.conf.all.disable_ipv6=1</span>
 <span class="comment"># VPNをバックグラウンドで起動</span>
 <span class="command">openvpn</span> <span class="option">--config</span> ~/Persistent/stealth_vpn.ovpn <span class="option">--daemon</span>
 <span class="comment"># ユーザーに通知を表示（任意）</span>
 <span class="command">notify-send</span> <span class="string">"VPN Camouflage"</span> <span class="string">"VPN迷彩がアクティブになりました。"</span></code></pre>
     </li>
     <li><strong>【最重要】スクリプトの権限を付与</strong>:
-    <pre><code><span class="command">chmod</span> <span class="option">+x</span> ~/Persistent/start_vpn.sh</code></pre>
+        <pre><code><span class="command">chmod</span> <span class="option">+x</span> ~/Persistent/start_vpn.sh</code></pre>
     </li>
     <li><strong>「起動時アプリケーション」への登録</strong>:
         <ul>
@@ -359,35 +374,42 @@ cronの代わりに、Tailsが公式に提供する「スタートアップア�
         </ul>
     </li>
 </ol>
-<h4>ステップ 4: VPN切断時のフェイルセーフ（Kill Switchの完成）</h4>
+<h4>ステップ 4: VPN切断時のフェイルセーフ（Active Kill Switchの完成）</h4>
 <p><strong>これは何をするのか？</strong><br>
-VPN接続が意図せず切断された場合に、通信が「Torのまま」なのか、「平文に戻ってしまったのか」を監視し、危険な状態を即座に検知します。</p>
+VPN接続が意図せず切断された場合に、通信が「Torのまま」なのか、「平文に戻ってしまったのか」を監視し、危険な状態を即座に検知し、<strong>ユーザーの意思に関わらず強制的に通信を停止させます。</strong></p>
 <p><strong>どうなるのか？</strong><br>
-VPNが切れても、Torの Kill Switchは生きているため平文には戻りませんが、「迷彩が剥がれた」状態に気づけるようになります。</p>
+VPNが切れても、Torの Kill Switchは生きているため平文には戻りませんが、「迷彩が剥がれた」状態で作業を続けるリスクを、アプリケーションの強制終了によって物理的に排除します。</p>
 <p><strong>手順：</strong></p>
 <ol>
     <li>Persistentフォルダに、check_vpn.shという名前で監視スクリプトを作成します。</li>
     <li>以下の内容をコピー＆ペーストして保存します。
-    <pre><code><span class="comment">#!/bin/bash</span>
-<span class="comment"># このスクリプトは、VPNインターフェースの存在を30秒ごとにチェックします。</span>
+        <pre><code><span class="comment">#!/bin/bash</span>
+<span class="comment"># このスクリプトは、VPNインターフェースの存在を10秒ごとにチェックします。</span>
 <span class="keyword">VPN_INTERFACE</span>=<span class="string">"tun0"</span> <span class="comment"># VPNインターフェース名（WireGuardならwg0）</span>
+
 <span class="keyword">while</span> <span class="keyword">true</span>; <span class="keyword">do</span>
-  <span class="keyword">if</span> ! ip route show dev <span class="string">$VPN_INTERFACE</span> >/dev/null <span class="string">2>&1</span>; <span class="keyword">then</span>
-    <span class="comment"># VPNインターフェースが存在しない場合、警告を表示し続ける</span>
-    <span class="command">notify-send</span> <span class="option">-u</span> <span class="string">critical</span> <span class="string">"WARNING: VPN Disconnected!"</span> <span class="string">"Your camouflage is down. You are running on Tor only."</span>
-    <span class="command">sleep</span> <span class="string">30</span>
-  <span class="keyword">fi</span>
+    <span class="keyword">if</span> ! ip route show dev <span class="string">$VPN_INTERFACE</span> >/dev/null <span class="string">2>&1</span>; <span class="keyword">then</span>
+        <span class="comment"># 迷彩が剥がれた場合、警告を表示し、アプリを強制終了する</span>
+        <span class="command">notify-send</span> <span class="option">-u</span> <span class="string">critical</span> <span class="string">"EMERGENCY: VPN DOWN"</span> <span class="string">"Closing Tor Browser to prevent exposure."</span>
+        <span class="comment"># Tor Browser (と必要なら他のアプリ) を強制終了</span>
+        <span class="command">pkill</span> <span class="option">-f</span> <span class="string">"tor-browser"</span>
+        <span class="comment"># pkill -f "thunderbird" # メールも使うなら追加</span>
+        <span class="comment"># 警告音を鳴らす（任意）</span>
+        <span class="command">echo</span> <span class="option">-e</span> <span class="string">"\a"</span>
+        <span class="command">sleep</span> <span class="string">5</span>
+    <span class="keyword">fi</span>
+    <span class="command">sleep</span> <span class="string">10</span> <span class="comment"># チェック間隔</span>
 <span class="keyword">done</span></code></pre>
     </li>
     <li><strong>【最重要】スクリプトの権限を付与</strong>:
-    <pre><code><span class="command">chmod</span> <span class="option">+x</span> ~/Persistent/check_vpn.sh</code></pre>
+        <pre><code><span class="command">chmod</span> <span class="option">+x</span> ~/Persistent/check_vpn.sh</code></pre>
     </li>
     <li><strong>「起動時アプリケーション」への登録</strong>:
         <ul>
             <li>ステップ3と同じ要領で、もう一つアプリケーションを追加します。</li>
             <li>「名前」: VPN Monitor</li>
             <li>「コマンド」: /home/amnesia/Persistent/check_vpn.sh</li>
-            <li>「コメント」: Monitors VPN connection status.</li>
+            <li>「コメント」: Monitors VPN connection and acts as an Active Kill Switch.</li>
         </ul>
     </li>
 </ol>
@@ -397,7 +419,7 @@ VPNが切れても、Torの Kill Switchは生きているため平文には戻�
 <ul>
     <li><strong>構造的矛盾の解消</strong>: VPNは必ずTorの内側を通るため、Tailsのiptablesと競合する余地はありません。</li>
     <li><strong>Tails適合性の向上</strong>: cronの代わりにTails標準の「起動時アプリケーション」を使うため、起動順序の問題は解消されます。</li>
-    <li><strong>Kill Switchの完成</strong>: VPNが切断されても平文リークはなく、監視スクリプトが即座に通知します。</li>
+    <li><strong>Kill Switchの完成</strong>: VPNが切断されても平文リークはなく、<strong>監視スクリプトが即座にアプリケーションを強制終了させることで、迷彩が剥がれた状態での運用を物理的に阻止します。</strong></li>
     <li><strong>OPSECの完成</strong>: VPNプロバイダはIPアドレスを知ることができず、VPNの状態を常に認識できます。</li>
 </ul>
 <p>これは、「VPNを信用しない」という前提に立ちながら、その利点を安全に享受するための、最も堅牢で矛盾のない構成です。ただし、最も安全な選択肢は常に状況によって変わることを忘れないでください。次のセクションでは、置かれた環境に応じて、この「VPN迷彩」が必要かどうかを判断するための指針を示します。</p>
@@ -424,7 +446,6 @@ VPNが切れても、Torの Kill Switchは生きているため平文には戻�
 </ul>
 <h4>最終的な判断</h4>
 <p>目的がモデルAであれば、VPNは不要であり、使わない方が安全です。モデルBやCに直面している場合にのみ、我々が構築した「VPN迷彩」は強力な武器となります。最も重要なのは、自分がどのモデルに該当するのかを常に意識し、不要なリスクを冒さないことです。</p>
-    
  <hr>
 <h2 id="section2-4">2.4. RAMフォレンジックとCold Boot Attackへの対策</h2>
 <h4>目的</h4>
@@ -432,7 +453,7 @@ VPNが切れても、Torの Kill Switchは生きているため平文には戻�
 <h4>Tailsの標準的なRAM保護機能</h4>
 <p>Tailsは、あなたが意識しなくても、常にRAMの保護を試みています。</p>
 <ul>
-    <li><strong>自動的なRAM消去</strong>: Tailsを通常通りシャットダウンするか、USBメモリを物理的に抜くと、システムは自動的にRAMの大部分を上書きします。これは、Linuxカーネルの`init_on_free`機能によって実現されています^1^。</li>
+    <li><strong>自動的なRAM消去</strong>: Tailsを通常通りシャットダウンするか、USBメモリを物理的に抜くと、システムは自動的にRAMの大部分を上書きします。これは、Linuxカーネルの<code>init_on_free</code>機能によって実現されています^1,2^。</li>
     <li><strong>プロセス終了時の消去</strong>: あるプロセスが終了した際、そのプロセスが使用していたメモリ領域は即座に解放され、上書きされます^1^。</li>
 </ul>
 <p>これらの標準機能は、多くの状況において十分な保護を提供します。しかし、より高度な脅威に対しては、追加の対策を講じることができます。</p>
@@ -447,7 +468,7 @@ VPNが切れても、Torの Kill Switchは生きているため平文には戻�
             <li>ターミナルを開き、設定ファイルを保存するディレクトリを作成します: <code class="command">mkdir -p ~/Persistent/tails-greeter</code></li>
             <li>お好きなテキストエディタ（geditなど）で、設定ファイルを新規作成します: <code class="command">gedit ~/Persistent/tails-greeter/boot-options.ini</code></li>
             <li>開いたファイルに、以下の内容を<strong>コピー＆ペースト</strong>し、保存して閉じます。
-            <pre><code><span class="keyword">[TailsGreeter]</span>
+                <pre><code><span class="keyword">[TailsGreeter]</span>
 <span class="keyword">admin_password</span>=<span class="string">false</span>
 <span class="keyword">mac_spoofing</span>=<span class="string">true</span>
 <span class="keyword">network_connection</span>=<span class="string">false</span>
@@ -465,17 +486,14 @@ VPNが切れても、Torの Kill Switchは生きているため平文には戻�
 <ol>
     <li>Persistentフォルダに、<code>emergency_panic.sh</code>という名前でスクリプトファイルを作成します。</li>
     <li>以下の内容をコピー＆ペーストして保存します。
-    <pre><code><span class="comment">#!/bin/bash</span>
+        <pre><code><span class="comment">#!/bin/bash</span>
 <span class="comment"># 緊急時の即時シャットダウンスクリプト</span>
 <span class="comment"># RAMを消去する試みは、システム不安定を招きかねないため行わない。</span>
 <span class="comment"># 最も確実な防御は、攻撃者が操作できる前に電源を落とすことです。</span>
-
 <span class="comment"># スワップを無効化</span>
 <span class="command">sudo swapoff</span> <span class="option">-a</span>
-
 <span class="comment"># ディスクキャッシュをクリアし、できる限りのデータを書き込ませる</span>
 <span class="command">sync</span>
-
 <span class="comment"># 即時シャットダウン</span>
 <span class="command">sudo poweroff</span></code></pre>
     </li>
@@ -486,7 +504,7 @@ VPNが切れても、Torの Kill Switchは生きているため平文には戻�
         <ul>
             <li>デスクトップで右クリックし、「新しいドキュメント」→「空のドキュメント」を選び、ファイル名を <code>emergency_panic.desktop</code> にします。</li>
             <li><code>emergency_panic.desktop</code> をテキストエディタで開き、以下の内容をコピー＆ペーストして保存します。
-            <pre><code><span class="keyword">[Desktop Entry]</span>
+                <pre><code><span class="keyword">[Desktop Entry]</span>
 <span class="keyword">Type</span>=<span class="string">Application</span>
 <span class="keyword">Name</span>=<span class="string">EMERGENCY PANIC</span>
 <span class="keyword">Exec</span>=/home/amnesia/Persistent/emergency_panic.sh
@@ -499,13 +517,56 @@ VPNが切れても、Torの Kill Switchは生きているため平文には戻�
         </ul>
     </li>
 </ol>
+<h4>追加対策3: タイムド・デッドマンスイッチ（無操作時の自動シャットダウン）</h4>
+<p><strong>目的</strong>: 最も危険なのは、<strong>「ユーザーが意識を失った、または拘束された」</strong>という、自分では何もできない状況です。この対策は、一定時間ユーザーの操作がない場合に、システムが自らをシャットダウンさせるための最終的な安全装置（デッドマンスイッチ）です。</p>
+<p><strong>手順：</strong></p>
+<ol>
+    <li><strong>【補助ツールのインストール】</strong> Tailsには標準で入っていない<code>xprintidle</code>コマンド（Xセッションのアイドル時間を取得するツール）をインストールします。Additional Software機能を使い、<code>xprintidle</code>をPersistentにインストールしてください。</li>
+    <li>Persistentフォルダに、<code>deadman_switch.sh</code>という名前でスクリプトファイルを作成します。</li>
+    <li>以下の内容をコピー＆ペーストして保存します。
+        <pre><code><span class="comment">#!/bin/bash</span>
+<span class="comment"># タイムド・デッドマンスイッチ</span>
+<span class="comment"># 300秒（5分）間、ユーザーの操作（マウス、キー）がなければ自動的にシャットダウンする</span>
+
+<span class="keyword">TIMEOUT</span>=<span class="string">300000</span> <span class="comment"># 5分（ミリ秒単位で指定）</span>
+
+<span class="command">echo</span> <span class="string">"タイムド・デッドマンスイッチがアクティブです。${TIMEOUT}ミリ秒間の操作がない場合、自動シャットダウンします。"</span>
+
+<span class="keyword">while</span> <span class="keyword">true</span>; <span class="keyword">do</span>
+    <span class="comment"># xprintidleでアイドル時間を取得</span>
+    <span class="keyword">IDLE_TIME</span>=$(<span class="command">xprintidle</span>)
+
+    <span class="comment"># アイドル時間がタイムアウトを超えた場合</span>
+    <span class="keyword">if</span> [ <span class="string">"$IDLE_TIME"</span> <span class="option">-ge</span> <span class="string">"$TIMEOUT"</span> ]; <span class="keyword">then</span>
+        <span class="command">notify-send</span> <span class="option">-u</span> <span class="string">critical</span> <span class="string">"DEADMAN SWITCH ACTIVATED"</span> <span class="string">"No activity detected. Forcing shutdown."</span>
+        <span class="command">sync</span>
+        <span class="command">sudo poweroff</span>
+        <span class="command">exit</span> <span class="string">0</span>
+    <span class="keyword">fi</span>
+    <span class="command">sleep</span> <span class="string">10</span> <span class="comment"># 10秒ごとにチェック</span>
+<span class="keyword">done</span></code></pre>
+    </li>
+    <li><strong>【最重要】スクリプトの権限を付与</strong>:
+        <pre><code><span class="command">chmod</span> <span class="option">+x</span> ~/Persistent/deadman_switch.sh</code></pre>
+    </li>
+    <li><strong>「起動時アプリケーション」への登録</strong>:
+        <ul>
+            <li>デスクトップ左上の「アプリケーション」→「設定ツール」→「起動するアプリケーション」を開きます。</li>
+            <li>「追加」ボタンをクリックします。</li>
+            <li>「名前」: <code>Deadman Switch</code></li>
+            <li>「コマンド」: <code>/home/amnesia/Persistent/deadman_switch.sh</code></li>
+            <li>「コメント」: <code>Automatically shuts down if no user activity is detected.</code></li>
+        </ul>
+    </li>
+</ol>
 <div class="enhancement-box">
-<h5>[補強] 物理的な最終防御</h5>
-<p>ソフトウェアの対策には限界があります。Cold Boot Attackに対する唯一ほぼ確実な対策は、物理的なものです。</p>
-<ul>
-    <li><strong>USBの抜き取り</strong>: Tailsは、USBメモリが物理的に抜かれたことを検知すると、非常に迅速なシャットダウンプロセスを開始し、RAMの消去を試みます^1,2^。これは、最も信頼できる緊急対策の一つです。</li>
-    <li><strong>物理的な電源切断</strong>: 可能であれば、ノートPCのバッテリーを外しておくか、電源コードを物理的に引き抜くのが、最も確実な方法です。攻撃者がPCに触れる前に、電力の供給を絶ってください。</li>
-</ul>
+    <h5>[補強] 物理的な最終防御</h5>
+    <p>ソフトウェアの対策には限界があります。Cold Boot Attackに対する唯一ほぼ確実な対策は、物理的なものです。</p>
+    <ul>
+        <li><strong>USBの抜き取り</strong>: Tailsは、USBメモリが物理的に抜かれたことを検知すると、非常に迅速なシャットダウンプロセスを開始し、RAMの消去を試みます^1,2^。これは、最も信頼できる緊急対策の一つです。</li>
+        <li><strong>【補強】物理的OPSEC（デッドマンスイッチの簡易版）:</strong> 「USBの抜き取り」をより確実にするため、<strong>「USBメモリに短いストラップをつけ、手首に巻いておく」</strong>ことを強く推奨します。PCから離れる、または体勢を変える際に、USBが自然に抜ける仕組みを作ることで、無意識のうちに最も安全な対策を実行できます。</li>
+        <li><strong>物理的な電源切断</strong>: 可能であれば、ノートPCのバッテリーを外しておくか、電源コードを物理的に引き抜くのが、最も確実な方法です。攻撃者がPCに触れる前に、電力の供給を絶ってください。データがRAMから消えるまでには数分かかる場合があるため、物理的な電源切断が最も確実な防御となります^1,3,4^。</li>
+    </ul>
 </div>
     <hr>
 
@@ -683,44 +744,46 @@ VPN接続が不安定で、意図せず平文のDNSサーバーに問い合わ�
 <ol>
     <li>Persistentフォルダに、<code>startup_diagnosis.sh</code>という名前でスクリプトファイルを作成します。</li>
     <li>以下の内容をコピー＆ペーストして保存します。
-    <pre><code><span class="comment">#!/bin/bash</span>
+        <pre><code><span class="comment">#!/bin/bash</span>
 <span class="comment"># --- 診断結果を格納する変数 ---</span>
 <span class="keyword">ISSUES_FOUND</span>=<span class="string">""</span>
 
 <span class="comment"># --- 診断項目1: RAMゼロ化設定の確認 ---</span>
 <span class="keyword">if</span> ! <span class="command">grep</span> <span class="option">-q</span> <span class="string">"mem=erase"</span> /proc/cmdline; <span class="keyword">then</span>
-  <span class="keyword">ISSUES_FOUND</span>+=<span class="string">"[CRITICAL] RAM zeroization (mem=erase) is NOT active!\n"</span>
+    <span class="keyword">ISSUES_FOUND</span>+=<span class="string">"[CRITICAL] RAM zeroization (mem=erase) is NOT active!\n"</span>
 <span class="keyword">fi</span>
 
 <span class="comment"># --- 診断項目2: MACアドレス偽装の確認 ---</span>
 <span class="keyword">SPOOFED_MAC</span>=<span class="string">$(cat /var/lib/tails/mac-spoofed-mac)</span>
-<span class="keyword">CURRENT_MAC</span>=<span class="string">$(ip link show eth0 | grep -o -E '([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}')</span>
+<span class="comment"># 【最終修正】アクティブなインターフェースを自動取得</span>
+<span class="keyword">ACTIVE_INTERFACE</span>=<span class="string">$(ip route | grep default | awk '{print $5}')</span>
+<span class="keyword">CURRENT_MAC</span>=<span class="string">$(ip link show "$ACTIVE_INTERFACE" | grep -o -E '([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}')</span>
 <span class="keyword">if</span> [ <span class="string">"$SPOOFED_MAC"</span> <span class="keyword">!=</span> <span class="string">"$CURRENT_MAC"</span> ]; <span class="keyword">then</span>
-  <span class="keyword">ISSUES_FOUND</span>+=<span class="string">"[CRITICAL] MAC address is NOT spoofed!\n"</span>
+    <span class="keyword">ISSUES_FOUND</span>+=<span class="string">"[CRITICAL] MAC address is NOT spoofed on $ACTIVE_INTERFACE!\n"</span>
 <span class="keyword">fi</span>
 
 <span class="comment"># --- 診断項目3: Unsafe Browser無効化の確認 ---</span>
 <span class="keyword">if</span> [ <span class="option">-f</span> <span class="string">"/usr/bin/unsafe-browser"</span> ]; <span class="keyword">then</span>
-  <span class="keyword">ISSUES_FOUND</span>+=<span class="string">"[WARNING] Unsafe Browser is still enabled!\n"</span>
+    <span class="keyword">ISSUES_FOUND</span>+=<span class="string">"[WARNING] Unsafe Browser is still enabled!\n"</span>
 <span class="keyword">fi</span>
 
 <span class="comment"># --- 診断項目4: VPN接続の確認 ---</span>
 <span class="command">sleep</span> <span class="string">20</span> <span class="comment"># VPN接続が完了するのを待つ</span>
 <span class="keyword">if</span> ! ip route show dev tun0 >/dev/null <span class="string">2>&1</span>; <span class="keyword">then</span>
-  <span class="keyword">ISSUES_FOUND</span>+=<span class="string">"[INFO] VPN is not connected. Check your scripts.\n"</span>
+    <span class="keyword">ISSUES_FOUND</span>+=<span class="string">"[INFO] VPN is not connected. Check your scripts.\n"</span>
 <span class="keyword">fi</span>
 
 <span class="comment"># --- 診断結果の通知 ---</span>
 <span class="keyword">if</span> [ <span class="option">-z</span> <span class="string">"$ISSUES_FOUND"</span> ]; <span class="keyword">then</span>
-  <span class="comment"># 問題がない場合</span>
-  <span class="command">notify-send</span> <span class="string">"Startup Diagnosis"</span> <span class="string">"All security checks PASSED. System is secure."</span>
+    <span class="comment"># 問題がない場合</span>
+    <span class="command">notify-send</span> <span class="string">"Startup Diagnosis"</span> <span class="string">"All security checks PASSED. System is secure."</span>
 <span class="keyword">else</span>
-  <span class="comment"># 問題が見つかった場合</span>
-  <span class="command">notify-send</span> <span class="option">-u</span> <span class="string">critical</span> <span class="string">"Startup Diagnosis FAILED"</span> <span class="string">"$ISSUES_FOUND"</span>
+    <span class="comment"># 問題が見つかった場合</span>
+    <span class="command">notify-send</span> <span class="option">-u</span> <span class="string">critical</span> <span class="string">"Startup Diagnosis FAILED"</span> <span class="string">"$ISSUES_FOUND"</span>
 <span class="keyword">fi</span></code></pre>
     </li>
     <li><strong>【最重要】スクリプトの権限を付与</strong>:
-    <pre><code><span class="command">chmod</span> <span class="option">+x</span> ~/Persistent/startup_diagnosis.sh</code></pre>
+        <pre><code><span class="command">chmod</span> <span class="option">+x</span> ~/Persistent/startup_diagnosis.sh</code></pre>
     </li>
 </ol>
 <h4>ステップ 2: 「起動時アプリケーション」への登録</h4>
@@ -755,22 +818,23 @@ VPN接続が不安定で、意図せず平文のDNSサーバーに問い合わ�
 <span class="string">-- Shutdown --</span>
 [✓] Persistentに不要なファイルは残っていないか？</code></pre>
 <div class="conclusion-box">
-<h3>結論：これが完璧を超えたTails OSの姿</h3>
-<p>このマニュアルに沿って構築・運用されたTails USBは、もはや単なるライブOSではありません。それは、以下の特性を持つ、一つの完成された生命体です。</p>
-<ul>
-    <li><strong>自己防衛</strong>: VPNのKill Switch、RAMゼロ化、Panicボタンにより、内外からのあらゆる脅威から自らを守る。</li>
-    <li><strong>完全自動化</strong>: 人為的ミスの可能性をゼロにし、意識しなくても最高のセキュリティ状態を維持する。</li>
-    <li><strong>自己診断</strong>: 起動時に自らの状態を診断し、異常があれば即座に使用者に警告する。</li>
-    <li><strong>痕跡の不在</strong>: 電源を切れば、物理的な痕跡を除き、存在したという事実をデジタル世界から完全に抹消する。</li>
-    <li><strong>深層防御</strong>: 隠しボリュームという最後の砦を持ち、たとえ全てが破られても、最も重要な秘密を守り抜く。</li>
-    <li><strong>運用の思想</strong>: 迷わないよう、チェックリストという「羅針盤」を内蔵している。</li>
-</ul>
+    <h3>結論：これが完璧を超えたTails OSの姿</h3>
+    <p>このマニュアルに沿って構築・運用されたTails USBは、もはや単なるライブOSではありません。それは、以下の特性を持つ、一つの完成された生命体です。</p>
+    <ul>
+        <li><strong>自己防衛</strong>: VPNのKill Switch、RAMゼロ化、Panicボタンにより、内外からのあらゆる脅威から自らを守る。</li>
+        <li><strong>完全自動化</strong>: 人為的ミスの可能性をゼロにし、意識しなくても最高のセキュリティ状態を維持する。</li>
+        <li><strong>自己診断</strong>: 起動時に自らの状態を診断し、異常があれば即座に使用者に警告する。</li>
+        <li><strong>痕跡の不在</strong>: 電源を切れば、物理的な痕跡を除き、存在したという事実をデジタル世界から完全に抹消する。</li>
+        <li><strong>深層防御</strong>: 隠しボリュームという最後の砦を持ち、たとえ全てが破られても、最も重要な秘密を守り抜く。</li>
+        <li><strong>運用の思想</strong>: 迷わないよう、チェックリストという「羅針盤」を内蔵している。</li>
+    </ul>
 </div>
 
 </div>
 
 </body>
 </html>
+
 
 
 
