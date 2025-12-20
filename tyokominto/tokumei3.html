@@ -208,87 +208,76 @@
     </style>
 
     <h1>究極の匿名通信 完全ガイド：第三章</h1>
-    <h2>通信経路の物理的分離（レベル2）【完全戦術マニュアル】</h2>
-    <h3>～あなたはそこにいない。通信だけが、遠くで生まれる【実践編】～</h3>
-    
-    <p>この章の目的は、あなたの物理的な存在と、通信の発信源を完全に分離することです。これにより、防犯カメラ、電波ログ、目撃者証言といった、あらゆる物理的な追跡を不能にします。</p>
-    
-    <hr>
-
-    <h2 id="section3-1">3.1. この戦術の全体像と原理</h2>
-    <p>まず、何をやるのかを頭の中にインストールしてください。</p>
-    <ul>
-        <li><strong>あなたの行動</strong>: あなたは、カフェの中には絶対に入りません。カフェから数十メートル離れた、安全な場所（車の中、別の建物など）にいます。</li>
-        <li><strong>装置の役割</strong>: あなたが事前に設置した小さな装置（Raspberry Pi）が、あなたの代わりにカフェのフリーWi-Fiに接続し、あなた専用の「秘密のWi-Fi」を発信します。</li>
-        <li><strong>通信の流れ</strong>: あなたのPCはその「秘密のWi-Fi」に接続します。すると、あなたの通信は自動的に装置を経由し、カフェのフリーWi-Fiからインターネットに流れていきます。</li>
-    </ul>
-    
-    <blockquote>
-        <p><strong>[あなたのPC]</strong> ←→ <strong>[あなた専用の秘密Wi-Fi]</strong> ←→ <strong>[Raspberry Pi]</strong> ←→ <strong>[カフェのフリーWi-Fi]</strong><br>
-        <em>(安全な場所)</em> &nbsp;&nbsp;&nbsp;&nbsp; <em>(装置が発信)</em> &nbsp;&nbsp;&nbsp;&nbsp; <em>(装置が中継)</em> &nbsp;&nbsp;&nbsp;&nbsp; <em>(発信元)</em></p>
-    </blockquote>
-
-    <p><strong>結果</strong>: カフェのWi-Fiの記録には「Raspberry Piという機器が接続した」とだけ残ります。あなたがそこにいたという物理的な証拠は一切残りません。</p>
-    
-    <hr>
-
-    <h2 id="section3-2">3.2. 必要な機材（揃えるリスト）</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>項目</th>
-                <th>推奨ハード / 設定</th>
-                <th>なぜこれが必要か？（理由）</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><strong>中継ノード</strong></td>
-                <td>Raspberry Pi 4 Model B</td>
-                <td>処理性能が高く、安定した通信を保証するため。</td>
-            </tr>
-            <tr>
-                <td><strong>OS</strong></td>
-                <td>Raspberry Pi OS Lite (64-bit)</td>
-                <td>画面や余計な機能がない分、軽量で高速に動作するため。</td>
-            </tr>
-            <tr>
-                <td><strong>Wi-Fiアダプタ</strong></td>
-                <td>USB接続 ×2</td>
-                <td>wlan0（AP用）: PCと接続するため。<br>wlan1（クライアント用）: カフェのWi-Fiと接続するため。</td>
-            </tr>
-            <tr>
-                <td><strong>電源</strong></td>
-                <td>Anker, RAVPowerなどの20,000mAh以上のバッテリー</td>
-                <td>長時間の作戦を想定し、バッテリー切れのリスクを減らすため。</td>
-            </tr>
-            <tr>
-                <td><strong>MicroSD</strong></td>
-                <td>SanDisk Extreme Pro 32GB以上</td>
-                <td>OSの動作が快適になるため。書き込み速度が重要。</td>
-            </tr>
-            <tr>
-                <td><strong>（オプション）指向性アンテナ</strong></td>
-                <td>2.4GHz用</td>
-                <td>遠くのWi-Fiも確実に捉えるための、より専門的な装備。</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <hr>
-
-    <h2 id="section3-3">3.3. 【最重要】設置前の準備（安全な場所で行う）</h2>
-    <p>ここまでの準備が、作戦の成否を分けます。すべてはあなたの安全な場所（自宅など）で済ませてください。</p>
-    
-    <h4>ステップ1：OSの書き込みとWi-Fi設定</h4>
-    <ul>
-        <li><strong>OS書き込み</strong>: 作業用PCで「Raspberry Pi Imager」を起動し、MicroSDカードに「Raspberry Pi OS Lite (64-bit)」を書き込みます。</li>
-        <li><strong>SSHとWi-Fiのヘッドレス設定</strong>: 書き込み完了後、MicroSDカードをPCに再挿入します。</li>
-        <li><strong>SSH有効化</strong>: boot ドライブ直下に <code>ssh</code> という名前の空のファイルを作成します。</li>
-        <li><strong>Wi-Fi設定</strong>: 同じくbootドライブに <code>wpa_supplicant.conf</code> という名前のテキストファイルを作成し、あなたがこれから設置する場所のWi-Fi情報を以下のように記述します。</li>
-    </ul>
-
-    <pre><code><span class="keyword">country</span>=<span class="string">JP</span>
+   <h2>通信経路の物理的分離（レベル2）【完全戦術マニュアル】</h2>
+<h3>～あなたはそこにいない。通信だけが、遠くで生まれる【実践編】～</h3>
+<p>この章の目的は、あなたの物理的な存在と、通信の発信源を完全に分離することです。これにより、防犯カメラ、電波ログ、目撃者証言といった、あらゆる物理的な追跡を不能にします。</p>
+<hr>
+<h2 id="section3-1">3.1. この戦術の全体像と原理</h2>
+<p>まず、何をやるのかを頭の中にインストールしてください。</p>
+<ul>
+<li><strong>あなたの行動</strong>: あなたは、カフェの中には絶対に入りません。カフェから数十メートル離れた、安全な場所（車の中、別の建物など）にいます。</li>
+<li><strong>装置の役割</strong>: あなたが事前に設置した小さな装置（Raspberry Pi）が、あなたの代わりにカフェのフリーWi-Fiに接続し、あなた専用の「秘密のWi-Fi」を発信します。</li>
+<li><strong>通信の流れ</strong>: あなたのPCはその「秘密のWi-Fi」に接続します。すると、あなたの通信は自動的に装置を経由し、カフェのフリーWi-Fiからインターネットに流れていきます。</li>
+</ul>
+<blockquote>
+<p><strong>[あなたのPC]</strong> ←→ <strong>[あなた専用の秘密Wi-Fi]</strong> ←→ <strong>[Raspberry Pi]</strong> ←→ <strong>[カフェのフリーWi-Fi]</strong><br>
+<em>(安全な場所)</em> &nbsp;&nbsp;&nbsp;&nbsp; <em>(装置が発信)</em> &nbsp;&nbsp;&nbsp;&nbsp; <em>(装置が中継)</em> &nbsp;&nbsp;&nbsp;&nbsp; <em>(発信元)</em></p>
+</blockquote>
+<p><strong>結果</strong>: カフェのWi-Fiの記録には「Raspberry Piという機器が接続した」とだけ残ります。あなたがそこにいたという物理的な証拠は一切残りません。</p>
+<hr>
+<h2 id="section3-2">3.2. 必要な機材（揃えるリスト）</h2>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>推奨ハード / 設定</th>
+<th>なぜこれが必要か？（理由）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>中継ノード</strong></td>
+<td>Raspberry Pi 4 Model B</td>
+<td>処理性能が高く、安定した通信を保証するため。</td>
+</tr>
+<tr>
+<td><strong>OS</strong></td>
+<td>Raspberry Pi OS Lite (64-bit)</td>
+<td>画面や余計な機能がない分、軽量で高速に動作するため。</td>
+</tr>
+<tr>
+<td><strong>Wi-Fiアダプタ</strong></td>
+<td>USB接続 ×2</td>
+<td>wlan0（AP用）: PCと接続するため。<br>wlan1（クライアント用）: カフェのWi-Fiと接続するため。</td>
+</tr>
+<tr>
+<td><strong>電源</strong></td>
+<td>Anker, RAVPowerなどの20,000mAh以上のバッテリー</td>
+<td>長時間の作戦を想定し、バッテリー切れのリスクを減らすため。</td>
+</tr>
+<tr>
+<td><strong>MicroSD</strong></td>
+<td>SanDisk Extreme Pro 32GB以上</td>
+<td>OSの動作が快適になるため。書き込み速度が重要。</td>
+</tr>
+<tr>
+<td><strong>（オプション）指向性アンテナ</strong></td>
+<td>2.4GHz用</td>
+<td>遠くのWi-Fiも確実に捉えるための、より専門的な装備。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section3-3">3.3. 【最重要】設置前の準備（安全な場所で行う）</h2>
+<p>ここまでの準備が、作戦の成否を分けます。すべてはあなたの安全な場所（自宅など）で済ませてください。</p>
+<h4>ステップ1：OSの書き込みとWi-Fi設定</h4>
+<ul>
+<li><strong>OS書き込み</strong>: 作業用PCで「Raspberry Pi Imager」を起動し、MicroSDカードに「Raspberry Pi OS Lite (64-bit)」を書き込みます。</li>
+<li><strong>SSHとWi-Fiのヘッドレス設定</strong>: 書き込み完了後、MicroSDカードをPCに再挿入します。</li>
+<li><strong>SSH有効化</strong>: boot ドライブ直下に <code>ssh</code> という名前の空のファイルを作成します。</li>
+<li><strong>Wi-Fi設定</strong>: 同じくbootドライブに <code>wpa_supplicant.conf</code> という名前のテキストファイルを作成し、あなたがこれから設置する場所のWi-Fi情報を以下のように記述します。</li>
+</ul>
+<pre><code><span class="keyword">country</span>=<span class="string">JP</span>
 <span class="keyword">ctrl_interface</span>=<span class="string">DIR=/var/run/wpa_supplicant GROUP=netdev</span>
 <span class="keyword">update_config</span>=<span class="string">1</span>
 
@@ -296,37 +285,32 @@
 <span class="comment"># 例：マクドナルドのフリーWi-Fiの場合</span>
 <span class="keyword">network</span>={
     <span class="keyword">ssid</span>=<span class="string">"_Wi-Fi_FREE_"</span> <span class="comment"># ←実際のWi-Fi名に書き換える</span>
-    <span class="keyword">key_mgmt</span>=<span class="string">NONE</span> <span class="comment"># ←パスワードなしならこのまま</span>
+    <span class="keyword">key_mgmt</span>=<span class="string">NONE</span>       <span class="comment"># ←パスワードなしならこのまま</span>
 }
-
 <span class="comment"># 例：スターバックスのWi-Fiの場合</span>
 <span class="comment"># network={</span>
 <span class="comment">#     ssid="Starbucks_Wi-Fi" # ←実際のWi-Fi名に書き換える</span>
-<span class="comment">#     psk="paper_password" # ←紙に書かれていたパスワードに書き換える</span>
+<span class="comment">#     psk="paper_password"   # ←紙に書かれていたパスワードに書き換える</span>
 <span class="comment"># }</span></code></pre>
-
-    <blockquote>
-        <p><strong>【原理】</strong>: この設定により、Raspberry Piは電源を入れた瞬間に、自動的に目標のWi-Fiに接続しようとします。</p>
-    </blockquote>
-
-    <hr>
-
-    <h2 id="section3-4">3.4. 中継機能の詳細設定（Raspberry Piに接続して行う）</h2>
-    <h4>ステップ2：Raspberry Piに接続し、中継装置としての「魂」を入れる</h4>
-    <ul>
-        <li><strong>接続</strong>: MicroSDカードとWi-Fiアダプタ2つ、モバイルバッテリーをRaspberry Piに接続して起動します。数分待ち、あなたのPCのターミナルから <code class="command">ssh pi@raspberrypi.local</code> で接続します。</li>
-        <li><strong>基本ソフトのインストール</strong>: 以下のコマンドをコピー＆ペーストして実行します。<br><code class="command">sudo apt update && sudo apt install hostapd dnsmasq iptables-persistent -y</code></li>
-    </ul>
-    <blockquote>
-        <p><strong>【原理】</strong>: <code>hostapd</code>は「秘密のWi-Fi」を、<code>dnsmasq</code>はIPアドレスを管理するためのソフトウェアです。</p>
-    </blockquote>
-
-    <h4>「秘密のWi-Fi（RelayAP）」の設定</h4>
-    <ul>
-        <li><code class="command">sudo nano /etc/hostapd/hostapd.conf</code></li>
-        <li>開いたファイルに、以下をコピペします。</li>
-    </ul>
-    <pre><code><span class="keyword">interface</span>=<span class="string">wlan0</span>
+<blockquote>
+<p><strong>【原理】</strong>: この設定により、Raspberry Piは電源を入れた瞬間に、自動的に目標のWi-Fiに接続しようとします。</p>
+</blockquote>
+<hr>
+<h2 id="section3-4">3.4. 中継機能の詳細設定（Raspberry Piに接続して行う）</h2>
+<h4>ステップ2：Raspberry Piに接続し、中継装置としての「魂」を入れる</h4>
+<ul>
+<li><strong>接続</strong>: MicroSDカードとWi-Fiアダプタ2つ、モバイルバッテリーをRaspberry Piに接続して起動します。数分待ち、あなたのPCのターミナルから <code class="command">ssh pi@raspberrypi.local</code> で接続します。</li>
+<li><strong>基本ソフトのインストール</strong>: 以下のコマンドをコピー＆ペーストして実行します。<br><code class="command">sudo apt update && sudo apt install hostapd dnsmasq iptables-persistent -y</code></li>
+</ul>
+<blockquote>
+<p><strong>【原理】</strong>: <code>hostapd</code>は「秘密のWi-Fi」を、<code>dnsmasq</code>はIPアドレスを管理するためのソフトウェアです。</p>
+</blockquote>
+<h4>「秘密のWi-Fi（RelayAP）」の設定</h4>
+<ul>
+<li><code class="command">sudo nano /etc/hostapd/hostapd.conf</code></li>
+<li>開いたファイルに、以下をコピペします。</li>
+</ul>
+<pre><code><span class="keyword">interface</span>=<span class="string">wlan0</span>
 <span class="keyword">driver</span>=<span class="string">nl80211</span>
 <span class="keyword">ssid</span>=<span class="string">RelayAP</span>
 <span class="keyword">hw_mode</span>=<span class="string">g</span>
@@ -335,51 +319,45 @@
 <span class="keyword">macaddr_acl</span>=<span class="string">0</span>
 <span class="keyword">auth_algs</span>=<span class="string">1</span>
 <span class="keyword">ignore_broadcast_ssid</span>=<span class="string">0</span></code></pre>
-    <blockquote>
-        <p><strong>【原理】</strong>: これで、Raspberry Piは <strong>RelayAP</strong> という名前のWi-Fiを発信する準備をしました。</p>
-    </blockquote>
-
-    <h4>IPアドレスの固定と通信転送の許可</h4>
-    <ul>
-        <li><code class="command">sudo nano /etc/dhcpcd.conf</code></li>
-        <li>ファイルの一番下に以下を追記します。</li>
-    </ul>
-    <pre><code><span class="keyword">interface</span> <span class="string">wlan0</span>
+<blockquote>
+<p><strong>【原理】</strong>: これで、Raspberry Piは <strong>RelayAP</strong> という名前のWi-Fiを発信する準備をしました。</p>
+</blockquote>
+<h4>IPアドレスの固定と通信転送の許可</h4>
+<ul>
+<li><code class="command">sudo nano /etc/dhcpcd.conf</code></li>
+<li>ファイルの一番下に以下を追記します。</li>
+</ul>
+<pre><code><span class="keyword">interface</span> <span class="string">wlan0</span>
 <span class="keyword">static ip_address</span>=<span class="string">192.168.50.1/24</span>
 <span class="keyword">nohook</span> <span class="string">wpa_supplicant</span></code></pre>
-    <blockquote>
-        <p><strong>【原理】</strong>: これで、Raspberry Piが「秘密のWi-Fi」の親（IPアドレス: 192.168.50.1）になることを定義しました。</p>
-    </blockquote>
-
-    <ul>
-        <li><code class="command">sudo nano /etc/sysctl.conf</code></li>
-        <li><code>#net.ipv4.ip_forward=1</code> の行の <code>#</code> を削除します。</li>
-    </ul>
-    <blockquote>
-        <p><strong>【原理】</strong>: これで、Raspberry Piが「通信の橋渡し（ルーター）」として働くことを許可しました。</p>
-    </blockquote>
-
-    <h4>NATルールの適用とサービスの有効化</h4>
-    <pre><code><span class="command">sudo iptables</span> <span class="option">-t nat</span> <span class="option">-A POSTROUTING</span> <span class="option">-o wlan1</span> <span class="option">-j MASQUERADE</span>
+<blockquote>
+<p><strong>【原理】</strong>: これで、Raspberry Piが「秘密のWi-Fi」の親（IPアドレス: 192.168.50.1）になることを定義しました。</p>
+</blockquote>
+<ul>
+<li><code class="command">sudo nano /etc/sysctl.conf</code></li>
+<li><code>#net.ipv4.ip_forward=1</code> の行の <code>#</code> を削除します。</li>
+</ul>
+<blockquote>
+<p><strong>【原理】</strong>: これで、Raspberry Piが「通信の橋渡し（ルーター）」として働くことを許可しました。</p>
+</blockquote>
+<h4>NATルールの適用とサービスの有効化</h4>
+<pre><code><span class="command">sudo iptables</span> <span class="option">-t nat</span> <span class="option">-A POSTROUTING</span> <span class="option">-o wlan1</span> <span class="option">-j MASQUERADE</span>
 <span class="command">sudo netfilter-persistent</span> <span class="option">save</span>
 <span class="command">sudo systemctl</span> <span class="option">unmask</span> <span class="option">hostapd</span> <span class="option">&& sudo systemctl enable hostapd</span> <span class="option">&& sudo systemctl enable dnsmasq</span>
 <span class="command">sudo reboot</span></code></pre>
-    <blockquote>
-        <p><strong>【原理】</strong>: これで、あなたのPCからの通信をカフェのWi-Fiに中継するルールが適用され、Raspberry Piを再起動しても設定が消えないようになります。</p>
-    </blockquote>
-
-    <hr>
-
-    <h2 id="section3-5">3.5. 【究極の防御】押収対策（痕跡を残さないための仕込み）</h2>
-    <p>装置が見つかった時のために、「何も語らない」ように設定します。</p>
-    
-    <h4>ステップ3：ログの完全無効化</h4>
-    <ul>
-        <li>Raspberry PiにSSHで接続し、以下のコマンドを実行します。</li>
-        <li><code class="command">sudo nano /etc/logrotate.d/instant_delete</code></li>
-        <li>開いたファイルに、以下をコピペして保存します。</li>
-    </ul>
-    <pre><code><span class="keyword">/var/log/*.log</span> {
+<blockquote>
+<p><strong>【原理】</strong>: これで、あなたのPCからの通信をカフェのWi-Fiに中継するルールが適用され、Raspberry Piを再起動しても設定が消えないようになります。</p>
+</blockquote>
+<hr>
+<h2 id="section3-5">3.5. 【究極の防御】押収対策（痕跡を残さないための仕込み）</h2>
+<p>装置が見つかった時のために、「何も語らない」ように設定します。</p>
+<h4>ステップ3：ログの完全無効化</h4>
+<ul>
+<li>Raspberry PiにSSHで接続し、以下のコマンドを実行します。</li>
+<li><code class="command">sudo nano /etc/logrotate.d/instant_delete</code></li>
+<li>開いたファイルに、以下をコピペして保存します。</li>
+</ul>
+<pre><code><span class="keyword">/var/log/*.log</span> {
     <span class="keyword">size</span> <span class="string">1k</span>
     <span class="keyword">rotate</span> <span class="string">0</span>
     <span class="keyword">copytruncate</span>
@@ -388,37 +366,35 @@
         <span class="command">rm -f</span> <span class="string">/var/log/*.log</span>
     <span class="keyword">endscript</span>
 }</code></pre>
-    <ul>
-        <li>続いて、ログ機能そのものを停止します。<br><code class="command">sudo systemctl stop rsyslog && sudo systemctl disable rsyslog && sudo apt purge rsyslog -y</code></li>
-    </ul>
-    <blockquote>
-        <p><strong>【原理】</strong>: これで、Raspberry Piは自分の動作ログをファイルとして保存しなくなります。電源を切れば、記憶はすべて消える「忘れっぽいコンピュータ」になります。</p>
-    </blockquote>
-
-    <div class="enhancement-box">
-        <h5>[補強] 設置場所の偽装と物理的防御（カモフラージュ）</h5>
-        <p>装置が発見されるリスクを、さらに低減します。Raspberry Piを、ありふれた電子機器の「中」に組み込みます。</p>
-        <ul>
-            <li><strong>実装例</strong>:
-                <ol>
-                    <li>大容量のモバイルバッテリー（Anker PowerCoreなど）の筐体を、慎重に開封します。</li>
-                    <li>内部の基板とバッテリーの隙間に、MicroSDカードを挿したRaspberry Piと、小型のWi-Fiアダプタ2つを格納します。</li>
-                    <li>バッテリーの充電回路とRaspberry Piの電源入力を直接配線し、バッテリーがRaspberry Piに常時給電するように改造します。</li>
-                    <li>外見は、ただのモバイルバッテリーです。これをカフェのテーブルの下や、コンセント付近に「忘れ物」として置いておくだけで、誰も疑いません。</li>
-                </ol>
-            </li>
-        </ul>
-    </div>
-
-    <div class="enhancement-box">
-        <h5>[補強] 装置の「自爆」機能（時間制限付き）</h5>
-        <p>長時間放置されるリスクを回避し、任務完了後に自動的に痕跡を消します。<code>cron</code>を使い、指定した時間が経過したら、装置を自動的にシャットダウンし、さらにログや設定ファイルを消去するスクリプトを実行します。</p>
-        <ul>
-            <li><strong>実装例</strong>:
-                <ol>
-                    <li>Raspberry PiにSSHで接続し、<code class="command">nano ~/self_destruct.sh</code> でファイルを作成。</li>
-                    <li>以下の内容を記述。
-                        <pre><code><span class="comment">#!/bin/bash</span>
+<ul>
+<li>続いて、ログ機能そのものを停止します。<br><code class="command">sudo systemctl stop rsyslog && sudo systemctl disable rsyslog && sudo apt purge rsyslog -y</code></li>
+</ul>
+<blockquote>
+<p><strong>【原理】</strong>: これで、Raspberry Piは自分の動作ログをファイルとして保存しなくなります。電源を切れば、記憶はすべて消える「忘れっぽいコンピュータ」になります。</p>
+</blockquote>
+<div class="enhancement-box">
+<h5>[補強] 設置場所の偽装と物理的防御（カモフラージュ）</h5>
+<p>装置が発見されるリスクを、さらに低減します。Raspberry Piを、ありふれた電子機器の「中」に組み込みます。</p>
+<ul>
+<li><strong>実装例</strong>:
+<ol>
+<li>大容量のモバイルバッテリー（Anker PowerCoreなど）の筐体を、慎重に開封します。</li>
+<li>内部の基板とバッテリーの隙間に、MicroSDカードを挿したRaspberry Piと、小型のWi-Fiアダプタ2つを格納します。</li>
+<li>バッテリーの充電回路とRaspberry Piの電源入力を直接配線し、バッテリーがRaspberry Piに常時給電するように改造します。</li>
+<li>外見は、ただのモバイルバッテリーです。これをカフェのテーブルの下や、コンセント付近に「忘れ物」として置いておくだけで、誰も疑いません。</li>
+</ol>
+</li>
+</ul>
+</div>
+<div class="enhancement-box">
+<h5>[補強] 装置の「自爆」機能（時間制限付き）</h5>
+<p>長時間放置されるリスクを回避し、任務完了後に自動的に痕跡を消します。<code>cron</code>を使い、指定した時間が経過したら、装置を自動的にシャットダウンし、さらにログや設定ファイルを消去するスクリプトを実行します。</p>
+<ul>
+<li><strong>実装例</strong>:
+<ol>
+<li>Raspberry PiにSSHで接続し、<code class="command">nano ~/self_destruct.sh</code> でファイルを作成。</li>
+<li>以下の内容を記述。
+<pre><code><span class="comment">#!/bin/bash</span>
 <span class="comment"># 2時間後に実行されるスクリプト</span>
 <span class="command">sleep</span> <span class="string">7200</span> <span class="comment"># 7200秒 = 2時間</span>
 
@@ -432,32 +408,72 @@
 
 <span class="comment"># 3. システムをシャットダウン</span>
 <span class="command">sudo poweroff</span></code></pre>
-                    </li>
-                    <li>実行権限を付与: <code class="command">chmod +x ~/self_destruct.sh</code></li>
-                    <li><code class="command">crontab -e</code> で、<code class="command">@reboot /home/pi/self_destruct.sh &</code> を追記し、起動と同時にバックグラウンドで自爆カウントダウンを開始させます。</li>
-                </ol>
-            </li>
-        </ul>
-    </div>
+</li>
+<li>実行権限を付与: <code class="command">chmod +x ~/self_destruct.sh</code></li>
+<li><code class="command">crontab -e</code> で、<code class="command">@reboot /home/pi/self_destruct.sh &</code> を追記し、起動と同時にバックグラウンドで自爆カウントダウンを開始させます。</li>
+</ol>
+</li>
+</ul>
+</div>
+<hr>
+<h2 id="section3-6">3.6. 実践的な運用手順（作戦開始！）</h2>
+<h4>ステップ4：設置と通信</h4>
+<ul>
+<li><strong>設置</strong>: あなたは、準備済みのRaspberry Piを標的のカフェの近く（屋上、植え込みの陰など）に、誰にも見られないようにそっと設置し、すぐにその場を離れます。</li>
+<li><strong>待機</strong>: 数分間、Raspberry Piが起動し、カフェのWi-Fiに接続するのを待ちます。</li>
+<li><strong>通信</strong>: あなたはカフェから離れた安全な場所（車の中など）に移動し、あなたの匿名PC（Tails OS）で <strong>RelayAP</strong> に接続します。</li>
+<li><strong>確認</strong>: Torブラウザを開き、Webサイトが見られれば成功です。</li>
+</ul>
+<hr>
+<h2 id="section3-7">3.7. 【最重要】キャプティブ・ポータルの自動突破対策</h2>
+<p>多くの公共Wi-Fiは、接続後に「利用規約に同意」するページ（キャプティブ・ポータル）が表示されます。ヘッドレス環境のRaspberry Piはこれを自動で処理できないため、接続が完了しません。これが実戦での最大の障壁です。</p>
+<p><strong>対策：</strong> 以下のスクリプトを設置し、Wi-Fi接続後に自動で「同意」をクリックさせます。</p>
+<h4>1. 必要なツールのインストール:</h4>
+<pre><code><span class="command">sudo apt install</span> <span class="option">-y</span> <span class="string">curl phantomjs</span></code></pre>
+<h4>2. 突破スクリプトの作成:</h4>
+<pre><code><span class="command">nano</span> <span class="string">~/captive_portal_autologin.sh</span></code></pre>
+<p>ファイルに以下の内容を記述。（※これは汎用的な例であり、サイトごとに調整が必要）</p>
+<pre><code><span class="comment">#!/bin/bash</span>
 
-    <hr>
+<span class="comment"># Wi-Fi接続が安定するまで待機</span>
+<span class="command">sleep</span> <span class="string">30</span>
 
-    <h2 id="section3-6">3.6. 実践的な運用手順（作戦開始！）</h2>
-    <h4>ステップ4：設置と通信</h4>
-    <ul>
-        <li><strong>設置</strong>: あなたは、準備済みのRaspberry Piを標的のカフェの近く（屋上、植え込みの陰など）に、誰にも見られないようにそっと設置し、すぐにその場を離れます。</li>
-        <li><strong>待機</strong>: 数分間、Raspberry Piが起動し、カフェのWi-Fiに接続するのを待ちます。</li>
-        <li><strong>通信</strong>: あなたはカフェから離れた安全な場所（車の中など）に移動し、あなたの匿名PC（Tails OS）で <strong>RelayAP</strong> に接続します。</li>
-        <li><strong>確認</strong>: Torブラウザを開き、Webサイトが見られれば成功です。</li>
-    </ul>
+<span class="comment"># キャプティブポータルのチェック（例：Googleにアクセスしてみる）</span>
+<span class="comment"># リダイレクトされなければ、既に接続済みと判断</span>
+<span class="command">if</span> <span class="command">curl</span> <span class="option">-s</span> <span class="option">--head</span> <span class="string">http://www.google.com</span> | <span class="command">grep</span> <span class="string">"200 OK"</span> > /dev/null; <span class="command">then</span>
+    <span class="command">exit</span> <span class="string">0</span>
+<span class="command">fi</span>
 
-    <div class="conclusion-box">
-        <h3>結論</h3>
-        <p>この章の設定を完璧に実行すれば、あなたのRaspberry Piは単なる中継装置ではなく、「痕跡を残さない幻の通信端末」となります。あなたは安全な場所から、この幻を遠隔操作し、完全な匿名性を確保できるのです。</p>
-    </div>
-
+<span class="comment"># PhantomJSを使って利用規約ページにアクセスし、同意ボタンをクリック</span>
+<span class="comment"># ※以下のセレクタは例です。実際のサイトのHTMLに合わせて変更が必要</span>
+<span class="command">phantomjs</span> <span class="option">--ssl-protocol=any</span> <span class="option">&lt;&lt;EOF</span>
+<span class="keyword">var</span> <span class="variable">page</span> = <span class="command">require</span>(<span class="string">'webpage'</span>).<span class="command">create</span>();
+<span class="variable">page</span>.<span class="command">open</span>(<span class="string">'http://clients3.google.com/generate_204'</span>, <span class="keyword">function</span>(<span class="variable">status</span>) {
+    <span class="command">if</span> (<span class="variable">status</span> === <span class="string">'success'</span>) {
+        <span class="comment">// ページ内の「同意」ボタン（例: button.agree-btn）を探してクリック</span>
+        <span class="variable">page</span>.<span class="command">evaluate</span>(<span class="keyword">function</span>() {
+            <span class="keyword">var</span> <span class="variable">button</span> = <span class="variable">document</span>.<span class="command">querySelector</span>(<span class="string">'button.agree-btn'</span>);
+            <span class="command">if</span> (<span class="variable">button</span>) {
+                <span class="variable">button</span>.<span class="command">click</span>();
+            }
+        });
+    }
+    <span class="variable">phantom</span>.<span class="command">exit</span>();
+});
+<span class="command">EOF</span></code></pre>
+<h4>3. 実行権限の付与と自動実行設定:</h4>
+<pre><code><span class="command">chmod +x</span> <span class="string">~/captive_portal_autologin.sh</span>
+<span class="command">crontab</span> <span class="option">-e</span></code></pre>
+<p><code>@reboot /home/pi/captive_portal_autologin.sh &</code> を追記します。</p>
+<blockquote>
+<p><strong>【原理】</strong>: このスクリプトは、Raspberry Pi起動後に裏でブラウザを動かし、利用規約ページの「同意」ボタンを自動で押してくれます。これにより、人間の操作なしにWi-Fi接続を完了させることができます。</p>
+</blockquote>
+<div class="conclusion-box">
+<h3>結論</h3>
+<p>この章の設定を完璧に実行すれば、あなたのRaspberry Piは単なる中継装置ではなく、「痕跡を残さない幻の通信端末」となります。あなたは安全な場所から、この幻を遠隔操作し、完全な匿名性を確保できるのです。</p>
 </div>
 
 </body>
 </html>
+
 
