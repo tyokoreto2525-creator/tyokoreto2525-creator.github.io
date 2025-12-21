@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>なぜTorユーザーは捕まるのか？</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #d9534f;
+            border-bottom: 2px solid #d9534f;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        h2 {
+            margin-top: 40px;
+        }
+        h3 {
+            margin-top: 30px;
+            border-bottom: 1px solid #d9534f;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        strong {
+            color: #000;
+        }
+        .note {
+            background-color: #fcf8e3;
+            border: 1px solid #faebcc;
+            color: #8a6d3b;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .warning {
+            background-color: #f2dede;
+            border: 1px solid #ebccd1;
+            color: #a94442;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .guide {
+            background-color: #d9edf7;
+            border: 1px solid #bce8f1;
+            color: #31708f;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .final-conclusion {
+            background-color: #d9534f;
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .final-conclusion h2 {
+            color: #fff;
+            border-bottom: 1px solid #fff;
+            text-align: center;
+        }
+        .final-conclusion p {
+            margin-bottom: 15px;
+        }
+        .final-conclusion strong {
+            color: #fff;
+            font-weight: bold;
+        }
+        .pattern {
+            background-color: #f9f2f4;
+            border: 1px solid #ebccd1;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .pattern h3 {
+            color: #a94442;
+            border-bottom: 1px solid #a94442;
+            margin-top: 0;
+        }
+        .pattern strong {
+            color: #a94442;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>なぜTorユーザーは捕まるのか？警察の実態と匿名性の限界</h1>
+        <p>多くの人が「Torは絶対に匿名だから捕まらない」と誤解しているが、現実は異なる。Tor使用者が逮捕されるケースは後を絶たない。ここでは、その構造を紐解き、警察が実際に用いる手法を解説する。</p>
+
+        <h2>① 前提：Tor自体を“直接破る”ことはほぼ不可能</h2>
+        <p>まず大前提として理解すべきなのは、Torの「入口ノード → 中継ノード → 出口ノード」という3層の分散構造を、一国の警察や単一の組織が全体を監視して通信元を特定することは、現実的に極めて困難である。そのため、法執行機関はTorの暗号化やルーティング自体を破るのではなく、Torの外側にある弱点を徹底的に突いてくる。</p>
+
+        <h2>② Torユーザーが捕まる6つの典型パターン</h2>
+        <p>逮捕に至るほとんどのケースは、以下のいずれかのパターンに分類できる。</p>
+
+        <div class="pattern">
+            <h3>◆ パターン1：Torの外での“初歩的ミス”（最も多い）</h3>
+            <p>匿名性の意識が薄いまま、Torの外で個人情報を晒してしまうケース。</p>
+            <ul>
+                <li>匿名サイトのログインに、本物のメールアドレスやSNSアカウントを使う。</li>
+                <li>他のサービス（Twitter、GitHubなど）と同じユーザー名、アイコンを使用する。</li>
+                <li>書き込みの文体、口癖が他の投稿と一致する。</li>
+                <li>アップロードした画像のEXIFメタデータ（撮影日時、GPS情報など）から特定される。</li>
+                <li>サイト運営者がIPログを残すなどの設定ミスをする。</li>
+            </ul>
+            <p><strong>▶ 結論：</strong>人間の油断や初歩的なミスでバレるケースが圧倒的多数を占める。</p>
+        </div>
+
+        <div class="pattern">
+            <h3>◆ パターン2：.onionサイトのサーバー物理押収</h3>
+            <p>Torブラウザでのアクセスは匿名でも、サーバー自体は物理的な実在である。このサーバーの所在地を特定され、物理的に押収されると、サーバー内に運営者の痕跡が残っている可能性がある。</p>
+            <p><strong>典型例：Silk Road（シルクロード）</strong><br>
+            この巨大な闇市場は、FBIがサーバーの設定ミスを突いてIPアドレスを特定し、アイスランドに設置されていた物理サーバーを押収したことで壊滅した。</p>
+            <p><strong>▶ 結論：</strong>Torを破ったのではなく、Torで匿名されている“ホスト（サーバー）”の側を直接押さえた形。</p>
+        </div>
+
+        <div class="pattern">
+            <h3>◆ パターン3：おとり捜査（潜入捜査）</h3>
+            <p>Tor上での違法な取引（薬物、武器の売買など）に捜査官が潜入し、犯人との信頼関係を築いた後、現実世界での受け渡しや配送の段階で身元を特定する手法。</p>
+            <ul>
+                <li>犯人が配送ミスをしたり、受け渡し現場を監視されたりする。</li>
+            </ul>
+            <p><strong>▶ 結論：</strong>Torの通信そのものとは無関係な“現実世界の行動”が最大の弱点になる。</p>
+        </div>
+
+        <div class="pattern">
+            <h3>◆ パターン4：端末のマルウェア感染（ハッキング）</h3>
+            <p>FBIなどが裁判所の令状を基に、容疑者のPCに直接マルウェアを送り込み、リアルタイムのIPアドレスやMACアドレス、PCの環境情報などを遠隔で取得するという強行策。</p>
+            <p><strong>実例：Playpen事件</strong><br>
+            児童虐待サイトの運営者・利用者を特定するため、FBIはサイト自体を一時的に管理下に置き、アクセスしてきた利用者のPCに「NIT（Network Investigative Technique）」と呼ばれるマルウェアを仕掛け、多数の摘発に成功した。</p>
+            <p><strong>▶ 結論：</strong>Torの匿名性を介さず、犯人のPCを直接“覗き見”する戦術。</p>
+        </div>
+
+        <div class="pattern">
+            <h3>◆ パターン5：アクセス先サイト側のミス</h3>
+            <p>出口ノードの監視だけでは個人特定はほぼ不可能だが、アクセス先のサイト側に脆弱性がある場合は話が別。</p>
+            <ul>
+                <li>サイト側がアクセスログを詳細に記録していたり、CloudflareのようなCDNサービスの設定が不適切で、本来隠されるはずのIP情報が一部漏洩したりすることがある。</li>
+            </ul>
+            <p><strong>▶ 結論：</strong>これもTorそのものの脆弱性ではなく、“相手側の穴”を突かれたケース。</p>
+        </div>
+
+        <div class="pattern">
+            <h3>◆ パターン6：資金の流れや“リアル世界の痕跡”</h3>
+            <p>ネット上の行動だけでなく、現実世界に残る痕跡を追跡する古典的な捜査手法。</p>
+            <ul>
+                <li><strong>仮想通貨（暗号資産）の取引追跡：</strong> ビットコインなどは取引記録がブロックチェーン上に残るため、専門企業が分析すれば資金の流れを追跡できる。</li>
+                <li><strong>郵送物：</strong> 違法な商品を実際の住所へ送付させる。</li>
+                <li><strong>銀行口座、クレジットカードの記録</strong></li>
+                <li><strong>防犯カメラ、交通系ICカードの利用記録</strong></li>
+            </ul>
+            <p><strong>▶ 結論：</strong>ネットの匿名性をいくら高めても、リアル世界での行動からは逃れられない。</p>
+        </div>
+
+        <h2>③ 重要：Torの匿名性が“破られた”わけではない</h2>
+        <div class="note">
+            <p>ここまで見てきた通り、犯罪者が捕まる理由は、Torの技術が脆弱だからではない。<strong>「人間のミス」「Torの外側の設定ミス」「現実世界の行動」</strong>という、Torが保護できない領域に原因があるケースがほとんどだ。Torの設計そのものは、現時点でも世界最高レベルの匿名性を維持している。</p>
+        </div>
+
+        <h2>④ じゃあTorは完全無敵か？ → そこまでは言えない</h2>
+        <p>一般の犯罪捜査では不要だが、理論上はTorの匿名性を脅かす存在もいる。</p>
+        <ul>
+            <li><strong>国家レベルの攻撃者：</strong> NSA（米国家安全保障局）のような組織が、世界中のインターネット通信を大規模に監視し、Torの「入口ノード」と「出口ノード」の両方の通信データを長期間にわたって収集・分析する「相関攻撃」を行えば、理論上は通信元を特定できる可能性がある。</li>
+        </ul>
+        <p>しかし、これは膨大なリソースと時間を要するため、一般的な「警察 vs 犯罪者」のケースではまず用いられない。</p>
+
+        <h2>⑤ まとめ</h2>
+        <div class="final-conclusion">
+            <h2>まとめ</h2>
+            <ul>
+                <li>Torを“直接”破って逮捕しているわけではない。</li>
+                <li>捕まる理由の99%は、Torの外側でのミスや、現実世界に残した痕跡が原因。</li>
+                <li>FBIなどの強力な機関は、必要であれば容疑者のPCに直接マルウェアを送り込む。</li>
+                <li>闇サイトの運営者は、サーバーの物理的押収という最も原始的な方法で終わる。</li>
+                <li>結局のところ、リアル世界の取引、ログ、資金の流れが最大の弱点となる。</li>
+            </ul>
+            <p>Torは強力なツールだが、それを使う人間が完璧でなければ意味がない。匿名性は、技術的な盾だけでなく、利用者の行動と知識によって担保されるものなのである。</p>
+        </div>
+    </div>
+</body>
+</html>
