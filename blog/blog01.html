@@ -1,370 +1,403 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GrapheneOSの導入方法</title>
-<link rel="stylesheet" href="../css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrapheneOSの導入方法</title>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 <header class="container">
-<h1>GrapheneOSの導入方法</h1>
+    <h1>GrapheneOSの導入方法</h1>
 </header>
 <main class="container">
-<section id="intro" class="wrap">
-<h2>1. セキュリティ特化のAndroid</h2>
-<article class="panel blog-post" data-no-close="true">
-<h3>GrapheneOSとは？</h3>
-<!-- ★★★ 修正ここから ★★★ -->
-<button class="toggle-button" aria-expanded="false" aria-controls="cap-1">▼ 詳細を見る</button>
-<div class="caption" id="cap-1">
-<!-- ★★★ 修正ここまで ★★★ -->
-<p>GrapheneOS は Google Pixel 向けの <strong>セキュリティとプライバシー最優先のAndroid系OS</strong>。無料で導入でき、対応Pixelを用意すれば誰でも利用できる。 </p>
-<p>普段のPixelをセキュリティ特化型として使えるようになり、攻撃への耐性やアプリ権限の細かい制御が強化されるため、情報漏洩リスクを大きく減らせる。</p>
-<p>使い方の流れは、対応Pixelを用意して <a href="https://grapheneos.org/install/web" target="_blank">公式インストーラー</a> で導入するだけ。これでセキュリティ強化済みのPixelとして使い始められる。 </p>
-<p class="note">※導入時は初期化やブートローダー操作を伴い、データは消去される。バックアップ必須であり、手順ミスによるリスクも理解して進めること。</p>
-</div>
-</article>
-<article class="panel blog-post" data-no-close="true">
-<h3>GrapheneOSのメリットとデメリット</h3>
-<!-- ★★★ 修正ここから ★★★ -->
-<button class="toggle-button" aria-expanded="false" aria-controls="cap-2">▼ 詳細を見る</button>
-<div class="caption" id="cap-2">
-<!-- ★★★ 修正ここまで ★★★ -->
-<div class="grid">
-<div>
-<h4>メリット</h4>
-<ul>
-<li> <strong>ゼロデイ攻撃に強い防御力</strong> <br> メモリ安全性やカーネル保護が強化され、未知の攻撃にも比較的耐性がある。 </li>
-<li> <strong>アプリの挙動を細かく制御</strong> <br> 「ネット通信を禁止」「センサー利用を無効化」といった設定が可能で、情報漏洩を防げる。 </li>
-<li> <strong>コピー情報は自動で消去</strong> <br> クリップボードの内容は一定時間で自動消去され、他アプリからの不正取得を防ぐ。 </li>
-<li> <strong>Googleサービスを選んで利用可能</strong> <br> Google Playをサンドボックス化して使えるため、必要な場合だけ導入できる。不要なら完全に外すことも可能。 </li>
-<li> <strong>オープンソースによる透明性</strong> <br> ソースコードが公開され、研究者や専門家による監査が可能。安全性の検証が開かれている。 </li>
-<li> <strong>Pixelハードを最大限活用</strong> <br> Titan Mチップやセキュアブートなど、Pixel独自のセキュリティ機能をそのまま利用できる。 </li>
-<li> <strong>プロファイル分離で安全に使い分け</strong> <br> 「仕事用」と「プライベート用」を完全に分離でき、環境を切り替えて利用可能。 </li>
-</ul>
-</div>
-<div>
-<h4>デメリット</h4>
-<ul>
-<li>Googleアシスタントが使えない（プライバシー保護のため非対応）。</li>
-<li>Pixel独自の一部機能が制限（AIカメラ処理など、Googleサーバー依存部分）。</li>
-<li>Google Playストアはそのまま使えず、「Sandboxed Google Play」や <a href="https://auroraoss.com/" target="_blank">Aurora Store</a> を利用する必要がある。 </li>
-<li>一部アプリが動作しない（例：銀行アプリ、キャリア決済アプリ）。</li>
-<li>利便性よりセキュリティ重視の設計で、設定や管理に手間がかかる。</li>
-<li>Pixel本体の保証は残るが、Google公式サポート対象外となる。</li>
-</ul>
-</div>
-</div>
-</div>
-</article>
-<article class="panel blog-post" data-no-close="true">
-<h3>通常アプリは使えるのか？</h3>
-<button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
-<div class="caption">
-<p>GrapheneOSでもLINEやYouTubeなど多くの一般的なアプリは利用できます。</p>
-<h4>アプリ入手方法</h4>
-<ul>
-<li> <strong>Sandboxed Google Play：</strong> 純正のGoogle PlayストアとGMSを利用可能。アプリは通常通り自動更新されます。 </li>
-<li> <strong>Aurora Store：</strong> Googleアカウント不要でPlayストアのアプリを入手可能。ただし更新は手動チェックが必要です。 </li>
-</ul>
-<h4>互換性の目安</h4>
-<ul>
-<li>LINE・YouTube・Twitterなどサーバー連携型アプリ → 問題なく利用可</li>
-<li>Gmail・Google DriveなどGoogleサービス → Sandboxed経由で利用可</li>
-<li> <strong>銀行アプリやキャリア決済アプリ → Google依存が強いため、ほぼ利用不可</strong> </li>
-<li>一部ゲーム（Play Integrity必須） → 動作不可</li>
-</ul>
-<h4>おすすめできるユーザー層</h4>
-<ul>
-<li>キャリアアプリや便利機能を手放してもよい人</li>
-<li>連絡用途やSNSが中心の人</li>
-<li>情報漏洩リスクを徹底的に下げたい人</li>
-</ul>
-<p class="note"> 二段階認証アプリ（Google Authenticator / Aegis など）は <strong>必ずメインプロファイルに配置</strong>してください。 サブに置いた場合、電話番号やSMS認証が動作せず、復旧不能になるリスクがあります。 <br> また、銀行アプリやキャリア決済アプリはGoogleサービス依存のため <strong>ほぼ利用できません</strong>。 これはGrapheneOSの制約というより、アプリ側がGoogleの仕組みに依存していることが原因です。 </p>
-</div>
-</article>
-<article class="panel blog-post" data-no-close="true">
-<h3>Pixel購入時に注意すべき点</h3>
-<!-- ★★★ 修正ここから ★★★ -->
-<button class="toggle-button" aria-expanded="false" aria-controls="cap-4">▼ 詳細を見る</button>
-<div class="caption" id="cap-4">
-<!-- ★★★ 修正ここまで ★★★ -->
-<ul>
-<li> <strong>対応状況：</strong> 新機種はすぐにGrapheneOS対応にならない場合があります（通常は数日〜数週間以内）。 導入前に必ず <a href="https://grapheneos.org/releases" target="_blank">公式対応ページ</a>で最新状況を確認してください。 </li>
-<li> <strong>サポート期限：</strong>古いモデルは安価ですが、セキュリティアップデートが終了するとリスクが高まります。長期サポート対象のPixelを選ぶのが安心です。 </li>
-<li> <strong>SIMカード対応：</strong>利用中の通信会社に合わせて <code>nanoSIM</code> または <code>eSIM</code> に対応しているかを確認しましょう。 </li>
-<li> <strong>中古端末の注意：</strong>中古Pixelはサポート切れやブートローダー解除不可の個体があるため要確認。 </li>
-<!-- ★★★ 追加ここから ★★★ -->
-<li> <strong>OEMロック解除の可否：</strong> 非常に稀ですが、キャリア販売の端末によってはOEMロック解除があらかじめ無効化されている場合があります。購入前にSIMフリー版であること、または販売元に確認することをお勧めします。 </li>
-<!-- ★★★ 追加ここまで ★★★ -->
-<li> <strong>ストレージ容量：</strong>複数プロファイルを作る場合は64GBでは不足しがち。128GB以上を推奨。 </li>
-<li> <strong>保証面：</strong>Pixelハード保証は残りますが、Google公式サポートは対象外になります。 </li>
-</ul>
-<p class="note">※購入前に「対応機種・サポート期限・SIM対応・ストレージ容量・中古可否・保証範囲」を確認すれば、導入後のトラブルを防げます。</p>
-</div>
-</article>
-<article class="panel blog-post" data-no-close="true">
-<h3>Pixelに戻せるのか？</h3>
-<button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
-<div class="caption">
-<p> 戻すことは可能ですが、 <strong>必ずデータは全て消去されます</strong>。 ブートローダーを再ロックし、Google公式の純正Android（Pixel純正ROM）を再フラッシュすれば元に戻せます。 ただし <strong>文鎮化リスク</strong>（端末が起動しなくなる可能性）がある点には注意してください。 </p>
-<p class="note"> 補足：「文鎮化」とは、スマホが完全に起動しなくなり、文字通り「文鎮」のように重りとしてしか使えなくなる状態を指します。 完全に壊れるわけではありませんが、復旧には専門知識や特別なツールが必要になる場合があります。 </p>
-</div>
-</article>
-<article class="panel blog-post" data-no-close="true">
-<h3>まとめ</h3>
-<button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
-<div class="caption">
-<p> <strong>メリット：</strong> 世界最高水準のセキュリティとプライバシー制御を提供 </p>
-<p> <strong>デメリット：</strong> 一部の便利機能や互換性を犠牲にする </p>
-<p> GrapheneOSは「利便性より安全性を優先したい人」のための選択肢です。 日常利用や快適さを重視するなら純正Pixel、徹底したセキュリティを求めるならGrapheneOS、と目的に応じて使い分けるのが最適です。 </p>
-</div>
-</article>
-<article class="panel blog-post" data-no-close="true">
-<h3>GrapheneOSの導入方法（概要）</h3>
-<button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
-<div class="caption">
-<p>必要なもの：</p>
-<ul>
-<li>PC（Google Chrome/Chromium系推奨）</li>
-<li>Pixel端末</li>
-<li>接続用ケーブル（データ通信対応）</li>
-</ul>
-<h4>Pixel側の準備</h4>
-<ul>
-<li>開発者モードON → ビルド番号7回タップ</li>
-<li>OEMロック解除ON</li>
-<li>USBデバッグON</li>
-</ul>
-<h4>インストール手順</h4>
-<ol>
-<li>PixelをFastbootモードにする</li>
-<li>PCで <a href="https://grapheneos.org/install/web" target="_blank">公式Web Installer</a> を開く </li>
-<li>「Unlock bootloader → Download release → Flash release → Lock bootloader」を順に実行</li>
-<li>Fastbootで「Start」を選び起動 → 完了</li>
-</ol>
-<h4>⚠ 注意点</h4>
-<ul>
-<li>作業中はデータ全消去</li>
-<li>ケーブルを抜かない／電源切らない</li>
-<li>毎回の起動時に黄色警告は正常</li>
-<li>必ず「Lock bootloader」を最後に実行</li>
-</ul>
-</div>
-</article>
-<section id="post-install" class="wrap">
-<h2>2. GrapheneOS 導入後</h2>
-<article class="panel blog-post" data-no-close="true">
-<h3>プロファイル分け（メインとサブ）</h3>
-<button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
-<div class="caption">
-<p> GrapheneOSの強みは <strong>ユーザープロファイル分離</strong>にあります。Windowsの「ユーザーアカウント」に近いイメージです。 ※なお、この挙動はAndroid標準の複数ユーザー機能による仕様で、GrapheneOS独自の制限ではありません。GrapheneOSではこの標準機能を <strong>強化されたセキュリティ基盤</strong>上で活用できる点が特徴です。 </p>
-<h4>メインプロファイル（オーナー）</h4>
-<ul>
-<li>電話番号・SMSは必ずここに紐づきます。</li>
-<li>通知は常に届き、他のプロファイルとは完全に分離されます。</li>
-</ul>
-<h4>サブプロファイル</h4>
-<ul>
-<li>追加ユーザーとして新規セットアップ。アプリやデータは完全独立。</li>
-<li>通知はメインと干渉せず、開いたときのみ反応します。</li>
-</ul>
-<h4>メリット</h4>
-<ul>
-<li>ストレージ暗号化はプロファイル単位で強固。各ユーザーごとに暗号鍵が分かれます。</li>
-<li>メインを開いた状態ではサブのデータにアクセスできず、逆も同じです。</li>
-<li>サブでアプリが汚染されてもメインには一切影響がありません。</li>
-</ul>
-<h4>デメリット</h4>
-<ul>
-<li>写真や動画の保存場所が異なり、共有にはクラウドやUSB転送が必要。</li>
-<li>通知は切り替え中のみ届きません。サブ利用時はメインの通知が止まります。</li>
-<li> サブを閉じると、そのプロファイルのアプリは <strong>完全に停止</strong>します（音楽再生やダウンロードも継続しません）。 <span class="note">理由：安全のため完全分離する仕組みだからです。仮にサブでウイルスが入り込んでも、メインに影響は及びません。</span> </li>
-<li>メインとサブを同時に動かすことはできません。</li>
-</ul>
-<h4>作成方法</h4>
-<p>設定 → システム → 複数のユーザー → ユーザーを追加。名前をつけ（例：「ゲーム用」「実験用」）、今すぐ切り替えを選ぶと初期セットアップが始まります。</p>
-<h4>実用例</h4>
-<ul>
-<li>メイン：仕事・連絡系アプリのみ（使用容量10〜20GB程度）</li>
-<li>サブ：ゲームや動画アプリを集中して入れる（容量消費を分離できる）</li>
-</ul>
-<h4>切り替え方法</h4>
-<p>通知バー右上のユーザーアイコン → プロファイル選択 → パスコード入力 → 切り替え完了。まるで別のスマホを開いたような感覚で利用できます。</p>
-<p class="note">※補足：独立した環境でも、物理的なストレージは共有。例えば128GBモデルのPixelなら、メインとサブ合わせて合計128GBを使います。</p>
-</div>
-</article>
-<article class="panel blog-post" data-no-close="true">
-<h3>Google Playストアをどう使うか？</h3>
-<button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
-<div class="caption">
-<p> GrapheneOSには標準でGoogle Playストアが含まれていません。 代わりに <strong>Sandboxed Google Play</strong>を導入することで、ほぼ通常のAndroidと同じようにPlayストアを利用できます。 さらに <strong>Aurora Store</strong>という代替ストアもあり、Googleアカウント不要でPlayアプリを取得可能です。 </p>
-<h4>Sandboxed Google Play</h4>
-<ul>
-<li> <strong>メリット：</strong> 普通のAndroidと同じようにアプリを入れられる。銀行アプリやゲームの互換性が高まる。 </li>
-<li> <strong>デメリット：</strong> Google関連のプロセスが動作するため、わずかにプライバシー妥協がある。 </li>
-</ul>
-<h4>Aurora Store</h4>
-<p> Googleアカウント不要でPlayストアのアプリをダウンロードできる代替ストア。 <strong>正規のAPKを取得</strong>するため安全性は高いが、 <strong>自動更新がなく、更新が遅れる可能性</strong>があるので定期チェックが必要です。 </p>
-<h4>実用的な使い分け</h4>
-<ul>
-<li>メインプロファイル：Googleサービスなしで軽量・安全に運用。アプリはAurora Storeで導入。</li>
-<li>サブプロファイル：Google前提アプリ（銀行、LINEなど通知必須系）をSandboxed Google Play経由で利用。</li>
-</ul>
-<h4>通知の運用ポイント</h4>
-<ul>
-<li> <strong>メインに置くべき：</strong> 電話・SMS・LINE・会社メールなど即時通知が必要なアプリ </li>
-<li> <strong>サブに隔離すべき：</strong> SNS（X/Instagram/TikTok）、ゲーム、銀行アプリ、信頼性に不安のあるアプリ </li>
-<li>通知が遅れると困るものはメインへ。それ以外はサブで十分。</li>
-</ul>
-<h4>導入方法</h4>
-<p> <strong>Sandboxed Google Play：</strong> </p>
-<ul>
-<li>標準搭載アプリのApp Storeから「Google Play services」と「Google Play Store」をインストール。どちらか片方を入れれば両方揃います。</li>
-<li>通常のAndroid同様にアプリを <strong>自動更新</strong>できますが、システム権限は持たないためGrapheneOSのセキュリティは維持されます。 </li>
-</ul>
-<p> <strong>Aurora Store：</strong> </p>
-<ul>
-<li>標準ブラウザVanadiumで <a href="https://auroraoss.com/files/AuroraStore/Release" target="_blank">Aurora公式配布ページ</a> を開く。 </li>
-<li>「Created at」で最も新しい <code>.apk</code> をダウンロードし、インストール。 </li>
-<li>古いAPKは削除してストレージを節約可能。</li>
-</ul>
-<p class="note"> Aurora Storeには「匿名」と「Googleログイン」モードがあります。基本は <strong>匿名利用</strong>で十分です。 アプリ側でGoogleログインするのは問題ありませんが、Aurora Store本体でGoogleログインするのは非推奨です。 </p>
-</div>
-</article>
-<article class="panel blog-post" data-no-close="true">
-<h3>日本語入力を有効にする（Gboard導入）</h3>
-<button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
-<div class="caption">
-<p>GrapheneOSには標準で日本語入力がありません。そのため、日本語IMEを自分で導入する必要があります。</p>
-<h4>導入方法</h4>
-<ul>
-<li> <strong>Sandboxed Google Play経由：</strong> Playストアから「Gboard」をインストール可能。通常のAndroidと同じように自動更新されます。 </li>
-<li> <strong>Aurora Store経由：</strong> Googleアカウント不要で入手可能。ただし更新は手動で行う必要があります。 </li>
-</ul>
-<h4>有効化手順</h4>
-<ol>
-<li>設定 (Settings) → システム (System) → 言語と入力 (Languages &amp; input)</li>
-<li>オンスクリーンキーボード (On-screen keyboard) → キーボードの管理 (Manage keyboards)</li>
-<li>Google 日本語入力 (Gboard) をオンにする</li>
-<li>文字入力時に地球マークを長押し → 「Google 日本語入力」を選択</li>
-</ol>
-<p class="note"> Gboard以外にも <strong>OpenBoard</strong> や <strong>Mozc</strong> といったオープンソースIMEがあります。 <br> ただし安定性や変換精度の面で、初心者にはGboardが最も使いやすく安心です。 </p>
-</div>
-</article>
-<article class="panel blog-post" data-no-close="true">
-<h3>セキュリティソフトとVPN</h3>
-<button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
-<div class="caption">
-<h4>セキュリティソフト（例：ESET）</h4>
-<ul>
-<li> <strong>原則不要：</strong> GrapheneOSは標準セキュリティが非常に強固であり、追加のセキュリティソフトは基本的に必要ありません。 </li>
-<li> <strong>デメリット：</strong> 常駐による <strong>電池消費・動作の重さ</strong>に加え、アプリ自体が新たなリスク源となる可能性があります。 </li>
-<li> <strong>限定的な例外：</strong> 銀行・課金・ゲーム専用の <strong>サブプロファイル</strong>で利用する場合のみ有効性があるケースがあります。 ただし「過信は禁物」で、標準機能を補助する程度と考えるべきです。 </li>
-<li> <strong>制約：</strong> 標準ブラウザ「Vanadium」は非対応。Chromeなど一部のブラウザでのみ機能します。 </li>
-</ul>
-<p> <b>結論：</b> メインには不要。どうしても使う場合は <strong>サブのみ</strong>で補助的に導入してください。 </p>
-<h4>VPN</h4>
-<p> 公共Wi-Fi利用が多い人は <strong>必須級</strong>。プロファイルごとに別々に動作可能で、すべての通信を暗号化します。 <br> 公共Wi-Fiや出先での盗聴・改ざん対策に直結し、これはセキュリティソフトでは代替できない領域です。 </p>
-<p> <b>優先度：</b>VPN ＞ セキュリティソフト（GrapheneOSでやるべき基本設定）。 </p>
-<h4>まとめ</h4>
-<ul>
-<li>VPNは全ユーザーに推奨（常用すべき基本設定）。</li>
-<li>セキュリティソフトは <strong>安心感が欲しい人向け</strong>に「サブ専用」で導入。 </li>
-<li>セキュリティ強度を上げたいならまずVPN、その次に必要ならセキュリティソフト。</li>
-</ul>
-<p>この運用なら「過剰に入れすぎず、必要十分な安全性」と「Google必須アプリの利便性」の両立が可能です。</p>
-</div>
-</article>
-<!-- ▼▼▼ Pixelに戻す方法 ▼▼▼ -->
-<section id="restore-to-pixel" class="wrap">
-<h2>Pixelに戻す方法</h2>
-<article class="panel blog-post" data-no-close="true">
-<h3>注意</h3>
-<button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
-<div class="caption">
-<p> この操作で <strong>Pixel内のデータは完全消去</strong> されます。必ずバックアップを取ってから作業してください。 <br> コマンドやファイルを間違えると <strong>文鎮化（起動不可）</strong>のリスクがあります。文鎮化とは、電源を入れてもOSが起動しなくなる状態のことです。完全に壊れるわけではなく、正しく再フラッシュすれば復旧可能ですが、専門知識がないと対応は困難です。 </p>
-<p> また、公式ROM（OS本体ファイル）を書き込んだ後は必ず <code>fastboot flashing lock</code> を実行して <strong>ブートローダーを再ロック</strong>してください。ブートローダーとは端末起動時に最初に動く仕組みで、これをロックしないとセキュリティ上「改造状態」と見なされます。 </p>
-<!-- ★★★ 追加ここから ★★★ -->
-<h4>【補足】万が一の文鎮化から復旧するには</h4>
-<p>もし書き込み中のエラーやコマンドミスで文鎮化した場合、焦らずに再度FastbootモードでPCに接続し、<code>flash-all.bat</code>を最初から実行することで、多くの場合復旧できます。それでもダメな場合は、専門コミュニティ（XやRedditのr/GrapheneOS等）で機種名とエラーメッセージを添えて相談するのが最後の手段です。</p>
-<!-- ★★★ 追加ここまで ★★★ -->
-</div>
-</article>
-<article class="panel blog-post" data-no-close="true">
-<h3>戻す方法（簡略版）</h3>
-<button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
-<div class="caption">
-<ol>
-<li>PCで Googleの <strong>公式ファクトリーイメージ</strong>をダウンロード。（純正Androidの完全版OS） </li>
-<li>Pixelを <strong>ブートローダー（Fastbootモード）</strong>にして接続。（電源＋音量下を長押しで入る特殊モード） </li>
-<li>Windowsなら <code>flash-all.bat</code> を実行（macOS/Linuxは <code>flash-all.sh</code>）。 → 純正Android（Pixel純正ROM）がインストールされます。 </li>
-<li>起動後、Googleアカウントでログイン → 連絡先や履歴を同期。</li>
-</ol>
-<p class="note"> ※ データはすべて消えるので、必ずバックアップを取ってから進めてください。 <br> ※ セキュリティを元に戻すには、最後に <code>fastboot flashing lock</code> を実行して <strong>ブートローダーを再ロック</strong>してください。（作業4の後） </p>
-</div>
-</article>
-<article class="panel blog-post" data-no-close="true">
-<h3>必要なものを準備</h3>
-<button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
-<div class="caption">
-<ul>
-<li>USBケーブル（PixelとPCを接続できるもの。データ通信対応タイプを推奨）</li>
-<li>パソコン（Windows / macOS / Linux いずれも可）</li>
-<li>Pixel端末（GrapheneOSが入っていてもOK）</li>
-<li> Android Platform Tools （ADB/Fastbootツール。Google公式からダウンロード： <a href="https://developer.android.com/tools/releases/platform-tools?hl=ja" target="_blank">こちら</a>） </li>
-<li> Pixel用ファクトリーイメージ （自分のPixel機種とバージョンに対応した純正OS。Google公式から入手： <a href="https://developers.google.com/android/images?hl=ja" target="_blank">こちら</a>） </li>
-</ul>
-</div>
-</article>
-<article class="panel blog-post" data-no-close="true">
-<h3>Pixel端末側の準備</h3>
-<button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
-<div class="caption">
-<ol>
-<li> 設定 → デバイス情報 → <strong>ビルド番号を7回タップ</strong> → 「開発者向けオプション」を有効化。 <br> （※ ビルド番号連打は隠しメニューを出すための操作です） </li>
-<li> 設定 → システム → 開発者向けオプション → <strong>OEMロック解除</strong> をオン。 <br> （※ これをオンにしないとOSを書き込めません。PIN要求が出る場合あり） </li>
-<li> 電源を切る → <strong>電源＋音量下</strong>を同時押しで起動 → <strong>ブートローダー（Fastbootモード）</strong>に入る。 <br> （※ FastbootはOSを書き込むための専用モードです） </li>
-</ol>
-</div>
-</article>
-<article class="panel blog-post" data-no-close="true">
-<h3>パソコン側の準備（ダウンロード＆展開）</h3>
-<button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
-<div class="caption">
-<p> ダウンロードする例として、Windows環境で <b>Google Pixel 9a</b> を使う場合： <b>SDK Platform-Tools for Windows</b> をダウンロードし、Pixel 9a の最新バージョンの <b>Factory Image</b> を選んでダウンロードしてください。 他のPixelを使う場合も「自分の機種」と「最新の安定版バージョン」を必ず選びます。 </p>
-<ol>
-<li> <a href="https://developer.android.com/tools/releases/platform-tools?hl=ja" target="_blank"> Platform-Tools </a> をダウンロードして展開。 </li>
-<li> <a href="https://developers.google.com/android/images?hl=ja" target="_blank"> Pixel用ファクトリーイメージ </a> を自分のPixel機種・バージョンに合わせてダウンロードして展開。 </li>
-<li> ダウンロードした両方の <code>.zip</code> を展開し、 <strong>同じフォルダ</strong>にまとめる。 （例：デスクトップ上の同一フォルダに <code>platform-tools</code> と Factory Image を配置） </li>
-</ol>
-<figure> <img src="../assets/グラフェンOS01.webp" alt="Platform-Tools と Factory Image を同一フォルダに配置" style="width:100%;border-radius:10px;"> <figcaption>※ フォルダ配置の例（Platform-Tools と Factory Image を同じ場所に入れる）</figcaption> </figure>
-<p class="note"> 補足：この配置にしておくと、コマンド実行時にパス指定で迷わずに済みます。 <br> 初心者は必ず「同じフォルダにまとめる」ことを守ってください。 </p>
-</div>
-</article>
-<article class="panel blog-post" data-no-close="true">
-<h3>アンロック & フラッシュ手順</h3>
-<button class="toggle-button" aria-expanded="false">▼ 詳細を見る</button>
-<div class="caption">
-<ol>
-<li>USBケーブルでPixelをPCに接続。</li>
-<li> フォルダの空き領域で <b>Shift + 右クリック</b> → <b>「ターミナルで開く」</b> を選択。 <figure> <img src="../assets/グラフェンOS03.webp" alt="フォルダでShift+右クリックしてターミナルを開く" style="width:100%;border-radius:10px;"> <figcaption>※ フォルダの空き領域でターミナルを開く</figcaption> </figure> </li>
-<li> 認識確認： <code>.\fastboot devices</code> </li>
-<li> ブートローダーのアンロック（この時点では書き込みは開始されません）： <code>.\fastboot flashing unlock</code> <br> → 端末に「Unlock bootloader?」が出るので Yes を選び、電源ボタンで決定。もしPixel端末にメッセージが出ていない場合、音量ボタンで選択肢を変更してから電源ボタンで決定。 <figure> <img src="../assets/グラフェンOS02.webp" alt="fastboot devices / flashing unlock の実行例" style="width:100%;border-radius:10px;"> <figcaption>※ 認識確認とアンロックコマンドの実行例</figcaption> </figure> </li>
-<li> 同フォルダ内の <code>flash-all.bat</code>（macOS/Linuxは <code>flash-all.sh</code>）を実行。 → ROMの書き込みがスタート。PC画面にログが流れるので完了まで待機。 <figure> <img src="../assets/グラフェンOS01.webp" alt="flash-all.bat の位置" style="width:100%;border-radius:10px;"> <figcaption>※ flash-all.bat の実行場所（同一フォルダに Platform-Tools がある状態）</figcaption> </figure> </li>
-<li> Pixelが自動で再起動し Fastboot画面に戻る。 Fastboot画面で「Start」に合わせて電源ボタンで確定 → 起動したら初期セットアップ（Googleアカウントでログイン）。 </li>
-<li> セキュリティを元に戻すため、もう一度 Fastboot で起動し <code>fastboot flashing lock</code> を実行して <strong>ブートローダーを再ロック</strong>してください。 再ロックしないと、再起動のたびに <strong>アンロック状態の警告（通常オレンジ／一部機種では黄色）</strong>が表示され続けます。 セキュリティを重視する人や警告表示が気になる人は必ず実行しましょう。 <p class="note"> 注意：後から再ロックしようとすると再度の初期化（データ全消去）が必要です。 そのため <strong>Pixelに戻した直後に実行し、再起動で警告が出ないことを確認</strong>するのがベストです。 </p> </li>
-<li> <p class="note"> ケーブルは <b>作業6（flash-all 実行完了）</b> の後なら抜いてOK。 PC側のウィンドウも閉じて問題ありません。 </p> </li>
-</ol>
-</div>
-</article>
-</section>
+    <section id="intro" class="wrap">
+        <h2>1. セキュリティ特化のAndroid</h2>
+        <article class="panel blog-post" data-no-close="true">
+            <h3>GrapheneOSとは？</h3>
+            <button class="toggle-button" aria-expanded="false" aria-controls="cap-1">▼ 詳細を見る</button>
+            <div class="caption" id="cap-1">
+                <p>GrapheneOS は Google Pixel 向けの <strong>セキュリティとプライバシー最優先のAndroid系OS</strong>。無料で導入でき、対応Pixelを用意すれば誰でも利用できる。</p>
+                <p>普段のPixelをセキュリティ特化型として使えるようになり、攻撃への耐性やアプリ権限の細かい制御が強化されるため、情報漏洩リスクを大きく減らせる。</p>
+                <p>使い方の流れは、対応Pixelを用意して <a href="https://grapheneos.org/install/web" target="_blank">公式Web Installer</a> で導入するだけ。PCとケーブルを繋いでブラウザの指示に従うだけで、専門知識なしに安全に導入できます。これでセキュリティ強化済みのPixelとして使い始められる。</p>
+                <p class="note">※導入時は初期化やブートローダー操作を伴い、データは消去されます。バックアップ必須であり、手順ミスによるリスクも理解して進めること。</p>
+            </div>
+        </article>
+        <article class="panel blog-post" data-no-close="true">
+            <h3>GrapheneOSのメリットとデメリット</h3>
+            <button class="toggle-button" aria-expanded="false" aria-controls="cap-2">▼ 詳細を見る</button>
+            <div class="caption" id="cap-2">
+                <div class="grid">
+                    <div>
+                        <h4>メリット</h4>
+                        <ul>
+                            <li><strong>ゼロデイ攻撃に強い防御力</strong><br>メモリ安全性の技術やOSの核となる部分（カーネル）の保護が強化され、悪意のあるアプリがシステムの根幹に侵入するのを防ぎ、未知の攻撃にも比較的耐性がある。</li>
+                            <li><strong>アプリの挙動を細かく制御</strong><br>「ネット通信を禁止」「センサー利用を無効化」といった設定が可能で、情報漏洩を防げる。</li>
+                            <li><strong>コピー情報は自動で消去</strong><br>クリップボードの内容は一定時間で自動消去され、他アプリからの不正取得を防ぐ。</li>
+                            <li><strong>Googleサービスを選んで利用可能</strong><br>Google Playをサンドボックス化して使えるため、必要な場合だけ導入できる。不要なら完全に外すことも可能。</li>
+                            <li><strong>オープンソースによる透明性</strong><br>ソースコードが公開され、研究者や専門家による監査が可能。安全性の検証が開かれており、裏で情報を送っているようなバックドアが混入するリスクが極めて低い。</li>
+                            <li><strong>Pixelハードを最大限活用</strong><br>Titan Mチップやセキュアブートなど、Pixel独自のセキュリティ機能をそのまま利用できる。</li>
+                            <li><strong>プロファイル分離で安全に使い分け</strong><br>「仕事用」と「プライベート用」を完全に分離でき、環境を切り替えて利用可能。</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>デメリット</h4>
+                        <ul>
+                            <li><strong>利便性：</strong>Googleアシスタントが使えない（プライバシー保護のため非対応）。</li>
+                            <li><strong>利便性：</strong>Pixel独自の一部機能が制限（AIカメラ処理など、Googleサーバー依存部分）。</li>
+                            <li><strong>互換性：</strong>Google Playストアはそのまま使えず、「Sandboxed Google Play」や <a href="https://auroraoss.com/" target="_blank">Aurora Store</a> を利用する必要がある。</li>
+                            <li><strong>互換性：</strong>一部アプリが動作しない（例：銀行アプリ、キャリア決済アプリ）。</li>
+                            <li><strong>利便性：</strong>利便性よりセキュリティ重視の設計で、設定や管理に手間がかかる。</li>
+                            <li><strong>サポート：</strong>Pixel本体の保証は残るが、Google公式サポート対象外となる。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <article class="panel blog-post" data-no-close="true">
+            <h3>通常アプリは使えるのか？</h3>
+            <button class="toggle-button" aria-expanded="false" aria-controls="cap-3">▼ 詳細を見る</button>
+            <div class="caption" id="cap-3">
+                <p>GrapheneOSでもLINEやYouTubeなど多くの一般的なアプリは利用できます。</p>
+                <h4>アプリ入手方法</h4>
+                <ul>
+                    <li><strong>Sandboxed Google Play：</strong>純正のGoogle PlayストアとGMSを利用可能。アプリは通常通り自動更新されます。</li>
+                    <li><strong>Aurora Store：</strong>Googleアカウント不要でPlayストアのアプリを入手可能。ただし更新は手動チェックが必要です。</li>
+                    <li><strong>F-Droid：</strong>Googleとは完全に独立した、追跡や広告がないオープンソースアプリ専用ストアです。プライバシーを重視するアプリを探す際に非常に強力な選択肢となります。</li>
+                </ul>
+                <h4>互換性の目安</h4>
+                <ul>
+                    <li>LINE・YouTube・Twitterなどサーバー連携型アプリ → 問題なく利用可</li>
+                    <li>Gmail・Google DriveなどGoogleサービス → Sandboxed経由で利用可</li>
+                    <li><strong>銀行アプリやキャリア決済アプリ → Google依存が強いため、ほぼ利用不可</strong></li>
+                    <li>一部ゲーム（Play Integrity必須） → 動作不可</li>
+                </ul>
+                <h4>おすすめできるユーザー層</h4>
+                <ul>
+                    <li>キャリアアプリや便利機能を手放してもよい人</li>
+                    <li>連絡用途やSNSが中心の人</li>
+                    <li>情報漏洩リスクを徹底的に下げたい人</li>
+                </ul>
+                <p class="note">二段階認証アプリ（Google Authenticator / Aegis など）は <strong>必ずメインプロファイルに配置</strong>してください。サブに置いた場合、電話番号やSMS認証が動作せず、復旧不能になるリスクがあります。<br>また、銀行アプリやキャリア決済アプリはGoogleサービス依存のため <strong>ほぼ利用できません</strong>。これはGrapheneOSの制約というより、アプリ側がGoogleの仕組みに依存していることが原因です。</p>
+            </div>
+        </article>
+        <article class="panel blog-post" data-no-close="true">
+            <h3>Pixel購入時に注意すべき点</h3>
+            <button class="toggle-button" aria-expanded="false" aria-controls="cap-4">▼ 詳細を見る</button>
+            <div class="caption" id="cap-4">
+                <ul>
+                    <li><strong>対応状況：</strong>新機種はすぐにGrapheneOS対応にならない場合があります（通常は数日〜数週間以内）。導入前に必ず <a href="https://grapheneos.org/releases" target="_blank">公式対応ページ</a>で最新状況を確認してください。</li>
+                    <li><strong>サポート期限：</strong>古いモデルは安価ですが、セキュリティアップデートが終了するとリスクが高まります。長期サポート対象のPixelを選ぶのが安心です。</li>
+                    <li><strong>SIMカード対応：</strong>利用中の通信会社に合わせて <code>nanoSIM</code> または <code>eSIM</code> に対応しているかを確認しましょう。</li>
+                    <li><strong>中古端末の注意：</strong>安価な中古品は魅力的ですが、セキュリティアップデートの残期間が短いと、せっかくのGrapheneOSの強みが活かせません。サポート切れやブートローダー解除不可の個体がないか要確認です。</li>
+                    <li><strong>OEMロック解除の可否：</strong>非常に稀ですが、キャリア販売の端末によってはOEMロック解除があらかじめ無効化されている場合があります。購入前にSIMフリー版であること、または販売元に確認することをお勧めします。</li>
+                    <li><strong>ストレージ容量：</strong>複数プロファイルを作る場合は64GBでは不足しがち。128GB以上を推奨。</li>
+                    <li><strong>保証面：</strong>Pixelハード保証は残りますが、Google公式サポートは対象外になります。</li>
+                </ul>
+                <p class="note">※購入前に「対応機種・サポート期限・SIM対応・ストレージ容量・中古可否・保証範囲」を確認すれば、導入後のトラブルを防げます。</p>
+            </div>
+        </article>
+        <article class="panel blog-post" data-no-close="true">
+            <h3>Pixelに戻せるのか？</h3>
+            <button class="toggle-button" aria-expanded="false" aria-controls="cap-5">▼ 詳細を見る</button>
+            <div class="caption" id="cap-5">
+                <p>戻すことは可能ですが、<strong>必ずデータは全て消去されます</strong>。コマンド操作が不安な方は、Google公式の<strong>Android Flash Tool</strong>（Web Installerと同様の仕組み）を使えば、ブラウザから元のOSに戻すことが可能です。専門知識がない場合はこちらの方法を強く推奨します。</p>
+                <p>コマンドで戻す場合は、ブートローダーを再ロックし、Google公式の純正Android（Pixel純正ROM）を再フラッシュすれば元に戻せます。ただし <strong>文鎮化リスク</strong>（端末が起動しなくなる可能性）がある点には注意してください。</p>
+                <p class="note">補足：「文鎮化」とは、スマホが完全に起動しなくなり、文字通り「文鎮」のように重りとしてしか使えなくなる状態を指します。完全に壊れるわけではありませんが、復旧には専門知識や特別なツールが必要になる場合があります。</p>
+            </div>
+        </article>
+        <article class="panel blog-post" data-no-close="true">
+            <h3>まとめ</h3>
+            <button class="toggle-button" aria-expanded="false" aria-controls="cap-6">▼ 詳細を見る</button>
+            <div class="caption" id="cap-6">
+                <p><strong>メリット：</strong>世界最高水準のセキュリティとプライバシー制御を提供</p>
+                <p><strong>デメリット：</strong>一部の便利機能や互換性を犠牲にする</p>
+                <p>GrapheneOSは「利便性より安全性を優先したい人」のための選択肢です。日常利用や快適さを重視するなら純正Pixel、徹底したセキュリティを求めるならGrapheneOS、と目的に応じて使い分けるのが最適です。</p>
+            </div>
+        </article>
+        <article class="panel blog-post" data-no-close="true">
+            <h3>GrapheneOSの導入方法（概要）</h3>
+            <button class="toggle-button" aria-expanded="false" aria-controls="cap-7">▼ 詳細を見る</button>
+            <div class="caption" id="cap-7">
+                <p>必要なもの：</p>
+                <ul>
+                    <li>PC（Google Chrome/Chromium系推奨）</li>
+                    <li>Pixel端末</li>
+                    <li>接続用ケーブル（データ通信対応）</li>
+                </ul>
+                <figure>
+                    <figcaption>（画像：Web Installerの「Select a device」画面）</figcaption>
+                </figure>
+                <h4>Pixel側の準備</h4>
+                <ul>
+                    <li>開発者モードON → ビルド番号7回タップ</li>
+                    <li>OEMロック解除ON</li>
+                    <li>USBデバッグON</li>
+                </ul>
+                <h4>インストール手順</h4>
+                <ol>
+                    <li>PixelをFastbootモードにする</li>
+                    <li>PCで <a href="https://grapheneos.org/install/web" target="_blank">公式Web Installer</a> を開く</li>
+                    <li>「Unlock bootloader → Download release → Flash release → Lock bootloader」を順に実行</li>
+                    <li>Fastbootで「Start」を選び起動 → 完了</li>
+                </ol>
+                <figure>
+                    <figcaption>（画像：Fastbootモードの画面。ロックが外れているアイコン）</figcaption>
+                </figure>
+                <h4>⚠ 注意点</h4>
+                <ul>
+                    <li>作業中はデータ全消去</li>
+                    <li>ケーブルを抜かない／電源切らない</li>
+                    <li>毎回の起動時に黄色警告は正常</li>
+                    <li>必ず「Lock bootloader」を最後に実行</li>
+                </ul>
+            </div>
+        </article>
+    </section>
+    <section id="post-install" class="wrap">
+        <h2>2. GrapheneOS 導入後</h2>
+        <article class="panel blog-post" data-no-close="true">
+            <h3>プロファイル分け（メインとサブ）</h3>
+            <button class="toggle-button" aria-expanded="false" aria-controls="cap-8">▼ 詳細を見る</button>
+            <div class="caption" id="cap-8">
+                <p>GrapheneOSの強みは <strong>ユーザープロファイル分離</strong>にあります。Windowsの「ユーザーアカウント」に近いイメージです。※なお、この挙動はAndroid標準の複数ユーザー機能による仕様で、GrapheneOS独自の制限ではありません。GrapheneOSではこの標準機能を <strong>強化されたセキュリティ基盤</strong>上で活用できる点が特徴です。</p>
+                <h4>メインプロファイル（オーナー）</h4>
+                <ul>
+                    <li>電話番号・SMSは必ずここに紐づきます。</li>
+                    <li>通知は常に届き、他のプロファイルとは完全に分離されます。</li>
+                </ul>
+                <h4>サブプロファイル</h4>
+                <ul>
+                    <li>追加ユーザーとして新規セットアップ。アプリやデータは完全独立。</li>
+                    <li>通知はメインと干渉せず、開いたときのみ反応します。</li>
+                </ul>
+                <h4>メリット</h4>
+                <ul>
+                    <li>ストレージ暗号化はプロファイル単位で強固。各ユーザーごとに暗号鍵が分かれます。</li>
+                    <li>メインを開いた状態ではサブのデータにアクセスできず、逆も同じです。</li>
+                    <li>サブでアプリが汚染されてもメインには一切影響がありません。</li>
+                </ul>
+                <h4>デメリット</h4>
+                <ul>
+                    <li>写真や動画の保存場所が異なり、共有にはクラウドやUSB転送が必要。</li>
+                    <li>通知は切り替え中のみ届きません。サブ利用時はメインの通知が止まります。</li>
+                    <li>サブを閉じると、そのプロファイルのアプリは <strong>完全に停止</strong>します（音楽再生やダウンロードも継続しません）。<span class="note">理由：安全のため完全分離する仕組みだからです。仮にサブでウイルスが入り込んでも、メインに影響は及びません。</span></li>
+                    <li>メインとサブを同時に動かすことはできません。</li>
+                </ul>
+                <h4>【補足】通知の仕様について</h4>
+                <p>GrapheneOSには、サブプロファイルの通知をメインプロファイルに転送する機能はありません。これはプロファイルの完全な分離を維持するための設計思想です。したがって、「通知が即時に届くことが命」というアプリ（電話、SMS、2段階認証アプリ、重要な連絡ツールなど）は、迷わずメインプロファイルにインストールするのが基本ルールと考えてください。</p>
+                <h4>作成方法</h4>
+                <p>設定 → システム → 複数のユーザー → ユーザーを追加。名前をつけ（例：「ゲーム用」「実験用」）、今すぐ切り替えを選ぶと初期セットアップが始まります。</p>
+                <figure>
+                    <figcaption>（画像：「ユーザーを追加」の設定画面）</figcaption>
+                </figure>
+                <h4>実用例</h4>
+                <ul>
+                    <li>メイン：仕事・連絡系アプリのみ（使用容量10〜20GB程度）</li>
+                    <li>サブ：ゲームや動画アプリを集中して入れる（容量消費を分離できる）</li>
+                </ul>
+                <h4>切り替え方法</h4>
+                <p>通知バー右上のユーザーアイコン → プロファイル選択 → パスコード入力 → 切り替え完了。まるで別のスマホを開いたような感覚で利用できます。</p>
+                <p class="note">※補足：独立した環境でも、物理的なストレージは共有。例えば128GBモデルのPixelなら、メインとサブ合わせて合計128GBを使います。</p>
+            </div>
+        </article>
+        <article class="panel blog-post" data-no-close="true">
+            <h3>Google Playストアをどう使うか？</h3>
+            <button class="toggle-button" aria-expanded="false" aria-controls="cap-9">▼ 詳細を見る</button>
+            <div class="caption" id="cap-9">
+                <p>GrapheneOSには標準でGoogle Playストアが含まれていません。代わりに <strong>Sandboxed Google Play</strong>を導入することで、ほぼ通常のAndroidと同じようにPlayストアを利用できます。さらに <strong>Aurora Store</strong>という代替ストアもあり、Googleアカウント不要でPlayアプリを取得可能です。</p>
+                <h4>Sandboxed Google Play</h4>
+                <ul>
+                    <li><strong>メリット：</strong>普通のAndroidと同じようにアプリを入れられる。銀行アプリやゲームの互換性が高まる。</li>
+                    <li><strong>デメリット：</strong>Google関連のプロセスが動作するため、わずかにプライバシー妥協がある。ただし、システムの重要部分から隔離された『サンドボックス』内で動くため、GrapheneOS全体のセキュリティモデルは維持され、通常のAndroidよりははるかに安全です。</li>
+                </ul>
+                <h4>Aurora Store</h4>
+                <p>Googleアカウント不要でPlayストアのアプリをダウンロードできる代替ストア。<strong>正規のAPKを取得</strong>するため安全性は高いが、<strong>自動更新がなく、更新が遅れる可能性</strong>があるので定期チェックが必要です。</p>
+                <h4>実用的な使い分け</h4>
+                <ul>
+                    <li>メインプロファイル：Googleサービスなしで軽量・安全に運用。アプリはAurora Storeで導入。</li>
+                    <li>サブプロファイル：Google前提アプリ（銀行、LINEなど通知必須系）をSandboxed Google Play経由で利用。</li>
+                </ul>
+                <h4>通知の運用ポイント</h4>
+                <ul>
+                    <li><strong>メインに置くべき：</strong>電話・SMS・LINE・会社メールなど即時通知が必要なアプリ</li>
+                    <li><strong>サブに隔離すべき：</strong>SNS（X/Instagram/TikTok）、ゲーム、銀行アプリ、信頼性に不安のあるアプリ</li>
+                    <li>通知が遅れると困るものはメインへ。それ以外はサブで十分。</li>
+                </ul>
+                <h4>導入方法</h4>
+                <p><strong>Sandboxed Google Play：</strong></p>
+                <ul>
+                    <li>標準搭載アプリのApp Storeから「Google Play services」と「Google Play Store」をインストール。どちらか片方を入れれば両方揃います。</li>
+                    <li>通常のAndroid同様にアプリを <strong>自動更新</strong>できますが、システム権限は持たないためGrapheneOSのセキュリティは維持されます。</li>
+                </ul>
+                <p><strong>Aurora Store：</strong></p>
+                <ul>
+                    <li>標準ブラウザVanadiumで <a href="https://auroraoss.com/files/AuroraStore/Release" target="_blank">Aurora公式配布ページ</a> を開く。</li>
+                    <li>「Created at」で最も新しい <code>.apk</code> をダウンロードし、インストール。</li>
+                    <li>古いAPKは削除してストレージを節約可能。</li>
+                </ul>
+                <p class="note">Aurora Storeには「匿名」と「Googleログイン」モードがあります。基本は <strong>匿名利用</strong>で十分です。アプリ側でGoogleログインするのは問題ありませんが、Aurora Store本体でGoogleログインするのは非推奨です。</p>
+            </div>
+        </article>
+        <article class="panel blog-post" data-no-close="true">
+            <h3>日本語入力を有効にする（Gboard導入）</h3>
+            <button class="toggle-button" aria-expanded="false" aria-controls="cap-10">▼ 詳細を見る</button>
+            <div class="caption" id="cap-10">
+                <p>GrapheneOSには標準で日本語入力がありません。そのため、日本語IMEを自分で導入する必要があります。</p>
+                <h4>導入方法</h4>
+                <ul>
+                    <li><strong>Sandboxed Google Play経由：</strong>Playストアから「Gboard」をインストール可能。通常のAndroidと同じように自動更新されます。</li>
+                    <li><strong>Aurora Store経由：</strong>Googleアカウント不要で入手可能。ただし更新は手動で行う必要があります。</li>
+                </ul>
+                <h4>有効化手順</h4>
+                <ol>
+                    <li>設定 (Settings) → システム (System) → 言語と入力 (Languages &amp; input)</li>
+                    <li>オンスクリーンキーボード (On-screen keyboard) → キーボードの管理 (Manage keyboards)</li>
+                    <li>Google 日本語入力 (Gboard) をオンにする</li>
+                    <li>文字入力時に地球マークを長押し → 「Google 日本語入力」を選択</li>
+                </ol>
+                <p class="note">Gboard以外にも <strong>OpenBoard</strong> や <strong>Mozc</strong> といったオープンソースIMEがあります。<br>ただし安定性や変換精度の面で、初心者にはGboardが最も使いやすく安心です。</p>
+            </div>
+        </article>
+        <article class="panel blog-post" data-no-close="true">
+            <h3>セキュリティソフトとVPN</h3>
+            <button class="toggle-button" aria-expanded="false" aria-controls="cap-11">▼ 詳細を見る</button>
+            <div class="caption" id="cap-11">
+                <h4>セキュリティソフト（例：ESET）</h4>
+                <ul>
+                    <li><strong>原則不要：</strong>GrapheneOSは標準セキュリティが非常に強固であり、追加のセキュリティソフトは基本的に必要ありません。</li>
+                    <li><strong>デメリット：</strong>常駐による <strong>電池消費・動作の重さ</strong>に加え、アプリ自体が新たなリスク源となる可能性があります。</li>
+                    <li><strong>限定的な例外：</strong>銀行・課金・ゲーム専用の <strong>サブプロファイル</strong>で利用する場合のみ有効性があるケースがあります。ただし「過信は禁物」で、標準機能を補助する程度と考えるべきです。</li>
+                    <li><strong>制約：</strong>標準ブラウザ「Vanadium」は非対応。Chromeなど一部のブラウザでのみ機能します。</li>
+                </ul>
+                <p><b>結論：</b>メインには不要。どうしても使う場合は <strong>サブのみ</strong>で補助的に導入してください。</p>
+                <h4>VPN</h4>
+                <p>公共Wi-Fi利用が多い人は <strong>必須級</strong>。プロファイルごとに別々に動作可能で、すべての通信を暗号化します。<br>公共Wi-Fiや出先での盗聴・改ざん対策に直結し、これはセキュリティソフトでは代替できない領域です。信頼できるNo-Log（利用ログを残さない）ポリシーのプロバイダーを選ぶことが重要です。</p>
+                <p><b>優先度：</b>VPN ＞ セキュリティソフト（GrapheneOSでやるべき基本設定）。</p>
+                <h4>まとめ</h4>
+                <ul>
+                    <li>VPNは全ユーザーに推奨（常用すべき基本設定）。</li>
+                    <li>セキュリティソフトは <strong>安心感が欲しい人向け</strong>に「サブ専用」で導入。</li>
+                    <li>セキュリティ強度を上げたいならまずVPN、その次に必要ならセキュリティソフト。</li>
+                </ul>
+                <p>この運用なら「過剰に入れすぎず、必要十分な安全性」と「Google必須アプリの利便性」の両立が可能です。</p>
+            </div>
+        </article>
+        <!-- ▼▼▼ Pixelに戻す方法 ▼▼▼ -->
+        <section id="restore-to-pixel" class="wrap">
+            <h2>Pixelに戻す方法</h2>
+            <article class="panel blog-post" data-no-close="true">
+                <h3>注意</h3>
+                <button class="toggle-button" aria-expanded="false" aria-controls="cap-12">▼ 詳細を見る</button>
+                <div class="caption" id="cap-12">
+                    <p><strong>（重要）この手順では端末内のすべてのデータが消去されます。必ず事前にバックアップを完了させてください。</strong></p>
+                    <p>この操作で <strong>Pixel内のデータは完全消去</strong> されます。必ずバックアップを取ってから作業してください。<br>コマンドやファイルを間違えると <strong>文鎮化（起動不可）</strong>のリスクがあります。文鎮化とは、電源を入れてもOSが起動しなくなる状態のことです。完全に壊れるわけではなく、正しく再フラッシュすれば復旧可能ですが、専門知識がないと対応は困難です。</p>
+                    <p>また、公式ROM（OS本体ファイル）を書き込んだ後は必ず <code>fastboot flashing lock</code> を実行して <strong>ブートローダーを再ロック</strong>してください。ブートローダーとは端末起動時に最初に動く仕組みで、これをロックしないとセキュリティ上「改造状態」と見なされます。</p>
+                    <h4>【補足】万が一の文鎮化から復旧するには</h4>
+                    <p>もし書き込み中のエラーやコマンドミスで文鎮化した場合、焦らずに再度FastbootモードでPCに接続し、<code>flash-all.bat</code>を最初から実行することで、多くの場合復旧できます。それでもダメな場合は、専門コミュニティ（XやRedditのr/GrapheneOS等）で機種名とエラーメッセージを添えて相談するのが最後の手段です。</p>
+                </div>
+            </article>
+            <article class="panel blog-post" data-no-close="true">
+                <h3>戻す方法（簡略版）</h3>
+                <button class="toggle-button" aria-expanded="false" aria-controls="cap-13">▼ 詳細を見る</button>
+                <div class="caption" id="cap-13">
+                    <ol>
+                        <li>PCで Googleの <strong>公式ファクトリーイメージ</strong>をダウンロード。（純正Androidの完全版OS）</li>
+                        <li>Pixelを <strong>ブートローダー（Fastbootモード）</strong>にして接続。（電源＋音量下を長押しで入る特殊モード）</li>
+                        <li>Windowsなら <code>flash-all.bat</code> を実行（macOS/Linuxは <code>flash-all.sh</code>）。 → 純正Android（Pixel純正ROM）がインストールされます。</li>
+                        <li>起動後、Googleアカウントでログイン → 連絡先や履歴を同期。</li>
+                    </ol>
+                    <p class="note">※ データはすべて消えるので、必ずバックアップを取ってから進めてください。<br>※ セキュリティを元に戻すには、最後に <code>fastboot flashing lock</code> を実行して <strong>ブートローダーを再ロック</strong>してください。（作業4の後）</p>
+                </div>
+            </article>
+            <article class="panel blog-post" data-no-close="true">
+                <h3>必要なものを準備</h3>
+                <button class="toggle-button" aria-expanded="false" aria-controls="cap-14">▼ 詳細を見る</button>
+                <div class="caption" id="cap-14">
+                    <ul>
+                        <li>USBケーブル（PixelとPCを接続できるもの。データ通信対応タイプを推奨）</li>
+                        <li>パソコン（Windows / macOS / Linux いずれも可）</li>
+                        <li>Pixel端末（GrapheneOSが入っていてもOK）</li>
+                        <li>Android Platform Tools （ADB/Fastbootツール。Google公式からダウンロード： <a href="https://developer.android.com/tools/releases/platform-tools?hl=ja" target="_blank">こちら</a>）</li>
+                        <li>Pixel用ファクトリーイメージ （自分のPixel機種とバージョンに対応した純正OS。Google公式から入手： <a href="https://developers.google.com/android/images?hl=ja" target="_blank">こちら</a>）</li>
+                    </ul>
+                </div>
+            </article>
+            <article class="panel blog-post" data-no-close="true">
+                <h3>Pixel端末側の準備</h3>
+                <button class="toggle-button" aria-expanded="false" aria-controls="cap-15">▼ 詳細を見る</button>
+                <div class="caption" id="cap-15">
+                    <ol>
+                        <li>設定 → デバイス情報 → <strong>ビルド番号を7回タップ</strong> → 「開発者向けオプション」を有効化。<br>（※ ビルド番号連打は隠しメニューを出すための操作です）</li>
+                        <li>設定 → システム → 開発者向けオプション → <strong>OEMロック解除</strong> をオン。<br>（※ これをオンにしないとOSを書き込めません。PIN要求が出る場合あり）</li>
+                        <li>電源を切る → <strong>電源＋音量下</strong>を同時押しで起動 → <strong>ブートローダー（Fastbootモード）</strong>に入る。<br>（※ FastbootはOSを書き込むための専用モードです）</li>
+                    </ol>
+                </div>
+            </article>
+            <article class="panel blog-post" data-no-close="true">
+                <h3>パソコン側の準備（ダウンロード＆展開）</h3>
+                <button class="toggle-button" aria-expanded="false" aria-controls="cap-16">▼ 詳細を見る</button>
+                <div class="caption" id="cap-16">
+                    <p>ダウンロードする例として、Windows環境で <b>Google Pixel 9a</b> を使う場合：<b>SDK Platform-Tools for Windows</b> をダウンロードし、Pixel 9a の最新バージョンの <b>Factory Image</b> を選んでダウンロードしてください。他のPixelを使う場合も「自分の機種」と「最新の安定版バージョン」を必ず選びます。</p>
+                    <ol>
+                        <li><a href="https://developer.android.com/tools/releases/platform-tools?hl=ja" target="_blank">Platform-Tools</a> をダウンロードして展開。</li>
+                        <li><a href="https://developers.google.com/android/images?hl=ja" target="_blank">Pixel用ファクトリーイメージ</a> を自分のPixel機種・バージョンに合わせてダウンロードして展開。</li>
+                        <li>ダウンロードした両方の <code>.zip</code> を展開し、 <strong>同じフォルダ</strong>にまとめる。（例：デスクトップ上の同一フォルダに <code>platform-tools</code> と Factory Image を配置）</li>
+                    </ol>
+                    <figure>
+                        <img src="../assets/グラフェンOS01.webp" alt="Platform-Tools と Factory Image を同一フォルダに配置" style="width:100%;border-radius:10px;">
+                        <figcaption>※ フォルダ配置の例（Platform-Tools と Factory Image を同じ場所に入れる）</figcaption>
+                    </figure>
+                    <p class="note">補足：この配置にしておくと、コマンド実行時にパス指定で迷わずに済みます。<br>初心者は必ず「同じフォルダにまとめる」ことを守ってください。</p>
+                </div>
+            </article>
+            <article class="panel blog-post" data-no-close="true">
+                <h3>アンロック & フラッシュ手順</h3>
+                <button class="toggle-button" aria-expanded="false" aria-controls="cap-17">▼ 詳細を見る</button>
+                <div class="caption" id="cap-17">
+                    <ol>
+                        <li>USBケーブルでPixelをPCに接続。</li>
+                        <li>フォルダの空き領域で <b>Shift + 右クリック</b> → <b>「ターミナルで開く」</b> を選択。
+                            <figure>
+                                <img src="../assets/グラフェンOS03.webp" alt="フォルダでShift+右クリックしてターミナルを開く" style="width:100%;border-radius:10px;">
+                                <figcaption>※ フォルダの空き領域でターミナルを開く</figcaption>
+                            </figure>
+                        </li>
+                        <li>認識確認： <code>.\fastboot devices</code></li>
+                        <li>ブートローダーのアンロック（この時点では書き込みは開始されません）： <code>.\fastboot flashing unlock</code><br>→ 端末に「Unlock bootloader?」が出るので Yes を選び、電源ボタンで決定。もしPixel端末にメッセージが出ていない場合、音量ボタンで選択肢を変更してから電源ボタンで決定。
+                            <figure>
+                                <img src="../assets/グラフェンOS02.webp" alt="fastboot devices / flashing unlock の実行例" style="width:100%;border-radius:10px;">
+                                <figcaption>※ 認識確認とアンロックコマンドの実行例</figcaption>
+                            </figure>
+                        </li>
+                        <li>同フォルダ内の <code>flash-all.bat</code>（macOS/Linuxは <code>flash-all.sh</code>）を実行。 → ROMの書き込みがスタート。PC画面にログが流れるので完了まで待機。
+                            <figure>
+                                <img src="../assets/グラフェンOS01.webp" alt="flash-all.bat の位置" style="width:100%;border-radius:10px;">
+                                <figcaption>※ flash-all.bat の実行場所（同一フォルダに Platform-Tools がある状態）</figcaption>
+                            </figure>
+                        </li>
+                        <li>Pixelが自動で再起動し Fastboot画面に戻る。Fastboot画面で「Start」に合わせて電源ボタンで確定 → 起動したら初期セットアップ（Googleアカウントでログイン）。</li>
+                        <li>セキュリティを元に戻すため、もう一度 Fastboot で起動し <code>fastboot flashing lock</code> を実行して <strong>ブートローダーを再ロック</strong>してください。再ロックしないと、再起動のたびに <strong>アンロック状態の警告（通常オレンジ／一部機種では黄色）</strong>が表示され続けます。セキュリティを重視する人や警告表示が気になる人は必ず実行しましょう。
+                            <p class="note">注意：後から再ロックしようとすると再度の初期化（データ全消去）が必要です。そのため <strong>Pixelに戻した直後に実行し、再起動で警告が出ないことを確認</strong>するのがベストです。</p>
+                        </li>
+                        <li><p class="note">ケーブルは <b>作業6（flash-all 実行完了）</b> の後なら抜いてOK。PC側のウィンドウも閉じて問題ありません。</p></li>
+                    </ol>
+                    <figure>
+                        <figcaption>（画像：Android Flash Toolの初期画面）</figcaption>
+                    </figure>
+                </div>
+            </article>
+        </section>
+    </section>
 </main>
 <footer class="footer">
-<p>&copy; 2025 My Portfolio</p>
+    <p>&copy; 2025 My Portfolio</p>
 </footer>
 <script src="../js/toggleCaption.js" defer></script>
-<div class="fixed-footer-nav" style="display:flex;flex-wrap:nowrap;justify-content:center;max-width:95vw;gap:16px"> <a href="../index.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">トップページ</a> <a href="music.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">音楽素材</a> <a href="blog00.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">ブログ</a> </div>
+<div class="fixed-footer-nav" style="display:flex;flex-wrap:nowrap;justify-content:center;max-width:95vw;gap:16px">
+    <a href="../index.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">トップページ</a>
+    <a href="music.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">音楽素材</a>
+    <a href="blog00.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">ブログ</a>
+</div>
 </body>
 </html>
