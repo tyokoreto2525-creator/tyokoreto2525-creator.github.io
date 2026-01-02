@@ -158,35 +158,7 @@
       gap: 24px;             /* 図と図の間のすき間 */
       text-align: center;    /* キャプション文字を中央 */
     }
-    /* スマホ用調整 */
-    @media (max-width: 768px) {
-      .overlay-gallery {
-        position: static;
-        transform: none;
-        margin: 12px auto 20px;
-        max-width: 94vw;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-      }
-      .art-card { width: 100%; }
-      .gallery-inner {
-        width: 96vw;
-        max-height: 88vh;
-      }
-    }
-.fixed-footer-nav{
-  position: fixed;
-  left: 0;
-  right: 0;          /* 両端を0にして */
-  bottom: 20px;
-  width: max-content; /* 中身幅にして */
-  margin: 0 auto;     /* 自動で中央寄せ */
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  z-index: 1000;
-}
+/* スマホ用調整 */ @media (max-width: 768px) { .overlay-gallery { position: static; transform: none; margin: 12px auto 20px; max-width: 94vw; display: flex; flex-direction: column; gap: 12px; } .art-card { width: 100%; } .gallery-inner { width: 96vw; max-height: 88vh; } }
 
 
   </style>
@@ -1083,6 +1055,7 @@ document.getElementById('nav-popup').addEventListener('click', function(e){
 
 </body>
 </html>
+
 
 
 
