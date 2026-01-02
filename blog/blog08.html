@@ -115,14 +115,14 @@
         <h1>Torの匿名性の限界</h1>
         <p>多くの人が「Torは絶対に匿名だから捕まらない」と誤解しているが、現実は異なる。Tor使用者が逮捕されるケースは後を絶たない。ここでは、その構造を紐解き、警察が実際に用いる手法を解説する。</p>
 
-        <h2>① 前提：Tor自体を“直接破る”ことはほぼ不可能</h2>
+        <h2>① 前提：Tor自体を直接破ることはほぼ不可能</h2>
         <p>まず大前提として理解すべきなのは、Torの「入口ノード → 中継ノード → 出口ノード」という3層の分散構造を、一国の警察や単一の組織が全体を監視して通信元を特定することは、現実的に極めて困難である。そのため、法執行機関はTorの暗号化やルーティング自体を破るのではなく、Torの外側にある弱点を徹底的に突いてくる。</p>
 
         <h2>② Torユーザーが捕まる6つの典型パターン</h2>
         <p>逮捕に至るほとんどのケースは、以下のいずれかのパターンに分類できる。</p>
 
         <div class="pattern">
-            <h3>◆ パターン1：Torの外での“初歩的ミス”（最も多い）</h3>
+            <h3>◆ パターン1：Torの外での初歩的ミス（最も多い）</h3>
             <p>匿名性の意識が薄いまま、Torの外で個人情報を晒してしまうケース。</p>
             <ul>
                 <li>匿名サイトのログインに、本物のメールアドレスやSNSアカウントを使う。</li>
@@ -139,7 +139,7 @@
             <p>Torブラウザでのアクセスは匿名でも、サーバー自体は物理的な実在である。このサーバーの所在地を特定され、物理的に押収されると、サーバー内に運営者の痕跡が残っている可能性がある。</p>
             <p><strong>典型例：Silk Road（シルクロード）</strong><br>
             この巨大な闇市場は、FBIがサーバーの設定ミスを突いてIPアドレスを特定し、アイスランドに設置されていた物理サーバーを押収したことで壊滅した。</p>
-            <p><strong>▶ 結論：</strong>Torを破ったのではなく、Torで匿名されている“ホスト（サーバー）”の側を直接押さえた形。</p>
+            <p><strong>▶ 結論：</strong>Torを破ったのではなく、Torで匿名されているホスト（サーバー）の側を直接押さえた形。</p>
         </div>
 
         <div class="pattern">
@@ -148,7 +148,7 @@
             <ul>
                 <li>犯人が配送ミスをしたり、受け渡し現場を監視されたりする。</li>
             </ul>
-            <p><strong>▶ 結論：</strong>Torの通信そのものとは無関係な“現実世界の行動”が最大の弱点になる。</p>
+            <p><strong>▶ 結論：</strong>Torの通信そのものとは無関係な現実世界の行動が最大の弱点になる。</p>
         </div>
 
         <div class="pattern">
@@ -156,7 +156,7 @@
             <p>FBIなどが裁判所の令状を基に、容疑者のPCに直接マルウェアを送り込み、リアルタイムのIPアドレスやMACアドレス、PCの環境情報などを遠隔で取得するという強行策。</p>
             <p><strong>実例：Playpen事件</strong><br>
             児童虐待サイトの運営者・利用者を特定するため、FBIはサイト自体を一時的に管理下に置き、アクセスしてきた利用者のPCに「NIT（Network Investigative Technique）」と呼ばれるマルウェアを仕掛け、多数の摘発に成功した。</p>
-            <p><strong>▶ 結論：</strong>Torの匿名性を介さず、犯人のPCを直接“覗き見”する戦術。</p>
+            <p><strong>▶ 結論：</strong>Torの匿名性を介さず、犯人のPCを直接覗き見する戦術。</p>
         </div>
 
         <div class="pattern">
@@ -165,11 +165,11 @@
             <ul>
                 <li>サイト側がアクセスログを詳細に記録していたり、CloudflareのようなCDNサービスの設定が不適切で、本来隠されるはずのIP情報が一部漏洩したりすることがある。</li>
             </ul>
-            <p><strong>▶ 結論：</strong>これもTorそのものの脆弱性ではなく、“相手側の穴”を突かれたケース。</p>
+            <p><strong>▶ 結論：</strong>これもTorそのものの脆弱性ではなく、相手側の穴を突かれたケース。</p>
         </div>
 
         <div class="pattern">
-            <h3>◆ パターン6：資金の流れや“リアル世界の痕跡”</h3>
+            <h3>◆ パターン6：資金の流れやリアル世界の痕跡</h3>
             <p>ネット上の行動だけでなく、現実世界に残る痕跡を追跡する古典的な捜査手法。</p>
             <ul>
                 <li><strong>仮想通貨（暗号資産）の取引追跡：</strong> ビットコインなどは取引記録がブロックチェーン上に残るため、専門企業が分析すれば資金の流れを追跡できる。</li>
@@ -180,7 +180,7 @@
             <p><strong>▶ 結論：</strong>ネットの匿名性をいくら高めても、リアル世界での行動からは逃れられない。</p>
         </div>
 
-        <h2>③ 重要：Torの匿名性が“破られた”わけではない</h2>
+        <h2>③ 重要：Torの匿名性が破られたわけではない</h2>
         <div class="note">
             <p>ここまで見てきた通り、犯罪者が捕まる理由は、Torの技術が脆弱だからではない。<strong>「人間のミス」「Torの外側の設定ミス」「現実世界の行動」</strong>という、Torが保護できない領域に原因があるケースがほとんどだ。Torの設計そのものは、現時点でも世界最高レベルの匿名性を維持している。</p>
         </div>
@@ -196,15 +196,22 @@
         <div class="final-conclusion">
             <h2>まとめ</h2>
             <ul>
-                <li>Torを“直接”破って逮捕しているわけではない。</li>
+                <li>Torを直接破って逮捕しているわけではない。</li>
                 <li>捕まる理由の99%は、Torの外側でのミスや、現実世界に残した痕跡が原因。</li>
                 <li>FBIなどの強力な機関は、必要であれば容疑者のPCに直接マルウェアを送り込む。</li>
                 <li>闇サイトの運営者は、サーバーの物理的押収という最も原始的な方法で終わる。</li>
                 <li>結局のところ、リアル世界の取引、ログ、資金の流れが最大の弱点となる。</li>
             </ul>
             <p>Torは強力なツールだが、それを使う人間が完璧でなければ意味がない。匿名性は、技術的な盾だけでなく、利用者の行動と知識によって担保されるものなのである。</p>
-        </div>
+                <hr><footer class="footer">
+    <script src="../js/toggleCaption.js" defer></script>
+  
+  <div class="fixed-footer-nav" style="display:flex;flex-wrap:nowrap;justify-content:center;max-width:95vw;gap:16px">
+      <a href="../index.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">トップページ</a>
+      <a href="music.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">音楽素材</a>
+      <a href="blog00.html" style="white-space:nowrap;flex:0 0 auto;min-width:90px;max-width:140px;overflow:hidden;text-overflow:ellipsis;">ブログ</a>
     </div>
 </body>
 
 </html>
+
